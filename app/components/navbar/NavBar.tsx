@@ -23,18 +23,18 @@ const nav = [
     },
     {
         _id: "9",
-        link: "https://everpump.gitbook.io/tokenomics/",
+        link: "#",
         content: "Roadmap",
     },
 
     {
         _id: "9",
-        link: "https://everpump.gitbook.io/tokenomics/",
+        link: "#",
         content: "Tokenomics",
     },
     {
         _id: "9",
-        link: "https://everpump.gitbook.io/tokenomics/",
+        link: "#",
         content: "Quest",
     },
 ];
