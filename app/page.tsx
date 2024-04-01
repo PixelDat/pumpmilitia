@@ -1,3 +1,5 @@
+
+
 import type { Metadata } from "next";
 import { Text } from "./components/typography/text";
 
