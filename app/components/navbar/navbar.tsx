@@ -45,7 +45,7 @@ const NavBar = () => {
             </div>
 
 
-            <button className='bg-vivd-lime-green px-[24px] py-[12px] shadow-sm rounded-lg shadow-white'>
+            <button className='bg-vivd-lime-green px-[24px] py-[12px] shadow-sm rounded-2xl shadow-white'>
                 Authentication
             </button>
          </div>

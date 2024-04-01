@@ -7,11 +7,11 @@ import Partners from "./components/partners/partners";
 
 export default function IndexPage() {
   return (
-    <>
+    <div className="bg-cover bg-[url('/images/background.png')] h-full w-full">
          <Hero />
          <Preview />
          <Features />
          <Partners />
-    </>
+    </div>
   )
 }
