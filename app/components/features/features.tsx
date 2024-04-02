@@ -2,7 +2,7 @@ import Image from "next/image"
 
 const Features = () => {
   return (
-    <div className="flex flex-col space-y-12 items-center justify-center w-7/12 mx-auto text-center mt-6">
+    <div className="flex flex-col space-y-12 items-center justify-center w-7/12 mx-auto text-center mt-24">
       <div className="flex flex-col space-y-4">
         <div className='font-gameria text-vivd-lime-green-10 text-[32px]'>
           FEATURES
