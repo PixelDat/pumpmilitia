@@ -6,6 +6,7 @@ import MinePump from "./components/mine_pump/minePump";
 import RoadMap from "./components/roadmap/roadmap";
 import Faqs from "./components/faqs/faqs";
 
+
 export default function IndexPage() {
   return (
     <div className="bg-cover bg-[url('/images/background.png')] h-full w-full">
