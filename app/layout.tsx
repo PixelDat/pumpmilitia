@@ -4,8 +4,7 @@ import { StoreProvider } from "./provider/StoreProvider";
 import "./styles/globals.css";
 import { Kanit } from 'next/font/google'
 import localFont from 'next/font/local'
-import NavBar from "./components/navbar/navbar";
-
+import NavBar from "./navbar/NavBar";
 export const metadata = {
   icons: {
     icon: '/images/favicon-32x32.png',
@@ -17,17 +16,21 @@ interface Props {
 }
 
 // const poppins = Poppins({ subsets: ['latin'], weight: '400' })
-const kanit = Kanit({
-  weight: ["400", "700"],
-  variable: '--font-kanit',
-  subsets: ['latin'],
-  display: 'swap'
+const kanitM = localFont({
+  src: "../public/fonts/Kanit-Medium.ttf",
+  variable: '--font-kanitM',
 })
 
 const gameria = localFont({
   src: "../public/fonts/GAMERIA.ttf",
   variable: "--font-gameria"
 })
+
+const kanit = localFont({
+  src: "../public/fonts/Kanit-Light.ttf",
+  variable: "--font-kanit"
+})
+
 
 export default function RootLayout({ children }: Props) {
   return (
@@ -49,8 +52,14 @@ export default function RootLayout({ children }: Props) {
           <link rel="apple-touch-icon" href="/images/logo192.png" />
           <link rel="manifest" href="/files/manifest.json" />
         </head>
-        <body className={`${kanit.className} ${gameria.variable}`}>
+        <body className={`${kanit.className}
+         ${gameria.variable}
+         ${kanit.variable}
+         ${kanitM.variable}
+         `}>
+          <NavBar />
           {children}
+
         </body>
       </html>
     </StoreProvider>
