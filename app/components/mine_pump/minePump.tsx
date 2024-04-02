@@ -35,29 +35,29 @@ const MinePump = () => {
                     </div>
 
                     <div className="flex flex-col justify-start items-start">
-                        <div className='font-gameria text-vivd-lime-green-10 text-[32px]'>
+                        <div className='font-gameria text-[#898989] text-[32px]'>
                             CLAIM YOUR $PUMP TOKENS
                         </div>
 
-                        <div className='font-sans text-vivd-lime-green-10 text-[14px]'>
+                        <div className='font-sans text-[#898989] text-[14px]'>
                             Tap the claim button to receive your $PUMP tokens. Remember, you can do this twice a day. (every 12 hours!). It's simple.
                         </div>
 
-                        <div className="border-b border-[#52594B] w-full pt-2"></div>
+                        <div className="border-b border-[#898989] w-full pt-2"></div>
                     </div>
 
 
 
                     <div className="flex flex-col justify-start items-start">
-                        <div className='font-gameria text-vivd-lime-green-10 text-[32px]'>
+                        <div className='font-gameria  text-[32px] text-[#898989]'>
                             EARN MORE REWARDS
                         </div>
 
-                        <div className='font-sans text-vivd-lime-green-10 text-[14px]'>
+                        <div className='font-sans text-[#898989] text-[14px]'>
                             Maximize your earnings by playing the game, completing daily and special quests and inviting your friends to mine
                         </div>
 
-                        <div className="border-b border-[#52594B] w-full pt-2"></div>
+                        <div className="border-b border-[#898989] w-full pt-2"></div>
                     </div>
 
                     <div className="flex flex-row space-x-4 items-start justify-start">
