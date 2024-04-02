@@ -2,7 +2,9 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { StoreProvider } from "./provider/StoreProvider";
 import "./styles/globals.css";
-import { Poppins } from 'next/font/google'
+import { Kanit } from 'next/font/google'
+import localFont from 'next/font/local'
+import NavBar from "./components/navbar/navbar";
 
 export const metadata = {
   icons: {
@@ -14,7 +16,18 @@ interface Props {
   readonly children: ReactNode;
 }
 
-const poppins = Poppins({ subsets: ['latin'], weight: '400' })
+// const poppins = Poppins({ subsets: ['latin'], weight: '400' })
+const kanit = Kanit({
+  weight: ["400", "700"],
+  variable: '--font-kanit',
+  subsets: ['latin'],
+  display: 'swap'
+})
+
+const gameria = localFont({
+  src: "../public/fonts/GAMERIA.ttf",
+  variable: "--font-gameria"
+})
 
 export default function RootLayout({ children }: Props) {
   return (
@@ -36,10 +49,12 @@ export default function RootLayout({ children }: Props) {
           <link rel="apple-touch-icon" href="/images/logo192.png" />
           <link rel="manifest" href="/files/manifest.json" />
         </head>
-        <body className={poppins.className}>
+        <body className={`${kanit.className} ${gameria.variable}`}>
           {children}
         </body>
       </html>
     </StoreProvider>
   );
 }
+
+
