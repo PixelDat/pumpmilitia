@@ -4,11 +4,11 @@ import { StyledNavBar } from "./StyledNavBar"
 import { MdOutlineMenu } from "react-icons/md";
 import Image from "next/image";
 import { MdOutlineClose } from "react-icons/md";
-import logo from "./../../../public/images/logo.png";
+import logo from "../../public/images/logo.png";
 const nav = [
     {
         _id: "12DD",
-        link: "/",
+        link: "#",
         content: "Airdrop",
     },
     {
@@ -18,17 +18,17 @@ const nav = [
     },
     {
         _id: "10",
-        link: "#howtobuy",
+        link: "#",
         content: "Presale",
     },
     {
-        _id: "9",
+        _id: "943",
         link: "#",
         content: "Roadmap",
     },
 
     {
-        _id: "9",
+        _id: "9werd",
         link: "#",
         content: "Tokenomics",
     },

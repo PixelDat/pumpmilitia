@@ -12,7 +12,7 @@ export const StyledNavBar = styled.section`
   background-size: cover;
   background-position:50% 20%;
   position: relative;
-  background-color: red;
+  z-index: 10;
 
   .cover{
     background-color: #000;
@@ -251,6 +251,32 @@ export const StyledNavBar = styled.section`
 
 
 
+  }
+
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    
+
+    .logo{
+      flex-direction: column;
+      width: fit-content;
+    }
+
+
+    #logoImg {
+    width: 200px;
+    height: 50px;
+    object-fit: contain;
+  }/* background-color: orange !important; */
+      
+  
+
+  .mainNav{
+    width: 100%;
+  }
+
+  
+    
   }
 
 
