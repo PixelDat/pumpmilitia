@@ -1,3 +1,4 @@
+"use client"
 import type { Metadata } from "next";
 import { Text } from "./components/typography/text";
 import Hero from "./components/hero/hero";
