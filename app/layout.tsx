@@ -4,6 +4,7 @@ import { StoreProvider } from "./provider/StoreProvider";
 import "./styles/globals.css";
 import { Kanit } from 'next/font/google'
 import localFont from 'next/font/local'
+import NavBar from "./components/navbar/navbar";
 
 export const metadata = {
   icons: {
