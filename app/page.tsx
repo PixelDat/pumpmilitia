@@ -6,6 +6,8 @@ import Partners from "./components/partners/partners";
 import MinePump from "./components/mine_pump/minePump";
 import RoadMap from "./components/roadmap/roadmap";
 import Faqs from "./components/faqs/faqs";
+import Footer from "./components/footer/footer";
+import Onboarding from "./components/onboarding/onboarding";
 
 
 export default function IndexPage() {
@@ -15,9 +17,11 @@ export default function IndexPage() {
          <Preview />
          <MinePump />
          <Features />
+         <Onboarding />
          <RoadMap />
          <Partners />
          <Faqs />
+         <Footer />
     </div>
   )
 }
