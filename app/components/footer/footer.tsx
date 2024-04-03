@@ -23,9 +23,7 @@ const Footer = () => {
                         </div>
 
                         <div className="flex flex-col space-y-8">
-                            <div className="flex flex-row justify-start items-start">
-
-
+                            <div className="flex flex-row justify-start items-start space-x-4">
                                 <Image
                                     className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
                                     src={'/svg/twitter.svg'}
