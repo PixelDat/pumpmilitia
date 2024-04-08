@@ -6,7 +6,7 @@ import { useState } from "react";
 const NavBar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
   return (
-    <nav className=" nav flex flex-row items-center justify-between mainnav sm:px-[24px] lg:px-[108px] relative">
+    <nav className=" nav flex flex-row  items-center justify-between mainnav sm:px-[24px] lg:px-[108px] relative">
       <div className="flex flex-row items-center">
         <Image
           src={AppImages.navBarLogo}
@@ -42,7 +42,7 @@ const NavBar = () => {
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
             <p className="hover:text-vivd-lime-green hover:text-[17px]">
-              Roadmap
+              <a href="#roadmap"> Roadmap</a>
             </p>
           </div>
 
@@ -77,17 +77,25 @@ const NavBar = () => {
       {isMenuOpened && (
         <div className="menu-mobile-container">
           <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">Airdrop</p>
+            <p className="mlist-link text-vivd-lime-green-10">
+              <a href="#airdrop">Airdrop</a>
+            </p>
           </div>
 
           <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">WhitePaper</p>
+            <p className="mlist-link text-vivd-lime-green-10">
+              <a>Whitepaper</a>
+            </p>
           </div>
           <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">Presale</p>
+            <p className="mlist-link text-vivd-lime-green-10">
+              <a>Presale</a>
+            </p>
           </div>
           <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">Roadmap</p>
+            <p className="mlist-link text-vivd-lime-green-10">
+              <a href="#roadmap"> Roadmap</a>
+            </p>
           </div>
           <div className="bordered-mlist">
             <p className="mlist-link text-vivd-lime-green-10">Tokenomics</p>

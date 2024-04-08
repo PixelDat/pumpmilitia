@@ -5,6 +5,10 @@
   display: inline-flex;
   /* padding: 0 108px; */
   gap: 30px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  width: 100%;
 }
 
 .navbar-auth-btn {
@@ -37,7 +41,6 @@
   cursor: pointer;
   font-weight: 500;
 }
-
 
 .hero-overlay {
   background: linear-gradient(180deg, #212d04 0.18%, rgba(9, 13, 0, 0) 86.06%);
@@ -105,5 +108,19 @@
   }
   .nav-pump-text {
     display: none;
+  }
+}
+@media screen and (max-width: 375px) {
+  .menu-icon img {
+    width: 60px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .menu-icon img {
+    width: 100px;
+  }
+  .navbar-auth-btn {
+    padding: 9px 21px;
+
   }
 }
