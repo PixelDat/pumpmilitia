@@ -16,41 +16,53 @@ const NavBar = () => {
           priority
         />
 
-        <div className="font-gameria text-vivd-lime-green-10 text-[24px] nav-pump-text lg:block sm:hidden xs:hidden">
+        <div className="font-gameria text-vivd-lime-green-10 text-[24px] nav-pump-text">
           PUMP MILLITIA
         </div>
       </div>
       <div className="flex flex-row items-center justify-between right-sec">
-        <div className="flex flex-row space-x-8 items-center nav-links sm:hidden xs:hidden lg:flex">
+        <div className="flex flex-row space-x-8 items-center nav-links ">
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p>Airdrop</p>
+            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+              <a href="#airdrop">Airdrop</a>
+            </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p>Whitepaper</p>
+            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+              <a>Whitepaper</a>
+            </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p>Presale</p>
+            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+              <a>Presale</a>
+            </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p>Roadmap</p>
+            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+              Roadmap
+            </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p>Tokenomics</p>
+            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+              Tokenomics
+            </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p>Quests</p>
+            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+              Quests
+            </p>
           </div>
         </div>
         <div className="flex flex-row items-center space-x-[24px]">
           <div>
             <button className="navbar-auth-btn">Authentication</button>
           </div>
-          <div className="lg:hidden">
+          <div className="menu-icon">
             <Image
               src={AppImages.menuicon}
               width={23.333}

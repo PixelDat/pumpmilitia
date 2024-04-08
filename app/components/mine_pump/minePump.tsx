@@ -2,7 +2,7 @@ import Image from "next/image"
 
 const MinePump = () => {
     return (
-        <div className="flex flex-col space-y-24 justify-center items-center mt-32">
+        <div className="flex flex-col space-y-24 justify-center items-center mt-32" id="airdrop">
            <div className="flex flex-col items-center justify-center">
            <div className='font-gameria text-vivd-lime-green-10 text-[32px]'>
                 AIRDROP - MINE $PUMP
