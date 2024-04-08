@@ -3,8 +3,8 @@
   background: rgba(16, 19, 13, 0.75);
   backdrop-filter: blur(10px);
   display: inline-flex;
-  padding: 0 108px;
-  gap: 205px;
+  /* padding: 0 108px; */
+  gap: 30px;
 }
 
 .navbar-auth-btn {
@@ -23,6 +23,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: 24px;
+  font-family: Kanit;
 }
 
 .nav-pump-text {
@@ -44,4 +45,45 @@
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.right-sec {
+  gap: 48px;
+}
+
+.menu-mobile-container {
+  display: flex;
+  width: 264px;
+  padding: 24px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 12px 12px 12px;
+  background: #20251a;
+  position: absolute;
+  top: 95px;
+  right: 15px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bordered-mlist {
+  border-bottom: 0.5px solid #757a6f;
+  padding-bottom: 16px;
+  width: 100%;
+}
+.mlist-link {
+  font-family: Kanit;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+@media screen and (min-width: 1471px) {
+  /* .mainnav {
+        gap: 205px;
+    } */
+  /* .nav-links {
+        gap: 48px !important;
+    } */
 }
