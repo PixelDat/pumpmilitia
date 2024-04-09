@@ -1,0 +1,126 @@
+.mainnav {
+  border: 1px solid #000;
+  background: rgba(16, 19, 13, 0.75);
+  backdrop-filter: blur(10px);
+  display: inline-flex;
+  /* padding: 0 108px; */
+  gap: 30px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+.navbar-auth-btn {
+  border-radius: 12px;
+  border: 2px solid #edf9d0;
+  background: #a5e314;
+  box-shadow: 0px 0px 6.5px 1.5px #edf9d0;
+  display: flex;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #303827;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  font-family: Kanit;
+}
+
+.nav-pump-text {
+  font-weight: 400;
+}
+
+.menu-det {
+  gap: 48px;
+}
+.nav-links p {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.hero-overlay {
+  background: linear-gradient(180deg, #212d04 0.18%, rgba(9, 13, 0, 0) 86.06%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.right-sec {
+  gap: 48px;
+}
+
+.menu-mobile-container {
+  display: flex;
+  width: 264px;
+  padding: 24px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 12px 12px 12px;
+  background: #20251a;
+  position: absolute;
+  top: 95px;
+  right: 15px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bordered-mlist {
+  border-bottom: 0.5px solid #757a6f;
+  padding-bottom: 16px;
+  width: 100%;
+}
+.mlist-link {
+  font-family: Kanit;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+@media screen and (max-width: 1299px) {
+  .mainnav {
+    padding: 0 50px;
+    gap: 20px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .mainnav {
+    padding: 0 30px;
+    gap: 20px;
+  }
+}
+.menu-icon {
+  display: none;
+}
+
+@media screen and (max-width: 1115px) {
+  .nav-links {
+    display: none;
+  }
+  .menu-icon {
+    display: flex;
+  }
+  .nav-pump-text {
+    display: none;
+  }
+}
+@media screen and (max-width: 375px) {
+  .menu-icon img {
+    width: 60px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .menu-icon img {
+    width: 100px;
+  }
+  .navbar-auth-btn {
+    padding: 9px 21px;
+
+  }
+}

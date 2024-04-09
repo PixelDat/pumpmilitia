@@ -9,4 +9,6 @@ export abstract class AppImages {
     static epic = '/svg/epic.svg'
     static aws = '/svg/aws.svg'
     static solana = '/svg/solana.svg'
+    static menuicon = '/svg/menuicon.svg'
+
 }
