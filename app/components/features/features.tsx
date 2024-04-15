@@ -97,8 +97,24 @@ const Features = () => {
         </div>
 
       </div>
-
+ 
+ <div className="grid grid-cols-1 md:grid-cols-2  w-[100vw] mx-auto gap-[3rem] items-center h-auto ">
+            <div>
+                 <h1 className='w-[468px] flex flex-row space-x-8 items-center justify-center text-[32px] font-normal text-[#EDF9D0] text-left' style={{  fontFamily: 'GAMERIA' }}>onboarding millions, redefining gaming  </h1>
+                  <p className='w-[468px]  text-[16px] font-normal text-[#EDF9D0]'>Pump Militia is on a mission to bridge the gap between traditional gaming (Web2) and the decentralised future of gaming (Web3), aiming to onboard the next million players into the world of blockchain gaming</p>
+             <div className=' mx-auto md:mx-0 mt-[2rem] lg:mt-[0] lg:h-[500px] w-[300px] h-[300px] relative'>
+             <Image
+            src={'/svg/Statistics_1.svg'}
+            width={200}
+            height={200}
+            priority
+            alt="" />
+                
+              </div>
+           </div>
+           
     </div>
+  </div>
   )
 }
 
