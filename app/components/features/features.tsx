@@ -17,7 +17,7 @@ const Features = () => {
       <div className="flex flex-row space-x-8 items-center justify-center">
         <div className="w-[300px] h-[300px] relative">
           <Image
-            src={'/svg/feature_1.svg'}
+            src={'/svg/feature1.svg'}
             width={300}
             height={280}
             alt=""
@@ -44,7 +44,7 @@ const Features = () => {
 
         <div className="w-[300px] h-[300px] relative">
           <Image
-            src={'/svg/feature_2.svg'}
+            src={'/svg/features2.svg'}
             width={300}
             height={280}
             alt=""
@@ -71,7 +71,7 @@ const Features = () => {
 
         <div className="w-[300px] h-[300px] relative">
           <Image
-            src={'/svg/feature_3.svg'}
+            src={'/svg/features3.svg'}
             width={300}
             height={280}
             alt=""
