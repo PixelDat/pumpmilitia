@@ -4,7 +4,7 @@ import { StoreProvider } from "./provider/StoreProvider";
 import "./styles/globals.css";
 import { Kanit } from 'next/font/google'
 import localFont from 'next/font/local'
-import NavBar from "./navbar/NavBar";
+// import NavBar from "./navbar/NavBar";
 export const metadata = {
   icons: {
     icon: '/images/favicon-32x32.png',
@@ -57,7 +57,7 @@ export default function RootLayout({ children }: Props) {
          ${kanit.variable}
          ${kanitM.variable}
          `}>
-          <NavBar />
+          {/* <NavBar /> */}
           {children}
 
         </body>
