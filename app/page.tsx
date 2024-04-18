@@ -8,7 +8,7 @@ import RoadMap from "./components/roadmap/roadmap";
 import Faqs from "./components/faqs/faqs";
 import Footer from "./components/footer/footer";
 import Onboarding from "./components/onboarding/onboarding";
-
+import { useEffect } from "react";
 
 export default function IndexPage() {
   return (

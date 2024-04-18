@@ -24,37 +24,37 @@ const NavBar = () => {
       <div className="flex flex-row items-center justify-between right-sec">
         <div className="flex flex-row space-x-8 items-center nav-links hidden sm:flex  ">
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+            <p className="hover:text-vivd-lime-green hover:text-[17px] hover:">
               <a href="#airdrop">Airdrop</a>
             </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+            <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
               <a>Whitepaper</a>
             </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+            <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
               <a>Presale</a>
             </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+            <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
               <a href="#roadmap"> Roadmap</a>
             </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+            <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
               Tokenomics
             </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:text-[17px]">
+            <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
               Quests
             </p>
           </div>

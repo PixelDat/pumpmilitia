@@ -47,9 +47,11 @@ export default function RootLayout({ children }: Props) {
 
           <link rel="apple-touch-icon" href="/images/logo192.png" />
           <link rel="manifest" href="/files/manifest.json" />
+          <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></link>
         </head>
         <body className={`${kanit.className} ${gameria.variable}`}>
           {children}
+
 
         </body>
       </html>

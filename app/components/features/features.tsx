@@ -1,6 +1,15 @@
+'use-client'
 import Image from "next/image"
+import '../../styles/feature.css';
+
+import 'aos/dist/aos.css';
+import React, { useEffect, useRef } from "react";
+
 
 const Features = () => {
+  // useEffect(()=>{
+  //   AOS.init()
+  // },[])
   return (
     <div className="flex flex-col space-y-12 items-center justify-center w-7/12 mx-auto text-center mt-24">
       <div className="flex flex-col space-y-4">
@@ -14,8 +23,12 @@ const Features = () => {
       </div>
 
 
-      <div className="flex flex-row space-x-8 items-center justify-center">
-        <div className="w-[300px] h-[300px] relative">
+      <div className="flex flex-col  md:flex-row items-center gap-3 justify-center">
+
+        <div
+
+          className=" feature-box relative">
+
           <Image
             src={'/svg/feature_1.svg'}
             width={300}
@@ -34,15 +47,15 @@ const Features = () => {
             </div>
 
             <Image
-            src={'/svg/vector.svg'}
-            width={60}
-            height={60}
-            priority
-            alt="" />
+              src={'/svg/vector.svg'}
+              width={60}
+              height={60}
+              priority
+              alt="" />
           </div>
         </div>
 
-        <div className="w-[300px] h-[300px] relative">
+        <div className="feature-box relative">
           <Image
             src={'/svg/feature_2.svg'}
             width={300}
@@ -56,20 +69,20 @@ const Features = () => {
                 EARN WITH FRIENDS
               </div>
               <div className='font-sans text-vivd-lime-green-10 text-sm'>
-              Rally your friends, strategize, and face off against other gangs in epic battles
+                Rally your friends, strategize, and face off against other gangs in epic battles
               </div>
             </div>
 
             <Image
-            src={'/svg/vector.svg'}
-            width={60}
-            height={60}
-            priority
-            alt="" />
+              src={'/svg/vector.svg'}
+              width={60}
+              height={60}
+              priority
+              alt="" />
           </div>
         </div>
 
-        <div className="w-[300px] h-[300px] relative">
+        <div className="feature-box relative">
           <Image
             src={'/svg/feature_3.svg'}
             width={300}
@@ -83,21 +96,24 @@ const Features = () => {
                 OWN AND TRADE NFTS
               </div>
               <div className='font-sans text-vivd-lime-green-10 text-sm'>
-              Own unique in-game assets with real world value. Trade, Sell and Lease
+                Own unique in-game assets with real world value. Trade, Sell and Lease
               </div>
             </div>
 
             <Image
-            src={'/svg/vector.svg'}
-            width={60}
-            height={60}
-            priority
-            alt="" />
+              src={'/svg/vector.svg'}
+              width={60}
+              height={60}
+              priority
+              alt="" />
           </div>
         </div>
 
       </div>
-
+      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+      <script>
+        AOS.init();
+      </script>
     </div>
   )
 }

@@ -1,0 +1,8 @@
+.feature-box {
+    background: linear-gradient(#a5e440, #a5e44000) padding-box,
+        linear-gradient(90deg, #edf9d0, #a5e440) border-box;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    overflow: hidden;
+
+}
