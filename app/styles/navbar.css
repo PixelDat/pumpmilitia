@@ -35,8 +35,8 @@
 }
 
 .navbar-auth-btn:hover {
-  background: #a5e440b1 radial-gradient(circle, transparent 10%, #a5e440 1%) center/15000%;
-  color: #303827;
+  background: #52711b radial-gradient(circle, transparent 10%, #a5e440 1%) center/15000%;
+  color: #EDF9D0;
   transition: background 0.4s ease-in-out;
 }
 
