@@ -1,17 +1,19 @@
 'use-client'
 import Image from "next/image"
 import '../../styles/feature.css';
-
-import 'aos/dist/aos.css';
 import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
 
 
 const Features = () => {
-  // useEffect(()=>{
-  //   AOS.init()
-  // },[])
+  useEffect(() => {
+    AOS.init()
+  }, [])
   return (
-    <div className="flex flex-col space-y-12 items-center justify-center w-7/12 mx-auto text-center mt-24">
+    <div className="flex flex-col space-y-12 items-center justify-center w-10/12 md:w-7/12 mx-auto text-center mt-24">
       <div className="flex flex-col space-y-4">
         <div className='font-gameria text-vivd-lime-green-10 text-[32px]'>
           FEATURES
@@ -26,13 +28,13 @@ const Features = () => {
       <div className="flex flex-col  md:flex-row items-center gap-3 justify-center">
 
         <div
-
+          data-aos="zoom-in-right"
           className=" feature-box relative">
 
           <Image
-            src={'/svg/feature_1.svg'}
-            width={300}
-            height={280}
+            src={'/images/feature1.png'}
+            width={333}
+            height={214}
             alt=""
             priority />
 
@@ -47,19 +49,22 @@ const Features = () => {
             </div>
 
             <Image
+              className="opacity-20"
               src={'/svg/vector.svg'}
-              width={60}
-              height={60}
+              width={80}
+              height={100}
               priority
               alt="" />
           </div>
         </div>
 
-        <div className="feature-box relative">
+        <div
+          data-aos="zoom-in-center"
+          className="feature-box relative">
           <Image
-            src={'/svg/feature_2.svg'}
-            width={300}
-            height={280}
+            src={'/images/feature2.png'}
+            width={333}
+            height={214}
             alt=""
             priority />
 
@@ -72,21 +77,23 @@ const Features = () => {
                 Rally your friends, strategize, and face off against other gangs in epic battles
               </div>
             </div>
-
             <Image
+              className="opacity-20"
               src={'/svg/vector.svg'}
-              width={60}
-              height={60}
+              width={80}
+              height={100}
               priority
               alt="" />
           </div>
         </div>
 
-        <div className="feature-box relative">
+        <div
+          data-aos="zoom-in-left"
+          className="feature-box relative">
           <Image
-            src={'/svg/feature_3.svg'}
-            width={300}
-            height={280}
+            src={'/images/feature3.png'}
+            width={333}
+            height={214}
             alt=""
             priority />
 
@@ -99,11 +106,11 @@ const Features = () => {
                 Own unique in-game assets with real world value. Trade, Sell and Lease
               </div>
             </div>
-
             <Image
+              className="opacity-20"
               src={'/svg/vector.svg'}
-              width={60}
-              height={60}
+              width={80}
+              height={100}
               priority
               alt="" />
           </div>
@@ -111,9 +118,6 @@ const Features = () => {
 
       </div>
       <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-      <script>
-        AOS.init();
-      </script>
     </div>
   )
 }
