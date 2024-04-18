@@ -13,15 +13,15 @@ import Onboarding from "./components/onboarding/onboarding";
 export default function IndexPage() {
   return (
     <div className="bg-cover bg-[url('/images/background.png')] h-full w-full">
-         <Hero />
-         <Preview />
-         <MinePump />
-         <Features />
-         <Onboarding />
-         <RoadMap />
-         <Partners />
-         <Faqs />
-         <Footer />
+      <Hero />
+      <Preview />
+      <MinePump />
+      <Features />
+      <Onboarding />
+      <RoadMap />
+      <Partners />
+      <Faqs />
+      <Footer />
     </div>
   )
 }
