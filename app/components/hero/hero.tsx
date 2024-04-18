@@ -5,7 +5,7 @@ import '../../styles/hero.css';
 const Hero = () => {
   return (
     <div>
-      <div className="md:h-[800px] sm:pb-10 overflow-hidden bg-cover bg-[url('/images/backgroundsm.png')] md:bg-[url('/images/herobg.png')] z-0">
+      <div className="md:h-[810px] sm:pb-10 overflow-hidden bg-cover bg-[url('/images/backgroundsm.png')] md:bg-[url('/images/herobg.png')] z-0">
         <div className="hero-overlay"></div>
         <div className="z-10 flex flex-col space-y-8 relative">
           <NavBar />
@@ -85,7 +85,7 @@ const Hero = () => {
                 />
               </div>
             </div>
-            <div className="flex  sm:pt-[120px] md:pt-[170px] pb-[20px]  flex-col justify-center items-center spacing-y-8 text-center sm:w-10/12 md:w-7/12 mx-auto text-vivd-lime-green-10">
+            <div className="flex  pt-[100px] sm:pt-[120px] md:pt-[170px] pb-[20px]  flex-col justify-center items-center spacing-y-8 text-center sm:w-10/12 md:w-7/12 mx-auto text-vivd-lime-green-10">
               <div className="flex flex-col space-y-2 justify-center items-center">
                 <div className="w-[315px] h-6 px-4 bg-gradient-to-r from-lime-200 via-green-600 to-lime-400 rounded-2xl justify-center items-center gap-2 inline-flex">
                   <div className="text-stone-800 text-sm font-medium font-sans leading-none">
@@ -100,8 +100,8 @@ const Hero = () => {
                   />
                 </div>
 
-                <div className="font-gameria sm:text-[40px] md:text-[80px]">DECENTRALISED GAMING</div>
-                <div className="sm:text-[14px] md:text-[16px]  sm:leading-loose md:leading-tight">
+                <div className="font-gameria text-[40px] md:text-[80px]">DECENTRALISED GAMING</div>
+                <div className="text-[14px] md:text-[16px]  leading-loose md:leading-tight">
                   A revolution in digital ownership and gaming democracy, poised
                   to lead the GameFi space on Solana. An addictive multiplayer
                   Kill-to-Earn shooter game that offers a unique blend of combat
@@ -177,24 +177,27 @@ const Hero = () => {
           </div>
           {/* Last slide Items */}
           <div className="flex flex-row items-center justify-end relative">
-            <div className="flex flex-row space-x-8">
-              <div className="flex flex-row space-x-4 items-center justify-center">
-                <Image
-                  src={"/svg/play_store.svg"}
-                  width={185}
-                  height={56}
-                  alt=""
-                />
+            <div className="flex flex-col md:flex-row  md:mb-0 space-x-8">
+              {/* Stores Icons */}
+              <div>
+                <div className="flex flex-row mb-8 md:mb-0 pb space-x-4 items-center justify-center">
+                  <Image
+                    src={"/svg/play_store.svg"}
+                    width={185}
+                    height={56}
+                    alt=""
+                  />
 
-                <Image
-                  src={"/svg/app_store.svg"}
-                  width={185}
-                  height={56}
-                  alt=""
-                />
+                  <Image
+                    src={"/svg/app_store.svg"}
+                    width={185}
+                    height={56}
+                    alt=""
+                  />
+                </div>
               </div>
               {/* Iterable but just two items here */}
-              <div className="flex flex-row gap-4 overflow-x-scroll">
+              <div style={{ position: 'relative', overflowX: 'scroll', scrollbarWidth: 'none', left: '0px', justifyContent: 'start', }} className="flex flex-row gap-4">
                 <div className="  bg-stone-900 bg-opacity-50  rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-between items-center gap-[50px] inline-flex">
                   <div className="px-4 py-2 flex-col justify-start items-start gap-2 inline-flex">
                     <div className="text-lime-100 text-base font-normal font-gameria">
@@ -225,7 +228,6 @@ const Hero = () => {
                     />
                   </div>
                 </div>
-
                 <div className="w-[300px]  px-4 py-5 bg-stone-900 bg-opacity-50 rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-start items-center gap-[50px] inline-flex z-0">
                   <div className="flex-col justify-start items-start gap-2 inline-flex">
                     <div className="text-lime-100 text-opacity-40 text-base font-normal font-gameria">
@@ -236,23 +238,25 @@ const Hero = () => {
                     </div>
                   </div>
                 </div>
+
+                <div style={{ position: 'absolute', right: '0px', }} className="w-[43.40px] h-[85px] px-2.5  bg-lime-950 rounded-l-lg shadow border border-lime-600 backdrop-blur-[35.50px] justify-end items-center gap-2.5 inline-flex">
+                  <Image
+                    className="max-w-[15px] max-h-[15px]"
+                    src={"/svg/arrow.svg"}
+                    width={15}
+                    height={15}
+                    alt=""
+                  />
+                </div>
               </div>
 
             </div>
 
-            <div className="w-[43.40px] h-[85px] px-2.5  bg-lime-950 rounded-l-lg shadow border border-lime-600 backdrop-blur-[35.50px] justify-center items-center gap-2.5 inline-flex absolute">
-              <Image
-                className="max-w-[15px] max-h-[15px]"
-                src={"/svg/arrow.svg"}
-                width={15}
-                height={15}
-                alt=""
-              />
-            </div>
+
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

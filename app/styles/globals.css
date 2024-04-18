@@ -45,14 +45,14 @@
 } */
 
 .component_btn_transparent:hover {
-    background: #52711b radial-gradient(circle, transparent 10%, #a5e440 1%) center/15000%;
+    background: #52711b radial-gradient(circle, transparent 10%, #a5e440 1%) bottom center/15000%;
     color: #EDF9D0;
     border: 1px solid #EDF9D0;
     transition: background 0.4s ease-in-out;
 }
 
 .component_btn_transparent:active {
-    background-color: #1c2909f4;
+    background-color: #52711b;
     background-size: 100%;
     transition: background 0s;
 }
