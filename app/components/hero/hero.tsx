@@ -5,7 +5,7 @@ import '../../styles/hero.css';
 const Hero = () => {
   return (
     <div>
-      <div className="h-[800px] overflow-hidden bg-cover sm:bg-[url('/images/backgroundsm.png')] md:bg-[url('/images/herobg.png')] z-0">
+      <div className="md:h-[800px] sm:pb-10 overflow-hidden bg-cover bg-[url('/images/backgroundsm.png')] md:bg-[url('/images/herobg.png')] z-0">
         <div className="hero-overlay"></div>
         <div className="z-10 flex flex-col space-y-8 relative">
           <NavBar />
@@ -119,7 +119,8 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          <div className="flex-row md:hidden justify-center items-center gap-4 flex ">
+          {/* Social Icons on small screens */}
+          <div className="flex-row bg-stone-900 bg-opacity-70 py-2 md:hidden justify-center items-center gap-4 flex ">
             <Image
               className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
               src={"/svg/twitter.svg"}
@@ -174,7 +175,8 @@ const Hero = () => {
               alt=""
             />
           </div>
-          <div className="flex flex-row  items-center justify-end relative">
+          {/* Last slide Items */}
+          <div className="flex flex-row items-center justify-end relative">
             <div className="flex flex-row space-x-8">
               <div className="flex flex-row space-x-4 items-center justify-center">
                 <Image
@@ -191,48 +193,51 @@ const Hero = () => {
                   alt=""
                 />
               </div>
-
-              <div className="  bg-stone-900 bg-opacity-20 rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-between items-center gap-[50px] inline-flex">
-                <div className="px-4 py-2 flex-col justify-start items-start gap-2 inline-flex">
-                  <div className="text-lime-100 text-base font-normal font-gameria">
-                    AIRDROP - MINE $PUMP
+              {/* Iterable but just two items here */}
+              <div className="flex flex-row gap-4 overflow-x-scroll">
+                <div className="  bg-stone-900 bg-opacity-50  rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-between items-center gap-[50px] inline-flex">
+                  <div className="px-4 py-2 flex-col justify-start items-start gap-2 inline-flex">
+                    <div className="text-lime-100 text-base font-normal font-gameria">
+                      AIRDROP - MINE $PUMP
+                    </div>
+                    <div className="w-[318px] text-lime-100 text-xs font-normal font-sans leading-none">
+                      You can start mining $PUMP tokens on your mobile phones
+                      right away. We're opening the doors wide for every crypto
+                      enthusiast to join in on the fun and rewards.
+                    </div>
                   </div>
-                  <div className="w-[318px] text-lime-100 text-xs font-normal font-sans leading-none">
-                    You can start mining $PUMP tokens on your mobile phones
-                    right away. We're opening the doors wide for every crypto
-                    enthusiast to join in on the fun and rewards.
+
+                  <div className="flex flex-row relative">
+                    <Image
+                      className="mr-[2px] rounded-r-lg"
+                      src={"/svg/ad.svg"}
+                      width={200}
+                      height={60}
+                      alt=""
+                    />
+
+                    <Image
+                      className="mr-[2px] rounded-r-lg absolute -left-12"
+                      src={"/svg/vec_2.svg"}
+                      width={190}
+                      height={60}
+                      alt=""
+                    />
                   </div>
                 </div>
 
-                <div className="flex flex-row relative">
-                  <Image
-                    className="mr-[2px] rounded-r-lg"
-                    src={"/svg/ad.svg"}
-                    width={200}
-                    height={60}
-                    alt=""
-                  />
-
-                  <Image
-                    className="mr-[2px] rounded-r-lg absolute -left-12"
-                    src={"/svg/vec_2.svg"}
-                    width={190}
-                    height={60}
-                    alt=""
-                  />
+                <div className="w-[300px]  px-4 py-5 bg-stone-900 bg-opacity-50 rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-start items-center gap-[50px] inline-flex z-0">
+                  <div className="flex-col justify-start items-start gap-2 inline-flex">
+                    <div className="text-lime-100 text-opacity-40 text-base font-normal font-gameria">
+                      presale
+                    </div>
+                    <div className="w-[318px] text-lime-100 text-opacity-40 text-xs font-normal font-kanit leading-none">
+                      Coming soon!!!
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="w-[300px]  px-4 py-5 bg-stone-900 bg-opacity-20 rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-start items-center gap-[50px] inline-flex z-0">
-                <div className="flex-col justify-start items-start gap-2 inline-flex">
-                  <div className="text-lime-100 text-opacity-40 text-base font-normal font-gameria">
-                    presale
-                  </div>
-                  <div className="w-[318px] text-lime-100 text-opacity-40 text-xs font-normal font-kanit leading-none">
-                    Coming soon!!!
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div className="w-[43.40px] h-[85px] px-2.5  bg-lime-950 rounded-l-lg shadow border border-lime-600 backdrop-blur-[35.50px] justify-center items-center gap-2.5 inline-flex absolute">
