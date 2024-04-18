@@ -63,7 +63,7 @@ const NavBar = () => {
           <div>
             <button className="navbar-auth-btn">Authentication</button>
           </div>
-          <div className="menu-icon">
+          <div className="md:hidden menu-icon">
             <Image
               src={AppImages.menuicon}
               width={23.333}

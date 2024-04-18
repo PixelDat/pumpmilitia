@@ -5,11 +5,10 @@ import '../../styles/hero.css';
 const Hero = () => {
   return (
     <div>
-      <div className="h-[800px] bg-cover bg-[url('/images/hero_image.png')] z-0">
+      <div className="h-[800px] overflow-hidden bg-cover sm:bg-[url('/images/backgroundsm.png')] md:bg-[url('/images/herobg.png')] z-0">
         <div className="hero-overlay"></div>
         <div className="z-10 flex flex-col space-y-8 relative">
           <NavBar />
-
           <div className="flex flex-row">
             <div className="w-8 socialsItems h-[502px] pt-[150px] flex-col justify-center items-center gap-4 hidden md:inline-flex">
               <div className="flex-col justify-start items-start gap-4 flex pl-24 pt-24">
@@ -86,8 +85,7 @@ const Hero = () => {
                 />
               </div>
             </div>
-
-            <div className="flex  sm:pt-[100px] md:pt-[200px] pb-[20px]  flex-col justify-center items-center spacing-y-8 text-center w-7/12 mx-auto text-vivd-lime-green-10">
+            <div className="flex  sm:pt-[120px] md:pt-[170px] pb-[20px]  flex-col justify-center items-center spacing-y-8 text-center sm:w-10/12 md:w-7/12 mx-auto text-vivd-lime-green-10">
               <div className="flex flex-col space-y-2 justify-center items-center">
                 <div className="w-[315px] h-6 px-4 bg-gradient-to-r from-lime-200 via-green-600 to-lime-400 rounded-2xl justify-center items-center gap-2 inline-flex">
                   <div className="text-stone-800 text-sm font-medium font-sans leading-none">
@@ -121,7 +119,61 @@ const Hero = () => {
               </div>
             </div>
           </div>
+          <div className="flex-row md:hidden justify-center items-center gap-4 flex ">
+            <Image
+              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+              src={"/svg/twitter.svg"}
+              width={32}
+              height={32}
+              priority
+              alt=""
+            />
 
+            <Image
+              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+              src={"/svg/telegram.svg"}
+              width={32}
+              height={32}
+              priority
+              alt=""
+            />
+
+            <Image
+              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+              src={"/svg/discord.svg"}
+              width={32}
+              height={32}
+              priority
+              alt=""
+            />
+
+            <Image
+              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+              src={"/svg/tiktok.svg"}
+              width={32}
+              height={32}
+              priority
+              alt=""
+            />
+
+            <Image
+              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+              src={"/svg/youtube.svg"}
+              width={32}
+              height={32}
+              priority
+              alt=""
+            />
+
+            <Image
+              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+              src={"/svg/medium.svg"}
+              width={32}
+              height={32}
+              priority
+              alt=""
+            />
+          </div>
           <div className="flex flex-row  items-center justify-end relative">
             <div className="flex flex-row space-x-8">
               <div className="flex flex-row space-x-4 items-center justify-center">
