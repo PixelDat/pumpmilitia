@@ -6,7 +6,8 @@ import { useState } from "react";
 const NavBar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
   return (
-    <nav className=" nav flex flex-row  items-center justify-between mainnav sm:px-[24px] lg:px-[108px] relative">
+    <nav className="nav flex flex-row  items-center justify-between mainnav sm:px-[24px] lg:px-[108px] relative  w-full">
+
       <div className="flex flex-row items-center">
         <Image
           src={AppImages.navBarLogo}
@@ -21,7 +22,7 @@ const NavBar = () => {
         </div>
       </div>
       <div className="flex flex-row items-center justify-between right-sec">
-        <div className="flex flex-row space-x-8 items-center nav-links ">
+        <div className="flex flex-row space-x-8 items-center nav-links hidden sm:flex  ">
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
             <p className="hover:text-vivd-lime-green hover:text-[17px]">
               <a href="#airdrop">Airdrop</a>
