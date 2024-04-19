@@ -179,8 +179,8 @@ const MinePump = () => {
                     </div>
 
                     <div className="border-b border-[#52594B] w-full pt-2"></div>
-                    <div className="mt-8 flex flex-row items-center gap-9">
-                      <div className="flex flex-row gap-2">
+                    <div className="mt-8 flex items-center w-full justify-between gap-9">
+                      <div className="flex flex-row border-1 gap-2">
                         <KeyboardArrowLeftRounded onClick={() => {
                           switchItems(index, 'forward')
                         }} className="hover:bg-[#A5E314] bg-[none] text-[#979B93] hover:text-dark border border-[#979B93]" style={{ fontSize: '50px', borderRadius: '50%' }} />
@@ -188,12 +188,12 @@ const MinePump = () => {
                           onClick={() => {
                             switchItems(index, 'backward')
                           }}
-                          className="" style={{ fontSize: '50px', background: 'white', borderRadius: '50%' }} />
+                          className="hover:bg-[#A5E314] bg-[none] text-[#979B93] hover:text-dark border border-[#979B93]" style={{ fontSize: '50px', borderRadius: '50%' }} />
                       </div>
-                      <div className="flex flex-row gap-2">
-                        <div className="border-b-4  w-[25.5px]  border-[#A5E314]"></div>
-                        <div className="border-b-4  w-[25.5px] border-[#A5E314]"></div>
-                        <div className="border-b-4  w-[25.5px] border-[#A5E314]"></div>
+                      <div className="flex flex-row item-center justify-end gap-2">
+                        <div className={`${selectedItem === 0 ? 'border-[#A5E314]' : 'border-[#757A6F]'} border-b-4 w-[25.5px]`}></div>
+                        <div className={`${selectedItem === 1 ? 'border-[#A5E314]' : 'border-[#757A6F]'} border-b-4 w-[25.5px]`}></div>
+                        <div className={`${selectedItem === 2 ? 'border-[#A5E314]' : 'border-[#757A6F]'} border-b-4 w-[25.5px]`}></div>
                       </div>
                     </div>
                   </div>
