@@ -6,7 +6,7 @@ import '../../styles/partners.css';
 const Partners = () => {
   return (
     <div className="flex flex-col mx-auto w-full items-center justify-center text-center my-24">
-      <div className="flex flex-col space-y-2 w-[680px] mb-3">
+      <div className="flex flex-col space-y-2 md:w-[680px] mb-3">
         <div className='font-gameria text-vivd-lime-green-10 text-[32px]'>
           PARTNERS
         </div>

@@ -1,0 +1,8 @@
+.underBorder {
+    width: 80%;
+    margin: auto;
+    background: linear-gradient(#a5e440, #a5e440) padding-box,
+        linear-gradient(50deg, #edf9d000, #edf9d0, #a5e440, #edf9d0, #edf9d000) border-box;
+    border: 1px solid transparent;
+
+}
