@@ -30,7 +30,7 @@ const Onboarding = () => {
         const aPlayers = 6521;
         const tBattles = 252733;
 
-        // displayVisitCount(tDownload);
+        displayVisitCount(tDownload);
         // displayVisitCount(aPlayers);
         // displayVisitCount(tBattles);
 
