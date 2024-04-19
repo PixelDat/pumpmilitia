@@ -1,14 +1,19 @@
+'use client'
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import '../../styles/mine.css';
 import { KeyboardArrowLeftRounded, KeyboardArrowRightRounded } from "@mui/icons-material";
 
 
 const MinePump = () => {
   const [selectedItem, setSelectedItem] = useState(0);
-
   function switchItems(index: number, button: string) {
-    console.log(index)
+    if (button === 'backward') {
+      index == 0 ? setSelectedItem(2) : setSelectedItem(index - 1)
+    }
+    if (button === 'forward') {
+      index == items.length - 1 ? setSelectedItem(0) : setSelectedItem(index + 1)
+    }
   }
   const items = [
     {
@@ -128,19 +133,16 @@ const MinePump = () => {
             AIRDROP - MINE $PUMP
           </div>
 
-          <div className="font-sans font-[700] p-3 leading-loose text-vivd-lime-green-10 text-[16px] max-w-[800px] text-center">
+          <div className="font-sans font-[700] p-3  text-vivd-lime-green-10 text-[14px] max-w-[800px] text-center">
             You can start mining $PUMP tokens on your mobile phones right away.
             We're opening the doors wide for every crypto enthusiast to join in on
             the fun and rewards.
           </div>
         </div>
 
-        <div
-          //  data-aos="fade-down-right" data-aos-duration="1000" 
-          className="">
+        <div className="">
           <div className="flex flex-col text-start max-w-[518px]">
             <div className="mx-4 mb-8" style={{ position: 'relative' }}>
-
               <div className="loader">
               </div>
               <Image
@@ -155,7 +157,7 @@ const MinePump = () => {
             {items.map((item: any, index: number) => {
               if (selectedItem == index) {
                 return (
-                  <div onMouseEnter={() => { setSelectedItem(index) }} onClick={() => { setSelectedItem(index) }} className="flex flex-col p-4 justify-start items-start">
+                  <div className="flex flex-col p-4 justify-start items-start">
                     <div
                       //  data-aos="zoom-in-up" data-aos-duration="2000"
                       className="mb-3">
@@ -168,16 +170,16 @@ const MinePump = () => {
                       />
                     </div>
 
-                    <div className="font-gameria text-vivd-lime-green-10 text-[32px]">
+                    <div className="font-gameria text-vivd-lime-green-10 text-[24px]">
                       {item.title}
                     </div>
 
-                    <div className="font-sans leading-loose text-vivd-lime-green-10 text-[14px]">
+                    <div className="font-sans w-[276px] leading-loose text-vivd-lime-green-10 text-[14px]">
                       {item.sub_title}
                     </div>
 
                     <div className="border-b border-[#52594B] w-full pt-2"></div>
-                    <div className="mt-8">
+                    <div className="mt-8 flex flex-row items-center gap-9">
                       <div className="flex flex-row gap-2">
                         <KeyboardArrowLeftRounded onClick={() => {
                           switchItems(index, 'forward')
@@ -187,6 +189,11 @@ const MinePump = () => {
                             switchItems(index, 'backward')
                           }}
                           className="" style={{ fontSize: '50px', background: 'white', borderRadius: '50%' }} />
+                      </div>
+                      <div className="flex flex-row gap-2">
+                        <div className="border-b-4  w-[25.5px]  border-[#A5E314]"></div>
+                        <div className="border-b-4  w-[25.5px] border-[#A5E314]"></div>
+                        <div className="border-b-4  w-[25.5px] border-[#A5E314]"></div>
                       </div>
                     </div>
                   </div>
