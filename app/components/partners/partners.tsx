@@ -1,5 +1,7 @@
 import { AppImages } from "@/lib/constants/app_images"
 import Image from "next/image"
+import '../../styles/partners.css';
+
 
 const Partners = () => {
   return (
@@ -15,68 +17,49 @@ const Partners = () => {
 
 
       <div className="flex flex-col items-center">
-        <div className="flex flex-row gap-x-20 w-full">
-          <Image
+        <div className="grid grid-cols-2 md:grid-cols-5 items-center justify-center gap-x-20 w-10/12 m-auto">
+          <img
             className="partner-images"
             src={AppImages.solana}
-            width={100}
-            height={48}
-            alt=""
-            priority />
+            alt="" />
 
-          <Image
+          <img
             className="partner-images"
             src={AppImages.google}
-            width={100}
-            height={48}
-            alt=""
-            priority />
+            alt="" />
 
-          <Image
+          <img
             className="partner-images"
             src={AppImages.stripe}
-            width={100}
-            height={48}
-            alt=""
-            priority />
+            alt="" />
 
-          <Image
+          <img
             className="partner-images"
             src={AppImages.aws}
-            width={100}
-            height={48}
-            alt=""
-            priority />
+            alt="" />
 
-          <Image
+          <img
             className="partner-images"
             src={AppImages.epic}
-            width={100}
-            height={48}
-            alt=""
-            priority />
-        </div>
-        <div className="flex flex-wrap">
-          <Image
+            alt="" />
+
+          <img
+            className="partner-images"
+
             src={AppImages.circleImage}
-            width={175}
-            height={36}
-            alt=""
-            priority />
+            alt="" />
 
-          <Image
+          <img
+            className="partner-images"
+
             src={AppImages.coinMarket}
-            width={175}
-            height={36}
-            alt=""
-            priority />
+            alt="" />
 
-          <Image
+          <img
+            className="partner-images"
+
             src={AppImages.galze}
-            width={175}
-            height={36}
-            alt=""
-            priority />
+            alt="" />
         </div>
       </div>
     </div>
