@@ -72,27 +72,26 @@ const RoadMap = () => {
             <div className="relative w-full flex justify-center items-center flex-col">
                 <div className="border-s left-[65px] md:border-b border-[#52594B] h-full md:h-0 md:w-full absolute md:top-12"></div>
 
-                <div className="flex flex-col md:flex-row md:justify-between md:items-center w-11/12 md:w-8/12 relative">
+                <div className="flex flex-col md:flex-row mb-10 md:mb-0 md:justify-between md:items-center w-11/12 md:w-8/12 relative">
                     {items.map((item: any, index: number) => {
                         return (
                             <div key={`${index}-${item}`} className="flex flex-row md:flex-col gap-10 md:gap-0 items-center justify-between md:items-start space-y-8">
                                 <Image
-                                    className=""
+                                    className="basis-1/4"
                                     src={item.image}
                                     width={100}
                                     height={100}
                                     priority
                                     alt="" />
 
-                                <div className="flex flex-col space-y-2 items-start">
-                                    <div className='font-gameria text-vivd-lime-green-10 text-[24px]'>
+                                <div className="basis-3/4">
+                                    <div className='font-gameria text-start text-vivd-lime-green-10 text-[24px]'>
                                         {item.title}
                                     </div>
-
                                     {item.listItem.map((list: any, index: number) => {
                                         return (
                                             <div key={`${index}-${list}`} className='font-sans text-start text-vivd-lime-green-10 text-sm'>
-                                                <span className="pl-2 font-sans font-extrabold pr-1">·</span> {list}
+                                                <li className="ml-5 font-sans font-bold pr-1"> {list}</li>
                                             </div>
                                         )
                                     })}
