@@ -61,7 +61,7 @@ const NavBar = () => {
         </div>
         <div className="flex flex-row items-center space-x-[24px]">
           <div>
-            <button className="navbar-auth-btn">Authentication</button>
+            <a href="/login" className="navbar-auth-btn">Authentication</a>
           </div>
           <div className="md:hidden menu-icon">
             <Image

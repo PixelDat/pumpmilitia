@@ -10,7 +10,7 @@ import '../styles/navbar.css';
 import { useState } from "react"
 
 
-export default function LoginPage() {
+export default function VerifyEmail() {
     const [error, setError] = useState(false)
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center text-white bg-[#20251A]">
@@ -29,39 +29,24 @@ export default function LoginPage() {
                             priority />
                     </div>
                     <div className='font-kanit text-center text-vivd-lime-green-10 text-[36px]'>
-                        Continue to
+                        Confirm your email
                     </div>
-                    <div className='font-gameria  text-center  text-vivd-lime-green-10 text-[40px]'>
-                        PUMP MILLITIA
-                    </div>
-                    <p className="text-center text-[14px] text-vivd-lime-green-10">The ultimate rewards arena.</p>
+                    <p className="text-center text-[14px] text-vivd-lime-green-10">Enter the code we sent to allineedisagame@gmail.com</p>
                 </div>
-                {/* email address input */}
+
 
                 <div className="items-center justify-center">
-                    <CustomInput
-                        className=""
-                        error={error}
-                        sx={{ marginBottom: '10px' }}
-                        label="Email Address"
-                        placeholder="Enter email address"
-                        type="email"
-                        addOnStart={<MailOutlineRounded color="inherit" />}
-                        addOnEnd={error ? <ReportGmailerrorredRounded className="text-[#E2002B]" /> : <ArrowForward />}
-                    />
+
                     {
                         error && <>
                             <hr className={`border-[#E2002B]  border mt-2`} />
 
                             <div className="flex flex-row items-center p-3 gap-3">
                                 <CloseRounded className="bg-[#EC5572] text-[18px] rounded-full text-[black]" />
-                                <p className="text-[12px] text-start">Ops! you must have entered the wrong email address, please check and re-enter.</p>
+                                <p className="text-[12px] text-start">Ops! you must have entered the wrong code, please check your email and click input box to try again.</p>
                             </div>
                         </>
                     }
-                    <div className="my-5">
-                        <button onClick={() => setError(!error)} className="navbar-auth-btn w-full">Get In</button>
-                    </div>
                     <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try either of this below, only when “email address” fails to get you in.</FormHelperText>
 
                     <div className="flex flex-row items-center justify-center gap-8 my-3">
@@ -85,11 +70,6 @@ export default function LoginPage() {
 
                     <p className="text-[#EDF9D0] text-center mt-5 font-light">By continuing, you agree to our <span className="font-bold text-[#A5E314]">Terms of service,</span> and acknowledge you have understood our <span className="font-bold text-[#A5E314]">Privacy Policy</span> and <span className="font-bold text-[#A5E314]">Collection Statement.</span></p>
                 </div>
-                {/* get in button */}
-                {/* text after that */}
-                {/* google and X */}
-                {/* terms and conditions */}
-                {/* Ninja */}
 
 
             </div>
