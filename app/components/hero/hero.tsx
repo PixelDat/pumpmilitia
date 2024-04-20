@@ -179,7 +179,7 @@ const Hero = () => {
           <div className="flex flex-col md:flex-row items-center justify-end gap-4">
             {/* Stores Icons */}
 
-            <div className="flex flex-row mb-3 md:mb-0 justify-center gap-4">
+            <div className="flex flex-row  mb-3 md:mb-0 justify-center gap-2">
               <Image
                 src={"/svg/play_store.svg"}
                 width={185}

@@ -1,0 +1,31 @@
+.loader {
+    width: 10px;
+    left: 30px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #a5e440;
+    box-shadow: 0 0 0 0 #0004;
+    animation: l2 3s infinite linear;
+    position: relative;
+}
+
+.loader:before,
+.loader:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 0 #a5e440c3;
+    animation: inherit;
+    animation-delay: -1.5s;
+}
+
+.loader:after {
+    animation-delay: 2s;
+}
+
+@keyframes l2 {
+    100% {
+        box-shadow: 0 0 0 40px #0000
+    }
+}

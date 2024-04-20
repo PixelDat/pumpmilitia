@@ -4,7 +4,7 @@ import '../../styles/feature.css';
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-
+// import AOS from 'aos';
 gsap.registerPlugin(useGSAP);
 
 
