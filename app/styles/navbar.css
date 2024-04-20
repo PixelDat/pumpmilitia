@@ -1,0 +1,47 @@
+.mainnav {
+  border: 1px solid #000;
+  background: rgba(16, 19, 13, 0.75);
+  backdrop-filter: blur(10px);
+  display: inline-flex;
+  padding: 0 108px;
+  gap: 205px;
+}
+
+.navbar-auth-btn {
+  border-radius: 12px;
+  border: 2px solid #edf9d0;
+  background: #a5e314;
+  box-shadow: 0px 0px 6.5px 1.5px #edf9d0;
+  display: flex;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #303827;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.nav-pump-text {
+  font-weight: 400;
+}
+
+.menu-det {
+  gap: 48px;
+}
+.nav-links p {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.hero-overlay {
+  background: linear-gradient(180deg, #212d04 0.18%, rgba(9, 13, 0, 0) 86.06%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

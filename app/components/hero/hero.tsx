@@ -5,7 +5,8 @@ const Hero = () => {
     return (
         <div>
             <div className="h-[800px] bg-cover bg-[url('/images/hero_image.png')] z-0">
-                <div className="z-10 flex flex-col space-y-8">
+                <div className="hero-overlay"></div>
+                <div className="z-10 flex flex-col space-y-8 relative">
                     <NavBar />
 
                     <div className="flex flex-row">
