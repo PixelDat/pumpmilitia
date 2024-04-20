@@ -9,6 +9,7 @@ import Faqs from "./components/faqs/faqs";
 import Footer from "./components/footer/footer";
 import Onboarding from "./components/onboarding/onboarding";
 import { useEffect } from "react";
+import Tokenomics from "./components/tokenomics/tokennomics";
 
 export default function IndexPage() {
   return (
@@ -19,6 +20,7 @@ export default function IndexPage() {
       <Features />
       <Onboarding />
       <RoadMap />
+      <Tokenomics />
       <Partners />
       <Faqs />
       <Footer />

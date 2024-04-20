@@ -49,7 +49,7 @@ const NavBar = () => {
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
             <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              Tokenomics
+              <a href="#tokenomics">Tokenomics</a>
             </p>
           </div>
 

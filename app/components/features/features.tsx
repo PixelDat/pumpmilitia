@@ -88,7 +88,7 @@ const Features = () => {
         </div>
 
         <div
-          data-aos="zoom-out-up"
+          data-aos="zoom-in-up"
           className="feature-box relative">
           <Image
             src={'/images/feature3.png'}
