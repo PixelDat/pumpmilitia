@@ -1,6 +1,62 @@
 import Image from "next/image"
 
 const RoadMap = () => {
+    const items = [
+        {
+            title: 'PHASE 1',
+            image: '/svg/roadmap_1.svg',
+            listItem: [
+                "Game development",
+                "Marketing stategy",
+                "White Paper",
+                "Community building",
+                "Tokenomics"
+            ]
+        },
+        {
+            title: 'PHASE 2',
+
+            image: '/svg/roadmap_2.svg',
+
+            listItem: [
+                "Beta version launch",
+                "Airdrop",
+                "Community Growth",
+                "NFT mints",
+                "Presales"
+            ]
+        },
+        {
+            title: 'PHASE 3',
+
+            image: '/svg/roadmap_1.svg',
+
+            listItem: [
+                "Dex && CEX Listings",
+                "Game Full Launch",
+                "$PUMP Staking",
+                "PumpSwap Launch",
+                "Partnerships"
+            ]
+        },
+        {
+
+            title: 'PHASE 4',
+
+            image: '/svg/roadmap_3.svg',
+
+            listItem: [
+                "More CEX listings",
+                "Game Upgrades",
+                "Huge Marketing Campaign",
+                "Partnership with top KOLS",
+                "100,000 daily playes"
+            ]
+        },
+
+
+
+    ]
     return (
         <div className="flex flex-col space-y-24 mt-32 justify-center items-center text-center" id="roadmap">
             <div className="flex flex-col space-y-2">
@@ -13,153 +69,40 @@ const RoadMap = () => {
                 </div>
             </div>
 
-          <div className="relative w-full flex justify-center items-center flex-col">
-          <div className="border-b border-[#52594B] w-full absolute top-12"></div>
+            <div className="relative w-full flex justify-center items-center flex-col">
+                <div className="border-s left-[65px] md:border-b border-[#52594B] h-full md:h-0 md:w-full absolute md:top-12"></div>
 
-            <div className="flex flex-row justify-between items-center w-8/12 relative">
-                <div className="flex flex-col space-y-8">
-                    <Image
-                        className=""
-                        src={'/svg/roadmap_1.svg'}
-                        width={100}
-                        height={100}
-                        priority
-                        alt="" />
+                <div className="flex flex-col md:flex-row mb-10 md:mb-0 md:justify-between md:items-center w-11/12 md:w-8/12 relative">
+                    {items.map((item: any, index: number) => {
+                        return (
+                            <div key={`${index}-${item}`} className="flex flex-row md:flex-col gap-10 md:gap-0 items-center justify-between md:items-start space-y-8">
+                                <Image
+                                    className="basis-1/4"
+                                    src={item.image}
+                                    width={100}
+                                    height={100}
+                                    priority
+                                    alt="" />
 
-                    <div className="flex flex-col space-y-2 items-start">
-                        <div className='font-gameria text-vivd-lime-green-10 text-[24px]'>
-                            PHASE 1
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Game development
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Marketing stategy
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> White Paper
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Community building
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Tokenomics
-                        </div>
-                    </div>
+                                <div className="basis-3/4">
+                                    <div className='font-gameria text-start text-vivd-lime-green-10 text-[24px]'>
+                                        {item.title}
+                                    </div>
+                                    {item.listItem.map((list: any, index: number) => {
+                                        return (
+                                            <div key={`${index}-${list}`} className='font-sans text-start text-vivd-lime-green-10 text-sm'>
+                                                <li className="ml-5 font-sans font-bold pr-1"> {list}</li>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        )
+                    })
+                    }
                 </div>
 
-                <div className="flex flex-col space-y-8">
-                    <Image
-                        src={'/svg/roadmap_2.svg'}
-                        width={100}
-                        height={100}
-                        priority
-                        alt="" />
-
-                    <div className="flex flex-col space-y-2 items-start">
-                        <div className='font-gameria text-vivd-lime-green-10 text-[24px]'>
-                            PHASE 2
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Beta version launch
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Airdrop
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Community Growth
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> NFT mints
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Presales
-                        </div>
-                    </div>
-                </div>
-
-                <div className="flex flex-col space-y-8">
-                    <Image
-                        src={'/svg/roadmap_1.svg'}
-                        width={100}
-                        height={100}
-                        priority
-                        alt="" />
-
-                    <div className="flex flex-col space-y-2 items-start">
-                        <div className='font-gameria text-vivd-lime-green-10 text-[24px]'>
-                            PHASE 3
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Dex && CEX Listings
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Game Full Launch
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> $PUMP Staking
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> PumpSwap Launch
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Partnerships
-                        </div>
-                    </div>
-                </div>
-
-                <div className="flex flex-col space-y-8">
-                    <Image
-                        src={'/svg/roadmap_3.svg'}
-                        width={100}
-                        height={100}
-                        priority
-                        alt="" />
-
-                    <div className="flex flex-col space-y-2 items-start">
-                        <div className='font-gameria text-vivd-lime-green-10 text-[24px]'>
-                            PHASE 4
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> More CEX listings
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Game Upgrades
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Huge Marketing Campaign
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> Partnership with top KOLS
-                        </div>
-
-                        <div className='font-sans text-vivd-lime-green-10 text-sm'>
-                         <span className="pl-2 font-sans font-extrabold pr-1">·</span> 100,000 daily playes
-                        </div>
-                    </div>
-                </div>
             </div>
-
-          </div>
         </div>
     )
 }
