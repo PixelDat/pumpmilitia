@@ -33,6 +33,11 @@ export default function VerifyEmail() {
                     </div>
                     <p className="text-center text-[14px] text-vivd-lime-green-10">Enter the code we sent to allineedisagame@gmail.com</p>
                 </div>
+                <div className="flex flex-row gap-5 justify-center">
+                    <p className=" text-[#A5E314] border-e-2 border-[#52594B] pe-5">Resend Code in <span className="text-[#52594B]">60s</span></p>
+                    <p className=" text-[#A5E314]">Change Email</p>
+
+                </div>
 
 
                 <div className="items-center justify-center">
@@ -43,32 +48,10 @@ export default function VerifyEmail() {
 
                             <div className="flex flex-row items-center p-3 gap-3">
                                 <CloseRounded className="bg-[#EC5572] text-[18px] rounded-full text-[black]" />
-                                <p className="text-[12px] text-start">Ops! you must have entered the wrong code, please check your email and click input box to try again.</p>
+                                <p className="text-[12px] text-[#F9CCD5] text-start">Ops! you must have entered the wrong code, please check your email and click input box to try again.</p>
                             </div>
                         </>
                     }
-                    <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try either of this below, only when “email address” fails to get you in.</FormHelperText>
-
-                    <div className="flex flex-row items-center justify-center gap-8 my-3">
-                        <Image
-                            className="object-center"
-                            src={'/images/google.png'}
-                            width={44}
-                            height={44}
-                            alt="google icon"
-                            priority />
-                        <Image
-                            className="object-center"
-                            src={'/images/xacct.png'}
-                            width={44}
-                            height={44}
-                            alt="X(formerly twitter) icon"
-                            priority />
-
-                    </div>
-
-
-                    <p className="text-[#EDF9D0] text-center mt-5 font-light">By continuing, you agree to our <span className="font-bold text-[#A5E314]">Terms of service,</span> and acknowledge you have understood our <span className="font-bold text-[#A5E314]">Privacy Policy</span> and <span className="font-bold text-[#A5E314]">Collection Statement.</span></p>
                 </div>
 
 

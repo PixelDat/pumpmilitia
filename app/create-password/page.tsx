@@ -5,13 +5,25 @@ import BlipNinja from "../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
 import { FormHelperText, } from "@mui/material"
 import CustomInput from "../components/customInput/customInput"
-import { ArrowForward, CloseRounded, MailOutlineRounded, ReportGmailerrorredRounded } from "@mui/icons-material"
+import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, ReportGmailerrorredRounded, VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material"
 import '../styles/navbar.css';
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 export default function LoginPage() {
+    const [showPassword, setShowPassword] = useState(true)
     const [error, setError] = useState(false)
+    const [password, setPassword] = useState('')
+
+    useEffect(() => {
+        isValidPassword(password) ? console.log('true') : console.log('false')
+    }, [password])
+
+    function isValidPassword(password) {
+        const regex = /^(?=.*[A-Z])(?=.*[\W])(.{8,})$/;
+        return regex.test(password);
+    }
+
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center text-white bg-[#20251A]">
             <div className="bg-cover  opacity-30 bg-dark bg-[url('/images/auth_bg.png')] h-[627px] top-1/4 absolute w-full">
@@ -41,13 +53,14 @@ export default function LoginPage() {
                 <div className="items-center justify-center">
                     <CustomInput
                         className=""
+                        onChange={(e) => setPassword(e.target.value)}
                         error={error}
                         sx={{ marginBottom: '10px' }}
-                        label="Email Address"
-                        placeholder="Enter email address"
-                        type="email"
-                        addOnStart={<MailOutlineRounded color="inherit" />}
-                        addOnEnd={error ? <ReportGmailerrorredRounded className="text-[#E2002B]" /> : <ArrowForward />}
+                        label="Password"
+                        placeholder="Enter password"
+                        type={showPassword ? "text" : "password"}
+                        addOnStart={<LockRounded color="inherit" />}
+                        addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
                     />
                     {
                         error && <>
@@ -59,38 +72,22 @@ export default function LoginPage() {
                             </div>
                         </>
                     }
+                    <CustomInput
+                        active={true}
+                        className=""
+                        error={error}
+                        sx={{ marginBottom: '10px' }}
+                        label="Re-enter Password"
+                        placeholder="Enter password"
+                        type="password"
+                        addOnStart={<LockRounded color="inherit" />}
+                        addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
+                    />
                     <div className="my-5">
-                        <button onClick={() => setError(!error)} className="navbar-auth-btn w-full">Get In</button>
-                    </div>
-                    <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try either of this below, only when “email address” fails to get you in.</FormHelperText>
-
-                    <div className="flex flex-row items-center justify-center gap-8 my-3">
-                        <Image
-                            className="object-center"
-                            src={'/images/google.png'}
-                            width={44}
-                            height={44}
-                            alt="google icon"
-                            priority />
-                        <Image
-                            className="object-center"
-                            src={'/images/xacct.png'}
-                            width={44}
-                            height={44}
-                            alt="X(formerly twitter) icon"
-                            priority />
-
+                        <button onClick={() => setError(!error)} className="navbar-auth-btn w-full">Set Password</button>
                     </div>
 
-
-                    <p className="text-[#EDF9D0] text-center mt-5 font-light">By continuing, you agree to our <span className="font-bold text-[#A5E314]">Terms of service,</span> and acknowledge you have understood our <span className="font-bold text-[#A5E314]">Privacy Policy</span> and <span className="font-bold text-[#A5E314]">Collection Statement.</span></p>
                 </div>
-                {/* get in button */}
-                {/* text after that */}
-                {/* google and X */}
-                {/* terms and conditions */}
-                {/* Ninja */}
-
 
             </div>
             <div className="hidden md:inline absolute right-[150px] bottom-[20px]">
