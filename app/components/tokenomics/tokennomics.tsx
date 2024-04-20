@@ -11,7 +11,7 @@ const Tokenomics = () => {
             border_color: 'border-[#6FFEFE]',
             text_color: 'text-[#6FFEFE]',
             percent: 5,
-            width: 'md:w-11/12',
+            width: 'md:w-[533px]',
 
             token_amount: 100000,
             title: "Seed Round",
@@ -21,7 +21,8 @@ const Tokenomics = () => {
             border_color: 'border-[#ff00d6]',
             text_color: 'text-[#ff00d6]',
             percent: 15,
-            width: 'md:w-8/12',
+            width: 'md:w-[528px]',
+
 
             token_amount: 100000,
             title: "Seed Round",
@@ -31,7 +32,8 @@ const Tokenomics = () => {
             border_color: 'border-[#a5e314]',
             text_color: 'text-[#a5e314]',
             percent: 50,
-            width: 'md:w-7/12',
+            width: 'md:w-[533px]',
+
             token_amount: 100000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
@@ -40,7 +42,8 @@ const Tokenomics = () => {
             border_color: 'border-[#fdce00]',
             text_color: 'text-[#fdce00]',
             percent: 5,
-            width: 'md:w-10/12',
+            width: 'md:w-[500px]',
+
             token_amount: 100000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
@@ -49,7 +52,7 @@ const Tokenomics = () => {
             border_color: 'border-[#e72a4e]',
             text_color: 'text-[#e72a4e]',
             percent: 5,
-            width: 'md:w-9/12',
+            width: 'md:w-[532px]',
 
             token_amount: 100000,
             title: "Seed Round",
@@ -59,8 +62,7 @@ const Tokenomics = () => {
             border_color: 'border-[#e0f7ab]',
             text_color: 'text-[#e0f7ab]',
             percent: 10,
-            width: 'md:w-11/12',
-
+            width: 'md:w-[505px]',
             token_amount: 100000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
@@ -69,8 +71,7 @@ const Tokenomics = () => {
             border_color: 'border-[#5062ff]',
             text_color: 'text-[#5062ff]',
             percent: 5,
-            width: 'md:w-7/12',
-
+            width: 'md:w-[528px]',
             token_amount: 100000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
@@ -79,8 +80,7 @@ const Tokenomics = () => {
             border_color: 'border-[#36d800]',
             text_color: 'text-[#36d800]',
             percent: 5,
-            width: 'md:w-11/12',
-
+            width: 'md:w-[531px]',
             token_amount: 10000000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
