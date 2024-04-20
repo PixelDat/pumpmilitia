@@ -5,13 +5,13 @@ import BlipNinja from "../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
 import { FormHelperText, } from "@mui/material"
 import CustomInput from "../components/customInput/customInput"
-import { ArrowForward, MailOutlineRounded } from "@mui/icons-material"
+import { ArrowForward, CloseRounded, MailOutlineRounded, ReportGmailerrorredRounded } from "@mui/icons-material"
 import '../styles/navbar.css';
 import { useState } from "react"
 
 
 export default function LoginPage() {
-    const [error, setError] = useState(false)
+    const [error, setError] = useState(true)
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center text-white bg-[#20251A]">
             <div className="bg-cover  opacity-30 bg-dark bg-[url('/images/auth_bg.png')] h-[627px] top-1/4 absolute w-full">
@@ -41,19 +41,26 @@ export default function LoginPage() {
                 <div className="items-center justify-center">
                     <CustomInput
                         className=""
-                        error={true}
+                        error={error}
                         sx={{ marginBottom: '10px' }}
                         label="Email Address"
                         placeholder="Enter email address"
                         type="email"
                         addOnStart={<MailOutlineRounded color="inherit" />}
-                        addOnEnd={<ArrowForward />}
+                        addOnEnd={error ? <ReportGmailerrorredRounded className="text-[#E2002B]" /> : <ArrowForward />}
                     />
+                    {
+                        error && <>
+                            <hr className={`border-[#E2002B]  border mt-2`} />
 
-                    <hr className={`border-[#EC5572] mt-5`} />
-
+                            <div className="flex flex-row items-center p-3 gap-3">
+                                <CloseRounded className="bg-[#EC5572] text-[18px] rounded-full text-[black]" />
+                                <p className="text-[12px] text-start">Ops! you must have entered the wrong email address, please check and re-enter.</p>
+                            </div>
+                        </>
+                    }
                     <div className="my-5">
-                        <button className="navbar-auth-btn w-full">Get In</button>
+                        <button onClick={() => setError(!error)} className="navbar-auth-btn w-full">Get In</button>
                     </div>
 
                     <FormHelperText className="text-[#898989] w-7/12 m-auto text-center font-normal">Try either of this below, only when “email address” fails to get you in.</FormHelperText>
