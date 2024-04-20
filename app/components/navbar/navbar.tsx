@@ -6,8 +6,7 @@ import { useState } from "react";
 const NavBar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
   return (
-    <nav className="nav flex flex-row  items-center justify-between mainnav sm:px-[24px] lg:px-[108px] relative  w-full">
-
+    <nav className=" nav flex flex-row items-center justify-between mainnav sm:px-[24px] lg:px-[108px] relative">
       <div className="flex flex-row items-center">
         <Image
           src={AppImages.navBarLogo}
@@ -17,53 +16,41 @@ const NavBar = () => {
           priority
         />
 
-        <div className="font-gameria text-vivd-lime-green-10 text-[24px] nav-pump-text">
+        <div className="font-gameria text-vivd-lime-green-10 text-[24px] nav-pump-text lg:block sm:hidden xs:hidden">
           PUMP MILLITIA
         </div>
       </div>
       <div className="flex flex-row items-center justify-between right-sec">
-        <div className="flex flex-row space-x-8 items-center nav-links hidden sm:flex  ">
+        <div className="flex flex-row space-x-8 items-center nav-links sm:hidden xs:hidden lg:flex">
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:text-[17px] hover:">
-              <a href="#airdrop">Airdrop</a>
-            </p>
+            <p>Airdrop</p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              <a>Whitepaper</a>
-            </p>
+            <p>Whitepaper</p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              <a>Presale</a>
-            </p>
+            <p>Presale</p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              <a href="#roadmap"> Roadmap</a>
-            </p>
+            <p>Roadmap</p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              <a href="#tokenomics">Tokenomics</a>
-            </p>
+            <p>Tokenomics</p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              Quests
-            </p>
+            <p>Quests</p>
           </div>
         </div>
         <div className="flex flex-row items-center space-x-[24px]">
           <div>
-            <a href="/login" className="navbar-auth-btn">Authentication</a>
+            <button className="navbar-auth-btn">Authentication</button>
           </div>
-          <div className="md:hidden menu-icon">
+          <div className="lg:hidden">
             <Image
               src={AppImages.menuicon}
               width={23.333}
@@ -75,37 +62,6 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      {isMenuOpened && (
-        <div className="menu-mobile-container">
-          <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">
-              <a href="#airdrop">Airdrop</a>
-            </p>
-          </div>
-
-          <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">
-              <a>Whitepaper</a>
-            </p>
-          </div>
-          <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">
-              <a>Presale</a>
-            </p>
-          </div>
-          <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">
-              <a href="#roadmap"> Roadmap</a>
-            </p>
-          </div>
-          <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">Tokenomics</p>
-          </div>
-          <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">Quests</p>
-          </div>
-        </div>
-      )}
     </nav>
   );
 };

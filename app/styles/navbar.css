@@ -5,10 +5,6 @@
   display: inline-flex;
   /* padding: 0 108px; */
   gap: 30px;
-  position: fixed;
-  top: 0;
-  z-index: 10;
-  width: 100%;
 }
 
 .navbar-auth-btn {
@@ -28,6 +24,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: 24px;
+  font-family: Kanit;
   font-family: Kanit;
 }
 
@@ -77,7 +74,6 @@
   padding-bottom: 16px;
   width: 100%;
 }
-
 .mlist-link {
   font-family: Kanit;
   font-size: 16px;
@@ -86,59 +82,11 @@
   line-height: 24px;
 }
 
-/* @media screen and (max-width: 950px) {
-  .nav-links {
-    display: none;
-  }
-
-} */
-
-
-@media screen and (max-width: 1299px) {
-  .mainnav {
-    padding: 0 50px;
-    gap: 20px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .mainnav {
-    padding: 0 30px;
-    gap: 20px;
-  }
-}
-
-.menu-icon {
-  display: none;
-}
-
-@media screen and (max-width: 1115px) {
-  .nav-links {
-    display: none;
-  }
-
-  .menu-icon {
-    display: flex;
-  }
-
-  .nav-pump-text {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .menu-icon img {
-    width: 60px;
-  }
-}
-
-@media screen and (max-width: 360px) {
-  .menu-icon img {
-    width: 100px;
-  }
-
-  .navbar-auth-btn {
-    padding: 9px 21px;
-
-  }
+@media screen and (min-width: 1471px) {
+  /* .mainnav {
+        gap: 205px;
+    } */
+  /* .nav-links {
+        gap: 48px !important;
+    } */
 }
