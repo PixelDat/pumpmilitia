@@ -31,19 +31,19 @@
   font-weight: 700;
   line-height: 24px;
   font-family: Kanit;
-  transition: background 0.8s;
+  transition: all 0.8s;
 }
 
 .navbar-auth-btn:hover {
   background: #52711b radial-gradient(circle, transparent 10%, #a5e440 1%) center/15000%;
   color: #EDF9D0;
-  transition: background 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 .navbar-auth-btn:active {
   background-color: #1c2909f4;
   background-size: 100%;
-  transition: background 0s;
+  transition: all 0s;
 }
 
 .nav-pump-text {

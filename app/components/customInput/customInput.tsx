@@ -2,42 +2,40 @@ import React from 'react';
 
 interface CustomInputProps {
     type: string;
-    sx?: string;
+    sx?: {};
     className?: string;
     placeholder?: string;
     addOnStart?: React.ReactNode;
     addOnEnd?: React.ReactNode;
+    label?: string;
+    error?: boolean;
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({ type, className, addOnStart, addOnEnd, sx, placeholder }) => {
+const CustomInput: React.FC<CustomInputProps> = ({ type, className, error, label, addOnStart, addOnEnd, sx, placeholder }) => {
+    let color = error ? 'border-[#EC5572]' : 'border-[#A5E314]';
     return (
-        <div className='border border-[#A5E314] p-2 rounded-2xl w-full'>
-            {addOnStart && addOnStart}
-            <input
-                className="p-2 text-vivd-lime-green-10 text-[14px] bg-transparent "
-                type={type}
-                placeholder={placeholder}
-                style={{ ...parseSx(sx) }}
-            />
-            {addOnEnd && addOnEnd}
+        <div style={sx}>
+            {label && <label className='text-[#898989] font-normal '>
+                {label}
+            </label>}
+            <div className={`flex flex-row items-center justify-between border mt-3 ${color} text-[#EDF9D0] p-2 rounded-[20px] w-full`}>
+                {addOnStart && addOnStart}
 
+                <input
+                    className="p-2 w-full focus:outline-none text-[14px] bg-transparent "
+                    type={type}
+                    placeholder={placeholder}
+
+                />
+                {addOnEnd && addOnEnd}
+
+
+            </div>
         </div>
+
     );
 }
 
-const parseSx = (sx?: string) => {
-    if (!sx) return {};
 
-    // Convert sx string to style object
-    const styles = sx.split(';').reduce((acc, style) => {
-        const [key, value] = style.split(':');
-        if (key && value) {
-            acc[key.trim()] = value.trim();
-        }
-        return acc;
-    }, {} as { [key: string]: string });
-
-    return styles;
-}
 
 export default CustomInput;

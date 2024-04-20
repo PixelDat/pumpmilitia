@@ -58,12 +58,12 @@
 }
 
 ::placeholder {
-    color: #A5E314;
+    color: #EDF9D0;
     opacity: 1;
     /* Firefox */
 }
 
 ::-ms-input-placeholder {
     /* Edge 12 -18 */
-    color: #A5E314;
+    color: #EDF9D0;
 }
