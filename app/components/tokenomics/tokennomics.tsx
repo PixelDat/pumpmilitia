@@ -11,7 +11,7 @@ const Tokenomics = () => {
             border_color: 'border-[#6FFEFE]',
             text_color: 'text-[#6FFEFE]',
             percent: 5,
-            width: 'md:w-10/12',
+            width: 'md:w-11/12',
 
             token_amount: 100000,
             title: "Seed Round",
@@ -21,7 +21,7 @@ const Tokenomics = () => {
             border_color: 'border-[#ff00d6]',
             text_color: 'text-[#ff00d6]',
             percent: 15,
-            width: 'md:w-6/12',
+            width: 'md:w-8/12',
 
             token_amount: 100000,
             title: "Seed Round",
@@ -49,7 +49,7 @@ const Tokenomics = () => {
             border_color: 'border-[#e72a4e]',
             text_color: 'text-[#e72a4e]',
             percent: 5,
-            width: 'md:w-7/12',
+            width: 'md:w-9/12',
 
             token_amount: 100000,
             title: "Seed Round",
