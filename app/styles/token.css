@@ -10,9 +10,3 @@
         linear-gradient(180deg, #20251a, #466417, #425c18, #85c936, #425c18, #466417, #20251a) border-box;
 
 }
-
-/* .boderToken::before {
-    border-right: 10px solid green;
-    background: linear-gradient(#a5e440, #a5e440) padding-box,
-        linear-gradient(50deg, #edf9d000, #edf9d0, #a5e440, #edf9d0, #edf9d000) border-box;
-} */
