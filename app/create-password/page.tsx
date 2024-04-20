@@ -15,6 +15,8 @@ export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(true)
     const [error, setError] = useState(false)
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+
     const [errors, setErrors] = useState<string[]>([]);
     useEffect(() => {
         let val = Helpers.isValidPassword(password)
@@ -23,7 +25,13 @@ export default function LoginPage() {
         } else {
             setErrors([]);
         }
-    }, [password])
+        if (password == confirmPassword) {
+            setError(false)
+        } else {
+            setError(true)
+        }
+
+    }, [password, confirmPassword])
 
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center      text-white bg-[#20251A]">
@@ -98,13 +106,25 @@ export default function LoginPage() {
                     <CustomInput
                         disabled={errors.length == 0 ? false : true}
                         className=""
+                        error={error}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         sx={{ marginBottom: '10px' }}
                         label="Re-enter Password"
                         placeholder="Enter password"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         addOnStart={<LockRounded color="inherit" />}
                         addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
                     />
+                    {
+                        error && confirmPassword.length > 0 && <>
+                            <hr className={`border-[#E2002B]  border mt-2`} />
+
+                            <div className="flex flex-row items-center p-3 gap-3">
+                                <CloseRounded className="bg-[#EC5572] text-[18px] rounded-full text-[black]" />
+                                <p className="text-[12px] text-[#F9CCD5] text-start">Password do not match.</p>
+                            </div>
+                        </>
+                    }
                     <div className={`${errors.length == 0 ? "my-5" : "blur-[2px] my-5"}`}>
                         <button disabled onClick={() => { }} className="navbar-auth-btn  w-full">Set Password</button>
                     </div>

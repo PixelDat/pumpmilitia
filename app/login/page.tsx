@@ -85,13 +85,6 @@ export default function LoginPage() {
 
                     <p className="text-[#EDF9D0] text-center mt-5 font-light">By continuing, you agree to our <span className="font-bold text-[#A5E314]">Terms of service,</span> and acknowledge you have understood our <span className="font-bold text-[#A5E314]">Privacy Policy</span> and <span className="font-bold text-[#A5E314]">Collection Statement.</span></p>
                 </div>
-                {/* get in button */}
-                {/* text after that */}
-                {/* google and X */}
-                {/* terms and conditions */}
-                {/* Ninja */}
-
-
             </div>
             <div className="hidden md:inline absolute right-[150px] bottom-[20px]">
                 <BlipNinja />
