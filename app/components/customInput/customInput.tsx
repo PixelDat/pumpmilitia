@@ -4,7 +4,7 @@ interface CustomInputProps {
     type: string;
     sx?: {};
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
-    active?: boolean;
+    disabled?: boolean;
     className?: string;
     placeholder?: string;
     addOnStart?: React.ReactNode;
@@ -13,8 +13,8 @@ interface CustomInputProps {
     error?: boolean;
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({ type, className, error, onChange, label, addOnStart, addOnEnd, sx, placeholder, active }) => {
-    let color = error ? 'border-[#EC5572]' : active ? 'border-[#757A6F] blur-[2px]' : 'border-[#A5E314]';
+const CustomInput: React.FC<CustomInputProps> = ({ type, className, error, onChange, label, addOnStart, addOnEnd, sx, placeholder, disabled }) => {
+    let color = error ? 'border-[#EC5572]' : disabled ? 'border-[#757A6F]  blur-[2px]' : 'border-[#A5E314] ';
     return (
         <div style={sx}>
             {label && <label className='text-[#898989] font-normal '>
@@ -27,7 +27,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ type, className, error, onCha
                     className="p-2 w-full focus:outline-none text-[14px] bg-transparent "
                     type={type}
                     onChange={onChange}
-                    disabled={active}
+                    disabled={disabled}
                     placeholder={placeholder}
 
                 />
