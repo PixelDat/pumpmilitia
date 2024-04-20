@@ -26,6 +26,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ type, className, error, onCha
                 <input
                     className="p-2 w-full focus:outline-none text-[14px] bg-transparent "
                     type={type}
+                    autoComplete=""
                     onChange={onChange}
                     disabled={disabled}
                     placeholder={placeholder}

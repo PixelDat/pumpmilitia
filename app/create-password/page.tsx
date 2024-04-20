@@ -16,11 +16,9 @@ export default function LoginPage() {
     const [error, setError] = useState(false)
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState<string[]>([]);
-    console.log(password)
     useEffect(() => {
         let val = Helpers.isValidPassword(password)
         if (val !== true) {
-            console.log(val);
             setErrors(val as string[]);
         } else {
             setErrors([]);
@@ -28,7 +26,7 @@ export default function LoginPage() {
     }, [password])
 
     return (
-        <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center text-white bg-[#20251A]">
+        <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center      text-white bg-[#20251A]">
             <div className="bg-cover  opacity-30 bg-dark bg-[url('/images/auth_bg.png')] h-[627px] top-1/4 absolute w-full">
             </div>
             <div className="z-[20] p-2 md:p-0 w-[371px]">
@@ -72,14 +70,27 @@ export default function LoginPage() {
                                     <li className={`${errors.includes("ucl") && password !== '' ? 'text-[#ff0000]' : 'text-[#E1F6B1]'}`} >Some uppercase letter.</li>
                                     <li className={`${errors.includes("sym") && password !== '' ? 'text-[#ff0000]' : 'text-[#E1F6B1]'}`} >One symbol (!@%$*).</li>
                                 </div>
-                                <div>
+                                <div className="flex flex-row gap-2 justify-center">
                                     <div className="flex flex-row item-center justify-center gap-2">
-                                        <div className={`${errors.length <= 3 && password == '' ? 'border-[#B0B0B0]' : errors.length == 0 && password != '' ? 'border-[#00ff00]' : 'border-[#ff0000]'} border-b-2 h-2 w-[25.5px]`}></div>
-                                        {/* <div className={`${errors.length <= 2 ? 'border-[#ff0000]' : 'border-[#b0b0b0]'} border-b-2 w-[25.5px]`}></div> */}
-                                        {/* <div className={`${errors.length <= 1 ? 'border-[#ff0000]' : 'border-[#b0b0b0]'} border-b-2 w-[25.5px]`}></div> */}
-                                        {/* <div className={`${errors.length === 0 ? 'border-[#ff0000]' : 'border-[#b0b0b0]'} border-b-2 w-[25.5px]`}></div> */}
-                                        <div>{errors.length == 0 || password == '' ? <span className="text-[#B0B0B0]">Default</span> : errors.length == 3 ? <span className="text-[#ff0000]">Weak</span> : <span className="text-[#ff0000]">Strong</span>}</div>
+                                        <div className={`${errors.length === 0 && password !== '' ? 'border-[#008000]' : errors.length === 2 && password.length >= 8 ? 'border-[#FFD700]' : errors.length > 2 && password !== '' ? 'border-[#FF0000]' : 'border-[#B0B0B0]'} border-b-2 h-2 w-[20px]`}>
+                                        </div>
+                                        <div className={`${errors.length === 0 && password !== '' ? 'border-[#008000]' : errors.length === 2 && password.length >= 8 ? 'border-[#FFD700]' : errors.length > 2 && password !== '' ? 'border-[#FF0000]' : 'border-[#B0B0B0]'} border-b-2 h-2 w-[20px]`}></div>
+                                        <div className={`${errors.length === 0 && password !== '' ? 'border-[#008000]' : errors.length === 2 && password.length >= 8 ? 'border-[#FFD700]' : errors.length > 2 && password !== '' ? 'border-[#FF0000]' : 'border-[#B0B0B0]'} border-b-2 h-2 w-[20px]`}></div>
+                                        <div className={`${errors.length === 0 && password !== '' ? 'border-[#008000]' : errors.length === 2 && password.length >= 8 ? 'border-[#FFD700]' : errors.length > 2 && password !== '' ? 'border-[#FF0000]' : 'border-[#B0B0B0]'} border-b-2 h-2 w-[20px]`}></div>
                                     </div>
+
+                                    <div>
+                                        {errors.length === 0 && password !== '' ? (
+                                            <span className="text-[#008000]">Strong</span>
+                                        ) : errors.length === 2 && password.length >= 8 ? (
+                                            <span className="text-[#FFD700]">Medium</span>
+                                        ) : errors.length > 2 && password !== '' ? (
+                                            <span className="text-[#FF0000]">Weak</span>
+                                        ) : (
+                                            <span className="text-[#B0B0B0]">Default</span>
+                                        )}
+                                    </div>
+
                                 </div>
                             </div>
                         </>
