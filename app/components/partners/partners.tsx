@@ -1,10 +1,12 @@
 import { AppImages } from "@/lib/constants/app_images"
 import Image from "next/image"
+import '../../styles/partners.css';
+
 
 const Partners = () => {
   return (
-    <div className="flex flex-col mx-auto w-7/12 items-center justify-center text-center my-24">
-      <div className="flex flex-col space-y-2">
+    <div className="flex flex-col mx-auto w-full items-center justify-center text-center my-24">
+      <div className="flex flex-col space-y-2 md:w-[680px] mb-3">
         <div className='font-gameria text-vivd-lime-green-10 text-[32px]'>
           PARTNERS
         </div>
@@ -14,72 +16,52 @@ const Partners = () => {
       </div>
 
 
-     <div className="flex flex-col">
-     <div className="flex flex-row items-center justify-center space-x-6">
-        <Image
-          className="max-h-[36px]"
-          src={AppImages.solana}
-          width={175}
-          height={36}
-          alt=""
-          priority />
+      <div className="flex flex-col items-center">
+        <div className="grid grid-cols-2 md:grid-cols-5 items-center justify-center gap-x-20 w-10/12 m-auto">
+          <img
+            className="partner-images"
+            src={AppImages.solana}
+            alt="" />
 
-        <Image
-                  className="max-h-[28px]"
-          src={AppImages.google}
-          width={175}
-          height={28}
-          alt=""
-          priority />
+          <img
+            className="partner-images"
+            src={AppImages.google}
+            alt="" />
 
-        <Image
-                          className="max-h-[48px]"
-          src={AppImages.stripe}
-          width={175}
-          height={48}
-          alt=""
-          priority />
+          <img
+            className="partner-images"
+            src={AppImages.stripe}
+            alt="" />
 
-        <Image
-                                  className="max-h-[40px]"
-          src={AppImages.aws}
-          width={175}
-          height={40}
-          alt=""
-          priority />
+          <img
+            className="partner-images"
+            src={AppImages.aws}
+            alt="" />
 
-        <Image
-        
-          src={AppImages.epic}
-          width={175}
-          height={36}
-          alt=""
-          priority />
+          <img
+            className="partner-images"
+            src={AppImages.epic}
+            alt="" />
+
+          <img
+            className="partner-images"
+
+            src={AppImages.circleImage}
+            alt="" />
+
+          <img
+            className="partner-images"
+
+            src={AppImages.coinMarket}
+            alt="" />
+
+          <img
+            className="partner-images"
+
+            src={AppImages.galze}
+            alt="" />
+        </div>
       </div>
-
-      <div className="flex flex-row items-center justify-center space-x-6">
-        <Image
-          src={AppImages.circleImage}
-          width={175}
-          height={36}
-          alt=""
-          priority />
-
-        <Image
-          src={AppImages.coinMarket}
-          width={175}
-          height={36}
-          alt=""
-          priority />
-
-        <Image
-          src={AppImages.galze}
-          width={175}
-          height={36}
-          alt=""
-          priority />
-      </div>
-     </div>
     </div>
   )
 }
