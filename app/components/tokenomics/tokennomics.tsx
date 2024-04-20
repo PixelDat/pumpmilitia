@@ -134,14 +134,14 @@ const Tokenomics = () => {
                         let width = `w-${randWidth}/12`;
                         return (
                             <div key={`${index}-${item.color}`} className="justify-end flex">
-                                <div className={`flex flex-row justify-between border-s-8 leading-loose text-white bg-[#10130D66] ${item.width}  ${item.border_color}  rounded-lg mb-3 px-4 py-3`}>
+                                <div className={`flex flex-row justify-between border-s-8 w-full leading-loose text-white bg-[#10130D66] ${item.width}  ${item.border_color}  rounded-lg mb-3 px-4 py-3`}>
                                     <div>
                                         <p className="text-[14px]" ><span className={`${item.text_color}`}>{item.percent}% </span>{item.title}</p>
-                                        <p className="text-[12px] text-[#898989]">{item.text}</p>
+                                        <p className="text-[10px] md:text-[12px] text-[#898989]">{item.text}</p>
                                     </div>
                                     <div className="text-end">
                                         <p className="text-[14px] ">{'tokens'}</p>
-                                        <p className="text-[12px] text-[#898989]">{Number(item.token_amount).toLocaleString()}</p>
+                                        <p className="text-[10px] md:text-[12px] text-[#898989]">{Number(item.token_amount).toLocaleString()}</p>
                                     </div>
                                 </div>
                             </div>
