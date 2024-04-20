@@ -85,8 +85,6 @@ const Tokenomics = () => {
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
         },
-
-
     ]
     return (
         <div id="tokenomics" className="p-2 md:p-0 md:w-10/12 m-auto my-32">
@@ -117,15 +115,6 @@ const Tokenomics = () => {
                             height={535}
                             priority
                         />
-                        {/* <div className="border-dashed border h-[300px] w-[300px] rounded-full border-[#6E970D] p-10">
-                            <div className="relative rounded-full border-dashed  flex flex-row text-center justify-center item-center bg-[#10130D66] h-[227px] w-[227px]">
-                                <div className="top-[40%] absolute">
-                                    <p className="text-white">Total supply</p>
-                                    <p className="text-[#898989]">{Number(10000000000).toLocaleString()}</p>
-                                </div>
-
-                            </div>
-                        </div> */}
                     </div>
                 </div>
                 <div className="px-4 flex flex-col lg:w-6/12 justify-end">

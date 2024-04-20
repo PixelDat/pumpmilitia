@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import '../../styles/mine.css';
 import { KeyboardArrowLeftRounded, KeyboardArrowRightRounded } from "@mui/icons-material";
-
+import BlipNinja from '../blipninja/blip'
 
 const MinePump = () => {
   const [selectedItem, setSelectedItem] = useState(0);
@@ -55,21 +55,8 @@ const MinePump = () => {
 
         <div data-aos="fade-down-right" data-aos-duration="1000" className="flex flex-row justify-center items-start space-x-24">
           <div className="flex flex-col space-y-8 text-start max-w-[518px]">
-            <div className="mb-8" style={{ position: 'relative' }}>
 
-              <div className="loader">
-
-              </div>
-              <Image
-                style={{ position: 'absolute', top: -28, }}
-                src={"/svg/icon_logo_2.svg"}
-                width={69}
-                height={69}
-                alt=""
-                priority
-              />
-            </div>
-
+            <BlipNinja />
 
             {items.map((item: any, index: number) => {
               if (index !== selectedItem) {
@@ -142,18 +129,7 @@ const MinePump = () => {
 
         <div className="">
           <div className="flex flex-col text-start max-w-[518px]">
-            <div className="mx-4 mb-8" style={{ position: 'relative' }}>
-              <div className="loader">
-              </div>
-              <Image
-                style={{ position: 'absolute', top: -28, }}
-                src={"/svg/icon_logo_2.svg"}
-                width={69}
-                height={69}
-                alt=""
-                priority
-              />
-            </div>
+            <BlipNinja />
             {items.map((item: any, index: number) => {
               if (selectedItem == index) {
                 return (

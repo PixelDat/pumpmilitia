@@ -56,3 +56,14 @@
     background-size: 100%;
     transition: background 0s;
 }
+
+::placeholder {
+    color: #A5E314;
+    opacity: 1;
+    /* Firefox */
+}
+
+::-ms-input-placeholder {
+    /* Edge 12 -18 */
+    color: #A5E314;
+}
