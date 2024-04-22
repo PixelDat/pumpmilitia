@@ -128,7 +128,7 @@ export default function IndexPage() {
               {tasksCount.map((task, index) => {
                 let gradient = index % 2 != 0 ? 'bg-gradient-to-b' : 'bg-gradient-to-t';
                 return (
-                  <div className={`${gradient} from-[#A5E314]/50 to-black   p-0.5 rounded-3xl`}>
+                  <div className={`${gradient} from-[#A5E314]/50 to-black flex flex-row w-full justify-center p-0.5 rounded-3xl`}>
                     <div key={`${index}-${task}`} className="h-[261px] relative px-[34.7px] py-[13px] md:w-[231px] bg-black/80 rounded-3xl">
                       <h4 className="text-[45px] font-[500]">{task.number}</h4>
                       <p className="text-[17px]">{task.status}</p>
