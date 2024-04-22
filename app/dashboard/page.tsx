@@ -107,6 +107,32 @@ export default function IndexPage() {
           </div>
         </div>
 
+        <div className="px-20 pb-20">
+
+          <div>
+            <h4 className="font-gameria text-[24px] mb-3">CHECK FOR NEW TASKS DAILY</h4>
+          </div>
+
+          <div className="flex flex-row">
+            <div className="bg-[#A5E314] hover:bg-[#10130D] p-4 rounded-tl-2xl text-[#374C07] hover:text-[#EDF9D0]">
+              <h4 className="font-gameria text-[24px]">UNCOMPLETED TASK</h4>
+              <hr />
+              <p className="py-3">Perform the task below and win prizes.</p>
+            </div>
+            <div className="bg-[#10130D] hover:bg-[#A5E314] p-4 rounded-tr-2xl hover:text-[#374C07] text-[#EDF9D0]" >
+              <h4 className="font-gameria text-[24px]">COMPLETED TASK</h4>
+              <hr />
+              <p className="py-3">See all previously completed tasks here.</p>
+            </div>
+
+          </div>
+          <div className="h-[701px] w-full bg-[#10130D99] rounded-tr-3xl rounded-b-3xl">
+            <div>
+
+            </div>
+          </div>
+
+        </div>
       </div>
       <Faqs />
       <Footer />
