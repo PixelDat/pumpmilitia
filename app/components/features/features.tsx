@@ -10,7 +10,7 @@ gsap.registerPlugin(useGSAP);
 
 const Features = () => {
   useEffect(() => {
-    // AOS.init()
+    AOS.init()
   }, [])
   return (
     <div className="flex flex-col space-y-12 items-center justify-center w-10/12 md:w-7/12 mx-auto text-center mt-24">
