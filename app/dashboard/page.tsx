@@ -134,8 +134,6 @@ export default function IndexPage() {
                     <div key={`${index}-${task}`} className="h-[261px] relative px-[34.7px] py-[13px] w-full text-center md:text-start md:w-[231px] bg-black/80 rounded-3xl">
                       <h4 className="text-[45px] font-[500]">{task.number}</h4>
                       <p className="text-[17px]">{task.status}</p>
-
-
                       <Image
                         className="absolute bottom-[10px]"
                         src={task.image}
@@ -208,7 +206,7 @@ export default function IndexPage() {
                         </div>
                         <p>$PUMP: {task.reward}</p>
                       </div>
-                      <div>
+                      <div className="flex flex-row items-center gap-4 justify-center">
                         <button className="flex flex-row items-center gap-2 bg-[#A5E314] p-3 rounded-xl text-[#10130D]"> <Image
                           src={task.icon}
                           width={10}
@@ -221,8 +219,7 @@ export default function IndexPage() {
                             className=""
                             onChange={(e) => { }}
                             sx={{ marginBottom: '10px' }}
-                            label="Password"
-                            placeholder="Enter password"
+                            placeholder="Enter username"
                             type={"text"}
                             addOnStart={<Person2Rounded color="inherit" />}
                             addOnEnd={<button onClick={() => { }} className="text-[#E1F6B1]" >Continue </button>}
