@@ -147,27 +147,27 @@ export default function IndexPage() {
           </div>
         </div>
         {/* Task Feature */}
-        <div className="px-20 pb-20">
+        <div className="px-3 md:px-20 pb-20">
           <div>
-            <h4 className="font-gameria text-[24px] mb-3">CHECK FOR NEW TASKS DAILY</h4>
+            <h4 className="font-gameria text-[24px] text-center md:text-start mb-3">CHECK FOR NEW TASKS DAILY</h4>
           </div>
 
           <div className="flex flex-row">
             <div style={{ cursor: 'pointer' }} onClick={() => setCompletedTask(false)} className="bg-[#A5E314] hover:bg-[#10130D] p-4 rounded-tl-2xl text-[#374C07] hover:text-[#EDF9D0]">
-              <h4 className="font-gameria text-[24px]">UNCOMPLETED TASK</h4>
+              <h4 className="font-gameria text-[14px] md:text-[24px]">UNCOMPLETED TASK</h4>
               <hr />
-              <p className="py-3">Perform the task below and win prizes.</p>
+              <p className="py-1 md:py-3 text-[10px] text-[14px]">Perform the task below and win prizes.</p>
             </div>
             <div style={{ cursor: 'pointer' }} onClick={() => setCompletedTask(true)} className="bg-[#10130D] hover:bg-[#A5E314] p-4 rounded-tr-2xl hover:text-[#374C07] text-[#EDF9D0]" >
-              <h4 className="font-gameria text-[24px]">COMPLETED TASK</h4>
+              <h4 className="font-gameria text-[14px] md:text-[24px]">COMPLETED TASK</h4>
               <hr />
-              <p className="py-3">See all previously completed tasks here.</p>
+              <p className="py-1 md:py-3 text-[10px] text-[14px]">See all previously completed tasks here.</p>
             </div>
 
           </div>
           {
             completedTask ?
-              <div className="h-[701px] flex justify-center items-center m-auto w-full bg-[#10130D99] rounded-tr-3xl rounded-b-3xl">
+              <div className="h-[701px] flex justify-center items-center m-auto w-full bg-[#10130D99] md:rounded-tr-3xl rounded-b-3xl">
                 <div>
                   <Image
                     src={'/images/emptystate.png'}
@@ -179,6 +179,7 @@ export default function IndexPage() {
                 </div>
               </div>
               :
+              // Items in the task
               <div className="h-[701px] m-auto w-full  overflow-y-scroll bg-[#10130D99] rounded-tr-3xl rounded-b-3xl">
                 {tasks.map((task, index) => {
                   return (
@@ -204,6 +205,13 @@ export default function IndexPage() {
                         <p>$PUMP: {task.reward}</p>
                       </div>
                       <div>
+                        <button className="flex flex-row items-center gap-2 bg-[#A5E314] p-3 rounded-xl text-[#10130D]"> <Image
+                          src={task.icon}
+                          width={10}
+                          height={10}
+                          priority
+                          alt="" /> Follow</button>
+
 
                       </div>
                     </div>
