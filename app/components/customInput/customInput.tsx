@@ -14,7 +14,7 @@ interface CustomInputProps {
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({ type, className, error, onChange, label, addOnStart, addOnEnd, sx, placeholder, disabled }) => {
-    let color = disabled ? 'border-[#757A6F] blur-[2px]' : error ? 'border-[#757A6F]' : 'border-[#A5E314] ';
+    let color = disabled ? 'border-[#757A6F] blur-[2px]' : error == true ? 'border-[#ff0000]' : error == false ? 'border-[#A5E314] ' : 'border-[#52594B]';
     return (
         <div style={sx}>
             {label && <label className='text-[#898989] font-normal '>

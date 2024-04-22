@@ -71,7 +71,10 @@ export default function VerifyEmail() {
                             </div>
 
                             <div className="mt-10">
-                                <button onClick={() => setError(!error)} className="navbar-auth-btn w-full">Proceed</button>
+                                <button onClick={() => {
+                                    setError(true)
+                                    setSuccess(false);
+                                }} className="navbar-auth-btn w-full">Proceed</button>
                             </div>
                         </>
                     }
