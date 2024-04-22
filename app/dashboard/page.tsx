@@ -6,6 +6,8 @@ import Footer from "../components/footer/footer";
 import NavBar from "../components/navbar/navbar";
 import { Avatar } from "@mui/material";
 import Image from "next/image";
+import CustomInput from "../components/customInput/customInput";
+import { People, Person, Person2Rounded } from "@mui/icons-material";
 
 export default function IndexPage() {
   let tasksCount = [
@@ -132,6 +134,8 @@ export default function IndexPage() {
                     <div key={`${index}-${task}`} className="h-[261px] relative px-[34.7px] py-[13px] w-full text-center md:text-start md:w-[231px] bg-black/80 rounded-3xl">
                       <h4 className="text-[45px] font-[500]">{task.number}</h4>
                       <p className="text-[17px]">{task.status}</p>
+
+
                       <Image
                         className="absolute bottom-[10px]"
                         src={task.image}
@@ -212,7 +216,18 @@ export default function IndexPage() {
                           priority
                           alt="" /> Follow</button>
 
-
+                        <div>
+                          <CustomInput
+                            className=""
+                            onChange={(e) => { }}
+                            sx={{ marginBottom: '10px' }}
+                            label="Password"
+                            placeholder="Enter password"
+                            type={"text"}
+                            addOnStart={<Person2Rounded color="inherit" />}
+                            addOnEnd={<button onClick={() => { }} className="text-[#E1F6B1]" >Continue </button>}
+                          />
+                        </div>
                       </div>
                     </div>
                   )
