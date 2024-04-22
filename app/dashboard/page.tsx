@@ -60,43 +60,46 @@ export default function IndexPage() {
               <h1 className="font-gameria text-[32px] mb-[24px]">$PUMP BALANCE</h1>
             </div>
 
-            <div style={{
-              background: ""
-            }}
-              className="h-[261px] relative w-[411px] px-[24.8px] py-[24px] space-y-4  rounded-3xl">
-              <p className="text-[15px] font-[300]">Your balance today</p>
-              <h4 className="text-[45px] font-gameria font-[500]">22,550,200</h4>
-              <Image
-                className="absolute top-[10px] right-[20px]"
-                src={'/images/coins.png'}
-                width={80}
-                height={80}
-                priority
-                alt="" />
+            <div className="bg-gradient-to-r from-[#A5E314]/50 to-black   p-0.5 rounded-3xl">
+              <div className="h-[261px] relative w-[411px] bg-black/80 px-[24.8px] py-[24px] space-y-4  rounded-3xl">
+                <p className="text-[15px] font-[300]">Your balance today</p>
+                <h4 className="text-[45px] font-gameria font-[500]">22,550,200</h4>
+                <Image
+                  className="absolute top-[10px] right-[20px]"
+                  src={'/images/coins.png'}
+                  width={80}
+                  height={80}
+                  priority
+                  alt="" />
 
-              <div>
-                <a href="/withdraw" className="navbar-auth-btn">Withdraw</a>
+                <div>
+                  <a href="/withdraw" className="navbar-auth-btn">Withdraw</a>
+                </div>
+
+                <p className="text-[15px] font-[300]">Claim or stake tokens at TGE</p>
+
               </div>
-
-              <p className="text-[15px] font-[300]">Claim or stake tokens at TGE</p>
-
             </div>
+
           </div>
           <div className="basis-3/4">
             <h1 className="font-gameria text-[24px] mb-[24px] text-start">YOUR TASK</h1>
             <div className="flex flex-row gap-x-14 pt-3">
               {tasksCount.map((task, index) => {
+                let gradient = index % 2 != 0 ? 'bg-gradient-to-b' : 'bg-gradient-to-t';
                 return (
-                  <div key={`${index}-${task}`} className="h-[261px] px-[34.7px] py-[13px] w-[231px] border border-white rounded-3xl">
-                    <h4 className="text-[45px] font-[500]">{task.number}</h4>
-                    <p className="text-[17px]">{task.status}</p>
-                    <Image
-                      className="absolute bottom-[126px]"
-                      src={task.image}
-                      width={100}
-                      height={100}
-                      priority
-                      alt="" />
+                  <div className={`${gradient} from-[#A5E314]/50 to-black   p-0.5 rounded-3xl`}>
+                    <div key={`${index}-${task}`} className="h-[261px] px-[34.7px] py-[13px] w-[231px] bg-black/80 rounded-3xl">
+                      <h4 className="text-[45px] font-[500]">{task.number}</h4>
+                      <p className="text-[17px]">{task.status}</p>
+                      <Image
+                        className="absolute bottom-[126px]"
+                        src={task.image}
+                        width={100}
+                        height={100}
+                        priority
+                        alt="" />
+                    </div>
                   </div>
                 )
               })}
