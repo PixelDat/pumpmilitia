@@ -78,14 +78,16 @@ export default function IndexPage() {
               <div className="flex flex-row absolute w-full top-[-60px] justify-center">
                 <Image
                   className=""
-                  src={'/images/deposit/pumpdep.png'}
-                  width={299}
+                  src={'/images/deposit/pumpwit.png'}
+                  width={392}
                   height={112}
                   priority
                   alt="" />
               </div>
-              <div className="w-8/12 m-auto">
-                <p className="text-[16px] pt-10 text-center">Simply deposit from your wallet to fund your Pump Militia account and let the fun begin.</p>
+              <div className="w-10/12 m-auto">
+                <p className="text-[16px] pt-8 text-center">
+                  Swap your in-game coins for $PUMP tokens and unlock a whole new level of value in your gaming experience.
+                </p>
               </div>
 
               <div className="bg-[#20251a] h-[336px] space-y-6 rounded-3xl text-[] p-6">
