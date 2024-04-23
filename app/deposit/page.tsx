@@ -24,7 +24,7 @@ export default function IndexPage() {
   return (
     <div className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
       <NavBar />
-      <div className="pt-40 mb-10 w-11/12 m-auto text-[#EDF9D0] font-kanit">
+      <div className="pt-[75px] mb-10 w-11/12 m-auto text-[#EDF9D0] font-kanit">
         <div className="flex flex-col md:flex-row gap-10 items-end">
           <div className="basis-1/2 order-2 md:order-1 space-y-4">
             <div className="">
