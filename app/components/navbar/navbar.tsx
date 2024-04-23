@@ -17,6 +17,8 @@ const NavBar = () => {
           priority
         />
 
+
+
         <div className="font-gameria text-vivd-lime-green-10 text-[24px] nav-pump-text">
           PUMP MILLITIA
         </div>
