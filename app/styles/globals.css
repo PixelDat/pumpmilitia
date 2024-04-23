@@ -40,7 +40,6 @@
     transition: background 0s;
 }
 
-
 .normal_btn {
     border-radius: 12px;
     padding: 3px 40px;
@@ -76,9 +75,7 @@
     transition: background 0s;
 }
 
-/* .component_btn_transparent{
 
-} */
 
 .component_btn_transparent:hover {
     background: #52711b radial-gradient(circle, transparent 10%, #a5e440 1%) bottom center/15000%;
