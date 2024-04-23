@@ -22,18 +22,18 @@ export default function IndexPage() {
 
   const [completedTask, setCompletedTask] = useState(false)
   return (
-    <div className="bg-cover bg-center overflow-hidden bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
+    <div className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
       <NavBar />
       <div className="pt-40 mb-10 w-11/12 m-auto text-[#EDF9D0] font-kanit">
-        <div className="flex flex-row gap-10 items-end">
-          <div className="basis-1/2 space-y-4">
+        <div className="flex flex-col md:flex-row gap-10 items-end">
+          <div className="basis-1/2 order-2 md:order-1 space-y-4">
             <div className="">
-              <div className="flex flex-col gap-y-5 md:flex-row md:gap-x-5 pt-3">
+              <div className="flex gap-y-5 flex-row gap-x-5 pt-3">
                 {tasksCount.map((task, index) => {
-                  let gradient = index % 2 != 0 ? 'bg-gradient-to-t md:bg-gradient-to-b' : 'bg-gradient-to-t';
+                  let gradient = index % 2 != 0 ? 'bg-gradient-to-l md:bg-gradient-to-b' : 'bg-gradient-to-r md:bg-gradient-to-t';
                   return (
                     <div className={`${gradient} basis-1/2 from-[#A5E314]/50 to-black flex flex-row justify-center p-0.5 rounded-3xl`}>
-                      <div key={`${index}-${task}`} className="h-[261px] relative px-[34.7px] py-[13px] w-full text-center space-y-2 md:text-start md:w-full bg-black/80 rounded-3xl">
+                      <div key={`${index}-${task}`} className="h-[261px] relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] w-full space-y-2 text-start md:w-full bg-black/80 rounded-3xl">
                         <div className="flex flex-row justify-center md:justify-start">
                           <Image
                             className=""
@@ -43,8 +43,8 @@ export default function IndexPage() {
                             priority
                             alt="" />
                         </div>
-                        <h4 className="text-[24px] font-gameria font-[500]">{task.title}</h4>
-                        <p className="text-[16px]">{task.subtitle}</p>
+                        <h4 className="text-[14px] md:text-[24px] font-gameria font-[500]">{task.title}</h4>
+                        <p className="text-[12px] md:text-[16px]">{task.subtitle}</p>
                       </div>
                     </div>
                   )
@@ -71,21 +71,44 @@ export default function IndexPage() {
             </div>
 
           </div>
-          <div className="basis-1/2 relative text-black ">
+          <div className="basis-1/2  order-1  md:order-2 relative text-black ">
+            <div className="relative">
 
-            <div className="bg-[#D2F189] rounded-2xl h-[485px] space-y-2 p-6">
-
-              <div className="flex flex-row absolute w-full top-[-60px] justify-center">
+              <div className="flex flex-row justify-center">
                 <Image
-                  className=""
+                  className="md:hidden"
+                  src={'/images/deposit/military.png'}
+                  width={297}
+                  height={264}
+                  priority
+                  alt="" />
+              </div>
+              <div className="flex flex-row absolute w-full bottom-[-40px] md:top-[-60px] justify-center">
+                <Image
+                  className="hidden md:inline"
                   src={'/images/deposit/pumpdep.png'}
                   width={299}
                   height={112}
                   priority
                   alt="" />
+                <Image
+                  className="md:hidden"
+                  src={'/images/deposit/pumpdep.png'}
+                  width={209}
+                  height={112}
+                  priority
+                  alt="" />
               </div>
-              <div className="w-8/12 m-auto">
-                <p className="text-[16px] pt-10 text-center">Simply deposit from your wallet to fund your Pump Militia account and let the fun begin.</p>
+            </div>
+
+
+            <div className="bg-[#D2F189] rounded-2xl h-[465px] md:h-[485px] space-y-2 p-2 md:p-6">
+
+
+              <div className="w-10/12 m-auto">
+                <p className="text-[14px] md:text-[16px] pt-8 text-center">
+                  Swap your in-game coins for $PUMP tokens and unlock a whole new level of value in your gaming experience.
+                </p>
               </div>
 
               <div className="bg-[#20251a] h-[336px] space-y-6 rounded-3xl text-[] p-6">
@@ -93,16 +116,16 @@ export default function IndexPage() {
 
                 <div className="flex flex-row justify-between items-center">
                   <div>
-                    <div className="flex flex-row items-center gap-4">
-                      <div className="text-[#EDF9D0] text-[16px]">
+                    <div className="flex flex-row items-center gap-2 md:gap-4">
+                      <div className="text-[#EDF9D0] text-[14px] md:text-[16px]">
                         $PUMP
                       </div>
-                      <div className="text-[#EDF9D0] font-gameria text-[24px]">
+                      <div className="text-[#EDF9D0] font-gameria text-[16px] md:text-[24px]">
                         MAIN-NET
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[24px]">099998</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">099998</span></p>
                     </div>
                   </div>
 
@@ -116,15 +139,15 @@ export default function IndexPage() {
 
                   <div>
                     <div className="flex flex-row items-center gap-4">
-                      <div className="text-[#EDF9D0] text-[16px]">
+                      <div className="text-[#EDF9D0] text-[14px] md:text-[16px]">
                         $PUMP
                       </div>
-                      <div className="text-[#EDF9D0] font-gameria text-[24px]">
+                      <div className="text-[#EDF9D0] font-gameria text-[16px] md:text-[24px]">
                         IN-GAME
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[24px]">099998</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">099998</span></p>
                     </div>
                   </div>
                 </div>
