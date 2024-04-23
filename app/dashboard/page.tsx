@@ -187,6 +187,7 @@ export default function IndexPage() {
                   </div>
                 </div>
                 :
+
                 // Items in the task
                 <div className="  m-auto w-full  rounded-tr-3xl rounded-b-3xl">
                   {tasks.map((task, index) => {
