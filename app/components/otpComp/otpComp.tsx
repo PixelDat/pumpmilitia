@@ -39,9 +39,8 @@ const OtpComp: React.FC<OtpInputProps> = ({ error, success }) => {
             let newFilled = pastedData.split('').slice(0, 6);
             setFilled(newFilled);
 
-            // Update input values
             newFilled.forEach((val: any, index: number) => {
-                inputRefs.current[index].value = val;
+                (inputRefs.current[index] as HTMLInputElement).value = val;
             });
         }
     }
@@ -53,7 +52,7 @@ const OtpComp: React.FC<OtpInputProps> = ({ error, success }) => {
                     {filled.map((val: any, index: number) => (
                         <input
                             key={index}
-                            ref={(el: HTMLInputElement) => (inputRefs.current[index] = el)}
+                            ref={(el: HTMLInputElement) => ((inputRefs.current[index] as HTMLInputElement) = el)}
                             value={val}
                             onChange={(e) => handleInput(e, index)}
                             onPaste={handlePaste}
