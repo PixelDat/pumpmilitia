@@ -1,13 +1,10 @@
 "use client"
 import { useEffect, useState } from "react";
-import Hero from "../components/hero/hero";
-import Faqs from "../components/faqs/faqs";
-import Footer from "../components/footer/footer";
 import NavBar from "../components/navbar/navbar";
-import { Avatar } from "@mui/material";
 import Image from "next/image";
+import '../styles/footer.css';
 import CustomInput from "../components/customInput/customInput";
-import { People, Person, Person2Rounded } from "@mui/icons-material";
+
 
 export default function IndexPage() {
   let tasksCount = [
@@ -25,10 +22,10 @@ export default function IndexPage() {
 
   const [completedTask, setCompletedTask] = useState(false)
   return (
-    <div className="bg-cover bg-center overflow-hidden bg-[url('/images/deposit/depbag.png')] h-screen w-full">
+    <div className="bg-cover bg-center overflow-hidden bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
       <NavBar />
-      <div className="pt-64 w-11/12 m-auto text-[#EDF9D0] font-kanit">
-        <div className="flex flex-row gap-8 items-end">
+      <div className="pt-60 mb-10 w-11/12 m-auto text-[#EDF9D0] font-kanit">
+        <div className="flex flex-row gap-32 items-end">
           <div className="basis-1/2 space-y-4">
             <div className="">
               <div className="flex flex-col gap-y-10 md:flex-row md:gap-x-5 pt-3">
@@ -74,9 +71,9 @@ export default function IndexPage() {
             </div>
 
           </div>
-          <div className="basis-1/2 relative text-black">
+          <div className="basis-1/2 relative text-black ">
 
-            <div className="bg-[#D2F189] rounded-2xl h-[485px] p-4">
+            <div className="bg-[#D2F189] rounded-2xl h-[485px] space-y-2 p-6">
 
               <div className="flex flex-row absolute w-full top-[-60px] justify-center">
                 <Image
@@ -91,7 +88,71 @@ export default function IndexPage() {
                 <p className="text-[16px] pt-10 text-center">Simply deposit from your wallet to fund your Pump Militia account and let the fun begin.</p>
               </div>
 
-              <div className="bg-[#20251a]">
+              <div className="bg-[#20251a] h-[336px] space-y-6 rounded-3xl text-[] p-6">
+
+
+                <div className="flex flex-row justify-between items-center">
+                  <div>
+                    <div className="flex flex-row items-center gap-4">
+                      <div className="text-[#EDF9D0] text-[16px]">
+                        $PUMP
+                      </div>
+                      <div className="text-[#EDF9D0] font-gameria text-[24px]">
+                        MAIN-NET
+                      </div>
+                    </div>
+                    <div className="text-end">
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[24px]">099998</span></p>
+                    </div>
+                  </div>
+
+                  <Image
+                    className=""
+                    src={'/images/deposit/arrow.png'}
+                    width={40}
+                    height={40}
+                    priority
+                    alt="" />
+
+                  <div>
+                    <div className="flex flex-row items-center gap-4">
+                      <div className="text-[#EDF9D0] text-[16px]">
+                        $PUMP
+                      </div>
+                      <div className="text-[#EDF9D0] font-gameria text-[24px]">
+                        IN-GAME
+                      </div>
+                    </div>
+                    <div className="text-end">
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[24px]">099998</span></p>
+                    </div>
+                  </div>
+                </div>
+                <CustomInput
+                  addOnStart={<Image
+                    className=""
+                    src={'/images/deposit/pumpcoin.png'}
+                    width={32}
+                    height={32}
+                    priority
+                    alt="" />}
+                  type="text"
+                  placeholder="Enter amount to deposit"
+                />
+
+                <div className="flex flex-row space-x-4 w-full mt-8">
+                  <button className="bg-vivd-lime-green w-full component_btn px-6 py-2 shadow-sm rounded-xl shadow-white">
+                    Connect
+                  </button>
+
+                  <button className="px-6 py-2 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                    Deposit
+                  </button>
+                </div>
+
+                <button className="px-6 py-3 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                  Buy from Raydium
+                </button>
 
               </div>
             </div>
@@ -100,8 +161,11 @@ export default function IndexPage() {
         </div>
 
       </div>
-      {/* <Faqs /> */}
-      {/* <Footer /> */}
+      <div className="underBorder "></div>
+
+      <div className='font-sans w-7/12 m-auto text-vivd-lime-green-10 my-5 text-sm text-center'>
+        All rights reserved, ©2024. Brought to you by Pump Millitia.
+      </div>
     </div>
   )
 }
