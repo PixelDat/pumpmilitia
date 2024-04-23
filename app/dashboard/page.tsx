@@ -72,9 +72,9 @@ export default function IndexPage() {
   ]
   const [completedTask, setCompletedTask] = useState(false)
   return (
-    <div className="bg-cover bg-[url('/images/dashboardbg.png')] h-full w-full">
+    <div className="bg-contain bg-[url('/images/dashboardbg.png')] h-full w-full">
       <NavBar />
-      <div className="pt-28 text-[#EDF9D0] font-kanit">
+      <div className="pt-28 w-11/12 m-auto text-[#EDF9D0] font-kanit">
         {/* Dashboard airdrop and avatar */}
         <div className="p-4 md:p-20 ">
           <div className="flex flex-col md:flex-row justify-between items-center">
@@ -97,7 +97,7 @@ export default function IndexPage() {
         </div>
 
         {/* Dashboard Items */}
-        <div className="md:flex  md:flex-row  md:gap-x-14 px-4 md:px-20  pb-20  items-start justify-between">
+        <div className="md:flex  md:flex-row  md:gap-x-14 px-4 md:w-11/12 m-auto  pb-20  items-start justify-between">
           <div className="basis-1/4">
             <div >
               <h1 className="font-gameria text-[32px] mb-[24px]">$PUMP BALANCE</h1>
@@ -126,21 +126,23 @@ export default function IndexPage() {
           </div>
           <div className="basis-3/4">
             <h1 className="font-gameria text-[24px] mb-[24px] text-start md:text-start">YOUR TASK</h1>
-            <div className="flex flex-col gap-y-10 md:flex-row md:gap-x-14 pt-3">
+            <div className="flex flex-col gap-y-10 md:flex-row md:gap-x-5 pt-3">
               {tasksCount.map((task, index) => {
-                let gradient = index % 2 != 0 ? 'bg-gradient-to-b' : 'bg-gradient-to-t';
+                let gradient = index % 2 != 0 ? 'bg-gradient-to-t md:bg-gradient-to-b' : 'bg-gradient-to-t';
                 return (
-                  <div className={`${gradient} from-[#A5E314]/50 to-black flex flex-row justify-center p-0.5 rounded-3xl`}>
-                    <div key={`${index}-${task}`} className="h-[261px] relative px-[34.7px] py-[13px] w-full text-center md:text-start md:w-[231px] bg-black/80 rounded-3xl">
+                  <div className={`${gradient} basis-1/3 from-[#A5E314]/50 to-black flex flex-row justify-center p-0.5 rounded-3xl`}>
+                    <div key={`${index}-${task}`} className="h-[261px] relative px-[34.7px] py-[13px] w-full text-center md:text-start md:w-full bg-black/80 rounded-3xl">
                       <h4 className="text-[45px] font-[500]">{task.number}</h4>
                       <p className="text-[17px]">{task.status}</p>
-                      <Image
-                        className="absolute bottom-[10px]"
-                        src={task.image}
-                        width={100}
-                        height={100}
-                        priority
-                        alt="" />
+                      <div className="flex flex-row justify-center md:justify-start">
+                        <Image
+                          className="absolute bottom-[10px]"
+                          src={task.image}
+                          width={100}
+                          height={100}
+                          priority
+                          alt="" />
+                      </div>
                     </div>
                   </div>
                 )
@@ -150,89 +152,108 @@ export default function IndexPage() {
         </div>
         {/* Task Feature */}
         <div className="px-3 md:px-20 pb-20">
-          <div>
-            <h4 className="font-gameria text-[24px] text-center md:text-start mb-3">CHECK FOR NEW TASKS DAILY</h4>
-          </div>
 
-          <div className="flex flex-row">
-            <div style={{ cursor: 'pointer' }} onClick={() => setCompletedTask(false)} className="bg-[#A5E314] hover:bg-[#10130D] p-4 rounded-tl-2xl text-[#374C07] hover:text-[#EDF9D0]">
-              <h4 className="font-gameria text-[14px] md:text-[24px]">UNCOMPLETED TASK</h4>
-              <hr />
-              <p className="py-1 md:py-3 text-[10px] text-[14px]">Perform the task below and win prizes.</p>
+          <div className="w-full m-auto">
+            <div>
+              <h4 className="font-gameria text-[24px] text-center md:text-start mb-3">CHECK FOR NEW TASKS DAILY</h4>
             </div>
-            <div style={{ cursor: 'pointer' }} onClick={() => setCompletedTask(true)} className="bg-[#10130D] hover:bg-[#A5E314] p-4 rounded-tr-2xl hover:text-[#374C07] text-[#EDF9D0]" >
-              <h4 className="font-gameria text-[14px] md:text-[24px]">COMPLETED TASK</h4>
-              <hr />
-              <p className="py-1 md:py-3 text-[10px] text-[14px]">See all previously completed tasks here.</p>
-            </div>
-
-          </div>
-          {
-            completedTask ?
-              <div className="h-[701px] flex justify-center items-center m-auto w-full bg-[#10130D99] md:rounded-tr-3xl rounded-b-3xl">
-                <div>
-                  <Image
-                    src={'/images/emptystate.png'}
-                    width={571}
-                    height={363}
-                    priority
-                    alt="" />
-                  <h4 className="text-[24px] font-bold text-center">You do not have any completed task yet</h4>
-                </div>
+            <div className="flex flex-row">
+              <div style={{ cursor: 'pointer' }} onClick={() => setCompletedTask(false)} className="bg-[#A5E314] hover:bg-[#10130D] p-4 rounded-tl-2xl text-[#374C07] hover:text-[#EDF9D0]">
+                <h4 className="font-gameria text-[14px] md:text-[24px]">UNCOMPLETED TASK</h4>
+                <hr />
+                <p className="py-1 md:py-3 text-[10px] text-[14px]">Perform the task below and win prizes.</p>
               </div>
-              :
-              // Items in the task
-              <div className="h-[701px] m-auto w-full  overflow-y-scroll bg-[#10130D99] rounded-tr-3xl rounded-b-3xl">
-                {tasks.map((task, index) => {
-                  return (
-                    <div key={`${index}-${task}`} className="flex flex-row p-[24px] items-center gap-8">
-                      <Image
-                        src={task.image}
-                        width={272}
-                        height={82}
-                        priority
-                        alt="" />
-                      <div>
-                        <div className="flex flex-row gap-8 items-center">
-                          <h4 className="text-[25px] font-gameria text-center">{task.title}</h4>
-                          <div>
+
+              <div>
+                <div style={{ cursor: 'pointer' }} onClick={() => setCompletedTask(true)} className="bg-[#10130D] hover:bg-[#A5E314] p-4 rounded-tr-2xl hover:text-[#374C07] text-[#EDF9D0]" >
+                  <h4 className="font-gameria text-[14px] md:text-[24px]">COMPLETED TASK</h4>
+                  <hr />
+                  <p className="py-1 md:py-3 text-[10px] text-[14px]">See all previously completed tasks here.</p>
+                </div>
+
+              </div>
+            </div>
+            {
+              completedTask ?
+                <div className="h-[701px] flex justify-center items-center m-auto w-full bg-[#10130D99] md:rounded-tr-3xl rounded-b-3xl">
+                  <div>
+                    <Image
+                      src={'/images/emptystate.png'}
+                      width={571}
+                      height={363}
+                      priority
+                      alt="" />
+                    <h4 className="text-[24px] font-bold text-center">You do not have any completed task yet</h4>
+                  </div>
+                </div>
+                :
+                // Items in the task
+                <div className="  m-auto w-full  rounded-tr-3xl rounded-b-3xl">
+                  {tasks.map((task, index) => {
+                    return (
+                      <div key={`${index}-${task}`} className="md:flex  bg-[#10130D99] hover:scale-x-105 space-y-5 flex-row p-[24px] justify-between items-center gap-8">
+                        <div className="flex flex-row items-center justify-center md:justify-between gap-x-4">
+                          <div className="hidden md:inline">
                             <Image
-                              src={task.icon}
-                              width={20}
-                              height={20}
+                              className="m-auto "
+                              src={task.image}
+                              width={272}
+                              height={82}
                               priority
                               alt="" />
                           </div>
+                          <div className="md:hidden">
+                            <Image
+                              className="m-auto "
+                              style={{ objectFit: 'cover' }}
+                              src={'/images/smallScreentask.png'}
+                              width={53}
+                              height={53}
+                              priority
+                              alt="" />
+                          </div>
+                          <div>
+                            <div className="flex flex-row gap-8 items-center">
+                              <h4 className="text-[14px] md:text-[25px] font-gameria text-center">{task.title}</h4>
+                              <div>
+                                <Image
+                                  src={task.icon}
+                                  width={20}
+                                  height={20}
+                                  priority
+                                  alt="" />
+                              </div>
+                            </div>
+                            <p className="text-[#C3EC62] font-bold">$PUMP: {task.reward}</p>
+                          </div>
                         </div>
-                        <p>$PUMP: {task.reward}</p>
-                      </div>
-                      <div className="flex flex-row items-center gap-4 justify-center">
-                        <button className="flex flex-row items-center gap-2 bg-[#A5E314] p-3 rounded-xl text-[#10130D]"> <Image
-                          src={task.icon}
-                          width={10}
-                          height={10}
-                          priority
-                          alt="" /> Follow</button>
-
-                        <div>
-                          <CustomInput
-                            className=""
-                            onChange={(e) => { }}
-                            sx={{ marginBottom: '10px' }}
-                            placeholder="Enter username"
-                            type={"text"}
-                            addOnStart={<Person2Rounded color="inherit" />}
-                            addOnEnd={<button onClick={() => { }} className="text-[#E1F6B1]" >Continue </button>}
-                          />
+                        <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
+                          <button className="flex flex-row items-center gap-2 bg-[#A5E314] p-3 rounded-xl text-[#10130D]"> <Image
+                            src={task.icon}
+                            width={10}
+                            height={10}
+                            priority
+                            alt="" /> Follow</button>
+                          <div>
+                            <CustomInput
+                              className=""
+                              onChange={(e) => { }}
+                              sx={{ marginBottom: '10px', }}
+                              placeholder="Enter username"
+                              type={"text"}
+                              addOnStart={<Person2Rounded color="inherit" className="border rounded-full" />}
+                              addOnEnd={<button onClick={() => { }} className="text-[#E1F6B1]" >Continue </button>}
+                            />
+                          </div>
                         </div>
+                        {/* <hr /> */}
                       </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })}
 
-              </div>
-          }
-
+                </div>
+            }
+          </div>
 
         </div>
       </div>
