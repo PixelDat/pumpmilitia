@@ -45,12 +45,20 @@ export default function TimerCount() {
     startCountdown();
     return (
         <div id="timerDiv" className='flex relative flex-row border border-[#A5E314] bg-[#10130DBF] h-[89px] py-4 rounded-3xl  mb-5  items-center justify-center timerDiv'>
-            <div className='absolute justify-left w-full top-[-30px]'>
+            <div className='absolute flex justify-between items-center w-full top-[-35px]'>
                 <Image
                     className="max-h-[120px]"
                     src={'/images/deposit/military.png'}
                     width={130}
                     height={120}
+                    priority
+                    alt="" />
+
+                <Image
+                    className="right-[25px]"
+                    src={'/images/coins.png'}
+                    width={129}
+                    height={129}
                     priority
                     alt="" />
             </div>

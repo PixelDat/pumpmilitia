@@ -14,6 +14,7 @@ import CustomButton from "../components/buttons/customButton";
 import Image from "next/image";
 import NavBar from "../components/navbar/navbar";
 import TimerCount from "../components/timerComponent/timer";
+import CustomInput from "../components/customInput/customInput";
 
 export default function Presale() {
   return (
@@ -27,7 +28,6 @@ export default function Presale() {
 
             <div className="w-10/12 m-auto pt-36">
               <div className="border pt-20 px-5 pb-10 relative bg-[#10130DB2] font-kanit text-[#EDF9D0] rounded-2xl ">
-
                 <div className="flex flex-row absolute top-[-65px]  w-full justify-center">
                   <Image
                     className="justify-center items-center  inline-flex max-w-[299px] max-h-[112px]"
@@ -131,79 +131,57 @@ export default function Presale() {
                       <TimerCount />
 
                     </div>
-
                     <div className="basis-1/2 rounded-2xl p-4 h-[316px] border bg-[#282F20E9] presaleGradient">
                       <div className="flex flex-row items-center justify-between">
                         <p>Pay with <span className="text-[#C3EC62] text-[24px] font-gameria mx-3">SOL</span> <span className="text-[#757A6F] text-[10px]">  Min buy 0.6</span></p>
                         <p>Receive <span className="text-[#C3EC62] text-[24px] font-gameria">$PUMP</span></p>
                       </div>
 
-                      <div className="space-y-2 mb-5">
-                        <p>Purchased $PUMP Balance</p>
-                        <p className="font-digital font-300 text-[48px]">$0.0089</p>
-                        <p>One token, Endless possibilities. Purchased token would be available for claim at TGE.</p>
-                        <div className="flex flex-row ">
-                          <p><span>Starts:</span>  15/05/2024 (12:00 UTC)</p>
-                          <p><span>Ends:</span> 16/05/2024 (12:00 UTC)</p>
-                        </div>
-                      </div>
-
-                      {/* Social Icons and Total Prices  */}
-                      <div className="flex flex-row justify-between">
-                        <div className="flex mb-4 flex-row md:justify-start justify-center items-start space-x-4">
-                          <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/twitter.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
-
-                          <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/telegram.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
-
-                          <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/discord.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
-
-                          <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/tiktok.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
-
-                          <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/youtube.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
-
-                          <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/medium.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
-
+                      <div className="space-y-8 mb-5">
+                        <div className="flex flex-row gap-4">
+                          <CustomInput
+                            className=""
+                            // onChange={(e) => setPassword(e.target.value)}
+                            sx={{ marginBottom: '10px' }}
+                            placeholder="Enter Amount"
+                            type="text"
+                            addOnStart={<Image
+                              className=""
+                              src={'/images/presale/protocol.png'}
+                              width={24}
+                              height={24}
+                              priority
+                              alt="" />}
+                          />
+                          <CustomInput
+                            className=""
+                            // onChange={(e) => setPassword(e.target.value)}
+                            sx={{ marginBottom: '10px' }}
+                            placeholder="PUMP you'd receive"
+                            type="text"
+                            addOnStart={<Image
+                              className=""
+                              src={'/images/presale/pumplogo.png'}
+                              width={24}
+                              height={24}
+                              priority
+                              alt="" />}
+                          />
                         </div>
 
-                        <div>
-                          <p>Token Prices: <span className="text-[#C3EC62] text-[24px] font-gameria">$0.0051</span></p>
+                        <div className="flex flex-row gap-4">
+                          <button className="bg-vivd-lime-green w-full component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
+                            Connect Wallet
+                          </button>
+
+                          <button className="px-6 py-3 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                            Buy now
+                          </button>
                         </div>
+
+                        <button className="px-6 py-3 font-gameria border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                          Whitelist Status
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -218,13 +196,6 @@ export default function Presale() {
           </div>
         </div>
       </div >
-
-      {/* <Hero /> */}
-      {/* <Preview /> */}
-      {/* <MinePump /> */}
-      {/* <Features /> */}
-      {/* <Onboarding /> */}
-      {/* <RoadMap /> */}
       <Tokenomics />
       <Faqs />
       <Footer />
