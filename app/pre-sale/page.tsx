@@ -11,20 +11,25 @@ import Onboarding from "../components/onboarding/onboarding";
 import { useEffect } from "react";
 import Tokenomics from "../components/tokenomics/tokennomics";
 import CustomButton from "../components/buttons/customButton";
+import Image from "next/image";
+import NavBar from "../components/navbar/navbar";
 
 export default function Presale() {
   return (
+
     <div className="bg-cover bg-[url('/images/background.png')] h-full w-full">
 
-      <CustomButton type="gradient" text="Gradient Button" />
+      <div>
+        <div className="sm:pb-10 md:pb-20 overflow-hidden bg-cover bg-[url('/images/presale/presalebg.png')] md:bg-[url('/images/presale/presalebg.png')] z-0">
+          <div className="z-10 flex flex-col space-y-8 relative">
+            <NavBar />
 
-      <br />
-      <br />
-      <CustomButton type="normal" text="Normal Button" />
+            <div>
 
-      <br />
-      <br />
-      <CustomButton type="transparent" text="Transparent Button" />
+            </div>
+          </div>
+        </div>
+      </div >
 
       {/* <Hero /> */}
       {/* <Preview /> */}
@@ -32,11 +37,9 @@ export default function Presale() {
       {/* <Features /> */}
       {/* <Onboarding /> */}
       {/* <RoadMap /> */}
-      {/* <Tokenomics /> */}
-      {/* <Partners /> */}
-      {/* <Faqs /> */}
-      {/* <Footer /> */}
-
+      <Tokenomics />
+      <Faqs />
+      <Footer />
     </div>
   )
 }
