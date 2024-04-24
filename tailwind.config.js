@@ -13,7 +13,9 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-kanit)'],
-        gameria: ['var(--font-gameria)']
+        gameria: ['var(--font-gameria)'],
+        digital: ['var(--font-digital)'],
+
       },
       colors: {
         'vivd-lime-green': '#a5e314',

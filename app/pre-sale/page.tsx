@@ -13,6 +13,7 @@ import Tokenomics from "../components/tokenomics/tokennomics";
 import CustomButton from "../components/buttons/customButton";
 import Image from "next/image";
 import NavBar from "../components/navbar/navbar";
+import TimerCount from "../components/timerComponent/timer";
 
 export default function Presale() {
   return (
@@ -37,7 +38,7 @@ export default function Presale() {
                     alt=""
                   />
                 </div>
-                <div className="flex flex-row justify-between gap-14 items-center">
+                <div className="flex flex-row justify-between gap-14 items-end">
                   <div className="basis-1/2 rounded-2xl p-4 h-[383px] border bg-[#282F20E9] presaleGradient">
                     <div className="flex flex-row items-center justify-between">
                       <p>Presale Progress</p>
@@ -127,31 +128,19 @@ export default function Presale() {
                   </div>
                   <div className="basis-1/2">
                     <div>
+                      <TimerCount />
 
                     </div>
 
-                    <div className="basis-1/2 rounded-2xl p-4 h-[383px] border bg-[#282F20E9] presaleGradient">
+                    <div className="basis-1/2 rounded-2xl p-4 h-[316px] border bg-[#282F20E9] presaleGradient">
                       <div className="flex flex-row items-center justify-between">
-                        <p>Presale Progress</p>
-                        <p>Raised <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
-                      </div>
-                      <div className="flex flex-row items-center justify-between">
-                        <p className="text-[#C3EC62]">Private Round</p>
-                        <p>Raised <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
-                      </div>
-
-                      <div className="bg-[#374C07] my-4 h-[4px] w-full">
-                        <div className="bg-[#A5E314] h-[4px] w-[192px]">
-
-                        </div>
-                        <div className="bg-[#A5E314] relative top-[-12px] left-[192px] h-[20px] rounded-full border w-[20px]">
-
-                        </div>
+                        <p>Pay with <span className="text-[#C3EC62] text-[24px] font-gameria mx-3">SOL</span> <span className="text-[#757A6F] text-[10px]">  Min buy 0.6</span></p>
+                        <p>Receive <span className="text-[#C3EC62] text-[24px] font-gameria">$PUMP</span></p>
                       </div>
 
                       <div className="space-y-2 mb-5">
                         <p>Purchased $PUMP Balance</p>
-                        <p className="font-gameria font-300 text-[48px]">$0.0089</p>
+                        <p className="font-digital font-300 text-[48px]">$0.0089</p>
                         <p>One token, Endless possibilities. Purchased token would be available for claim at TGE.</p>
                         <div className="flex flex-row ">
                           <p><span>Starts:</span>  15/05/2024 (12:00 UTC)</p>

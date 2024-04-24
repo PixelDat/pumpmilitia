@@ -22,10 +22,16 @@ const gameria = localFont({
   variable: "--font-gameria"
 })
 
+const digital = localFont({
+  src: "../public/fonts/digital.ttf",
+  variable: "--font-digital"
+})
+
 const kanit = Kanit({
   subsets: ['latin'],
   weight: ['400']
 })
+
 
 
 export default function RootLayout({ children }: Props) {
@@ -49,7 +55,7 @@ export default function RootLayout({ children }: Props) {
           <link rel="manifest" href="/files/manifest.json" />
           <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></link>
         </head>
-        <body className={`${kanit.className} ${gameria.variable}`}>
+        <body className={`${kanit.className} ${digital.variable} ${gameria.variable}`}>
           {children}
 
 
