@@ -24,6 +24,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 }) => {
     return (
         <>
+
+
             {type == "gradient" ?
                 <button className="bg-vivd-lime-green component_btn px-6 py-2 shadow-sm rounded-lg shadow-white">
                     {text}
