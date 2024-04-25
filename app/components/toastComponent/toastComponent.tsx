@@ -10,9 +10,9 @@ interface ToastComponentProps {
 
 
 const ToastComponent: React.FC<ToastComponentProps> = ({ addOnEnd, addOnStart, type, content }) => {
-    render(
+    return (
         <div className='w-full' style={{
-            position: 'absolute',
+            position: 'fixed',
             top: '20px'
         }}>
             <div className='border-2 rounded-xl flex flex-row justify-center gap-4 text-[#EDF9D0] items-center text-center p-3 w-3/12 m-auto border-[#C3EC62]'>

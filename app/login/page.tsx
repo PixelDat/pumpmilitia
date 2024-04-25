@@ -9,18 +9,27 @@ import { ArrowForward, CloseRounded, EmailRounded, MailOutlineRounded, ReportGma
 import '../styles/navbar.css';
 import { useEffect, useState } from "react"
 import { toast } from "../components/toastComponent/toastComponent"
+import { render } from "react-dom"
 
 
 export default function LoginPage() {
     const [error, setError] = useState(false)
+    const [makeRequest, setMakeRequest] = useState(false);
     useEffect(() => {
-        toast('success', 'Email not correct');
-    }, [])
+        if (makeRequest) {
+            render(toast('success', 'Operation completed successfully'), document.getElementById('content'));
+        }
+
+    }, [makeRequest])
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center text-white bg-[#20251A]">
             <div className="bg-cover  opacity-30 bg-dark bg-[url('/images/auth_bg.png')] h-[627px] top-1/4 absolute w-full">
             </div>
+
             <div className="z-[20] p-2 md:p-0 w-[371px]">
+                <div id="content">
+
+                </div>
                 {/* image */}
                 <div className="items-center mb-5">
                     <div className=" flex flex-row  justify-center items-center">
@@ -64,7 +73,7 @@ export default function LoginPage() {
                         </>
                     }
                     <div className="my-5">
-                        <button onClick={() => setError(!error)} className="navbar-auth-btn w-full">Get In</button>
+                        <button onClick={() => setMakeRequest(!makeRequest)} className="navbar-auth-btn w-full">Get In</button>
                     </div>
                     <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try either of this below, only when “email address” fails to get you in.</FormHelperText>
 
