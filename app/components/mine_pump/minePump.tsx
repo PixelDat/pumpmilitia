@@ -35,11 +35,11 @@ const MinePump = () => {
     }
   ]
   return (
-    <>
+    <div id="airdrop">
+
       {/* Big screens */}
       <div
         className="md:flex hidden  flex-col space-y-24 justify-center bg-cover bg-[url('/images/airdropbg.png')] items-center py-32"
-        id="airdrop"
       >
         <div className="flex flex-col items-center justify-center">
           <div className="font-gameria text-vivd-lime-green-10 text-[40px]">
@@ -113,7 +113,6 @@ const MinePump = () => {
       {/* Small screens */}
       <div
         className="flex md:hidden flex-col space-y-24 justify-center bg-cover bg-[url('/images/airdropbg.png')] items-center py-32"
-        id="airdrop"
       >
         <div className="">
           <div className="font-gameria text-center text-vivd-lime-green-10 text-[40px]">
@@ -192,7 +191,8 @@ const MinePump = () => {
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
       </div>
-    </>
+    </div>
+
 
   );
 };

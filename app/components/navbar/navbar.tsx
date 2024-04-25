@@ -1,8 +1,9 @@
+'use client'
 import { AppImages } from "@/lib/constants/app_images";
 import Image from "next/image";
 import "../../styles/navbar.css";
 import { useState } from "react";
-
+import { Link, Element, animateScroll as scroll } from 'react-scroll';
 
 const NavBar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
@@ -10,7 +11,6 @@ const NavBar = () => {
     <nav className="nav flex flex-row  items-center justify-between mainnav sm:px-[24px] lg:px-[108px] relative  w-full">
 
       <div className="flex flex-row items-center">
-
         <Image
           src={AppImages.navBarLogo}
           width={95}
@@ -26,37 +26,59 @@ const NavBar = () => {
         <div className="flex flex-row space-x-8 items-center nav-links hidden sm:flex  ">
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
             <p className="hover:text-vivd-lime-green hover:text-[17px] hover:">
-              <a href="#airdrop">Airdrop</a>
+              <Link
+                activeClass="active"
+                to="airdrop"
+                spy={true}
+                smooth={true}
+                offset={0}
+                duration={500}
+              >Airdrop</Link>
             </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
             <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              <a>Whitepaper</a>
+              <Link
+                activeClass="active"
+                to="whitepaper"
+                spy={true}
+                smooth={true}
+                offset={0}
+                duration={500}
+              >Whitepaper</Link>
             </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
             <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              <a>Presale</a>
+              <a style={{ cursor: 'pointer' }} href="/pre-sale">Presale</a>
             </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
             <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              <a href="#roadmap"> Roadmap</a>
+              <Link
+                activeClass="active"
+                to="roadmap"
+                spy={true}
+                smooth={true}
+                offset={0}
+                duration={500}
+              >Roadmap</Link>
             </p>
           </div>
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
             <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              <a href="#tokenomics">Tokenomics</a>
-            </p>
-          </div>
-
-          <div className="font-sans text-vivd-lime-green-10 text-[16px]">
-            <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              Quests
+              <Link
+                activeClass="active"
+                to="tokenomics"
+                spy={true}
+                smooth={true}
+                offset={0}
+                duration={500}
+              >Tokenomics</Link>
             </p>
           </div>
         </div>
@@ -80,7 +102,14 @@ const NavBar = () => {
         <div className="menu-mobile-container">
           <div className="bordered-mlist">
             <p className="mlist-link text-vivd-lime-green-10">
-              <a href="#airdrop">Airdrop</a>
+              <Link
+                activeClass="active"
+                to="airdrop"
+                spy={true}
+                smooth={true}
+                offset={0}
+                duration={500}
+              >Airdrop</Link>
             </p>
           </div>
 
@@ -91,19 +120,32 @@ const NavBar = () => {
           </div>
           <div className="bordered-mlist">
             <p className="mlist-link text-vivd-lime-green-10">
-              <a>Presale</a>
+              <a style={{ cursor: 'pointer' }} href="/pre-sale">Presale</a>
             </p>
           </div>
           <div className="bordered-mlist">
             <p className="mlist-link text-vivd-lime-green-10">
-              <a href="#roadmap"> Roadmap</a>
+              <Link
+                activeClass="active"
+                to="roadmap"
+                spy={true}
+                smooth={true}
+                offset={0}
+                duration={500}
+              >Roadmap</Link>
             </p>
           </div>
           <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">Tokenomics</p>
-          </div>
-          <div className="bordered-mlist">
-            <p className="mlist-link text-vivd-lime-green-10">Quests</p>
+            <p className="mlist-link text-vivd-lime-green-10">
+              <Link
+                activeClass="active"
+                to="tokenomics"
+                spy={true}
+                smooth={true}
+                offset={0}
+                duration={500}
+              >Tokenomics</Link>
+            </p>
           </div>
         </div>
       )}
