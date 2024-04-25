@@ -39,10 +39,10 @@ const MinePump = () => {
 
       {/* Big screens */}
       <div
-        className="md:flex hidden  flex-col space-y-24 justify-center bg-cover  bg-[url('/images/airdropbg.png')] items-center py-32"
+        className="md:flex hidden relative  flex-col space-y-24 justify-center bg-cover  bg-[url('/images/airdropbg.png')] items-center py-32"
       >
-        <div className="bg-gradient-to-b from-[#20251ae9] to-[#20251a] "></div>
-        <div className="flex flex-col items-center justify-center">
+        <div className="bg-gradient-to-b from-[#20251a05] to-[#20251a]" style={{ zIndex: 0, position: 'absolute', width: '100%', height: '100%' }}></div>
+        <div className="flex flex-col items-center justify-center" style={{ zIndex: 1, }}>
           <div className="font-gameria text-vivd-lime-green-10 text-[40px]">
             AIRDROP - MINE $PUMP
           </div>

@@ -6,12 +6,6 @@ const Hero = () => {
   return (
     <div>
       <div className="sm:pb-10 md:pb-20 overflow-hidden bg-cover z-0">
-
-        {/* <iframe id="player" width="100%" height="100%"
-          src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://localhost:3000"
-        >
-
-        </iframe> */}
         <iframe id="background-video"
           width="100%"
           height="100%"
