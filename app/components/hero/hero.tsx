@@ -5,12 +5,35 @@ import '../../styles/hero.css';
 const Hero = () => {
   return (
     <div>
-      <div className="sm:pb-10 md:pb-20 overflow-hidden bg-cover bg-[url('/images/backgroundsm.png')] md:bg-[url('/images/herobg.png')] z-0">
+      <div className="sm:pb-10 md:pb-20 overflow-hidden bg-cover z-0">
+
+        {/* <iframe id="player" width="100%" height="100%"
+          src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://localhost:3000"
+        >
+
+        </iframe> */}
+        <iframe id="background-video"
+          width="100%"
+          height="100%"
+          src={`http://www.youtube.com/embed/wXOgnFyj7JM?autoplay=1&mute=1&controls=0&loop=1&fitToBackground=1&enablejsapi=1&origin=${window.location.origin}`}
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            // minWidth: '100%',
+            // minHeight: '100%',
+            // width: 'auto',
+            // height: 'auto',
+            zIndex: 0,
+            transform: 'translate(-50%, -50%)',
+          }}>
+        </iframe>
         <div className="hero-overlay"></div>
         <div className="z-10 flex flex-col space-y-8 relative">
           <NavBar />
           <div className="flex flex-row">
-            <div className="w-8 socialsItems h-[502px] pt-[150px] flex-col justify-center items-center gap-4 hidden md:inline-flex">
+            {/* Social Icons */}
+            <div className="w-8 socialsItems h-[502px] pt-[50px] flex-col justify-center items-center gap-4 hidden md:inline-flex">
               <div className="flex-col justify-start items-start gap-4 flex pl-24 pt-24">
                 <Image
                   className="justify-center items-center inline-flex max-w-[30px] max-h-[90px]"
@@ -85,7 +108,7 @@ const Hero = () => {
                 />
               </div>
             </div>
-            <div className="flex  pt-[100px] sm:pt-[120px] md:pt-[120px] pb-[20px]  flex-col justify-center items-center spacing-y-8 text-center sm:w-10/12 md:w-7/12 mx-auto text-vivd-lime-green-10">
+            <div className="flex  pt-[50px]  sm:pt-[100px] md:pt-[100px] pb-[20px]  flex-col justify-center items-center spacing-y-8 text-center sm:w-10/12 md:w-7/12 mx-auto text-vivd-lime-green-10">
               <div className="flex flex-col space-y-2 justify-center items-center">
                 <div className="w-[315px] h-6 px-4 bg-gradient-to-r from-lime-200 via-green-600 to-lime-400 rounded-2xl justify-center items-center gap-2 inline-flex">
                   <div className="text-stone-800 text-sm font-medium font-sans leading-none">
@@ -119,6 +142,7 @@ const Hero = () => {
               </div>
             </div>
           </div>
+
           {/* Social Icons on small screens */}
           <div className="flex-row bg-stone-900 bg-opacity-70 py-2 md:hidden justify-center items-center gap-4 flex ">
             <Image
