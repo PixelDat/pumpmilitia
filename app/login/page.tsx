@@ -5,13 +5,17 @@ import BlipNinja from "../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
 import { FormHelperText, } from "@mui/material"
 import CustomInput from "../components/customInput/customInput"
-import { ArrowForward, CloseRounded, MailOutlineRounded, ReportGmailerrorredRounded } from "@mui/icons-material"
+import { ArrowForward, CloseRounded, EmailRounded, MailOutlineRounded, ReportGmailerrorredRounded } from "@mui/icons-material"
 import '../styles/navbar.css';
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { toast } from "../components/toastComponent/toastComponent"
 
 
 export default function LoginPage() {
     const [error, setError] = useState(false)
+    useEffect(() => {
+        toast('success', 'Email not correct');
+    }, [])
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center text-white bg-[#20251A]">
             <div className="bg-cover  opacity-30 bg-dark bg-[url('/images/auth_bg.png')] h-[627px] top-1/4 absolute w-full">
