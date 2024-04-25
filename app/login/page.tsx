@@ -8,12 +8,31 @@ import CustomInput from "../components/customInput/customInput"
 import { ArrowForward, CloseRounded, MailOutlineRounded, ReportGmailerrorredRounded } from "@mui/icons-material"
 import '../styles/navbar.css';
 import { useEffect, useState } from "react"
+import { request } from "@/lib/utils/helper"
 
 
 export default function LoginPage() {
     const [error, setError] = useState(false)
     const [makeRequest, setMakeRequest] = useState(false);
+    const [email, setEmail] = useState('')
 
+    const HandleLogin = async () => {
+        if (email == '') {
+            console.log('email field is empty')
+            return
+        }
+
+        try {
+            let params = {
+                email: email
+            }
+            const data = await request.post({ url: 'https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup', data: params })
+            console.log(data);
+        } catch {
+
+        }
+
+    }
 
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center text-white bg-[#20251A]">
@@ -52,6 +71,7 @@ export default function LoginPage() {
                         sx={{ marginBottom: '10px' }}
                         label="Email Address"
                         placeholder="Enter email address"
+                        onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         addOnStart={<MailOutlineRounded color="inherit" />}
                         addOnEnd={error ? <ReportGmailerrorredRounded className="text-[#E2002B]" /> : <ArrowForward />}
@@ -67,7 +87,7 @@ export default function LoginPage() {
                         </>
                     }
                     <div className="my-5">
-                        <button onClick={() => setMakeRequest(!makeRequest)} className="navbar-auth-btn w-full">Get In</button>
+                        <button onClick={HandleLogin} className="navbar-auth-btn w-full">Get In</button>
                     </div>
                     <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try either of this below, only when “email address” fails to get you in.</FormHelperText>
 
