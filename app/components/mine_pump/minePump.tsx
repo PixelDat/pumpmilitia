@@ -91,7 +91,7 @@ const MinePump = () => {
             })}
 
             <div className="flex flex-row space-x-4 items-start justify-start">
-              <Image src={"/svg/play_store.svg"} width={185} height={56} alt="" />
+              <a target="_blank" href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"><Image src={"/svg/play_store.svg"} width={185} height={56} alt="" /></a>
 
               <Image src={"/svg/app_store.svg"} width={185} height={56} alt="" />
             </div>
@@ -183,7 +183,8 @@ const MinePump = () => {
 
 
             <div className="flex flex-row space-x-4 py-3 items-start justify-center">
-              <Image src={"/svg/play_store.svg"} width={153} height={45} alt="" />
+              <a target="_blank" href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"><Image src={"/svg/play_store.svg"} width={185} height={56} alt="" /></a>
+
               <Image src={"/svg/app_store.svg"} width={153} height={45} alt="" />
             </div>
           </div>

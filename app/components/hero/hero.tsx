@@ -198,12 +198,14 @@ const Hero = () => {
             {/* Stores Icons */}
 
             <div className="flex flex-row  mb-3 md:mb-0 justify-center gap-2">
-              <Image
+              <a target="_blank" href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"><Image src={"/svg/play_store.svg"} width={185} height={56} alt="" /></a>
+
+              {/* <Image
                 src={"/svg/play_store.svg"}
                 width={185}
                 height={56}
                 alt=""
-              />
+              /> */}
 
               <Image
                 src={"/svg/app_store.svg"}
