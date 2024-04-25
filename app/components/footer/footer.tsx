@@ -93,7 +93,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-row space-x-8">
+                <div className="flex flex-row justify-center space-x-2 md:space-x-8">
                     <div className="flex flex-col space-y-6">
                         <div className='font-kanit text-vivd-lime-green-10 text-[24px]'>
                             Pump Millitia
@@ -127,7 +127,7 @@ const Footer = () => {
                             Legal
                         </div>
 
-                        <div className="flex-flex-col justify-center space-y-4">
+                        <div className="flex flex-col justify-center space-y-4">
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
                                 Privacy Policy
                             </div>
