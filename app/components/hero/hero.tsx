@@ -15,7 +15,7 @@ const Hero = () => {
         <iframe id="background-video"
           width="100%"
           height="100%"
-          src={`http://www.youtube.com/embed/wXOgnFyj7JM?autoplay=1&mute=1&controls=0&loop=1&fitToBackground=1&enablejsapi=1&origin=${window.location.origin}`}
+          src={`http://www.youtube.com/embed/wXOgnFyj7JM?autoplay=1&mute=1&controls=0&loop=1&fitToBackground=1&enablejsapi=1&origin=http://localhost:3000`}
           style={{
             position: 'absolute',
             top: '50%',
