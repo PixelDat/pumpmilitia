@@ -5,7 +5,7 @@ import '../../styles/hero.css';
 const Hero = () => {
   return (
     <div>
-      <div className=" sm:pb-10 md:pb-20 overflow-hidden bg-cover bg-[url('/images/backgroundsm.png')] md:bg-[url('/images/herobg.png')] z-0">
+      <div className="sm:pb-10 md:pb-20 overflow-hidden bg-cover bg-[url('/images/backgroundsm.png')] md:bg-[url('/images/herobg.png')] z-0">
         <div className="hero-overlay"></div>
         <div className="z-10 flex flex-col space-y-8 relative">
           <NavBar />
@@ -85,7 +85,7 @@ const Hero = () => {
                 />
               </div>
             </div>
-            <div className="flex  pt-[100px] sm:pt-[120px] md:pt-[170px] pb-[20px]  flex-col justify-center items-center spacing-y-8 text-center sm:w-10/12 md:w-7/12 mx-auto text-vivd-lime-green-10">
+            <div className="flex  pt-[100px] sm:pt-[120px] md:pt-[120px] pb-[20px]  flex-col justify-center items-center spacing-y-8 text-center sm:w-10/12 md:w-7/12 mx-auto text-vivd-lime-green-10">
               <div className="flex flex-col space-y-2 justify-center items-center">
                 <div className="w-[315px] h-6 px-4 bg-gradient-to-r from-lime-200 via-green-600 to-lime-400 rounded-2xl justify-center items-center gap-2 inline-flex">
                   <div className="text-stone-800 text-sm font-medium font-sans leading-none">
