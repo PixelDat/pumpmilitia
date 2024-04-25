@@ -3,12 +3,14 @@ import Image from "next/image";
 import "../../styles/navbar.css";
 import { useState } from "react";
 
+
 const NavBar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
   return (
     <nav className="nav flex flex-row  items-center justify-between mainnav sm:px-[24px] lg:px-[108px] relative  w-full">
 
       <div className="flex flex-row items-center">
+
         <Image
           src={AppImages.navBarLogo}
           width={95}
@@ -16,9 +18,6 @@ const NavBar = () => {
           alt=""
           priority
         />
-
-
-
         <div className="font-gameria text-vivd-lime-green-10 text-[24px] nav-pump-text">
           PUMP MILLITIA
         </div>

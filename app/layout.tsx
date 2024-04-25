@@ -55,7 +55,7 @@ export default function RootLayout({ children }: Props) {
           <link rel="manifest" href="/files/manifest.json" />
           <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></link>
         </head>
-        <body className={`${kanit.className} ${digital.variable} ${gameria.variable}`}>
+        <body id="content" className={`${kanit.className} ${digital.variable} ${gameria.variable}`}>
           {children}
 
 

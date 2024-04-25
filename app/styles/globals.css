@@ -3,7 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .component_btn {
     border-radius: 12px;
     padding: 3px 40px;
