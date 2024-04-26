@@ -3,6 +3,7 @@ import React from 'react';
 interface CustomInputProps {
     type: string;
     sx?: {};
+    value?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     disabled?: boolean;
     className?: string;
@@ -13,7 +14,7 @@ interface CustomInputProps {
     error?: boolean;
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({ type, className, error, onChange, label, addOnStart, addOnEnd, sx, placeholder, disabled }) => {
+const CustomInput: React.FC<CustomInputProps> = ({ type, className, value, error, onChange, label, addOnStart, addOnEnd, sx, placeholder, disabled }) => {
     let color = disabled ? 'border-[#757A6F] blur-[2px]' : error == true ? 'border-[#ff0000]' : error == false ? 'border-[#A5E314] ' : 'border-[#52594B]';
     return (
         <div style={sx}>
@@ -26,6 +27,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ type, className, error, onCha
                 <input
                     className="p-2 w-full focus:outline-none text-[14px] bg-transparent "
                     type={type}
+                    value={value}
                     autoComplete=""
                     onChange={onChange}
                     disabled={disabled}

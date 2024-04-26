@@ -11,9 +11,9 @@ const Tokenomics = () => {
             border_color: 'border-[#6FFEFE]',
             text_color: 'text-[#6FFEFE]',
             percent: 5,
-            width: 'md:w-[533px]',
+            width: 'w-[325px] md:w-[533px]',
 
-            token_amount: 100000,
+            token_amount: 40000000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
         },
@@ -21,10 +21,10 @@ const Tokenomics = () => {
             border_color: 'border-[#ff00d6]',
             text_color: 'text-[#ff00d6]',
             percent: 15,
-            width: 'md:w-[528px]',
+            width: 'w-[310px] md:w-[528px]',
 
 
-            token_amount: 100000,
+            token_amount: 40000000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
         },
@@ -32,9 +32,9 @@ const Tokenomics = () => {
             border_color: 'border-[#a5e314]',
             text_color: 'text-[#a5e314]',
             percent: 50,
-            width: 'md:w-[533px]',
+            width: 'w-[340px] md:w-[533px]',
 
-            token_amount: 100000,
+            token_amount: 40000000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
         },
@@ -42,9 +42,9 @@ const Tokenomics = () => {
             border_color: 'border-[#fdce00]',
             text_color: 'text-[#fdce00]',
             percent: 5,
-            width: 'md:w-[500px]',
+            width: 'w-[325px] md:w-[500px]',
 
-            token_amount: 100000,
+            token_amount: 40000000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
         },
@@ -52,9 +52,9 @@ const Tokenomics = () => {
             border_color: 'border-[#e72a4e]',
             text_color: 'text-[#e72a4e]',
             percent: 5,
-            width: 'md:w-[532px]',
+            width: 'w-[338px] md:w-[532px]',
 
-            token_amount: 100000,
+            token_amount: 40000000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
         },
@@ -62,8 +62,8 @@ const Tokenomics = () => {
             border_color: 'border-[#e0f7ab]',
             text_color: 'text-[#e0f7ab]',
             percent: 10,
-            width: 'md:w-[505px]',
-            token_amount: 100000,
+            width: 'w-[303px] md:w-[505px]',
+            token_amount: 40000000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
         },
@@ -71,8 +71,8 @@ const Tokenomics = () => {
             border_color: 'border-[#5062ff]',
             text_color: 'text-[#5062ff]',
             percent: 5,
-            width: 'md:w-[528px]',
-            token_amount: 100000,
+            width: 'w-[325px] md:w-[528px]',
+            token_amount: 40000000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
         },
@@ -80,16 +80,16 @@ const Tokenomics = () => {
             border_color: 'border-[#36d800]',
             text_color: 'text-[#36d800]',
             percent: 5,
-            width: 'md:w-[531px]',
-            token_amount: 10000000,
+            width: 'w-[324px] md:w-[531px]',
+            token_amount: 40000000,
             title: "Seed Round",
             text: '20% TGE, 10% unlocked each month after',
         },
     ]
     return (
-        <div id="tokenomics" className="p-2 md:p-0 md:w-10/12 m-auto my-32">
+        <div id="tokenomics" className="px-4 py-2 md:p-0 md:w-10/12 m-auto my-32">
             <div className="boderToken relative w-full h-[500px] md:h-[280px]">
-                <div className="flex flex-col md:w-10/12  md:px-10 relative space-y-4">
+                <div className="flex flex-col md:w-10/12 px-4  md:px-10 relative space-y-4">
                     <div className='font-gameria w-1/12 leading-10 text-[#EDF9D0] text-[56px]'>
                         $pump
                         tokenomics!

@@ -3,7 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .component_btn {
     border-radius: 12px;
     padding: 3px 40px;
@@ -40,9 +39,42 @@
     transition: background 0s;
 }
 
-/* .component_btn_transparent{
+/* .normal_btn {
+    border-radius: 12px;
+    padding: 3px 40px;
+    background: linear-gradient(#a5e440, #a5e440) padding-box,
+        linear-gradient(180deg, #edf9d0, #a5e440) border-box;
+    border: 2px solid transparent;
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #303827;
+    text-align: center;
+    overflow: hidden;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    font-family: Kanit;
+    transition: background 0.8s;
+}
 
+.normal_btn:hover {
+    background: #52711b radial-gradient(circle, transparent 10%, #a5e440 1%) center/15000%;
+    color: #EDF9D0;
+    border: 2px solid #EDF9D0;
+    transition: background 0.4s ease-in-out;
+}
+
+.normal_btn:active {
+    background-color: #1c2909f4;
+    background-size: 100%;
+    transition: background 0s;
 } */
+
+
 
 .component_btn_transparent:hover {
     background: #52711b radial-gradient(circle, transparent 10%, #a5e440 1%) bottom center/15000%;

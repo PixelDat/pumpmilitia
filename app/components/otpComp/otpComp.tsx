@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 interface OtpInputProps {
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    setOtp: (otp: string) => void;
     error?: boolean;
     success?: boolean;
 }
 
-const OtpComp: React.FC<OtpInputProps> = ({ error, success }) => {
+const OtpComp: React.FC<OtpInputProps> = ({ error, success, setOtp }) => {
     const [filled, setFilled] = useState(Array(6).fill(''));
     const inputRefs = useRef([]);
+
+
 
     useEffect(() => {
         inputRefs.current = inputRefs.current.slice(0, 6);
@@ -31,6 +33,11 @@ const OtpComp: React.FC<OtpInputProps> = ({ error, success }) => {
         setFilled(newFilled);
     }
 
+    useEffect(() => {
+        if (filled[5] !== '') {
+            setOtp(filled.join(''));
+        }
+    }, [filled])
     function handlePaste(e: any) {
         let pastedData = e.clipboardData.getData('Text');
 

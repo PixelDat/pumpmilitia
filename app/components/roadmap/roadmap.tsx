@@ -58,7 +58,7 @@ const RoadMap = () => {
 
     ]
     return (
-        <div className="flex flex-col space-y-24 mt-32 mb-20 justify-center items-center text-center" id="roadmap">
+        <div className="flex flex-col space-y-24 md:mt-32 md:mb-20 justify-center items-center text-center" id="roadmap">
             <div className="flex flex-col space-y-2">
                 <div className='font-gameria text-vivd-lime-green-10 text-[32px]'>
                     ROADMAP
