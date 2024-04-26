@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CacheFunc, ErrorResponseInt, RequestInt } from "./types";
+import { CacheFunc, ErrorResponseInt, RequestInt, makeReqInt } from "./types";
 
 export const CACHE_KEYS = {
     SUPPORTED_CURRENCIES: "SUPPORTED_CURRENCIES",
@@ -7,8 +7,6 @@ export const CACHE_KEYS = {
     TOKEN: "TOKEN",
     PUSH_NOTIFICATION_TOKEN: "PUSH_NOTIFICATION_TOKEN",
 };
-
-const API_BASE_URL = "";
 
 export class Helpers {
     static isValidPassword(password: string) {
@@ -55,6 +53,7 @@ export const devLog = (...keys: any) => {
 };
 
 export const cache: CacheFunc = {
+
     set: async (cacheKey, data, duration) => {
         const cacheData: any = { data };
         if (duration) cacheData.expireAt = Date.now() + 1000 * duration;
@@ -78,23 +77,21 @@ export const cache: CacheFunc = {
     },
 };
 
+
 export const request: RequestInt = {
     get: async (url, headers = {}) => {
         try {
             const Authorization = await cache.get(CACHE_KEYS.TOKEN);
             headers = { Authorization, ...headers };
             const requestParams = {
-                url: API_BASE_URL + url,
+                url: url,
                 method: "GET",
                 headers,
             };
-
-            // if (!Env.isProd) devLog("GET", requestParams);
             const response = await axios(requestParams);
-
             return response?.data;
         } catch (err) {
-            throw handleError(err as Error);
+            return err
         }
     },
 
@@ -102,7 +99,7 @@ export const request: RequestInt = {
         try {
             const Authorization = await cache.get(CACHE_KEYS.TOKEN);
             const requestParams = {
-                url: API_BASE_URL + url,
+                url: url,
                 method: "POST",
                 data,
                 headers: {
@@ -110,14 +107,16 @@ export const request: RequestInt = {
                     Authorization,
                 },
             };
-
-            // if (!Env.isProd) devLog("POST", requestParams);
-            const response = await axios(requestParams);
-
-            devLog("POST response", response);
-            return response?.data;
-        } catch (err) {
-            throw handleError(err as Error);
+            try {
+                const response = await axios(requestParams);
+                return response?.data;
+            }
+            catch (err) {
+                console.log(err)
+            }
+        } catch (err: any) {
+            console.error(err.response.data);
+            return err.response.data;
         }
     },
 
@@ -125,7 +124,7 @@ export const request: RequestInt = {
         try {
             const Authorization = await cache.get(CACHE_KEYS.TOKEN);
             headers = { ...headers, Authorization };
-            const { data } = await axios.delete(API_BASE_URL + url, { headers });
+            const { data } = await axios.delete(url, { headers });
 
             return data;
         } catch (err) {
@@ -136,7 +135,7 @@ export const request: RequestInt = {
         try {
             const Authorization = await cache.get(CACHE_KEYS.TOKEN);
             const requestParams = {
-                url: API_BASE_URL + url,
+                url: url,
                 method: "PATCH",
                 data,
                 headers: {
@@ -144,11 +143,7 @@ export const request: RequestInt = {
                     Authorization,
                 },
             };
-
-            // if (!Env.isProd) devLog("PATCH", requestParams);
             const response = await axios(requestParams);
-
-            devLog("POST response", response);
             return response.data;
         } catch (err) {
             throw handleError(err as Error);

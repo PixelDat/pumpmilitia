@@ -12,33 +12,33 @@ import { request } from "@/lib/utils/helper"
 import axios from "axios"
 
 
-export default function LoginPage() {
+export default function Signup() {
     const [error, setError] = useState(false)
-    const [resMessage, setResMessage] = useState('')
     const [makeRequest, setMakeRequest] = useState(false);
     const [email, setEmail] = useState('')
 
-    const HandleLogin = async () => {
+    const HandleSignup = async () => {
         if (email == '') {
             console.log('email field is empty')
             return
         }
-        let params = {
-            email: email
-        }
-        let url = 'https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup';
+        // var myHeaders = new Headers();
+        // myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwZDkwNGZlNS0wNjY3LTQ1Y2YtYWU5Mi1lNjYzZWNlYWIxNzIiLCJpYXQiOjE3MTIxNzY2NjQsImV4cCI6MTcxMjI2MzA2NH0.Pl3pgK-KXmI91Ofj84-lGOYfJew74EmW33qwOqRqD_w");
 
-        try {
-            const data = request.post({ url: url, data: params });
-            console.log(data);
-        } catch (error: any) {
-            if (error.response && error.response.status === 400) {
-                setResMessage(error.response.data.message)
-                console.log(`${error.response.data.message}`);
-            } else {
-                console.log(`An error occurred: ${error.message}`);
-            }
+        var raw = {
+            "email": email,
         }
+        let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup"
+
+        var requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(raw),
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
 
     }
 
@@ -46,9 +46,6 @@ export default function LoginPage() {
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center text-white bg-[#20251A]">
             <div className="bg-cover  opacity-30 bg-dark bg-[url('/images/auth_bg.png')] h-[627px] top-1/4 absolute w-full">
             </div>
-            {error &&
-                <div>{resMessage}</div>
-            }
 
             <div className="z-[20] p-2 md:p-0 w-[371px]">
                 <div id="content">
@@ -98,7 +95,7 @@ export default function LoginPage() {
                         </>
                     }
                     <div className="my-5">
-                        <button onClick={HandleLogin} className="navbar-auth-btn w-full">Get In</button>
+                        <button onClick={HandleSignup} className="navbar-auth-btn w-full">Get In</button>
                     </div>
                     <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try either of this below, only when “email address” fails to get you in.</FormHelperText>
 

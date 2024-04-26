@@ -9,7 +9,7 @@ export type GlobalRecord = Record<string, any> | any;
 
 export interface RequestResponseInt {
     data: GlobalRecord | GlobalRecord[];
-    success: boolean;
+    status: boolean;
     message: string;
 }
 
