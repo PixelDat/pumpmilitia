@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, LegacyRef } from "react";
+import { RefObject } from "react";
+
 interface OtpInputProps {
     setOtp: (otp: string) => void;
     error?: boolean;
@@ -7,7 +9,7 @@ interface OtpInputProps {
 
 const OtpComp: React.FC<OtpInputProps> = ({ error, success, setOtp }) => {
     const [filled, setFilled] = useState(Array(6).fill(''));
-    const inputRefs = useRef([]);
+    const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
 
 
@@ -55,20 +57,19 @@ const OtpComp: React.FC<OtpInputProps> = ({ error, success, setOtp }) => {
     return (
         <>
             <div className="OtpComponent">
-                <div className="flex flex-row gap-2 items-center justify-center">
-                    {filled.map((val: any, index: number) => (
-                        <input
-                            key={index}
-                            // ref={(el: HTMLInputElement) => ((inputRefs.current[index] as HTMLInputElement) = el)}
-                            value={val}
-                            onChange={(e) => handleInput(e, index)}
-                            onPaste={handlePaste}
-                            className={`${error ? 'border border-[#EC5572]' : success ? 'border border-[#79E555]' : 'border border-[#898989]'}`}
-                            type="text"
-                            maxLength={1}
-                        />
-                    ))}
-                </div>
+                {filled.map((val: any, index: number) => (
+                    <input
+                        key={index}
+                        ref={(el: any) => (inputRefs.current[index] = el)}
+                        value={val}
+                        onChange={(e) => handleInput(e, index)}
+                        onPaste={handlePaste}
+                        className={`${error ? 'border border-[#EC5572]' : success ? 'border border-[#79E555]' : 'border border-[#898989]'}`}
+                        type="text"
+                        maxLength={1}
+                    />
+                ))}
+
             </div>
         </>
     );

@@ -2,9 +2,6 @@ import type { ReactNode } from "react";
 import "./styles/globals.css";
 import { Kanit } from 'next/font/google'
 import localFont from 'next/font/local'
-import { StoreProvider } from "./provider/StoreProvider";
-// import { Provider } from "react-redux";
-// import store from "@/lib/redux/store";
 export const metadata = {
   icons: {
     icon: '/images/favicon-32x32.png',
