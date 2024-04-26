@@ -209,7 +209,7 @@ export default function Dashboard() {
   ]
   const [showCompletedTask, setShowCompletedTask] = useState(false)
   return (
-    <div className="bg-cover bg-[url('/images/dashboardbg.png')] h-full w-full">
+    <div className="bg-contain bg-[url('/images/dashboardbg.png')] h-full w-full">
       <NavBar />
       <div className="pt-28 w-11/12 m-auto text-[#EDF9D0] font-kanit">
         {/* Dashboard airdrop and avatar */}
