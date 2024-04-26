@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CacheFunc, ErrorResponseInt, RequestInt, makeReqInt } from "./types";
+import { CacheFunc, ErrorResponseInt, RequestInt } from "./types";
 
 export const CACHE_KEYS = {
     SUPPORTED_CURRENCIES: "SUPPORTED_CURRENCIES",

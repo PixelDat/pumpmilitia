@@ -14,31 +14,38 @@ import axios from "axios"
 
 export default function Signup() {
     const [error, setError] = useState(false)
+    const [resMessage, setResMessage] = useState('')
+    const [errMessage, setErrMessage] = useState('')
+
     const [makeRequest, setMakeRequest] = useState(false);
     const [email, setEmail] = useState('')
-
     const HandleSignup = async () => {
         if (email == '') {
-            console.log('email field is empty')
+            setError(true);
+            setErrMessage('Email field is empty')
             return
         }
-        // var myHeaders = new Headers();
-        // myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwZDkwNGZlNS0wNjY3LTQ1Y2YtYWU5Mi1lNjYzZWNlYWIxNzIiLCJpYXQiOjE3MTIxNzY2NjQsImV4cCI6MTcxMjI2MzA2NH0.Pl3pgK-KXmI91Ofj84-lGOYfJew74EmW33qwOqRqD_w");
-
-        var raw = {
-            "email": email,
+        let params = {
+            email: email
         }
-        let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup"
+        let url = 'https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup';
 
-        var requestOptions = {
-            method: 'POST',
-            body: JSON.stringify(raw),
-        };
+        try {
+            const response = await axios.post(url, params);
+            let data = response.data;
+            localStorage.setItem('user_id', data.userId)
+            location.href = '/verify-email'
 
-        fetch(url, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+        } catch (error: any) {
+            if (error.response && error.response.status === 400) {
+                setError(true)
+                setErrMessage(error.response.data.message)
+                console.log(`${error.response.data.message}`);
+                location.href = '/login';
+            } else {
+                console.log(`An error occurred: ${error.message}`);
+            }
+        }
 
     }
 
@@ -90,7 +97,11 @@ export default function Signup() {
 
                             <div className="flex flex-row items-center p-3 gap-3">
                                 <CloseRounded className="bg-[#EC5572] text-[18px] rounded-full text-[black]" />
-                                <p className="text-[12px] text-[#F9CCD5] text-start">Ops! you must have entered the wrong email address, please check and re-enter.</p>
+                                {errMessage != '' ?
+                                    <p className="text-[12px] text-[#F9CCD5] text-start">{errMessage}</p>
+                                    :
+                                    <p className="text-[12px] text-[#F9CCD5] text-start">Ops! you must have entered the wrong email address, please check and re-enter.</p>
+                                }
                             </div>
                         </>
                     }
