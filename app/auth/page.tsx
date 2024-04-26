@@ -100,18 +100,20 @@ export default function LoginPage() {
     }
 
     const handleExternalLogin = async (type: string) => {
+        setloading(true)
         try {
-            var user = '';
             if (type == 'google') {
-                user = await signInWithPopup(auth, googleProvider)
+                var user = await signInWithPopup(auth, googleProvider)
             } else {
-                user = await signInWithPopup(auth, twitterProvider)
+                var user = await signInWithPopup(auth, twitterProvider)
             }
             const authToken = user.user.uid.trim();
             try {
                 const res = await axios.get("https://us-central1-everpump-6e275.cloudfunctions.net/app/checkAuth", { headers: { Authorization: authToken, }, });
                 if (res.status === 200) {
                     console.log(res);
+                    setloading(false)
+
                     Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
                     location.href = '/dashboard'
                 }
@@ -119,16 +121,16 @@ export default function LoginPage() {
                 if (error.response) {
                     setError(true)
                     setErrMessage(error.response.data.message)
-                    console.log(`${error.response.data.message}`);
+                    setloading(false)
                 } else {
-                    console.log(`An error occurred: ${error.message}`);
+                    setloading(false)
                 }
             }
         } catch (error: any) {
             if (error.response) {
                 setError(true)
                 setErrMessage(error.response.data.message)
-                console.log(`${error.response.data.message}`);
+                setloading(false)
             } else {
                 console.log(`An error occurred: ${error.message}`);
             }
