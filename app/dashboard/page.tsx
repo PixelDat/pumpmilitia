@@ -48,7 +48,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!encrypt) {
-      location.href = '/login'
+      location.href = '/auth'
       return
     }
     let userDetails = async () => {

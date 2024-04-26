@@ -43,7 +43,7 @@ export default function VerifyEmail() {
                         setError(true)
                         setErrMessage(error.response.data.message)
                         console.log(`${error.response.data.message}`);
-                        location.href = '/login';
+                        location.href = '/auth';
                     } else {
                         console.log(`An error occurred: ${error.message}`);
                     }
