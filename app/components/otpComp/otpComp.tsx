@@ -59,7 +59,7 @@ const OtpComp: React.FC<OtpInputProps> = ({ error, success, setOtp }) => {
                     {filled.map((val: any, index: number) => (
                         <input
                             key={index}
-                            // ref={(el: HTMLInputElement) => ((inputRefs.current[index] as HTMLInputElement) = el)}
+                            ref={(el: HTMLInputElement) => ((inputRefs.current[index] as HTMLInputElement) = el)}
                             value={val}
                             onChange={(e) => handleInput(e, index)}
                             onPaste={handlePaste}
