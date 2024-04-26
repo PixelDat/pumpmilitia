@@ -57,7 +57,6 @@ const OtpComp: React.FC<OtpInputProps> = ({ error, success, setOtp }) => {
     return (
         <>
             <div className="OtpComponent">
-
                 {filled.map((val: any, index: number) => (
                     <input
                         key={index}
@@ -70,6 +69,7 @@ const OtpComp: React.FC<OtpInputProps> = ({ error, success, setOtp }) => {
                         maxLength={1}
                     />
                 ))}
+
             </div>
         </>
     );
