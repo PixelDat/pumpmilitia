@@ -10,7 +10,7 @@ import '../styles/navbar.css';
 import { useEffect, useState } from "react"
 import { request } from "@/lib/utils/helper"
 import axios from "axios"
-
+const Cookies = require('js-cookie');
 
 export default function LoginPage() {
     const [error, setError] = useState(false)
@@ -52,6 +52,7 @@ export default function LoginPage() {
         }
     }
     const HandleLogin = async () => {
+        setError(false)
         if (password == '') {
             setError(true)
             setErrMessage('Password field is empty')
@@ -66,8 +67,11 @@ export default function LoginPage() {
         try {
             const response = await axios.post(url, params);
             console.log(response.status)
+            Cookies.set('encrypt_id', `${response.data.encypted_session_id}`)
+            location.href = '/dashboard'
+
         } catch (error: any) {
-            if (error.response && error.response.status === 400) {
+            if (error.response) {
                 setError(true)
                 setErrMessage(error.response.data.message)
                 console.log(`${error.response.data.message}`);
@@ -113,7 +117,8 @@ export default function LoginPage() {
                                 <Avatar
                                     className=""
                                     sx={{ width: 62, height: 62, zIndex: 1 }}
-                                    src="/images/profileImg.png"
+                                    src=""
+                                    alt={`${email} User`}
                                 />
                             </AvatarGroup>
                         }

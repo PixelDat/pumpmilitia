@@ -8,8 +8,80 @@ import { Avatar } from "@mui/material";
 import Image from "next/image";
 import CustomInput from "../components/customInput/customInput";
 import { People, Person, Person2Rounded } from "@mui/icons-material";
+import axios from "axios";
+const Cookies = require('js-cookie');
 
-export default function IndexPage() {
+interface UserType {
+  username: string,
+  email: string,
+  role: string,
+  profilePhoto: string,
+  user_id: string,
+  twitter_id: string,
+  google_id: string,
+  points: number,
+  updated_at: string
+}
+export default function Dashboard() {
+  const [error, setError] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setloading] = useState(false)
+  const [resMessage, setResMessage] = useState('')
+  const [errMessage, setErrMessage] = useState('')
+  const [user, setUser] = useState<UserType>({
+    username: "",
+    email: "",
+    role: "",
+    profilePhoto: "",
+    user_id: "",
+    twitter_id: "",
+    google_id: "",
+    points: 0,
+    updated_at: ""
+  })
+
+  let encrypt = Cookies.get('encrypt_id');
+
+  useEffect(() => {
+    if (!encrypt) {
+      location.href = '/login'
+      return
+    }
+    let login = async () => {
+
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'https://evp-user-service-cea2e4kz5q-uc.a.run.app/get-user-details',
+        headers: {
+          'Authorization': `${encrypt}`
+        }
+      };
+
+      try {
+        const response = await axios.request(config);
+        setUser({
+          username: response.data.username,
+          email: response.data.email,
+          role: response.data.role,
+          profilePhoto: response.data.profilePhoto,
+          user_id: response.data.user_id,
+          twitter_id: response.data.twitter_id,
+          google_id: response.data.google_id,
+          points: response.data.points,
+          updated_at: response.data.updated_at
+        });
+        console.log(response.data)
+      } catch (error: any) {
+        if (error.response && error.response.status === 400) {
+        } else {
+          console.log(`An error occurred: ${error.message}`);
+        }
+      }
+
+    }
+    login()
+  }, [])
   let tasksCount = [
     {
       number: 120,
@@ -83,13 +155,13 @@ export default function IndexPage() {
             </div>
             <div className="flex flex-col md:flex-row text-center md:text-start items-center gap-x-4" >
               <div>
-                <p>David Johnson</p>
-                <p className="text-[12px]">@johnson_1002</p>
+                <p>{user?.username}</p>
+                <p className="text-[12px]">{user?.username}</p>
               </div>
               <Avatar
                 className=""
                 sx={{ width: 62, height: 62 }}
-                src="/images/profileImg.png"
+                src={user?.profilePhoto}
               />
             </div>
           </div>
@@ -106,7 +178,7 @@ export default function IndexPage() {
             <div className="bg-gradient-to-r from-[#A5E314]/50 to-black p-0.5 rounded-3xl">
               <div className="md:h-[261px] relative w-full md:w-[411px] bg-black/80 px-[24.8px] py-[24px] space-y-4  rounded-3xl">
                 <p className="text-[15px] font-[300]">Your balance today</p>
-                <h4 className="text-[45px] font-gameria font-[500]">22,550,200</h4>
+                <h4 className="text-[45px] font-gameria font-[500]">{Number(user?.points).toLocaleString()}</h4>
                 <Image
                   className="absolute top-[10px] right-[20px]"
                   src={'/images/coins.png'}
