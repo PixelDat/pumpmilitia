@@ -79,11 +79,7 @@ const Footer = () => {
 
 
                     <div className="hidden md:flex flex-row space-x-4 items-center justify-center">
-                        <Image
-                            src={'/svg/play_store.svg'}
-                            width={185}
-                            height={56}
-                            alt="" />
+                        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"><Image src={"/svg/play_store.svg"} width={185} height={56} alt="" /></a>
 
                         <Image
                             src={'/svg/app_store.svg'}
@@ -93,7 +89,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-row space-x-8">
+                <div className="flex flex-row justify-center space-x-2 md:space-x-8">
                     <div className="flex flex-col space-y-6">
                         <div className='font-kanit text-vivd-lime-green-10 text-[24px]'>
                             Pump Millitia
@@ -127,7 +123,7 @@ const Footer = () => {
                             Legal
                         </div>
 
-                        <div className="flex-flex-col justify-center space-y-4">
+                        <div className="flex flex-col justify-center space-y-4">
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
                                 Privacy Policy
                             </div>
@@ -137,11 +133,7 @@ const Footer = () => {
                             </div>
 
                             <div className="md:hidden space-y-4 items-center justify-center">
-                                <Image
-                                    src={'/svg/play_store.svg'}
-                                    width={185}
-                                    height={56}
-                                    alt="" />
+                                <a target="_blank" href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"><Image src={"/svg/play_store.svg"} width={185} height={56} alt="" /></a>
 
                                 <Image
                                     src={'/svg/app_store.svg'}

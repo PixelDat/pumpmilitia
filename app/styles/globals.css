@@ -3,3 +3,114 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.component_btn {
+    border-radius: 12px;
+    padding: 3px 40px;
+    background: linear-gradient(#a5e440, #a5e440) padding-box,
+        linear-gradient(180deg, #edf9d0, #a5e440) border-box;
+    border: 2px solid transparent;
+    box-shadow: 0px 0px 6.5px 2px #EDF9D0;
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #303827;
+    text-align: center;
+    overflow: hidden;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    font-family: Kanit;
+    transition: background 0.8s;
+}
+
+.component_btn:hover {
+    background: #52711b radial-gradient(circle, transparent 10%, #a5e440 1%) center/15000%;
+    color: #EDF9D0;
+    border: 2px solid #EDF9D0;
+    transition: background 0.4s ease-in-out;
+}
+
+.component_btn:active {
+    background-color: #1c2909f4;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+/* .normal_btn {
+    border-radius: 12px;
+    padding: 3px 40px;
+    background: linear-gradient(#a5e440, #a5e440) padding-box,
+        linear-gradient(180deg, #edf9d0, #a5e440) border-box;
+    border: 2px solid transparent;
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #303827;
+    text-align: center;
+    overflow: hidden;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    font-family: Kanit;
+    transition: background 0.8s;
+}
+
+.normal_btn:hover {
+    background: #52711b radial-gradient(circle, transparent 10%, #a5e440 1%) center/15000%;
+    color: #EDF9D0;
+    border: 2px solid #EDF9D0;
+    transition: background 0.4s ease-in-out;
+}
+
+.normal_btn:active {
+    background-color: #1c2909f4;
+    background-size: 100%;
+    transition: background 0s;
+} */
+
+
+
+.component_btn_transparent:hover {
+    background: #52711b radial-gradient(circle, transparent 10%, #a5e440 1%) bottom center/15000%;
+    color: #EDF9D0;
+    border: 1px solid #EDF9D0;
+    transition: background 0.4s ease-in-out;
+}
+
+.component_btn_transparent:active {
+    background-color: #52711b;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+::placeholder {
+    color: #EDF9D0;
+    opacity: 1;
+    /* Firefox */
+}
+
+::-ms-input-placeholder {
+    /* Edge 12 -18 */
+    color: #EDF9D0;
+}
+
+.OtpComponent input {
+    height: 50px;
+    background: #181C13;
+    border-radius: 12px;
+    width: 50px;
+    padding: 10px;
+    /* margin: 10px; */
+    text-align: center;
+}
+
+.OtpComponent input:focus {
+    outline: none;
+}

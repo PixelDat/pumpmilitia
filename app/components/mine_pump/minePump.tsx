@@ -35,13 +35,14 @@ const MinePump = () => {
     }
   ]
   return (
-    <>
+    <div id="airdrop">
+
       {/* Big screens */}
       <div
-        className="md:flex hidden  flex-col space-y-24 justify-center bg-cover bg-[url('/images/airdropbg.png')] items-center py-32"
-        id="airdrop"
+        className="md:flex hidden relative  flex-col space-y-24 justify-center bg-cover  bg-[url('/images/airdropbg.png')] items-center py-32"
       >
-        <div className="flex flex-col items-center justify-center">
+        <div className="bg-gradient-to-b from-[#20251a05] to-[#20251a]" style={{ zIndex: 0, position: 'absolute', width: '100%', height: '100%' }}></div>
+        <div className="flex flex-col items-center justify-center" style={{ zIndex: 1, }}>
           <div className="font-gameria text-vivd-lime-green-10 text-[40px]">
             AIRDROP - MINE $PUMP
           </div>
@@ -90,7 +91,7 @@ const MinePump = () => {
             })}
 
             <div className="flex flex-row space-x-4 items-start justify-start">
-              <Image src={"/svg/play_store.svg"} width={185} height={56} alt="" />
+              <a target="_blank" href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"><Image src={"/svg/play_store.svg"} width={185} height={56} alt="" /></a>
 
               <Image src={"/svg/app_store.svg"} width={185} height={56} alt="" />
             </div>
@@ -112,8 +113,7 @@ const MinePump = () => {
 
       {/* Small screens */}
       <div
-        className="flex md:hidden flex-col space-y-24 justify-center bg-cover bg-[url('/images/airdropbg.png')] items-center py-32"
-        id="airdrop"
+        className="flex md:hidden flex-col space-y-24 justify-center bg-cover  bg-[url('/images/airdropbg.png')] items-center py-32"
       >
         <div className="">
           <div className="font-gameria text-center text-vivd-lime-green-10 text-[40px]">
@@ -183,7 +183,8 @@ const MinePump = () => {
 
 
             <div className="flex flex-row space-x-4 py-3 items-start justify-center">
-              <Image src={"/svg/play_store.svg"} width={153} height={45} alt="" />
+              <a target="_blank" href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"><Image src={"/svg/play_store.svg"} width={185} height={56} alt="" /></a>
+
               <Image src={"/svg/app_store.svg"} width={153} height={45} alt="" />
             </div>
           </div>
@@ -192,7 +193,8 @@ const MinePump = () => {
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
       </div>
-    </>
+    </div>
+
 
   );
 };
