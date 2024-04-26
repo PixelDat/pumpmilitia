@@ -41,7 +41,7 @@ export default function VerifyEmail() {
                 } catch (error: any) {
                     if (error.response && error.response.status === 400) {
                         setError(true)
-                        setErrMessage(error.response.data.message)
+                        // setErrMessage(error.response.data.message)
                         console.log(`${error.response.data.message}`);
                         location.href = '/auth';
                     } else {
