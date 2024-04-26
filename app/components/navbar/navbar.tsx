@@ -97,7 +97,10 @@ const NavBar = () => {
           <div>
             {!loggedIn ?
               <a href="/login" className="navbar-auth-btn">Authentication</a> :
-              <a onClick={() => { Cookies.remove('encrypt_id') }} className="navbar-auth-btn">Logout</a>
+              <a onClick={() => {
+                Cookies.remove('encrypt_id');
+                location.href = '/'
+              }} className="navbar-auth-btn">Logout</a>
 
             }
 
