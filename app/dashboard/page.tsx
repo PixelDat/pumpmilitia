@@ -232,7 +232,6 @@ export default function Dashboard() {
           </div>
           <p className="text-[16px] text-center md:text-start">Complete simple missions and get rewarded in $PUMP. Own a slice of the ecosystem.</p>
         </div>
-
         {/* Dashboard Items */}
         <div className="md:flex  md:flex-row  md:gap-x-14 px-4 md:w-11/12 m-auto  pb-20  items-start justify-between">
           <div className="basis-1/4">
@@ -315,14 +314,14 @@ export default function Dashboard() {
                 <>{
                   completeTask.length > 0 ?
                     <div className="  m-auto w-full  rounded-tr-3xl rounded-b-3xl">
-                      {tasks.map((task, index) => {
+                      {completeTask.map((task: any, index: number) => {
                         return (
-                          <div key={`${index}-${task}`} className="md:flex  bg-[#10130D99] hover:scale-x-105 space-y-5 flex-row p-[24px] justify-between items-center gap-8">
+                          <div key={`${index}-${task.task_head}`} className="md:flex  bg-[#10130D99] hover:scale-x-105 space-y-5 flex-row p-[24px] justify-between items-center gap-8">
                             <div className="flex flex-row items-center justify-center md:justify-between gap-x-4">
                               <div className="hidden md:inline">
                                 <Image
                                   className="m-auto "
-                                  src={task.image}
+                                  src={'/images/tasksItem.png'}
                                   width={272}
                                   height={82}
                                   priority
@@ -340,26 +339,20 @@ export default function Dashboard() {
                               </div>
                               <div>
                                 <div className="flex flex-row gap-8 items-center">
-                                  <h4 className="text-[14px] md:text-[25px] font-gameria text-center">{task.title}</h4>
-                                  <div>
+                                  <h4 className="text-[14px] md:text-[25px] font-gameria text-center">{task.task_head}</h4>
+                                  {/* <div>
                                     <Image
                                       src={task.icon}
                                       width={20}
                                       height={20}
                                       priority
                                       alt="" />
-                                  </div>
+                                  </div> */}
                                 </div>
-                                <p className="text-[#C3EC62] font-bold">$PUMP: {task.reward}</p>
+                                <p className="text-[#C3EC62] font-bold">$PUMP: {task.reward_points}</p>
                               </div>
                             </div>
                             <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
-                              <button className="flex flex-row items-center gap-2 bg-[#A5E314] p-3 rounded-xl text-[#10130D]"> <Image
-                                src={task.icon}
-                                width={10}
-                                height={10}
-                                priority
-                                alt="" /> Follow</button>
                               <div>
                                 <CustomInput
                                   className=""
@@ -376,7 +369,6 @@ export default function Dashboard() {
                           </div>
                         )
                       })}
-
                     </div>
                     :
                     <div className="h-[701px] flex justify-center items-center m-auto w-full bg-[#10130D99] md:rounded-tr-3xl rounded-b-3xl">
@@ -437,12 +429,12 @@ export default function Dashboard() {
                               </div>
                             </div>
                             <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
-                              <button className="flex flex-row items-center gap-2 bg-[#A5E314] p-3 rounded-xl text-[#10130D]"> <Image
+                              <a href={task.action_button_link} target="_blank" className="flex flex-row items-center gap-2 bg-[#A5E314] p-3 rounded-xl text-[#10130D]"> <Image
                                 src={'/images/xicon.png'}
                                 width={10}
                                 height={10}
                                 priority
-                                alt="" /> Follow</button>
+                                alt="" /> {task.action_button_text}</a>
                               <div>
                                 <CustomInput
                                   className=""
@@ -470,7 +462,7 @@ export default function Dashboard() {
                           height={363}
                           priority
                           alt="" />
-                        <h4 className="text-[24px] font-bold text-center">You do not have any completed task yet</h4>
+                        <h4 className="text-[24px] font-bold text-center">You do not have any uncompleted task!</h4>
                       </div>
                     </div>
                   }

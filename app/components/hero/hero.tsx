@@ -6,22 +6,18 @@ const Hero = () => {
   return (
     <div>
       <div className="sm:pb-10 md:pb-20 overflow-hidden bg-cover z-0">
-        <iframe id="background-video"
-          width="100%"
-          height="100%"
-          src={`http://www.youtube.com/embed/wXOgnFyj7JM?autoplay=1&mute=1&controls=0&loop=1&fitToBackground=1&enablejsapi=1&origin=http://localhost:3000`}
+        <video id="background-video"
+          controls
+          autoPlay={true}
+          loop={true}
+          src={`/video/pump.mov`}
           style={{
             position: 'absolute',
-            top: '50%',
-            left: '50%',
-            // minWidth: '100%',
-            // minHeight: '100%',
-            // width: 'auto',
-            // height: 'auto',
+            height: '100vh',
+            objectFit: 'cover',
             zIndex: 0,
-            transform: 'translate(-50%, -50%)',
           }}>
-        </iframe>
+        </video>
         <div className="hero-overlay"></div>
         <div className="z-10 flex flex-col space-y-8 relative">
           <NavBar />
@@ -37,60 +33,66 @@ const Hero = () => {
                   priority
                   alt=""
                 />
-
-                <Image
-                  className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                  src={"/svg/twitter.svg"}
-                  width={32}
-                  height={32}
-                  priority
-                  alt=""
-                />
-
-                <Image
-                  className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                  src={"/svg/telegram.svg"}
-                  width={32}
-                  height={32}
-                  priority
-                  alt=""
-                />
-
-                <Image
-                  className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                  src={"/svg/discord.svg"}
-                  width={32}
-                  height={32}
-                  priority
-                  alt=""
-                />
-
-                <Image
-                  className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                  src={"/svg/tiktok.svg"}
-                  width={32}
-                  height={32}
-                  priority
-                  alt=""
-                />
-
-                <Image
-                  className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                  src={"/svg/youtube.svg"}
-                  width={32}
-                  height={32}
-                  priority
-                  alt=""
-                />
-
-                <Image
-                  className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                  src={"/svg/medium.svg"}
-                  width={32}
-                  height={32}
-                  priority
-                  alt=""
-                />
+                <a href="https://x.com/PumpMilitia" target="_blank">
+                  <Image
+                    className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                    src={"/svg/twitter.svg"}
+                    width={32}
+                    height={32}
+                    priority
+                    alt=""
+                  />
+                </a>
+                <a href="https://t.me/PumpMilitia" target="_blank">
+                  <Image
+                    className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                    src={"/svg/telegram.svg"}
+                    width={32}
+                    height={32}
+                    priority
+                    alt=""
+                  />
+                </a>
+                <a href="https://discord.com/invite/tvZGAP4Qt8" target="_blank">
+                  <Image
+                    className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                    src={"/svg/discord.svg"}
+                    width={32}
+                    height={32}
+                    priority
+                    alt=""
+                  />
+                </a>
+                <a href="#">
+                  <Image
+                    className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                    src={"/svg/tiktok.svg"}
+                    width={32}
+                    height={32}
+                    priority
+                    alt=""
+                  />
+                </a>
+                <a href=" https://youtube.com/@PumpMilitia" target="_blank">
+                  <Image
+                    className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                    src={"/svg/youtube.svg"}
+                    width={32}
+                    height={32}
+                    priority
+                    alt=""
+                  />
+                </a>
+                <a href="https://medium.com/@pumpmilitia" target="_blank">
+                  <Image
+                    className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                    src={"/svg/medium.svg"}
+                    width={32}
+                    height={32}
+                    priority
+                    alt=""
+                  />
+                </a>
 
                 <Image
                   className="justify-center items-center inline-flex max-w-[30px] max-h-[70px]"
@@ -100,6 +102,7 @@ const Hero = () => {
                   priority
                   alt=""
                 />
+
               </div>
             </div>
             <div className="flex  pt-[50px]  sm:pt-[100px] md:pt-[100px] pb-[20px]  flex-col justify-center items-center spacing-y-8 text-center sm:w-10/12 md:w-7/12 mx-auto text-vivd-lime-green-10">
@@ -139,59 +142,66 @@ const Hero = () => {
 
           {/* Social Icons on small screens */}
           <div className="flex-row bg-stone-900 bg-opacity-70 py-2 md:hidden justify-center items-center gap-4 flex ">
-            <Image
-              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-              src={"/svg/twitter.svg"}
-              width={32}
-              height={32}
-              priority
-              alt=""
-            />
-
-            <Image
-              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-              src={"/svg/telegram.svg"}
-              width={32}
-              height={32}
-              priority
-              alt=""
-            />
-
-            <Image
-              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-              src={"/svg/discord.svg"}
-              width={32}
-              height={32}
-              priority
-              alt=""
-            />
-
-            <Image
-              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-              src={"/svg/tiktok.svg"}
-              width={32}
-              height={32}
-              priority
-              alt=""
-            />
-
-            <Image
-              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-              src={"/svg/youtube.svg"}
-              width={32}
-              height={32}
-              priority
-              alt=""
-            />
-
-            <Image
-              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-              src={"/svg/medium.svg"}
-              width={32}
-              height={32}
-              priority
-              alt=""
-            />
+            <a href="https://x.com/PumpMilitia" target="_blank">
+              <Image
+                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                src={"/svg/twitter.svg"}
+                width={32}
+                height={32}
+                priority
+                alt=""
+              />
+            </a>
+            <a href="https://t.me/PumpMilitia" target="_blank">
+              <Image
+                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                src={"/svg/telegram.svg"}
+                width={32}
+                height={32}
+                priority
+                alt=""
+              />
+            </a>
+            <a href="https://discord.com/invite/tvZGAP4Qt8" target="_blank">
+              <Image
+                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                src={"/svg/discord.svg"}
+                width={32}
+                height={32}
+                priority
+                alt=""
+              />
+            </a>
+            <a href="#">
+              <Image
+                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                src={"/svg/tiktok.svg"}
+                width={32}
+                height={32}
+                priority
+                alt=""
+              />
+            </a>
+            <a href=" https://youtube.com/@PumpMilitia" target="_blank">
+              <Image
+                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                src={"/svg/youtube.svg"}
+                width={32}
+                height={32}
+                priority
+                alt=""
+              />
+            </a>
+            <a href="https://medium.com/@pumpmilitia" target="_blank">
+              <Image
+                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                src={"/svg/medium.svg"}
+                width={32}
+                height={32}
+                priority
+                alt=""
+              />
+            </a>
           </div>
           {/* Last slide Items */}
           <div className="flex flex-col md:flex-row items-center justify-end gap-4">

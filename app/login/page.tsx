@@ -41,6 +41,7 @@ export default function LoginPage() {
             const response = await axios.post(url, params);
             setError(true)
             setloading(false)
+            location.href = '/verify-email'
         } catch (error: any) {
             if (error.response && error.response.status === 400) {
                 setError(false)
