@@ -56,7 +56,7 @@ const OtpComp: React.FC<OtpInputProps> = ({ error, success, setOtp }) => {
 
     return (
         <>
-            <div className="OtpComponent">
+            <div className="OtpComponent gap-2 justify-center flex ">
                 {filled.map((val: any, index: number) => (
                     <input
                         key={index}

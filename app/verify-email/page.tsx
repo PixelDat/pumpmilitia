@@ -10,14 +10,19 @@ import '../styles/navbar.css';
 import { useEffect, useState } from "react"
 import OtpComp from "../components/otpComp/otpComp"
 import axios from "axios"
+const Cookies = require('js-cookie');
+
+
 
 
 export default function VerifyEmail() {
+    let encrypt = Cookies.get('encrypt');
     const [error, setError] = useState(false)
     const [success, setSuccess] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const [otp, setOtp] = useState('');
+    console.log(otp);
 
     useEffect(() => {
         setTimeout(() => {
@@ -27,28 +32,28 @@ export default function VerifyEmail() {
 
     useEffect(() => {
         if (otp.length == 6) {
-            let checkOTP = async () => {
-                let params = {
-                    token: otp
-                }
-
-                let url = 'https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/verifyEmail';
+            let verify_otp = async () => {
+                let config = {
+                    method: 'get',
+                    maxBodyLength: Infinity,
+                    url: 'https://evp-user-service-cea2e4kz5q-uc.a.run.app/get-user-details',
+                    headers: {
+                        'Authorization': `${encrypt}`
+                    }
+                };
                 try {
-                    const response = await axios.post(url, params);
-                    let data = response.data;
-                    // localStorage.setItem('user_id', data.userId)
-                    // location.href = '/verify-email'
+                    const response = await axios.request(config);
+                    console.log(response);
                 } catch (error: any) {
                     if (error.response && error.response.status === 400) {
-                        setError(true)
-                        // setErrMessage(error.response.data.message)
-                        console.log(`${error.response.data.message}`);
-                        location.href = '/auth';
                     } else {
                         console.log(`An error occurred: ${error.message}`);
                     }
                 }
+
             }
+
+            verify_otp()
         }
     }, [otp])
 

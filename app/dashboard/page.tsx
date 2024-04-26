@@ -429,12 +429,14 @@ export default function Dashboard() {
                               </div>
                             </div>
                             <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
-                              <a href={task.action_button_link} target="_blank" className="flex flex-row items-center gap-2 bg-[#A5E314] p-3 rounded-xl text-[#10130D]"> <Image
+                              <a href={task.action_button_link} target="_blank" className="flex flex-row items-center gap-2 bg-[#A5E314] p-3 rounded-xl text-[#10130D]">
+                                {/* <Image
                                 src={'/images/xicon.png'}
                                 width={10}
                                 height={10}
                                 priority
-                                alt="" /> {task.action_button_text}</a>
+                                alt="" />  */}
+                                {task.action_button_text}</a>
                               <div>
                                 <CustomInput
                                   className=""
