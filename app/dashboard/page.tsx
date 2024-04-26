@@ -22,6 +22,7 @@ interface UserType {
   points: number,
   updated_at: string
 }
+
 export default function Dashboard() {
   const [error, setError] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -43,7 +44,6 @@ export default function Dashboard() {
   const [uncompleteTask, setUnCompleteTask] = useState<string[]>([]);
   const [allTasks, setAllTasks] = useState<string[]>([]);
 
-  console.log(allTasks)
   let encrypt = Cookies.get('encrypt_id');
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function Dashboard() {
       location.href = '/login'
       return
     }
-    let login = async () => {
+    let userDetails = async () => {
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
@@ -142,7 +142,7 @@ export default function Dashboard() {
       }
 
     }
-    login()
+    userDetails()
     getCompleteTask()
     getUncompleteTask();
     getAllTasks()
@@ -398,14 +398,14 @@ export default function Dashboard() {
                   {uncompleteTask.length > 0 ?
                     // Items in the task
                     <div className="  m-auto w-full  rounded-tr-3xl rounded-b-3xl">
-                      {allTasks.map((task, index) => {
+                      {allTasks.map((task: any, index: number) => {
                         return (
-                          <div key={`${index}-${task}`} className="md:flex  bg-[#10130D99] hover:scale-x-105 space-y-5 flex-row p-[24px] justify-between items-center gap-8">
+                          <div key={`${index}-${task.task_head}`} className="md:flex  bg-[#10130D99] hover:scale-x-105 space-y-5 flex-row p-[24px] justify-between items-center gap-8">
                             <div className="flex flex-row items-center justify-center md:justify-between gap-x-4">
                               <div className="hidden md:inline">
                                 <Image
                                   className="m-auto "
-                                  src={task.image}
+                                  src={'/images/tasksItem.png'}
                                   width={272}
                                   height={82}
                                   priority
@@ -423,22 +423,22 @@ export default function Dashboard() {
                               </div>
                               <div>
                                 <div className="flex flex-row gap-8 items-center">
-                                  <h4 className="text-[14px] md:text-[25px] font-gameria text-center">{task.title}</h4>
-                                  <div>
+                                  <h4 className="text-[14px] md:text-[25px] font-gameria text-center">{task.task_head}</h4>
+                                  {/* <div>
                                     <Image
                                       src={task.icon}
                                       width={20}
                                       height={20}
                                       priority
                                       alt="" />
-                                  </div>
+                                  </div> */}
                                 </div>
-                                <p className="text-[#C3EC62] font-bold">$PUMP: {task.reward}</p>
+                                <p className="text-[#C3EC62] font-bold">$PUMP: {task.reward_points}</p>
                               </div>
                             </div>
                             <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
                               <button className="flex flex-row items-center gap-2 bg-[#A5E314] p-3 rounded-xl text-[#10130D]"> <Image
-                                src={task.icon}
+                                src={'/images/xicon.png'}
                                 width={10}
                                 height={10}
                                 priority
