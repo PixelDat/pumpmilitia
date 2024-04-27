@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import "./styles/globals.css";
 import { Kanit } from 'next/font/google'
 import localFont from 'next/font/local'
+import Context from "./context/context";
 export const metadata = {
   icons: {
     icon: '/images/favicon-32x32.png',
@@ -31,7 +32,7 @@ const kanit = Kanit({
 
 export default function RootLayout({ children }: Props) {
   return (
-    // <StoreProvider>
+
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
@@ -51,13 +52,9 @@ export default function RootLayout({ children }: Props) {
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></link>
       </head>
       <body className={`${kanit.className} ${digital.variable} ${gameria.variable}`}>
-
         {children}
-
       </body>
     </html>
-    // </StoreProvider>
-
   );
 }
 

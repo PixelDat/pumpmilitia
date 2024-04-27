@@ -13,13 +13,12 @@ import axios from "axios"
 const Cookies = require('js-cookie');
 import { initializeApp } from "firebase/app";
 
-import { getAnalytics, logEvent } from "firebase/analytics";
 
 import { getAuth, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const firebaseConfig = { apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc", authDomain: "everpump-6e275.firebaseapp.com", projectId: "everpump-6e275", storageBucket: "everpump-6e275.appspot.com", messagingSenderId: "138957984497", appId: "1:138957984497:web:6be3945adff541c5380f50", measurementId: "G-8T2XXV37GT", };
 
-const app = initializeApp(firebaseConfig); const analytics = getAnalytics(app);
+const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
