@@ -7,7 +7,7 @@ const Hero = () => {
     <div>
       <div className="sm:pb-10 md:pb-20 overflow-hidden bg-cover z-0">
         <video id="background-video"
-          controls
+          controls={false}
           autoPlay={true}
           loop={true}
           src={`/video/pump.mov`}

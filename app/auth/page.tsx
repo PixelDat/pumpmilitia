@@ -11,6 +11,22 @@ import { useEffect, useState } from "react"
 import { request } from "@/lib/utils/helper"
 import axios from "axios"
 const Cookies = require('js-cookie');
+import { initializeApp } from "firebase/app";
+
+import { getAnalytics, logEvent } from "firebase/analytics";
+
+import { getAuth, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
+const firebaseConfig = { apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc", authDomain: "everpump-6e275.firebaseapp.com", projectId: "everpump-6e275", storageBucket: "everpump-6e275.appspot.com", messagingSenderId: "138957984497", appId: "1:138957984497:web:6be3945adff541c5380f50", measurementId: "G-8T2XXV37GT", };
+
+const app = initializeApp(firebaseConfig); const analytics = getAnalytics(app);
+
+const auth = getAuth(app);
+
+const twitterProvider = new TwitterAuthProvider();
+
+const googleProvider = new GoogleAuthProvider();
+
 
 export default function LoginPage() {
     const [error, setError] = useState(false)
@@ -42,6 +58,7 @@ export default function LoginPage() {
             setError(true)
             setloading(false)
             location.href = '/verify-email'
+            Cookies.set('verifying_email', email)
         } catch (error: any) {
             if (error.response && error.response.status === 400) {
                 setError(false)
@@ -67,7 +84,6 @@ export default function LoginPage() {
         let url = 'https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/login';
         try {
             const response = await axios.post(url, params);
-            console.log(response.status)
             Cookies.set('encrypt_id', `${response.data.encypted_session_id}`)
             location.href = '/dashboard'
 
@@ -81,6 +97,44 @@ export default function LoginPage() {
             }
         }
 
+    }
+
+    const handleExternalLogin = async (type: string) => {
+        setloading(true)
+        try {
+            if (type == 'google') {
+                var user = await signInWithPopup(auth, googleProvider)
+            } else {
+                var user = await signInWithPopup(auth, twitterProvider)
+            }
+            const authToken = user.user.uid.trim();
+            try {
+                const res = await axios.get("https://us-central1-everpump-6e275.cloudfunctions.net/app/checkAuth", { headers: { Authorization: authToken, }, });
+                if (res.status === 200) {
+                    console.log(res);
+                    setloading(false)
+
+                    Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
+                    location.href = '/dashboard'
+                }
+            } catch (error: any) {
+                if (error.response) {
+                    setError(true)
+                    setErrMessage(error.response.data.message)
+                    setloading(false)
+                } else {
+                    setloading(false)
+                }
+            }
+        } catch (error: any) {
+            if (error.response) {
+                setError(true)
+                setErrMessage(error.response.data.message)
+                setloading(false)
+            } else {
+                console.log(`An error occurred: ${error.message}`);
+            }
+        }
     }
 
     return (
@@ -196,6 +250,7 @@ export default function LoginPage() {
 
                             <div className="flex flex-row items-center justify-center gap-8 my-3">
                                 <Image
+                                    onClick={() => { handleExternalLogin('google') }}
                                     className="object-center"
                                     src={'/images/google.png'}
                                     width={44}
@@ -203,6 +258,8 @@ export default function LoginPage() {
                                     alt="google icon"
                                     priority />
                                 <Image
+                                    onClick={() => { handleExternalLogin('twitter') }}
+
                                     className="object-center"
                                     src={'/images/xacct.png'}
                                     width={44}

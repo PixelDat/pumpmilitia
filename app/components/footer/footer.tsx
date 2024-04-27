@@ -110,23 +110,19 @@ const Footer = () => {
 
                         <div className="flex-flex-col space-y-4">
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                Airdrop
+                                <a href="#airdrop">Airdrop</a>
                             </div>
 
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                Whitepaper
+                                <a href="">Whitepaper</a>
                             </div>
 
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                Presale
+                                <a href="/pre-sale">Presale</a>
                             </div>
 
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                Roadmap
-                            </div>
-
-                            <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                Quest
+                                <a href="#roadmap">Roadmap</a>
                             </div>
                         </div>
                     </div>
