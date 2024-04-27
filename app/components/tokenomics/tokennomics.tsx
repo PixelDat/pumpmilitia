@@ -90,7 +90,7 @@ const Tokenomics = () => {
         <div id="tokenomics" className="px-4 py-2 md:p-0 md:w-10/12 m-auto my-32">
             <div className="boderToken relative w-full h-[500px] md:h-[280px]">
                 <div className="flex flex-col md:w-10/12 px-4  md:px-10 relative space-y-4">
-                    <div className='font-gameria w-1/12 leading-10 text-[#EDF9D0] text-[56px]'>
+                    <div className='font-gameria w-1/12 leading-[50px] text-[#EDF9D0] text-[56px]'>
                         $pump
                         tokenomics!
                     </div>
@@ -123,7 +123,7 @@ const Tokenomics = () => {
                         let width = `w-${randWidth}/12`;
                         return (
                             <div key={`${index}-${item.color}`} className="justify-end flex">
-                                <div className={`flex flex-row justify-between border-s-8 w-full leading-loose text-white bg-[#10130D66] ${item.width}  ${item.border_color}  rounded-lg mb-3 px-4 py-3`}>
+                                <div className={`flex flex-row justify-between border-s-8 leading-loose text-white bg-[#10130D66] ${item.width}  ${item.border_color}  rounded-lg mb-3 px-4 py-3`}>
                                     <div>
                                         <p className="text-[14px]" ><span className={`${item.text_color}`}>{item.percent}% </span>{item.title}</p>
                                         <p className="text-[10px] md:text-[12px] text-[#898989]">{item.text}</p>
