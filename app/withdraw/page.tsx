@@ -268,11 +268,15 @@ export default function WithdrawPage() {
 
                       <div className="flex flex-row space-x-4 w-full mt-8 relative">
 
-                        <WalletMultiButton
-                          // sx={{ width: '100%', visbility: 'hidden' }}
-                          className='rounded-5 multibuttton shadow w-100 text-white'
-                        />
-                        <button className="bg-vivd-lime-green w-full component_btn px-6 py-2 shadow-sm rounded-xl shadow-white">
+                        <span style={{ visibility: 'hidden', position: 'absolute' }}>
+                          <WalletMultiButton
+                            className='rounded-5 multibuttton shadow w-100 text-white'
+                          />
+                        </span>
+                        <button onClick={() => {
+                          document.getElementsByClassName('wallet-adapter-button-trigger')[0].click();
+                          /*setShowConnect(true)*/
+                        }} className="bg-vivd-lime-green w-full component_btn px-6 py-2 shadow-sm rounded-xl shadow-white">
                           Connect
                         </button>
 
