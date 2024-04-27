@@ -9,13 +9,15 @@ interface ToastComponentProps {
 }
 
 
-const ToastComponent: React.FC<ToastComponentProps> = ({ addOnEnd, addOnStart, type, content }) => {
+export const ToastComponent: React.FC<ToastComponentProps> = ({ addOnEnd, addOnStart, type, content }) => {
+    let color = type == 'error' ? 'border-[#FF0000]' : type == 'success' ? 'border-[#A5E314]' : 'border-[#C3EC62]';
     return (
         <div className='w-full' style={{
             position: 'fixed',
-            top: '20px'
+            top: '120px',
+            zIndex: 100,
         }}>
-            <div className='border-2 rounded-xl flex flex-row justify-center gap-4 text-[#EDF9D0] items-center text-center p-3 w-3/12 m-auto border-[#C3EC62]'>
+            <div className={`border-2  bg-[#20251A] rounded-xl flex flex-row justify-center gap-4 text-[#EDF9D0] items-center text-center p-3 py-4 w-6/12 md:w-3/12  m-auto ${color}`}>
                 {addOnStart &&
                     addOnStart
                 }

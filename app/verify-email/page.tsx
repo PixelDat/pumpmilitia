@@ -22,7 +22,6 @@ export default function VerifyEmail() {
     const [loading, setLoading] = useState(false)
 
     const [otp, setOtp] = useState('');
-    console.log(otp);
 
     useEffect(() => {
         setTimeout(() => {

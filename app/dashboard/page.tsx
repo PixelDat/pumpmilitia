@@ -7,8 +7,9 @@ import NavBar from "../components/navbar/navbar";
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import CustomInput from "../components/customInput/customInput";
-import { People, Person, Person2Rounded } from "@mui/icons-material";
+import { Check, CheckCircle, People, Person, Person2Rounded } from "@mui/icons-material";
 import axios from "axios";
+import { ToastComponent } from "../components/toastComponent/toastComponent";
 const Cookies = require('js-cookie');
 
 interface UserType {
@@ -43,7 +44,8 @@ export default function Dashboard() {
   const [completeTask, setCompleteTask] = useState<string[]>([]);
   const [uncompleteTask, setUnCompleteTask] = useState<string[]>([]);
   const [allTasks, setAllTasks] = useState<string[]>([]);
-
+  const [showCompletedTask, setShowCompletedTask] = useState(false)
+  const [completedATask, setCompletedATask] = useState(0);
   let encrypt = Cookies.get('encrypt_id');
 
   useEffect(() => {
@@ -93,7 +95,9 @@ export default function Dashboard() {
       };
       try {
         const response = await axios.request(config);
-        setCompleteTask(response.data);
+        // setCompleteTask(response.data);
+        getAllCompletedTask(response.data)
+
       } catch (error: any) {
         if (error.response && error.response.status === 400) {
         } else {
@@ -113,7 +117,8 @@ export default function Dashboard() {
       };
       try {
         const response = await axios.request(config);
-        setUnCompleteTask(response.data);
+        // setUnCompleteTask(response.data);
+        getAllUnCompletedTask(response.data)
       } catch (error: any) {
         if (error.response && error.response.status === 400) {
         } else {
@@ -122,7 +127,7 @@ export default function Dashboard() {
       }
 
     }
-    let getAllTasks = async () => {
+    let getAllCompletedTask = async (completed_items: any) => {
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
@@ -133,7 +138,37 @@ export default function Dashboard() {
       };
       try {
         const response = await axios.request(config);
-        setAllTasks(response.data);
+        let collatedTask = response.data
+        const filteredTasks = collatedTask.filter((task: any) => {
+          let task_item = completed_items.some((task_completed: any) => task.task_id === task_completed.task_id);
+          return task_item;
+        });
+        setCompleteTask(filteredTasks)
+      } catch (error: any) {
+        if (error.response && error.response.status === 400) {
+        } else {
+          console.log(`An error occurred: ${error.message}`);
+        }
+      }
+
+    }
+    let getAllUnCompletedTask = async (uncompleted_items: any) => {
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'https://evp-task-service-cea2e4kz5q-uc.a.run.app/list-tasks-with-pagination?page=1&limit=10',
+        headers: {
+          'Authorization': `${encrypt}`
+        }
+      };
+      try {
+        const response = await axios.request(config);
+        let collatedTask = response.data
+        const filteredTasks = collatedTask.filter((task: any) => {
+          let task_item = uncompleted_items.some((task_completed: any) => task.task_id === task_completed.task_id);
+          return task_item;
+        });
+        setUnCompleteTask(filteredTasks)
       } catch (error: any) {
         if (error.response && error.response.status === 400) {
         } else {
@@ -145,8 +180,7 @@ export default function Dashboard() {
     userDetails()
     getCompleteTask()
     getUncompleteTask();
-    getAllTasks()
-  }, [])
+  }, [completedATask])
   let tasksCount = [
     {
       number: completeTask.length,
@@ -169,62 +203,75 @@ export default function Dashboard() {
 
   ]
 
-  let tasks = [
-    {
-      image: '/images/tasksItem.png',
-      title: 'Follow @PUMPMILITIA ON',
-      icon: '/images/xicon.png',
-      reward: '100',
-    },
-    {
-      image: '/images/tasksItem.png',
-      title: 'Follow @PUMPMILITIA ON',
-      icon: '/images/xicon.png',
-      reward: '100',
-    },
-    {
-      image: '/images/tasksItem.png',
-      title: 'Follow @PUMPMILITIA ON',
-      icon: '/images/xicon.png',
-      reward: '100',
-    },
-    {
-      image: '/images/tasksItem.png',
-      title: 'Follow @PUMPMILITIA ON',
-      icon: '/images/xicon.png',
-      reward: '100',
-    },
-    {
-      image: '/images/tasksItem.png',
-      title: 'Follow @PUMPMILITIA ON',
-      icon: '/images/xicon.png',
-      reward: '100',
-    },
-    {
-      image: '/images/tasksItem.png',
-      title: 'Follow @PUMPMILITIA ON',
-      icon: '/images/xicon.png',
-      reward: '100',
+  const [userName, setUserName] = useState('')
+
+  const markTaskCompleted = async (taskId: string, tweet_link: string) => {
+    setloading(true)
+    if (userName == '') {
+      setError(true);
+      setErrMessage('Kindly add the username');
+      return false
     }
-  ]
-  const [showCompletedTask, setShowCompletedTask] = useState(false)
+
+    let params = {
+      full_name: user.username,
+      email: user.email || user.twitter_id || user.google_id,
+      tweet_link: tweet_link,
+      tweeter_username: userName,
+      tg_username: userName,
+      task_id: taskId,
+    }
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://evp-user-task-service-cea2e4kz5q-uc.a.run.app/user-submit-task',
+      headers: {
+        'Authorization': `${encrypt}`
+      },
+      data: params
+    };
+    try {
+      const response = await axios.request(config);
+      setError(true);
+      setErrMessage(response.data.message);
+      setCompletedATask(Math.random() + 1)
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+    } catch (error: any) {
+      if (error.response) {
+        setError(true);
+        setErrMessage(error?.response.data.message);
+        setTimeout(() => {
+          setError(false);
+        }, 2000)
+      } else {
+        console.log(`An error occurred: ${error.message}`);
+      }
+    }
+  }
+
   return (
     <div className="bg-contain bg-[url('/images/dashboardbg.png')] h-full w-full">
+      {error &&
+        <ToastComponent addOnStart={<CheckCircle color="inherit" />} content={errMessage} type="success" />
+      }
       <NavBar />
       <div className="pt-28 w-11/12 m-auto text-[#EDF9D0] font-kanit">
         {/* Dashboard airdrop and avatar */}
         <div className="p-4 md:p-20 ">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div >
-              <h1 className="font-gameria text-center md:text-start text-[52px]">AIRDROP QUESTS</h1>
+            <div className="order-2 md:order-1" >
+              <h1 className="font-gameria text-center md:text-start text-[32px] md:text-[52px]">AIRDROP QUESTS</h1>
             </div>
-            <div className="flex flex-col md:flex-row text-center md:text-start items-center gap-x-4" >
-              <div>
+            <div className="order-1 md:order-2 mb-3 flex flex-col md:flex-row text-center md:text-start items-center gap-x-4" >
+              <div className="order-2 md:order-1">
                 <p>{user?.username}</p>
-                <p className="text-[12px]">{user?.username}</p>
+                <p className="text-[12px]">{user?.google_id || user?.twitter_id || user?.email}</p>
               </div>
               <Avatar
-                className=""
+                className="order-1 md:order-2"
                 sx={{ width: 62, height: 62 }}
                 src={user?.profilePhoto}
               />
@@ -354,15 +401,10 @@ export default function Dashboard() {
                             </div>
                             <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
                               <div>
-                                <CustomInput
-                                  className=""
-                                  onChange={(e) => { }}
-                                  sx={{ marginBottom: '10px', }}
-                                  placeholder="Enter username"
-                                  type={"text"}
-                                  addOnStart={<Person2Rounded color="inherit" className="border rounded-full" />}
-                                  addOnEnd={<button onClick={() => { }} className="text-[#E1F6B1]" >Continue </button>}
-                                />
+                                <p className="text-[#B4E83B]"><CheckCircle color="inherit" /> You have completed this task</p>
+                                <div className="mt-2 bg-[#52594BBF] w-full rounded-2xl h-[48px] p-3">
+
+                                </div>
                               </div>
                             </div>
                             {/* <hr /> */}
@@ -390,13 +432,13 @@ export default function Dashboard() {
                   {uncompleteTask.length > 0 ?
                     // Items in the task
                     <div className="  m-auto w-full  rounded-tr-3xl rounded-b-3xl">
-                      {allTasks.map((task: any, index: number) => {
+                      {uncompleteTask.map((task: any, index: number) => {
                         return (
                           <div key={`${index}-${task.task_head}`} className="md:flex  bg-[#10130D99] hover:scale-x-105 space-y-5 flex-row p-[24px] justify-between items-center gap-8">
-                            <div className="flex flex-row items-center justify-center md:justify-between gap-x-4">
+                            <div className="flex flex-row items-center  justify-center md:justify-between gap-x-4">
                               <div className="hidden md:inline">
                                 <Image
-                                  className="m-auto "
+                                  className="m-auto max-w-[272px] "
                                   src={'/images/tasksItem.png'}
                                   width={272}
                                   height={82}
@@ -405,7 +447,7 @@ export default function Dashboard() {
                               </div>
                               <div className="md:hidden">
                                 <Image
-                                  className="m-auto "
+                                  className="m-auto"
                                   style={{ objectFit: 'cover' }}
                                   src={'/images/smallScreentask.png'}
                                   width={53}
@@ -415,7 +457,7 @@ export default function Dashboard() {
                               </div>
                               <div>
                                 <div className="flex flex-row gap-8 items-center">
-                                  <h4 className="text-[14px] md:text-[25px] font-gameria text-center">{task.task_head}</h4>
+                                  <h4 className="text-[14px] md:text-[25px] w-full font-gameria text-center">{task.task_head}</h4>
                                   {/* <div>
                                     <Image
                                       src={task.icon}
@@ -429,7 +471,7 @@ export default function Dashboard() {
                               </div>
                             </div>
                             <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
-                              <a href={task.action_button_link} target="_blank" className="flex flex-row items-center gap-2 bg-[#A5E314] p-3 rounded-xl text-[#10130D]">
+                              <a href={task.action_button_link} target="_blank" className="flex flex-row justify-center items-center gap-2 bg-[#A5E314] min-w-60 text-centere p-3 rounded-xl text-[#10130D]">
                                 {/* <Image
                                 src={'/images/xicon.png'}
                                 width={10}
@@ -439,14 +481,17 @@ export default function Dashboard() {
                                 {task.action_button_text}</a>
                               <div>
                                 <CustomInput
-                                  className=""
-                                  onChange={(e) => { }}
+                                  className="max-w-[250px]"
+                                  onChange={(e) => { setUserName(e.target.value) }}
                                   sx={{ marginBottom: '10px', }}
-                                  placeholder="Enter username"
+                                  placeholder={task.task_type == 'FOLLOW' || task.task_type == 'JOIN' || task.task_type == "RETWEET" ? "Enter username" : "Enter tweet link"}
                                   type={"text"}
+                                  required={true}
+                                  autocomplete="off"
                                   addOnStart={<Person2Rounded color="inherit" className="border rounded-full" />}
-                                  addOnEnd={<button onClick={() => { }} className="text-[#E1F6B1]" >Continue </button>}
+                                  addOnEnd={<button onClick={() => { markTaskCompleted(task.task_id, task.action_button_link) }} className="text-[#E1F6B1]" >Continue </button>}
                                 />
+
                               </div>
                             </div>
                             {/* <hr /> */}
