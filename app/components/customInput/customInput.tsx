@@ -3,7 +3,7 @@ import React from 'react';
 interface CustomInputProps {
     type: string;
     sx?: {};
-    value?: string;
+    value?: any;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     disabled?: boolean;
     className?: string;
@@ -29,7 +29,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ type, autocomplete, required,
                 <input
                     className="p-2 w-full focus:outline-none text-[14px] bg-transparent "
                     type={type}
-                    value={value}
+                    // value={value}
                     onChange={onChange}
                     disabled={disabled}
                     required={required}

@@ -7,7 +7,7 @@ import { clusterApiUrl } from '@solana/web3.js';
 import WithdrawPage from '../components/withdraw/withdrawComp';
 require("@solana/wallet-adapter-react-ui/styles.css");
 export default function Context({ children }: any) {
-    const network = WalletAdapterNetwork.Devnet;
+    const network = WalletAdapterNetwork.Mainnet;
 
     const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 

@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import '../../styles/footer.css';
 import axios from "axios";
@@ -9,6 +9,8 @@ import { useWalletMultiButton } from '@solana/wallet-adapter-base-ui';
 import { WalletMultiButton, useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { CircularProgress } from "@mui/material";
+import { ToastComponent } from "../toastComponent/toastComponent";
+import { CancelOutlined, CheckCircle } from "@mui/icons-material";
 const Cookies = require('js-cookie');
 interface UserType {
   username: string,
@@ -29,18 +31,21 @@ const labels = {
   'copy-address': 'Copy address',
   copied: 'Copied',
   disconnect: 'Disconnect',
-  'has-wallet': 'Connect',
+  'has-wallet': 'Connect to Wallet',
   'no-wallet': 'Select Wallet',
-  connected: 'Connected',
+  connected: 'Click to Disconnect',
 } as any;
 export default function WithdrawPage() {
   let encrypt = Cookies.get('encrypt_id');
   const { connection } = useConnection();
-  // const { publicKey, } = useWallet();
   const [walletAddress, setWalletAddress] = useState('')
   const [loading, setLoading] = useState(false)
   const [connected, setConnected] = useState(false)
   const [visible, setVisible] = useState(false)
+  const [visibleMod, setVisibleMod] = useState(false)
+
+  const [openSmall, setOpenSmall] = React.useState(false);
+
 
   const [user, setUser] = useState<UserType>({
     username: "",
@@ -64,8 +69,6 @@ export default function WithdrawPage() {
   });
   const [copied, setCopied] = useState(false);
   const ref = useRef<HTMLUListElement>(null);
-  const [openSmall, setOpenSmall] = useState(false);
-  console.log(openSmall)
   useEffect(() => {
     if (!publicKey) {
       setConnected(false);
@@ -81,36 +84,37 @@ export default function WithdrawPage() {
       location.href = '/auth'
       return
     }
-    // let userDetails = async () => {
-    //   let config = {
-    //     method: 'get',
-    //     maxBodyLength: Infinity,
-    //     url: 'https://evp-user-service-cea2e4kz5q-uc.a.run.app/get-user-details',
-    //     headers: {
-    //       'Authorization': `${encrypt}`
-    //     }
-    //   };
-    //   try {
-    //     const response = await axios.request(config);
-    //     setUser({
-    //       username: response.data.username,
-    //       email: response.data.email,
-    //       role: response.data.role,
-    //       profilePhoto: response.data.profilePhoto,
-    //       user_id: response.data.user_id,
-    //       twitter_id: response.data.twitter_id,
-    //       google_id: response.data.google_id,
-    //       points: response.data.points,
-    //       updated_at: response.data.updated_at
-    //     });
-    //   } catch (error: any) {
-    //     if (error.response && error.response.status === 400) {
-    //     } else {
-    //       console.log(`An error occurred: ${error.message}`);
-    //     }
-    //   }
+    let userDetails = async () => {
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'https://evp-user-service-cea2e4kz5q-uc.a.run.app/get-user-details',
+        headers: {
+          'Authorization': `${encrypt}`
+        }
+      };
+      try {
+        const response = await axios.request(config);
+        setUser({
+          username: response.data.username,
+          email: response.data.email,
+          role: response.data.role,
+          profilePhoto: response.data.profilePhoto,
+          user_id: response.data.user_id,
+          twitter_id: response.data.twitter_id,
+          google_id: response.data.google_id,
+          points: response.data.points,
+          updated_at: response.data.updated_at
+        });
+      } catch (error: any) {
+        if (error.response && error.response.status === 400) {
+        } else {
+          console.log(`An error occurred: ${error.message}`);
+        }
+      }
 
-    // }
+    }
+    userDetails()
   }, [])
 
 
@@ -127,23 +131,105 @@ export default function WithdrawPage() {
       subtitle: 'Input amount of $PUMP tokens you want to deposit into Pump Militia',
     },
   ]
-  function startWithdrawal() {
+  const [error, setError] = useState(false)
+  const [resMessage, setResMessage] = useState('')
+  const [errMessage, setErrMessage] = useState({
+    type: '',
+    message: '',
+  })
+  const [amount, setAmount] = useState('')
+  async function startWithdrawal() {
     if (!connected) {
       console.log('Please connect your wallet first');
-      setVisible(true);
+      setVisibleMod(true);
       setTimeout(() => {
-        setVisible(false);
+        setVisibleMod(false);
       }, 2000)
       return
     }
 
-    console.log(walletAddress)
+    setLoading(true)
+    if (amount == '' || !Number(amount)) {
+      setError(true);
+      setLoading(false)
+      setErrMessage({ type: 'error', message: 'Kindly enter a valid amount' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return false
+    }
+    if (Number(amount) > user?.points) {
+      setError(true);
+      setLoading(false)
+      setErrMessage({ type: 'error', message: 'Available balance is less than the entered amount' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return false
+    }
+
+    let params = {
+      walletAddress: walletAddress,
+      amount: amount
+    }
+
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://evp-pump-militia-service-cea2e4kz5q-uc.a.run.app/swap',
+      headers: {
+        'Authorization': `${encrypt}`
+      },
+      data: params
+    };
+    try {
+      const response = await axios.request(config);
+      setError(true);
+      setErrMessage({ type: 'success', message: response.data.message });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+    } catch (error: any) {
+      if (error.response) {
+        setError(true);
+        setErrMessage({ type: 'error', message: error?.response.data.message });
+        setTimeout(() => {
+          setError(false);
+        }, 2000)
+      } else {
+        console.log(`An error occurred: ${error.message}`);
+      }
+    }
+  }
+
+  function startConnection() {
+    setVisible(!visible);
+    switch (buttonState) {
+      case 'no-wallet':
+        setModalVisible(true);
+        break;
+      case 'has-wallet':
+        if (onConnect) {
+          onConnect();
+          setVisible(!visible);
+
+        }
+        break;
+      case 'connected':
+        if (onDisconnect) {
+          onDisconnect();
+        }
+        break;
+    }
   }
   return (
 
-    <div onClick={() => setOpenSmall(false)} className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
+    <div onClick={() => setVisible(false)} className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
+      {error &&
+        <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
+      }
       <NavBar />
-      <div className="pt-[20px] mb-10 w-11/12 m-auto text-[#EDF9D0] font-kanit">
+      <div className="pt-[50px] mb-10 w-11/12 m-auto text-[#EDF9D0] font-kanit">
         <div className="flex flex-col md:flex-row gap-10 items-end">
           <div className="basis-1/2 order-2 md:order-1 space-y-4">
             <div className="">
@@ -230,9 +316,7 @@ export default function WithdrawPage() {
                 </p>
               </div>
 
-              <div className="bg-[#20251a] h-[336px] space-y-6 rounded-3xl text-[] p-6">
-
-
+              <div className="bg-[#20251a] h-[336px] space-y-3 rounded-3xl  p-6">
                 <div className="flex flex-row justify-between items-center">
                   <div>
                     <div className="flex flex-row items-center gap-2 md:gap-4">
@@ -266,7 +350,7 @@ export default function WithdrawPage() {
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">099998</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">{Number(user?.points).toLocaleString()}</span></p>
                     </div>
                   </div>
                 </div>
@@ -279,30 +363,13 @@ export default function WithdrawPage() {
                     priority
                     alt="" />}
                   type="text"
+                  onChange={(e: any) => setAmount(e.target.value)}
                   placeholder="Enter amount to deposit"
                 />
 
-                <div className="flex flex-row space-x-4 w-full mt-8 relative">
-                  <button onClick={() => {
-                    console.log('clicked');
-                    setOpenSmall(true);
-                    // switch (buttonState) {
-                    //   case 'no-wallet':
-                    //     setModalVisible(true);
-                    //     break;
-                    //   case 'has-wallet':
-                    //     if (onConnect) {
-                    //       onConnect();
-                    //     }
-                    //     break;
-                    //   case 'connected':
-                    //     break;
-                    // }
-                  }} className="bg-vivd-lime-green w-full component_btn px-6 py-2 shadow-sm rounded-xl shadow-white">
-                    {labels[buttonState]}
-
-                  </button>
-                  {openSmall &&
+                {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">{walletAddress}</p>}
+                <div className="flex flex-row space-x-2 w-full mt-2 relative">
+                  {visible &&
                     <span style={{ position: 'absolute', left: '100px', top: '30px' }}>
                       <ul
                         aria-label="dropdown-list"
@@ -327,7 +394,7 @@ export default function WithdrawPage() {
                           className="wallet-adapter-dropdown-list-item"
                           onClick={() => {
                             setModalVisible(true);
-                            setMenuOpen(false);
+                            setOpenSmall(false);
                           }}
                           role="menuitem"
                         >
@@ -338,7 +405,7 @@ export default function WithdrawPage() {
                             className="wallet-adapter-dropdown-list-item"
                             onClick={() => {
                               onDisconnect();
-                              setMenuOpen(false);
+                              setOpenSmall(false);
                             }}
                             role="menuitem"
                           >
@@ -348,12 +415,17 @@ export default function WithdrawPage() {
                       </ul>
                     </span>
                   }
+                  <button onClick={startConnection} className="bg-vivd-lime-green w-full component_btn px-6 py-2 shadow-sm rounded-xl shadow-white">
+                    {labels[buttonState]}
+
+                  </button>
+
 
 
 
                   <button onClick={startWithdrawal} className="px-6 relative py-2 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                     Withdraw
-                    {visible &&
+                    {visibleMod &&
                       <div className="bg-[#EDF9D0] absolute top-[-20px] right-0 p-2 text-[#181C13] text-[12px] rounded-2xl">
                         Connect your wallet first
                       </div>
