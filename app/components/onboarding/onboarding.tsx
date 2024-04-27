@@ -80,7 +80,7 @@ const Onboarding = () => {
                     <div className="flex flex-wrap gap-x-8 justify-end p-5 md:flex-col md:space-y-4">
                         <div className="flex flex-col">
                             <div className='font-gameria text-end text-vivd-lime-green-10 text-[52px]'>
-                                {Number(t_downloads).toLocaleString()}
+                                15,752
                             </div>
 
                             <div className='font-sans text-vivd-lime-green-10 text-sm text-end'>
