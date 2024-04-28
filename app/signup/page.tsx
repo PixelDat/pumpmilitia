@@ -8,7 +8,6 @@ import CustomInput from "../components/customInput/customInput"
 import { ArrowForward, CloseRounded, MailOutlineRounded, ReportGmailerrorredRounded } from "@mui/icons-material"
 import '../styles/navbar.css';
 import { useEffect, useState } from "react"
-import { request } from "@/lib/utils/helper"
 import axios from "axios"
 
 
