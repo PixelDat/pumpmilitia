@@ -1,9 +1,17 @@
 import { Close } from "@mui/icons-material"
 import Image from "next/image"
-import { useState } from "react"
+import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
 
 const Preview = () => {
     const [showModal, setShowModal] = useState(false)
+    const [pathname, setPathname] = useState('')
+    useEffect(() => {
+        if (window) {
+            const path: any = window.location.protocol + '//' + window.location.host;
+            setPathname(path)
+        }
+    }, [])
     return (
         <div className="h-[457px] bg-cover bg-no-repeat bg-[url('/images/preview.png')] flex flex-row items-center justify-center space-x-2">
             {
@@ -27,7 +35,7 @@ const Preview = () => {
                     <iframe id="background-video"
                         width='100%'
                         height='457px'
-                        src={`http://www.youtube.com/embed/wXOgnFyj7JM?autoplay=0&mute=1&controls=1&loop=1&fitToBackground=1&enablejsapi=1&origin=http://localhost:3000`}
+                        src={`http://www.youtube.com/embed/wXOgnFyj7JM?autoplay=0&mute=1&controls=1&loop=1&fitToBackground=1&enablejsapi=1&origin=${pathname}`}
                         style={{
                             position: 'relative',
                             zIndex: 0,

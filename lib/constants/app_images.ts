@@ -12,3 +12,14 @@ export abstract class AppImages {
     static menuicon = '/svg/menuicon.svg'
 
 }
+
+export const labels = {
+    'change-wallet': 'Change wallet',
+    connecting: 'Connecting ...',
+    'copy-address': 'Copy address',
+    copied: 'Copied',
+    disconnect: 'Disconnect',
+    'has-wallet': 'Connect to Wallet',
+    'no-wallet': 'Select Wallet',
+    connected: 'Click to Disconnect',
+} as any;

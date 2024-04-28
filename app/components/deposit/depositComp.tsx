@@ -1,41 +1,24 @@
 "use client"
 import React, { useEffect, useRef, useState } from "react";
+import NavBar from "../navbar/navbar";
 import Image from "next/image";
 import '../../styles/footer.css';
-import axios from "axios";
-import NavBar from "../navbar/navbar";
 import CustomInput from "../customInput/customInput";
 import { useWalletMultiButton } from '@solana/wallet-adapter-base-ui';
 import { WalletMultiButton, useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { CircularProgress } from "@mui/material";
+import axios from "axios";
 import { ToastComponent } from "../toastComponent/toastComponent";
 import { CancelOutlined, CheckCircle } from "@mui/icons-material";
+import { LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction, sendAndConfirmTransaction } from "@solana/web3.js";
+import { bindAddress, checkHash } from "@/lib/utils/helper";
+import { CircularProgress } from "@mui/material";
+import { UserType } from "@/lib/utils/types";
+import { labels } from "@/lib/constants/app_images";
 const Cookies = require('js-cookie');
-interface UserType {
-  username: string,
-  email: string,
-  role: string,
-  profilePhoto: string,
-  user_id: string,
-  twitter_id: string,
-  google_id: string,
-  points: number,
-  updated_at: string
-}
 require("@solana/wallet-adapter-react-ui/styles.css");
 
-const labels = {
-  'change-wallet': 'Change wallet',
-  connecting: 'Connecting ...',
-  'copy-address': 'Copy address',
-  copied: 'Copied',
-  disconnect: 'Disconnect',
-  'has-wallet': 'Connect to Wallet',
-  'no-wallet': 'Select Wallet',
-  connected: 'Click to Disconnect',
-} as any;
-export default function WithdrawPage() {
+export default function DepositCompPage() {
   let encrypt = Cookies.get('encrypt_id');
   const { connection } = useConnection();
   const [walletAddress, setWalletAddress] = useState('')
@@ -45,7 +28,6 @@ export default function WithdrawPage() {
   const [visibleMod, setVisibleMod] = useState(false)
 
   const [openSmall, setOpenSmall] = React.useState(false);
-
 
   const [user, setUser] = useState<UserType>({
     username: "",
@@ -59,8 +41,9 @@ export default function WithdrawPage() {
     updated_at: ""
   })
 
-
   // Wallet button
+  const { sendTransaction, signTransaction, wallet } = useWallet();
+
   const { setVisible: setModalVisible } = useWalletModal();
   const { buttonState, onConnect, onDisconnect, publicKey, walletIcon, walletName } = useWalletMultiButton({
     onSelectWallet() {
@@ -118,7 +101,6 @@ export default function WithdrawPage() {
   }, [])
 
 
-
   let tasksCount = [
     {
       title: 'connect your wallet',
@@ -138,7 +120,8 @@ export default function WithdrawPage() {
     message: '',
   })
   const [amount, setAmount] = useState('')
-  async function startWithdrawal() {
+
+  async function startDeposit() {
     if (!connected) {
       console.log('Please connect your wallet first');
       setVisibleMod(true);
@@ -167,38 +150,91 @@ export default function WithdrawPage() {
       }, 2000)
       return false
     }
+    if (publicKey) {
 
-    let params = {
-      walletAddress: walletAddress,
-      amount: amount
-    }
+      const binder: boolean = await bindAddress(walletAddress);
 
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'https://evp-pump-militia-service-cea2e4kz5q-uc.a.run.app/swap',
-      headers: {
-        'Authorization': `${encrypt}`
-      },
-      data: params
-    };
-    try {
-      const response = await axios.request(config);
-      setError(true);
-      setErrMessage({ type: 'success', message: response.data.message });
-      setTimeout(() => {
-        setError(false);
-      }, 2000)
-    } catch (error: any) {
-      if (error.response) {
+      if (binder) {
+        const transaction = new Transaction().add(
+          SystemProgram.transfer({
+            fromPubkey: publicKey,
+            toPubkey: new PublicKey("sjLKJEcuR2xmzffbdSocaRD8HsybFZBJrzkLGaVjRVc"),
+            lamports: LAMPORTS_PER_SOL * Number(amount),
+          })
+
+        )
+        transaction.feePayer = await publicKey;
+        let blockhashObj = await connection.getLatestBlockhash();
+        transaction.recentBlockhash = await blockhashObj.blockhash;
+
+        if (transaction) {
+          console.log("Txn created successfully");
+        }
+        if (signTransaction) {
+          // Request creator to sign the transaction (allow the transaction)
+          try {
+            let signed = await signTransaction(transaction);
+            // The signature is generated
+            let signature = await connection.sendRawTransaction(signed.serialize());
+            // // Confirm whether the transaction went through or not
+            let confirmed = await connection.confirmTransaction(signature);
+            if (confirmed) {
+              // let retry = () => {
+              let statusTrans = await checkHash(signature)
+              // }
+              if (statusTrans) {
+                setLoading(false)
+                setVisible(true);
+                setResMessage('Transaction successful');
+                setTimeout(() => {
+                  setVisible(false);
+                }, 2000)
+              } else {
+                setTimeout(() => {
+
+                }, 2000)
+                setError(true);
+                setLoading(false)
+                setErrMessage({ type: 'success', message: 'Transaction yet to confrim' });
+                setTimeout(() => {
+                  setError(false);
+                }, 2000)
+              }
+            }
+          } catch (error) {
+            setError(true);
+            setLoading(false)
+            setErrMessage({ type: 'error', message: 'Transaction not Approved' });
+            setTimeout(() => {
+              setError(false);
+            }, 2000)
+          }
+        } else {
+          setError(true);
+          setLoading(false)
+          setErrMessage({ type: 'error', message: 'Transaction Failed' });
+          setTimeout(() => {
+            setError(false);
+          }, 2000)
+          return false
+        }
+      } else {
         setError(true);
-        setErrMessage({ type: 'error', message: error?.response.data.message });
+        setLoading(false)
+        setErrMessage({ type: 'error', message: 'Deposit Failed' });
         setTimeout(() => {
           setError(false);
         }, 2000)
-      } else {
-        console.log(`An error occurred: ${error.message}`);
+        return false
       }
+    } else {
+      setError(true);
+      setLoading(false)
+      setErrMessage({ type: 'error', message: 'Public Key not added' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return false
     }
   }
 
@@ -222,6 +258,7 @@ export default function WithdrawPage() {
         break;
     }
   }
+
   return (
 
     <div onClick={() => setVisible(false)} className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
@@ -229,7 +266,7 @@ export default function WithdrawPage() {
         <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
       }
       <NavBar />
-      <div className="pt-[50px] mb-10 w-11/12 m-auto text-[#EDF9D0] font-kanit">
+      <div className="pt-[75px] mb-10 w-11/12 m-auto text-[#EDF9D0] font-kanit">
         <div className="flex flex-col md:flex-row gap-10 items-end">
           <div className="basis-1/2 order-2 md:order-1 space-y-4">
             <div className="">
@@ -258,7 +295,7 @@ export default function WithdrawPage() {
             </div>
             <div className="">
               <div className="bg-gradient-to-t from-[#A5E314]/50 to-black p-0.5 rounded-3xl">
-                <div className="md:h-[259px] relative w-full bg-black/80 px-[24.8px] py-[24px] space-y-4  rounded-3xl">
+                <div className="md:h-[261px] relative w-full bg-black/80 px-[24.8px] py-[24px] space-y-4  rounded-3xl">
                   <Image
                     className=""
                     src={'/images/deposit/checkmark.png'}
@@ -291,15 +328,15 @@ export default function WithdrawPage() {
               <div className="flex flex-row absolute w-full bottom-[-40px] md:top-[-60px] justify-center">
                 <Image
                   className="hidden md:inline"
-                  src={'/images/deposit/pumpwit.png'}
-                  width={392}
+                  src={'/images/deposit/pumpdep.png'}
+                  width={299}
                   height={112}
                   priority
                   alt="" />
                 <Image
                   className="md:hidden"
-                  src={'/images/deposit/pumpwit.png'}
-                  width={275}
+                  src={'/images/deposit/pumpdep.png'}
+                  width={209}
                   height={112}
                   priority
                   alt="" />
@@ -316,7 +353,9 @@ export default function WithdrawPage() {
                 </p>
               </div>
 
-              <div className="bg-[#20251a] h-[336px] space-y-3 rounded-3xl  p-6">
+              <div className="bg-[#20251a] h-[336px] space-y-3 rounded-3xl text-[] p-6">
+
+
                 <div className="flex flex-row justify-between items-center">
                   <div>
                     <div className="flex flex-row items-center gap-2 md:gap-4">
@@ -350,7 +389,7 @@ export default function WithdrawPage() {
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">{Number(user?.points).toLocaleString()}</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">099998</span></p>
                     </div>
                   </div>
                 </div>
@@ -364,8 +403,9 @@ export default function WithdrawPage() {
                     alt="" />}
                   type="text"
                   onChange={(e: any) => setAmount(e.target.value)}
-                  placeholder="Enter amount to withdraw"
+                  placeholder="Enter amount to deposit"
                 />
+
 
                 {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">{walletAddress}</p>}
                 <div className="flex flex-row space-x-2 w-full mt-2 relative">
@@ -423,8 +463,8 @@ export default function WithdrawPage() {
 
 
 
-                  <button onClick={startWithdrawal} className="px-6 relative py-2 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
-                    Withdraw
+                  <button disabled={loading} onClick={startDeposit} className="px-6 relative py-2 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                    {loading ? <CircularProgress size={16} color='inherit' /> : 'Deposit'}
                     {visibleMod &&
                       <div className="bg-[#EDF9D0] absolute top-[-20px] right-0 p-2 text-[#181C13] text-[12px] rounded-2xl">
                         Connect your wallet first
@@ -450,5 +490,6 @@ export default function WithdrawPage() {
         All rights reserved, ©2024. Brought to you by Pump Millitia.
       </div>
     </div>
+
   )
 }
