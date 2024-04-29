@@ -4,11 +4,11 @@ import '../styles/navbar.css';
 import { useEffect, useState } from "react"
 const Cookies = require('js-cookie');
 import { initializeApp } from "firebase/app";
-
+import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 
+
 import { getAuth, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { useSearchParams } from 'next/navigation';
 
 const firebaseConfig = { apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc", authDomain: "everpump-6e275.firebaseapp.com", projectId: "everpump-6e275", storageBucket: "everpump-6e275.appspot.com", messagingSenderId: "138957984497", appId: "1:138957984497:web:6be3945adff541c5380f50", measurementId: "G-8T2XXV37GT", };
 
@@ -16,11 +16,11 @@ const app = initializeApp(firebaseConfig);
 
 
 export default function referralProcessorPage() {
-  const router = useSearchParams();
+  const router = useRouter();
 
   useEffect(() => {
     const genID = uuidv4();
-    const refID = router.get('refID');
+    const { refID } = router.query;
 
     // Cache genID and refID using cookies
     Cookies.set('genID', genID, { expires: 7 }); // Expires in 7 days
@@ -38,7 +38,7 @@ export default function referralProcessorPage() {
       // Non-mobile device detected, redirecting to Play Store as fallback
       window.location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
     }
-  }, []);
+  }, [router, router.isReady]);
 
   return null; // This component does not render anything
 }

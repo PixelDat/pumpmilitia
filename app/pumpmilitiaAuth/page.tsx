@@ -1,4 +1,5 @@
 "use client"
+
 import Image from "next/image"
 import BlipNinja from "../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
@@ -10,10 +11,10 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 const Cookies = require('js-cookie');
 import { initializeApp } from "firebase/app";
+import { useRouter } from 'next/router';
 
 
 import { getAuth, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { useSearchParams } from "next/navigation"
 
 const firebaseConfig = { apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc", authDomain: "everpump-6e275.firebaseapp.com", projectId: "everpump-6e275", storageBucket: "everpump-6e275.appspot.com", messagingSenderId: "138957984497", appId: "1:138957984497:web:6be3945adff541c5380f50", measurementId: "G-8T2XXV37GT", };
 
@@ -32,24 +33,27 @@ export default function gameAuthPage() {
     const [error, setError] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setloading] = useState(false)
+
+
     const [resMessage, setResMessage] = useState('')
     const [errMessage, setErrMessage] = useState('')
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [emailExists, setEmailExists] = useState(false)
 
-    const router = useSearchParams();
-
+    const router = useRouter();
     let cross_authkey = "";
 
     useEffect(() => {
-        const cross_authkey = router.get('cross_authkey');
+        const { cross_authkey } = router.query;
         let encrypt = Cookies.get('encrypt_id');
         if (encrypt) {
             successfullAuth();
+
         }
-    }, []);
-    // router, router.isReady
+    }, [router, router.isReady]);
+
     const checkEmailExists = async () => {
         setloading(true)
         if (email == '') {
@@ -150,6 +154,7 @@ export default function gameAuthPage() {
         reg_auth();
         saveConnectionKey();
         confirmPotentialRef();
+
         // Display `You are signed in! Go back to pumpmilitia`
     }
 
