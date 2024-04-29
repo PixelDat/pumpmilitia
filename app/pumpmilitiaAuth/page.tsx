@@ -50,9 +50,8 @@ export default function gameAuthPage() {
         const { cross_authkey } = router.query; 
         let encrypt = Cookies.get('encrypt_id');
         if (encrypt) {
-        reg_auth ();
-        saveConnectionKey();
-        confirmPotentialRef();
+            successfullAuth();
+
         }
     }, [router, router.isReady]);
 
@@ -100,9 +99,7 @@ export default function gameAuthPage() {
         try {
             const response = await axios.post(url, params);
             Cookies.set('encrypt_id', `${response.data.encypted_session_id}`)
-            reg_auth ();
-            saveConnectionKey();
-            confirmPotentialRef();
+            successfullAuth();
 
         } catch (error: any) {
             if (error.response) {
@@ -152,6 +149,14 @@ export default function gameAuthPage() {
                 console.log(`An error occurred: ${error.message}`);
             }
         }
+    }
+
+    const successfullAuth = async () => {
+        reg_auth ();
+        saveConnectionKey();
+        confirmPotentialRef();
+
+        // Display `Go back to pumpmilitia`
     }
 
     async function confirmPotentialRef() {
