@@ -432,7 +432,9 @@ export default function WithdrawPage() {
                     }
                   </button>
                 </div>
-
+                    <div>
+                      <p className="text-center text-[#898989]">Withdraw your $PUMP airdrop balance at TGE</p>
+                    </div>
                 <button className="px-6 py-3 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                   Buy from Raydium
                 </button>
