@@ -31,19 +31,19 @@
   font-weight: 700;
   line-height: 24px;
   font-family: Kanit;
-  transition: background 0.8s;
+  transition: all 0.8s;
 }
 
 .navbar-auth-btn:hover {
   background: #52711b radial-gradient(circle, transparent 10%, #a5e440 1%) center/15000%;
   color: #EDF9D0;
-  transition: background 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 .navbar-auth-btn:active {
   background-color: #1c2909f4;
   background-size: 100%;
-  transition: background 0s;
+  transition: all 0s;
 }
 
 .nav-pump-text {
@@ -60,7 +60,7 @@
 }
 
 .hero-overlay {
-  background: linear-gradient(180deg, #212d04 0.18%, rgba(9, 13, 0, 0) 86.06%);
+  background: linear-gradient(180deg, #212d04 0.18%, rgba(9, 13, 0, 0.358) 86.06%);
   position: absolute;
   top: 0;
   left: 0;
@@ -94,6 +94,7 @@
 }
 
 .mlist-link {
+  cursor: pointer;
   font-family: Kanit;
   font-size: 16px;
   font-style: normal;
@@ -101,15 +102,9 @@
   line-height: 24px;
 }
 
-/* @media screen and (max-width: 950px) {
-  .nav-links {
-    display: none;
-  }
-
-} */
 
 
-@media screen and (max-width: 1299px) {
+/* @media screen and (max-width: 1299px) {
   .mainnav {
     padding: 0 50px;
     gap: 20px;
@@ -141,19 +136,18 @@
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 390px) {
   .menu-icon img {
     width: 60px;
   }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 390px) {
   .menu-icon img {
     width: 100px;
   }
 
   .navbar-auth-btn {
     padding: 9px 21px;
-
   }
-}
+} */

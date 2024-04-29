@@ -27,63 +27,72 @@ const Footer = () => {
                     </div>
 
                     <div className="flex mb-4 flex-row md:justify-start justify-center items-start space-x-4">
-                        <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/twitter.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
-
-                        <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/telegram.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
-
-                        <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/discord.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
-
-                        <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/tiktok.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
-
-                        <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/youtube.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
-
-                        <Image
-                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                            src={'/svg/medium.svg'}
-                            width={32}
-                            height={32}
-                            priority
-                            alt="" />
+                        <a href="https://x.com/PumpMilitia" target="_blank">
+                            <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/twitter.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                            />
+                        </a>
+                        <a href="https://t.me/PumpMilitia" target="_blank">
+                            <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/telegram.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                            />
+                        </a>
+                        <a href="https://discord.com/invite/tvZGAP4Qt8" target="_blank">
+                            <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/discord.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                            />
+                        </a>
+                        <a href="#">
+                            <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/tiktok.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                            />
+                        </a>
+                        <a href=" https://youtube.com/@PumpMilitia" target="_blank">
+                            <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/youtube.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                            />
+                        </a>
+                        <a href="https://medium.com/@pumpmilitia" target="_blank">
+                            <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/medium.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                            />
+                        </a>
 
                     </div>
 
 
                     <div className="hidden md:flex flex-row space-x-4 items-center justify-center">
-                        <Image
-                            src={'/svg/play_store.svg'}
-                            width={185}
-                            height={56}
-                            alt="" />
+                        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"><Image src={"/svg/play_store.svg"} width={185} height={56} alt="" /></a>
 
                         <Image
                             src={'/svg/app_store.svg'}
@@ -93,7 +102,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-row space-x-8">
+                <div className="flex flex-row justify-center space-x-2 md:space-x-8">
                     <div className="flex flex-col space-y-6">
                         <div className='font-kanit text-vivd-lime-green-10 text-[24px]'>
                             Pump Millitia
@@ -101,23 +110,19 @@ const Footer = () => {
 
                         <div className="flex-flex-col space-y-4">
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                Airdrop
+                                <a href="#airdrop">Airdrop</a>
                             </div>
 
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                Whitepaper
+                                <a href="">Whitepaper</a>
                             </div>
 
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                Presale
+                                <a href="/pre-sale">Presale</a>
                             </div>
 
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                Roadmap
-                            </div>
-
-                            <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                Quest
+                                <a href="#roadmap">Roadmap</a>
                             </div>
                         </div>
                     </div>
@@ -127,7 +132,7 @@ const Footer = () => {
                             Legal
                         </div>
 
-                        <div className="flex-flex-col justify-center space-y-4">
+                        <div className="flex flex-col justify-center space-y-4">
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
                                 Privacy Policy
                             </div>
@@ -137,11 +142,7 @@ const Footer = () => {
                             </div>
 
                             <div className="md:hidden space-y-4 items-center justify-center">
-                                <Image
-                                    src={'/svg/play_store.svg'}
-                                    width={185}
-                                    height={56}
-                                    alt="" />
+                                <a target="_blank" href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"><Image src={"/svg/play_store.svg"} width={185} height={56} alt="" /></a>
 
                                 <Image
                                     src={'/svg/app_store.svg'}

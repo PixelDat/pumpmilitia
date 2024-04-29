@@ -58,7 +58,7 @@ const RoadMap = () => {
 
     ]
     return (
-        <div className="flex flex-col space-y-24 mt-32 justify-center items-center text-center" id="roadmap">
+        <div className="flex flex-col space-y-24 md:mt-32 md:mb-20 justify-center items-center text-center" id="roadmap">
             <div className="flex flex-col space-y-2">
                 <div className='font-gameria text-vivd-lime-green-10 text-[32px]'>
                     ROADMAP
@@ -70,7 +70,7 @@ const RoadMap = () => {
             </div>
 
             <div className="relative w-full flex justify-center items-center flex-col">
-                <div className="border-s left-[65px] md:border-b border-[#52594B] h-full md:h-0 md:w-full absolute md:top-12"></div>
+                <div className="border-s-3  md:left-0 md:border-b border-[#52594B] h-full md:h-0 md:w-full  absolute md:top-12"></div>
 
                 <div className="flex flex-col md:flex-row mb-10 md:mb-0 md:justify-between md:items-center w-11/12 md:w-8/12 relative">
                     {items.map((item: any, index: number) => {
