@@ -17,6 +17,53 @@ import TimerCount from "../components/timerComponent/timer";
 import CustomInput from "../components/customInput/customInput";
 
 export default function Presale() {
+  let stages = [
+    {
+      title: 'Private Round 1',
+      startDate: '04 April 2024',
+      endDate: '30 May 2024',
+      tokePrice: '$0.0230',
+      minInvestment: '$500',
+      hardCap: '$100M',
+      maxInvestment: '$500,000'
+    },
+    {
+      title: 'Public Round ',
+      startDate: '04 April 2024',
+      endDate: '30 May 2024',
+      tokePrice: '$0.0230',
+      minInvestment: '$500',
+      hardCap: '$100M',
+      maxInvestment: '$500,000'
+    },
+    {
+      title: 'Public Round 2',
+      startDate: '04 April 2024',
+      endDate: '30 May 2024',
+      tokePrice: '$0.0230',
+      minInvestment: '$500',
+      hardCap: '$100M',
+      maxInvestment: '$500,000'
+    },
+  ]
+  let tasksCount = [
+    {
+      title: 'connect your wallet',
+      image: '/images/deposit/connect.png',
+      subtitle: 'Click the “Connect” button to connect your Defi walletpleted',
+    },
+    {
+      title: 'Select Payment Method',
+      image: '/images/deposit/coins.png',
+      subtitle: 'Select your method of purchase (SOL, ETH, BNB) and input the amount',
+    },
+    {
+      title: 'Confirm and complete purchase',
+      image: '/images/deposit/checkmark.png',
+      subtitle: 'Click “Buy Now” button and accept/approve transaction in your wallet.',
+    },
+  ]
+
   return (
 
     <div className="bg-cover bg-[url('/images/background.png')] h-full w-full">
@@ -186,16 +233,123 @@ export default function Presale() {
                   </div>
                 </div>
               </div>
-
-
-
-
-
-
             </div>
           </div>
         </div>
       </div >
+      {/* Instructions on how to buy it */}
+      <div className="bg-[#20251a] py-10 pb-40">
+        <div className="w-10/12 text-[#EDF9D0] flex flex-row gap-x-2 items-start m-auto ">
+
+          <div className="boderToken">
+            <div className="flex flex-col px-4  md:px-10 relative space-y-4">
+              <div className='font-gameria leading-[50px] text-[#EDF9D0] text-[56px]'>
+                <Image
+                  className=""
+                  src={'/images/presale/howtobuy.png'}
+                  width={163}
+                  height={112}
+                  priority
+                  alt="" />
+              </div>
+              <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
+                Easy four steps to purchasing $Pump
+              </div>
+            </div>
+          </div>
+
+          <div className="basis-1/2 order-2 md:order-1 space-y-4">
+            <div className="">
+              <div className="flex gap-y-5 flex-row gap-x-5 pt-3">
+                {tasksCount.map((task, index) => {
+                  let gradient = index % 2 != 0 ? 'bg-gradient-to-l md:bg-gradient-to-b' : 'bg-gradient-to-r md:bg-gradient-to-t';
+                  return (
+                    <div className={`${gradient} basis-1/2 from-[#A5E314]/50 to-black flex flex-row justify-center p-0.5 rounded-3xl`}>
+                      <div key={`${index}-${task}`} className="h-[281px] w-[284px] relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] w-full space-y-2 text-start  bg-black/80 rounded-3xl">
+                        <div className="flex flex-row justify-center md:justify-start">
+                          <Image
+                            className=""
+                            src={task.image}
+                            width={80}
+                            height={80}
+                            priority
+                            alt="" />
+                        </div>
+                        <h4 className="text-[14px] md:text-[24px] w-full font-gameria font-[500]">{task.title}</h4>
+                        <p className="text-[12px] md:text-[16px]">{task.subtitle}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+            <div className="">
+              <div className="bg-gradient-to-t from-[#A5E314]/50 to-black p-0.5 rounded-3xl">
+                <div className=" relative overflow-hidden h-[229px] w-full bg-black/70 px-[24.8px]  rounded-3xl">
+                  <Image
+                    style={{ zIndex: 0 }}
+                    className="absolute top-[-10px] right-0"
+                    src={'/images/presale/sketch.png'}
+                    width={650}
+                    height={400}
+                    priority
+                    alt="" />
+                  <div style={{ zIndex: 14 }} className="py-3 absolute h-full w-full bg-gradient-to-r from-[#161a13]/60 to-black/10">
+                    <Image
+                      className=""
+                      src={'/images/presale/menu.png'}
+                      width={80}
+                      height={80}
+                      priority
+                      alt="" />
+                    <p className="text-[15px] font-[300]">Your balance today</p>
+                    <h4 className="text-[24px] font-gameria font-[500]">CONFIRM AND COMPLETE PURCHASE</h4>
+                    <p className="text-[15px] font-[300]">Click “Deposit” button and accept/approve transaction in your wallet. Wait for deposit to process</p>
+                  </div>
+
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Stages */}
+      <div className="m-auto bg-[#20251a] ">
+        <div className="topBorder  text-[#EDF9D0] relative">
+          <div className="w-full m-auto top-[-70px] absolute justify-center items-center flex">
+            <Image
+              className=""
+              src={'/images/presale/salestage.png'}
+              width={273}
+              height={112}
+              priority
+              alt="" />
+          </div>
+
+          <div className="w-10/12 m-auto pt-20">
+            <div className="text-center">
+              <p>Join now and secure your stake early in the Pump Militia project.</p>
+            </div>
+
+            <div className="grid grid-cols-3 divide-x">
+              {stages.map((task, index) => {
+                let gradient = index % 2 != 0 ? 'bg-gradient-to-l md:bg-gradient-to-b' : 'bg-gradient-to-r md:bg-gradient-to-t';
+                return (
+                  <div className={`${gradient} basis-1/2 from-[#A5E314]/50 to-black flex flex-row justify-center p-0.5 rounded-3xl`}>
+                    <div key={`${index}-${task}`} className="h-[281px] w-[324px] relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] w-full space-y-2 text-start  bg-black/80 rounded-3xl">
+                      <h4 className="text-[14px] md:text-[24px] w-full font-gameria font-[500]">{task.title}</h4>
+                      <p className="text-[12px] md:text-[16px]">{task.subtitle}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
       <Tokenomics />
       <Faqs />
       <Footer />
