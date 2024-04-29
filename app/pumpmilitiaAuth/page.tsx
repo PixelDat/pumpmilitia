@@ -48,9 +48,12 @@ export default function gameAuthPage() {
 
     useEffect(() => {
         const { cross_authkey } = router.query; 
+        let encrypt = Cookies.get('encrypt_id');
+        if (encrypt) {
         reg_auth ();
         saveConnectionKey();
         confirmPotentialRef();
+        }
     }, [router, router.isReady]);
 
     const checkEmailExists = async () => {
@@ -97,7 +100,9 @@ export default function gameAuthPage() {
         try {
             const response = await axios.post(url, params);
             Cookies.set('encrypt_id', `${response.data.encypted_session_id}`)
-            location.href = '/dashboard'
+            reg_auth ();
+            saveConnectionKey();
+            confirmPotentialRef();
 
         } catch (error: any) {
             if (error.response) {
