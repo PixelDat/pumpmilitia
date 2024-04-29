@@ -123,7 +123,7 @@ export default function WithdrawPage() {
     {
       title: 'connect your wallet',
       image: '/images/deposit/connect.png',
-      subtitle: 'ComClick the “Connect” button to connect your Defi walletpleted',
+      subtitle: 'Click the “Connect” button to connect your Defi walletpleted',
     },
     {
       title: 'Enter Amount',
