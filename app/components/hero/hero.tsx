@@ -1,18 +1,21 @@
 import Image from "next/image";
 import NavBar from "../navbar/navbar";
 import '../../styles/hero.css';
+import { useEffect, useRef } from "react";
 
 const Hero = () => {
   return (
     <div>
       <div className="sm:pb-10 md:pb-20 overflow-hidden bg-cover z-0">
         <video id="background-video"
-          controls={false}
-          autoPlay={true}
-          loop={true}
-          src={`/video/pump.mov`}
+          controls={true}
+          muted={true}
+          autoPlay={true} // Ensure autoPlay is set to a boolean value
+          loop={true} // Ensure loop is set to a boolean value
+          src={`/video/pump.mp4`}
           style={{
             position: 'absolute',
+            width: '100%',
             height: '100vh',
             objectFit: 'cover',
             zIndex: 0,
