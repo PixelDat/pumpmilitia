@@ -344,7 +344,7 @@ export default function DepositCompPage() {
             </div>
 
 
-            <div className="bg-[#D2F189] rounded-2xl h-[465px] md:h-[485px] space-y-2 p-2 md:p-6">
+            <div className="bg-[#D2F189] rounded-2xl  space-y-2 p-2 md:p-6">
 
 
               <div className="w-10/12 m-auto">
@@ -353,7 +353,7 @@ export default function DepositCompPage() {
                 </p>
               </div>
 
-              <div className="bg-[#20251a] h-[336px] space-y-3 rounded-3xl text-[] p-6">
+              <div className="bg-[#20251a] space-y-3 rounded-3xl text-[] p-6">
 
 
                 <div className="flex flex-row justify-between items-center">
@@ -460,9 +460,6 @@ export default function DepositCompPage() {
 
                   </button>
 
-
-
-
                   <button disabled={loading} onClick={startDeposit} className="px-6 relative py-2 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                     {loading ? <CircularProgress size={16} color='inherit' /> : 'Deposit'}
                     {visibleMod &&
@@ -471,8 +468,11 @@ export default function DepositCompPage() {
                       </div>
                     }
                   </button>
-                </div>
 
+                </div>
+                <div>
+                  <p className="text-center text-[#898989]">Deposits would begin after $PUMP token launch</p>
+                </div>
                 <button className="px-6 py-3 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                   Buy from Raydium
                 </button>
