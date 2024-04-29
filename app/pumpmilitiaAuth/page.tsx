@@ -156,7 +156,7 @@ export default function gameAuthPage() {
         saveConnectionKey();
         confirmPotentialRef();
 
-        // Display `Go back to pumpmilitia`
+        // Display `You are signed in! Go back to pumpmilitia`
     }
 
     async function confirmPotentialRef() {
