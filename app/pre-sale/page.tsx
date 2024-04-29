@@ -86,90 +86,93 @@ export default function Presale() {
                   />
                 </div>
                 <div className="flex flex-col md:flex-row justify-between gap-14 md:items-end">
-                  <div className="basis-1/2  order-2 md:order-1 rounded-2xl p-4 md:h-[383px] border bg-[#282F20E9] presaleGradient">
-                    <div className="flex flex-row items-center justify-between">
-                      <p>Presale Progress</p>
-                      <p>Raised <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
-                    </div>
-                    <div className="flex flex-row items-center justify-between">
-                      <p className="text-[#C3EC62]">Private Round</p>
-                      <p>Hard Cap <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
-                    </div>
-                    {/* Rectangle */}
-                    <div className="bg-[#374C07] my-4 h-[4px] rounded-full w-full">
-                      <div className="bg-[#A5E314] rounded-full h-[4px] w-[192px]">
 
+                  <div className="basis-1/2  order-2 md:order-1 overflow-hidden rounded-2xl  bg-gradient-to-r from-[#89bd34] p-[1px] presaleGradient">
+                    <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-[383px] ">
+                      <div className="flex flex-row items-center justify-between">
+                        <p>Presale Progress</p>
+                        <p>Raised <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
                       </div>
-                      <div className="bg-[#A5E314] relative top-[-12px] left-[192px] h-[20px] rounded-full border w-[20px]">
-
+                      <div className="flex flex-row items-center justify-between">
+                        <p className="text-[#C3EC62]">Private Round</p>
+                        <p>Hard Cap <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
                       </div>
-                    </div>
+                      {/* Rectangle */}
+                      <div className="bg-[#374C07] my-4 h-[4px] rounded-full w-full">
+                        <div className="bg-[#A5E314] rounded-full h-[4px] w-[192px]">
 
-                    <div className="space-y-2 mb-5">
-                      <p>Purchased $PUMP Balance</p>
-                      <p className="font-gameria font-300 text-[48px]">$0.0089</p>
-                      <p>One token, Endless possibilities. Purchased token would be available for claim at TGE.</p>
-                      <div className="flex flex-col md:flex-row ">
-                        <p><span className="text-[#C3EC62]">Starts:</span>  15/05/2024 (12:00 UTC)</p>
-                        <p><span className="text-[#C3EC62]">Ends:</span> 16/05/2024 (12:00 UTC)</p>
-                      </div>
-                    </div>
+                        </div>
+                        <div className="bg-[#A5E314] relative top-[-12px] left-[192px] h-[20px] rounded-full border w-[20px]">
 
-                    {/* Social Icons and Total Prices  */}
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div className="flex order-2 md:order-1 mb-4 flex-row justify-start  items-start space-x-4">
-                        <Image
-                          className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                          src={'/svg/twitter.svg'}
-                          width={32}
-                          height={32}
-                          priority
-                          alt="" />
-
-                        <Image
-                          className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                          src={'/svg/telegram.svg'}
-                          width={32}
-                          height={32}
-                          priority
-                          alt="" />
-
-                        <Image
-                          className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                          src={'/svg/discord.svg'}
-                          width={32}
-                          height={32}
-                          priority
-                          alt="" />
-
-                        <Image
-                          className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                          src={'/svg/tiktok.svg'}
-                          width={32}
-                          height={32}
-                          priority
-                          alt="" />
-
-                        <Image
-                          className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                          src={'/svg/youtube.svg'}
-                          width={32}
-                          height={32}
-                          priority
-                          alt="" />
-
-                        <Image
-                          className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                          src={'/svg/medium.svg'}
-                          width={32}
-                          height={32}
-                          priority
-                          alt="" />
-
+                        </div>
                       </div>
 
-                      <div className="order-1 md:order-2 mb-3 md:mb-0">
-                        <p>Token Prices: <span className="text-[#C3EC62] text-[24px] font-gameria">$0.0051</span></p>
+                      <div className="space-y-2 mb-5">
+                        <p>Purchased $PUMP Balance</p>
+                        <p className="font-gameria font-300 text-[48px]">$0.0089</p>
+                        <p>One token, Endless possibilities. Purchased token would be available for claim at TGE.</p>
+                        <div className="flex flex-col md:flex-row ">
+                          <p><span className="text-[#C3EC62]">Starts:</span>  15/05/2024 (12:00 UTC)</p>
+                          <p><span className="text-[#C3EC62]">Ends:</span> 16/05/2024 (12:00 UTC)</p>
+                        </div>
+                      </div>
+
+                      {/* Social Icons and Total Prices  */}
+                      <div className="flex flex-col md:flex-row justify-between">
+                        <div className="flex order-2 md:order-1 mb-4 flex-row justify-start  items-start space-x-4">
+                          <Image
+                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                            src={'/svg/twitter.svg'}
+                            width={32}
+                            height={32}
+                            priority
+                            alt="" />
+
+                          <Image
+                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                            src={'/svg/telegram.svg'}
+                            width={32}
+                            height={32}
+                            priority
+                            alt="" />
+
+                          <Image
+                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                            src={'/svg/discord.svg'}
+                            width={32}
+                            height={32}
+                            priority
+                            alt="" />
+
+                          <Image
+                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                            src={'/svg/tiktok.svg'}
+                            width={32}
+                            height={32}
+                            priority
+                            alt="" />
+
+                          <Image
+                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                            src={'/svg/youtube.svg'}
+                            width={32}
+                            height={32}
+                            priority
+                            alt="" />
+
+                          <Image
+                            className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                            src={'/svg/medium.svg'}
+                            width={32}
+                            height={32}
+                            priority
+                            alt="" />
+
+                        </div>
+
+                        <div className="order-1 md:order-2 mb-3 md:mb-0">
+                          <p>Token Prices: <span className="text-[#C3EC62] text-[24px] font-gameria">$0.0051</span></p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -239,9 +242,8 @@ export default function Presale() {
       </div >
       {/* Instructions on how to buy it */}
       <div className="bg-[#20251a] py-10 pb-40">
-        <div className="w-10/12 text-[#EDF9D0] flex flex-row gap-x-2 items-start m-auto ">
-
-          <div className="boderToken">
+        <div className="w-10/12 text-[#EDF9D0] flex flex-row gap-x-4 items-start m-auto ">
+          <div className="boderToken basis-1/4 ">
             <div className="flex flex-col px-4  md:px-10 relative space-y-4">
               <div className='font-gameria leading-[50px] text-[#EDF9D0] text-[56px]'>
                 <Image
@@ -258,7 +260,7 @@ export default function Presale() {
             </div>
           </div>
 
-          <div className="basis-1/2 order-2 md:order-1 space-y-4">
+          <div className="basis-3/4 order-2 md:order-1 space-y-4">
             <div className="">
               <div className="flex gap-y-5 flex-row gap-x-5 pt-3">
                 {tasksCount.map((task, index) => {
@@ -266,7 +268,7 @@ export default function Presale() {
                   return (
                     <div className={`${gradient} basis-1/2 from-[#A5E314]/50 to-black flex flex-row justify-center p-0.5 rounded-3xl`}>
                       <div key={`${index}-${task}`} className="h-[281px] w-[284px] relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] w-full space-y-2 text-start  bg-black/80 rounded-3xl">
-                        <div className="flex flex-row justify-center md:justify-start">
+                        <div className="flex flex-row leading-tight justify-center md:justify-start">
                           <Image
                             className=""
                             src={task.image}
@@ -275,7 +277,7 @@ export default function Presale() {
                             priority
                             alt="" />
                         </div>
-                        <h4 className="text-[14px] md:text-[24px] w-full font-gameria font-[500]">{task.title}</h4>
+                        <h4 className="text-[14px] md:text-[22px] w-full font-gameria font-[400]">{task.title}</h4>
                         <p className="text-[12px] md:text-[16px]">{task.subtitle}</p>
                       </div>
                     </div>
@@ -306,18 +308,15 @@ export default function Presale() {
                     <h4 className="text-[24px] font-gameria font-[500]">CONFIRM AND COMPLETE PURCHASE</h4>
                     <p className="text-[15px] font-[300]">Click “Deposit” button and accept/approve transaction in your wallet. Wait for deposit to process</p>
                   </div>
-
-
                 </div>
               </div>
-
             </div>
           </div>
         </div>
       </div>
 
       {/* Stages */}
-      <div className="m-auto bg-[#20251a] ">
+      <div className="m-auto  bg-[#20251a] ">
         <div className="topBorder  text-[#EDF9D0] relative">
           <div className="w-full m-auto top-[-70px] absolute justify-center items-center flex">
             <Image
@@ -329,19 +328,73 @@ export default function Presale() {
               alt="" />
           </div>
 
-          <div className="w-10/12 m-auto pt-20">
-            <div className="text-center">
+          <div className="w-11/12  m-auto pt-5">
+            <div className="text-center py-10">
               <p>Join now and secure your stake early in the Pump Militia project.</p>
             </div>
-
-            <div className="grid grid-cols-3 divide-x">
-              {stages.map((task, index) => {
+            <div className="flex  rounded-3xl shadow-lg shadow-white flex-row justify-center items-center gap-x-8 m-auto">
+              {stages.map((stage, index) => {
                 let gradient = index % 2 != 0 ? 'bg-gradient-to-l md:bg-gradient-to-b' : 'bg-gradient-to-r md:bg-gradient-to-t';
+                let width = index % 2 == 0 ? 'w-[320px]' : 'w-[398px]';
+                let height = index % 2 == 0 ? 'h-[320px]' : 'h-[441px]';
+                let border = index == 0 ? 'border-e-2 p-e-8' : index == 2 ? 'border-s-2 p-s-8' : '';
                 return (
-                  <div className={`${gradient} basis-1/2 from-[#A5E314]/50 to-black flex flex-row justify-center p-0.5 rounded-3xl`}>
-                    <div key={`${index}-${task}`} className="h-[281px] w-[324px] relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] w-full space-y-2 text-start  bg-black/80 rounded-3xl">
-                      <h4 className="text-[14px] md:text-[24px] w-full font-gameria font-[500]">{task.title}</h4>
-                      <p className="text-[12px] md:text-[16px]">{task.subtitle}</p>
+                  <div className={`border-[#A5E314] ${border} p-6`}>
+                    <div className={`${gradient} basis-1/2 from-[#A5E314]/40 to-black/20 flex flex-row justify-center p-0.5 rounded-3xl`}>
+                      <div key={`${index}-${stage}`} className={`${width} ${height} flex flex-row justify-center items-center   text-start  bg-black/70 rounded-3xl`}>
+                        <div className="space-y-8 relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] w-full">
+                          <div className="flex flex-row justify-between items-center">
+                            <h4 className="text-[14px] md:text-[24px] w-full font-gameria font-[500]">{stage.title}</h4>
+                            {index == 1 &&
+                              <Image
+                                className=""
+                                src={"/svg/icon_logo_2.svg"}
+                                width={69}
+                                height={69}
+                                priority
+                                alt=""
+                              />
+                            }
+                          </div>
+                          <div className="flex flex-row justify-between text-[12px]">
+                            <div className="w-full">
+                              <p>START DATE</p>
+                              <p>{stage.startDate}</p>
+                            </div>
+                            <div className="w-full">
+                              <p>TOKEN PRICE</p>
+                              <p>{stage.tokePrice}</p>
+                            </div>
+                          </div>
+                          <div className="flex flex-row justify-between text-[12px]">
+                            <div className=" w-full">
+                              <p>END DATE</p>
+                              <p>{stage.endDate}</p>
+                            </div>
+                            <div className=" w-full">
+                              <p>MIN INVESTMENT</p>
+                              <p>{stage.minInvestment}</p>
+                            </div>
+                          </div>
+                          <div className="flex flex-row justify-between text-[12px]">
+                            <div className=" w-full">
+                              <p>HARD CAP</p>
+                              <p>{stage.hardCap}</p>
+                            </div>
+                            <div className=" w-full">
+                              <p>MAX INVESTMENT</p>
+                              <p>{stage.maxInvestment}</p>
+                            </div>
+                          </div>
+                          {index == 1 &&
+                            <div>
+                              <button className="px-6 relative py-2 border w-full bg-[#A5E314] h-border-vivd-lime-green rounded-xl text-[#303827]">
+                                Buy $PUMP Token
+                              </button>
+                            </div>
+                          }
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )

@@ -12,6 +12,6 @@
     border-top: 3.5px solid transparent;
     padding: 10px;
     background: linear-gradient(#20251a, #20251a) padding-box,
-        linear-gradient(270deg, #20251a, #4664170d, #425c18b0, #85c936, #425c18b5, #4664176d, #20251a) border-box;
+        linear-gradient(270deg, #20251a00, #46641776, #425c18b0, #85c936, #425c18b5, #4664173f, #20251a00) border-box;
 
 }

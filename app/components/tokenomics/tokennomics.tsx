@@ -1,9 +1,21 @@
 'use client'
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import '../../styles/token.css';
+import { usePathname } from "next/navigation";
+
 
 const Tokenomics = () => {
+    let path = usePathname()
+    console.log(path)
+    const [pathVar, setpathVar] = useState('')
+    useEffect(() => {
+
+        if (path == '/pre-sale') {
+            setpathVar('presale');
+        }
+    }, [])
+
     const [selectedFaq, setSelectedFaq] = useState(0)
     const colors = ['#6FFEFE', '#FF00D6', '#A5E314', '#FDCE00', '#E72A4E', '#E0F7AB', '#5062FF', '#36D800']
     const tokennomics = [
@@ -88,7 +100,14 @@ const Tokenomics = () => {
     ]
     return (
         <div id="tokenomics" className="px-4 py-2 md:p-0 md:w-10/12 m-auto my-32">
-            <div className="boderToken relative w-full h-[500px] md:h-[280px]">
+            <div className="relative flex w-full h-[500px] md:h-[280px]">
+                <Image
+                    src="/images/tokenbar.png"
+                    alt="tokenomics"
+                    width={2}
+                    height={535}
+                    priority
+                />
                 <div className="flex flex-col md:w-10/12 px-4  md:px-10 relative space-y-4">
                     <div className='font-gameria w-1/12 leading-[50px] text-[#EDF9D0] text-[56px]'>
                         $pump
@@ -108,13 +127,23 @@ const Tokenomics = () => {
             <div className="mt-20  md:flex flex-row justify-between items-center">
                 <div className="lg:w-6/12 flex justify-center">
                     <div className="mb-20 md:mb-0">
-                        <Image
-                            src="/images/tokenomics.png"
-                            alt="tokenomics"
-                            width={704}
-                            height={535}
-                            priority
-                        />
+                        {pathVar != 'presale' ?
+                            <Image
+                                src="/images/tokenomics.png"
+                                alt="tokenomics"
+                                width={704}
+                                height={535}
+                                priority
+                            /> :
+                            <Image
+                                src="/images/presale/pumptoken.png"
+                                alt="tokenomics"
+                                width={2}
+                                height={535}
+                                priority
+                            />
+                        }
+
                     </div>
                 </div>
                 <div className="px-4 flex flex-col lg:w-6/12 justify-end">
