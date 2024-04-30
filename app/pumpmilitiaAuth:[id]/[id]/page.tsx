@@ -13,6 +13,7 @@ import axios from "axios"
 const Cookies = require('js-cookie');
 import { initializeApp } from "firebase/app";
 import { useParams } from 'next/navigation';
+import { v4 as uuidv4 } from 'uuid';
 
 
 import { getAuth, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
@@ -33,8 +34,24 @@ export default function gameAuthPage() {
     const [error, setError] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setloading] = useState(false)
-    const cross_authkey = params.id;
-    console.log(`Cross Auth Key____: ${cross_authkey}`);
+
+    const collected_param_raw = params.id;
+    const collected_param = decodeURIComponent(collected_param_raw.toString());
+
+    console.log(collected_param);
+
+    const operationType = collected_param[0].split("=")[1];
+    const operationData = collected_param[1].split("=")[1];
+    let cross_authkey = "";
+
+    if (operationType == "referral") {
+        referralProcessor();
+        const refID = operationData;
+    }else if (operationType == "login") {
+        cross_authkey = operationData;
+    }
+    
+
 
     const [resMessage, setResMessage] = useState('')
     const [errMessage, setErrMessage] = useState('')
@@ -220,6 +237,28 @@ export default function gameAuthPage() {
       } catch (error) {
         console.log(`Axios error: ${error}`);
       }
+    }
+
+
+    function referralProcessor() {
+       
+        const genID = uuidv4();
+    
+        // Cache genID and refID using cookies
+        const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
+        if (/iPad|iPhone|iPod/.test(userAgent) && !(navigator as any).MSStream) {
+          // iOS device detected
+          location.href = 'https://apps.apple.com/app'; // Put your App Store link here
+        } else if (/android/i.test(userAgent)) {
+          // Android device detected
+          location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
+        } else {
+          // Non-mobile device detected, redirecting to Play Store as fallback
+          location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
+        }
+    
+    
+      return null; // This component does not render anything
     }
     
 
