@@ -42,3 +42,4 @@ export default function referralProcessorPage() {
 
   return null; // This component does not render anything
 }
+
