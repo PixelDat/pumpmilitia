@@ -443,13 +443,14 @@ export default function Presale() {
             <div className="text-center py-10">
               <p>Join now and secure your stake early in the Pump Militia project.</p>
             </div>
-            <div className="flex flex-col md:flex-row overflow-hidden md:overflow-scroll rounded-3xl px-3 shadow-lg shadow-white  justify-center items-center md:gap-x-8 m-auto">
+            <div className="flex flex-col md:flex-row overflow-hidden box-content  rounded-3xl px-3 md:py-24   bg-cover bg-top  bg-[url('/images/presale/stagesbg.png')]  justify-center items-center md:gap-x-8 m-auto">
               {stages.map((stage, index) => {
                 let gradient = index % 2 != 0 ? 'bg-gradient-to-l md:bg-gradient-to-b' : 'bg-gradient-to-r md:bg-gradient-to-t';
                 let width = index % 2 == 0 ? 'w-[320px]' : 'w-[320px] md:w-[398px]';
                 let height = index % 2 == 0 ? 'h-[320px]' : 'h-[441px]';
                 let order = index == 1 ? 'order-1 md:order-2' : 'order-2';
-                let border = index == 0 ? 'border-t-2 md:border-e-2 md:border-t-0 md:p-e-8' : index == 2 ? 'border-t-2 md:border-t-0 md:border-s-2 md:p-s-8' : '';
+                let border = '';
+                // let border = index == 0 ? 'border-t-2 md:border-e-2 md:border-t-0 md:p-e-8' : index == 2 ? 'border-t-2 md:border-t-0 md:border-s-2 md:p-s-8' : '';
                 return (
                   <div className={`border-[#A5E314] ${order} ${border} p-6`}>
                     <div className={`${gradient} basis-1/2 from-[#A5E314]/40 to-black/20 flex flex-row justify-center p-0.5 rounded-3xl`}>

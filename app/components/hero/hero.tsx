@@ -238,7 +238,7 @@ const Hero = () => {
                   </div>
                 </div>
 
-                <div className="hidden md:flex flex-row relative">
+                <div className="flex flex-row relative">
                   <Image
                     className="mr-[2px] rounded-r-lg"
                     src={"/svg/ad.svg"}
