@@ -1,12 +1,11 @@
 "use client"
-
 import Image from "next/image"
-import BlipNinja from "../components/blipninja/blip"
+import BlipNinja from "../../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
 import { Avatar, AvatarGroup, CircularProgress, FormHelperText, } from "@mui/material"
-import CustomInput from "../components/customInput/customInput"
+import CustomInput from "../../components/customInput/customInput"
 import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, ReportGmailerrorredRounded, VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material"
-import '../styles/navbar.css';
+import '../../styles/navbar.css';
 import { Suspense, useEffect, useState } from "react"
 import axios from "axios"
 const Cookies = require('js-cookie');
