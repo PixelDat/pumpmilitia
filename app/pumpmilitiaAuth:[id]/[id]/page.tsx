@@ -1,18 +1,18 @@
 "use client"
 
 import Image from "next/image"
-import BlipNinja from "../components/blipninja/blip"
+import BlipNinja from "../../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
 import { Avatar, AvatarGroup, CircularProgress, FormHelperText, } from "@mui/material"
-import CustomInput from "../components/customInput/customInput"
+import CustomInput from "../../components/customInput/customInput"
 import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, ReportGmailerrorredRounded, VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material"
-import '../styles/navbar.css';
+import '../../styles/navbar.css';
 import { useEffect, useState } from "react"
 import { request } from "@/lib/utils/helper"
 import axios from "axios"
 const Cookies = require('js-cookie');
 import { initializeApp } from "firebase/app";
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 
 
 import { getAuth, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
@@ -28,13 +28,13 @@ const twitterProvider = new TwitterAuthProvider();
 const googleProvider = new GoogleAuthProvider();
 
 
-
-
 export default function gameAuthPage() {
+    const params = useParams();
     const [error, setError] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setloading] = useState(false)
-
+    const cross_authkey = params.id;
+    console.log(`Cross Auth Key____: ${cross_authkey}`);
 
     const [resMessage, setResMessage] = useState('')
     const [errMessage, setErrMessage] = useState('')
@@ -42,18 +42,16 @@ export default function gameAuthPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [emailExists, setEmailExists] = useState(false)
-
-    const router = useRouter();
-    let cross_authkey  = ""; 
+    let canViewGoBackMsg = false;
 
     useEffect(() => {
-        const { cross_authkey } = router.query; 
         let encrypt = Cookies.get('encrypt_id');
         if (encrypt) {
             successfullAuth();
-
+            canViewGoBackMsg = true;
         }
-    }, [router, router.isReady]);
+    }, [])
+    
 
     const checkEmailExists = async () => {
         setloading(true)
@@ -99,7 +97,7 @@ export default function gameAuthPage() {
         try {
             const response = await axios.post(url, params);
             Cookies.set('encrypt_id', `${response.data.encypted_session_id}`)
-            successfullAuth();
+            
 
         } catch (error: any) {
             if (error.response) {
@@ -129,7 +127,8 @@ export default function gameAuthPage() {
                     setloading(false)
 
                     Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
-                    location.href = '/dashboard'
+                    successfullAuth();
+                    canViewGoBackMsg = true;
                 }
             } catch (error: any) {
                 if (error.response) {
@@ -281,7 +280,7 @@ export default function gameAuthPage() {
                 </div>
                 {/* email address input */}
 
-                <div className="items-center justify-center">
+                {!canViewGoBackMsg && <div className="items-center justify-center">
                     {!emailExists ?
                         <CustomInput
                             className=""
@@ -365,7 +364,10 @@ export default function gameAuthPage() {
                                 <p className="text-center">Forgot Passord</p>
                             </div>
                     }
-                </div>
+                </div>}
+                {canViewGoBackMsg && <div className="items-center justify-center">
+                <p className="text-[#EDF9D0] text-center mt-5 font-light">You are signed in! Go Back to Pump Militia</p>
+                </div>}
             </div>
             <div className="hidden md:inline absolute right-[150px] bottom-[20px]">
                 <BlipNinja />
@@ -373,3 +375,5 @@ export default function gameAuthPage() {
         </div>
     )
 }
+
+
