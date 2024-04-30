@@ -98,7 +98,6 @@ export default function Presale() {
                   />
                 </div>
                 <div className="flex flex-col md:flex-row justify-between gap-14 md:items-end">
-
                   <div className="basis-1/2  order-2 md:order-1 overflow-hidden rounded-2xl  bg-gradient-to-r from-[#89bd34] p-[1px] presaleGradient">
                     <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-[383px] ">
                       <div className="flex flex-row items-center justify-between">
