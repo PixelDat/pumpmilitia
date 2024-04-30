@@ -44,9 +44,9 @@ export default function TimerCount() {
     // Start the countdown when the page loads
     startCountdown();
     return (
-        <div id="timerDiv" className='flex relative flex-row  border border-[#A5E314] bg-[#10130DBF] h-[89px] py-4 rounded-3xl  mb-5  items-center justify-center timerDiv'>
-            <div className=''>
-                <div className='max-h-[115px] absolute left-0 bottom-0 max-w-[109px]'>
+        <div id="timerDiv" className='flex relative flex-row  border border-[#A5E314] bg-[#10130DBF] h-[65px] md:h-[89px] py-4 rounded-3xl  mb-5  items-center justify-center timerDiv'>
+            <div className='flex items-center'>
+                <div className='max-h-[86px] md:max-h-[115px] absolute -left-0 md:left-0 bottom-0 max-w-[67px] md:max-w-[109px]'>
                     <Image
                         src={'/images/deposit/military.png'}
                         width={109}
@@ -54,7 +54,7 @@ export default function TimerCount() {
                         priority
                         alt="" />
                 </div>
-                <div className='max-h-[129px] absolute -right-5 -top-5 w-[129px]'>
+                <div className='max-h-[75px] max-w-[75px] md:max-h-[129px] absolute bottom-2 -right-5 md:-top-5 md:w-[129px]'>
                     <Image
                         src={'/images/coins.png'}
                         width={129}
@@ -63,19 +63,19 @@ export default function TimerCount() {
                 </div>
 
             </div>
-            <div className='border-e border-white px-2 md:px-5 leading-7'>
+            <div className='border-e border-white px-2 md:px-5 leading-4 md:leading-7'>
                 <p className='text-[20px] md:text-[40px] font-digital'>{time.days}</p>
                 <span className='font-sans text-[#52594B] text-[10px] md:text-[12px] text-center'>Days</span>
             </div >
-            <div className='border-e border-white px-2 md:px-5 leading-7'>
+            <div className='border-e border-white px-2 md:px-5 leading-4 md:leading-7'>
                 <p className='text-[20px] md:text-[40px] font-digital'>{time.hours}</p>
                 <span className='font-sans text-[#52594B] text-[10px] md:text-[12px] text-center'>Hours</span>
             </div>
-            <div className='border-e border-white px-2 md:px-5 leading-7'>
+            <div className='border-e border-white px-2 md:px-5 leading-4 md:leading-7'>
                 <p className='text-[20px] md:text-[40px] font-digital'>{time.minutes}</p>
                 <span className='font-sans text-[#52594B] text-[10px] md:text-[12px] text-center'>Minutes</span>
             </div>
-            <div className='border-e border-white px-2 md:px-5 leading-7'>
+            <div className='border-e border-white px-2 md:px-5 leading-4 md:leading-7'>
                 <p className='text-[20px] md:text-[40px] font-digital'>{time.seconds}</p>
                 <span className='font-sans text-[#52594B] text-[10px] md:text-[12px] text-center'>Seconds</span>
             </div>

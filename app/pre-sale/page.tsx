@@ -62,11 +62,16 @@ export default function Presale() {
       image: '/images/deposit/checkmark.png',
       subtitle: 'Click “Buy Now” button and accept/approve transaction in your wallet.',
     },
+    {
+      title: 'Claim from dashboard',
+      image: '/images/presale/menu.png',
+      subtitle: 'When presales end, connect your wallet and claim your $PUMP tokens from the dashboard.',
+    },
   ]
 
   return (
 
-    <div className="bg-cover bg-[url('/images/background.png')] h-full w-full">
+    <div className="bg-cover overflow-hidden bg-[url('/images/background.png')] h-full w-screen">
 
       <div>
         <div className="sm:pb-10 md:pb-20  overflow-hidden bg-cover bg-[url('/images/presale/presalebg.png')] md:bg-[url('/images/presale/presalebg.png')] z-0">
@@ -74,10 +79,17 @@ export default function Presale() {
             <NavBar />
 
             <div className="w-full md:w-10/12 m-auto pt-36">
-              <div className="border pt-20 px-5 pb-10 relative bg-[#10130DB2] font-kanit text-[#EDF9D0] rounded-2xl ">
-                <div className="flex flex-row absolute top-[-65px]  w-full justify-center">
+              <Image
+                className="max-w-full"
+                src={'/images/presale/horizontal.png'}
+                width={1120}
+                height={80}
+                priority
+                alt="" />
+              <div className="pt-20 px-5 pb-10 relative bg-[#10130DB2] font-kanit text-[#EDF9D0] rounded-2xl ">
+                <div className="flex flex-row absolute items-center top-[-40px] md:top-[-65px]  w-full justify-center">
                   <Image
-                    className="justify-center items-center  inline-flex max-w-[299px] max-h-[112px]"
+                    className="inline-flex max-w-[209px] md:max-w-[299px] max-h-[81px] md:max-h-[112px]"
                     src={"/images/presale/pumppresale.png"}
                     width={299}
                     height={112}
@@ -111,7 +123,7 @@ export default function Presale() {
                         <p>Purchased $PUMP Balance</p>
                         <p className="font-gameria font-300 text-[48px]">$0.0089</p>
                         <p>One token, Endless possibilities. Purchased token would be available for claim at TGE.</p>
-                        <div className="flex flex-col md:flex-row ">
+                        <div className="flex flex-col md:flex-row gap-x-4 ">
                           <p><span className="text-[#C3EC62]">Starts:</span>  15/05/2024 (12:00 UTC)</p>
                           <p><span className="text-[#C3EC62]">Ends:</span> 16/05/2024 (12:00 UTC)</p>
                         </div>
@@ -181,68 +193,78 @@ export default function Presale() {
                       <TimerCount />
 
                     </div>
-                    <div className="basis-1/2 rounded-2xl p-4 md:h-[316px] border bg-[#282F20E9] presaleGradient">
-                      <div className="flex flex-row items-center justify-between">
-                        <p>Pay with <span className="text-[#C3EC62] text-[24px] font-gameria mx-3">SOL</span> <span className="text-[#757A6F] text-[10px]">  Min buy 0.6</span></p>
-                        <p>Receive <span className="text-[#C3EC62] text-[24px] font-gameria">$PUMP</span></p>
-                      </div>
-
-                      <div className="space-y-8 mb-5">
-                        <div className="flex flex-col md:flex-row gap-4">
-                          <CustomInput
-                            className=""
-                            sx={{ marginBottom: '10px' }}
-                            placeholder="Enter Amount"
-                            type="text"
-                            addOnStart={<Image
-                              className=""
-                              src={'/images/presale/protocol.png'}
-                              width={24}
-                              height={24}
-                              priority
-                              alt="" />}
-                          />
-                          <CustomInput
-                            className=""
-                            // onChange={(e) => setPassword(e.target.value)}
-                            sx={{ marginBottom: '10px' }}
-                            placeholder="PUMP you'd receive"
-                            type="text"
-                            addOnStart={<Image
-                              className=""
-                              src={'/images/presale/pumplogo.png'}
-                              width={24}
-                              height={24}
-                              priority
-                              alt="" />}
-                          />
+                    <div className="bg-gradient-to-l from-[#89bd34] rounded-2xl overflow-hidden p-0.5">
+                      <div className="basis-1/2 rounded-2xl p-4 md:h-[316px]  bg-[#282F20E9] presaleGradient">
+                        <div className="flex flex-row items-center justify-between">
+                          <p>Pay with <span className="text-[#C3EC62] text-[24px] font-gameria mx-3">SOL</span> <span className="text-[#757A6F] text-[10px]">  Min buy 0.6</span></p>
+                          <p>Receive <span className="text-[#C3EC62] text-[24px] font-gameria">$PUMP</span></p>
                         </div>
 
-                        <div className="flex flex-col md:flex-row gap-4">
-                          <button className="bg-vivd-lime-green w-full component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
-                            Connect Wallet
-                          </button>
+                        <div className="space-y-8 mb-5">
+                          <div className="flex flex-col md:flex-row gap-4">
+                            <CustomInput
+                              className=""
+                              sx={{ marginBottom: '10px' }}
+                              placeholder="Enter Amount"
+                              type="text"
+                              addOnStart={<Image
+                                className=""
+                                src={'/images/presale/protocol.png'}
+                                width={24}
+                                height={24}
+                                priority
+                                alt="" />}
+                            />
+                            <CustomInput
+                              className=""
+                              // onChange={(e) => setPassword(e.target.value)}
+                              sx={{ marginBottom: '10px' }}
+                              placeholder="PUMP you'd receive"
+                              type="text"
+                              addOnStart={<Image
+                                className=""
+                                src={'/images/presale/pumplogo.png'}
+                                width={24}
+                                height={24}
+                                priority
+                                alt="" />}
+                            />
+                          </div>
 
-                          <button className="px-6 py-3 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
-                            Buy now
+                          <div className="flex flex-col md:flex-row gap-4">
+                            <button className="bg-vivd-lime-green w-full component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
+                              Connect Wallet
+                            </button>
+
+                            <button className="px-6 py-3 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                              Buy now
+                            </button>
+                          </div>
+
+                          <button className="px-6 py-3 font-gameria border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                            Whitelist Status
                           </button>
                         </div>
-
-                        <button className="px-6 py-3 font-gameria border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
-                          Whitelist Status
-                        </button>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
+              <Image
+                className="max-w-full"
+                src={'/images/presale/horizontal.png'}
+                width={1120}
+                height={80}
+                priority
+                alt="" />
             </div>
           </div>
         </div>
       </div >
       {/* Instructions on how to buy it */}
       <div className="bg-[#20251a] py-10 pb-40">
-        <div className="w-10/12 text-[#EDF9D0] flex flex-row gap-x-4 items-start m-auto ">
+        <div className="w-10/12 text-[#EDF9D0] flex flex-col md:flex-row gap-x-4 items-start m-auto ">
           <div className="boderToken basis-1/4 ">
             <div className="flex flex-col px-4  md:px-10 relative space-y-4">
               <div className='font-gameria leading-[50px] text-[#EDF9D0] text-[56px]'>
@@ -261,33 +283,36 @@ export default function Presale() {
           </div>
 
           <div className="basis-3/4 order-2 md:order-1 space-y-4">
-            <div className="">
-              <div className="flex gap-y-5 flex-row gap-x-5 pt-3">
+            <div className="w-full overflow-hidden">
+              <div className="flex overflow-scroll md:overflow-hidden w-[340px] md:w-full md:gap-y-5  gap-x-5 pt-3">
                 {tasksCount.map((task, index) => {
                   let gradient = index % 2 != 0 ? 'bg-gradient-to-l md:bg-gradient-to-b' : 'bg-gradient-to-r md:bg-gradient-to-t';
+                  let hidden = index == tasksCount.length - 1 && 'md:hidden';
                   return (
-                    <div className={`${gradient} basis-1/2 from-[#A5E314]/50 to-black flex flex-row justify-center p-0.5 rounded-3xl`}>
-                      <div key={`${index}-${task}`} className="h-[281px] w-[284px] relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] w-full space-y-2 text-start  bg-black/80 rounded-3xl">
-                        <div className="flex flex-row leading-tight justify-center md:justify-start">
-                          <Image
-                            className=""
-                            src={task.image}
-                            width={80}
-                            height={80}
-                            priority
-                            alt="" />
+                    <div className={`${gradient} ${hidden} h-[281px] shrink-0 w-[274px] md:max-w-[284px]  from-[#A5E314]/50 to-black  p-0.5 rounded-3xl`}>
+                      <div key={`${index}-${task}`} className=" w-full h-full flex flex-row items-center justify-center relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] space-y-2 text-start  bg-black/80 rounded-3xl">
+                        <div className="space-y-4 md:space-y-0">
+                          <div className="flex flex-row leading-tight justify-start">
+                            <Image
+                              className=""
+                              src={task.image}
+                              width={80}
+                              height={80}
+                              priority
+                              alt="" />
+                          </div>
+                          <h4 className=" text-[22px] w-full font-gameria font-[400]">{task.title}</h4>
+                          <p className=" text-[16px]">{task.subtitle}</p>
                         </div>
-                        <h4 className="text-[14px] md:text-[22px] w-full font-gameria font-[400]">{task.title}</h4>
-                        <p className="text-[12px] md:text-[16px]">{task.subtitle}</p>
                       </div>
                     </div>
                   )
                 })}
               </div>
             </div>
-            <div className="">
+            <div className="hidden md:block">
               <div className="bg-gradient-to-t from-[#A5E314]/50 to-black p-0.5 rounded-3xl">
-                <div className=" relative overflow-hidden h-[229px] w-full bg-black/70 px-[24.8px]  rounded-3xl">
+                <div className=" relative overflow-hidden h-[229px] items-center justify-center w-full bg-black/70 px-[24.8px]  rounded-3xl">
                   <Image
                     style={{ zIndex: 0 }}
                     className="absolute top-[-10px] right-0"
@@ -304,9 +329,8 @@ export default function Presale() {
                       height={80}
                       priority
                       alt="" />
-                    <p className="text-[15px] font-[300]">Your balance today</p>
-                    <h4 className="text-[24px] font-gameria font-[500]">CONFIRM AND COMPLETE PURCHASE</h4>
-                    <p className="text-[15px] font-[300]">Click “Deposit” button and accept/approve transaction in your wallet. Wait for deposit to process</p>
+                    <h4 className="text-[24px] font-gameria font-[500]">Claim from dashboard</h4>
+                    <p className="text-[15px] font-[300]">When presales end, connect your wallet and claim your $PUMP tokens from the dashboard.</p>
                   </div>
                 </div>
               </div>
@@ -328,23 +352,24 @@ export default function Presale() {
               alt="" />
           </div>
 
-          <div className="w-11/12  m-auto pt-5">
+          <div className="md:w-11/12  m-auto pt-5">
             <div className="text-center py-10">
               <p>Join now and secure your stake early in the Pump Militia project.</p>
             </div>
-            <div className="flex  rounded-3xl shadow-lg shadow-white flex-row justify-center items-center gap-x-8 m-auto">
+            <div className="flex flex-col md:flex-row overflow-hidden md:overflow-scroll rounded-3xl px-3 shadow-lg shadow-white  justify-center items-center md:gap-x-8 m-auto">
               {stages.map((stage, index) => {
                 let gradient = index % 2 != 0 ? 'bg-gradient-to-l md:bg-gradient-to-b' : 'bg-gradient-to-r md:bg-gradient-to-t';
-                let width = index % 2 == 0 ? 'w-[320px]' : 'w-[398px]';
+                let width = index % 2 == 0 ? 'w-[320px]' : 'w-[320px] md:w-[398px]';
                 let height = index % 2 == 0 ? 'h-[320px]' : 'h-[441px]';
-                let border = index == 0 ? 'border-e-2 p-e-8' : index == 2 ? 'border-s-2 p-s-8' : '';
+                let order = index == 1 ? 'order-1 md:order-2' : 'order-2';
+                let border = index == 0 ? 'border-t-2 md:border-e-2 md:border-t-0 md:p-e-8' : index == 2 ? 'border-t-2 md:border-t-0 md:border-s-2 md:p-s-8' : '';
                 return (
-                  <div className={`border-[#A5E314] ${border} p-6`}>
+                  <div className={`border-[#A5E314] ${order} ${border} p-6`}>
                     <div className={`${gradient} basis-1/2 from-[#A5E314]/40 to-black/20 flex flex-row justify-center p-0.5 rounded-3xl`}>
                       <div key={`${index}-${stage}`} className={`${width} ${height} flex flex-row justify-center items-center   text-start  bg-black/70 rounded-3xl`}>
                         <div className="space-y-8 relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] w-full">
                           <div className="flex flex-row justify-between items-center">
-                            <h4 className="text-[14px] md:text-[24px] w-full font-gameria font-[500]">{stage.title}</h4>
+                            <h4 className="text-[24px] w-full font-gameria font-[500]">{stage.title}</h4>
                             {index == 1 &&
                               <Image
                                 className=""

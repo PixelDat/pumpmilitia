@@ -109,10 +109,22 @@ const Tokenomics = () => {
                     priority
                 />
                 <div className="flex flex-col md:w-10/12 px-4  md:px-10 relative space-y-4">
-                    <div className='font-gameria w-1/12 leading-[50px] text-[#EDF9D0] text-[56px]'>
-                        $pump
-                        tokenomics!
-                    </div>
+                    {pathVar != 'presale' ?
+
+                        <div className='font-gameria w-1/12 leading-[50px] text-[#EDF9D0] text-[56px]'>
+                            $pump
+                            tokenomics!
+                        </div>
+                        :
+                        <Image
+                            className="max-w-[280px] md:max-w-[466px] "
+                            src="/images/presale/pumptoken.png"
+                            alt="tokenomics"
+                            width={466}
+                            height={112}
+                            priority
+                        />
+                    }
 
                     <div className='font-kanit  font-bold text-vivd-lime-green-10 text-[32px]'>
                         The real value of PUMP
@@ -127,22 +139,13 @@ const Tokenomics = () => {
             <div className="mt-20  md:flex flex-row justify-between items-center">
                 <div className="lg:w-6/12 flex justify-center">
                     <div className="mb-20 md:mb-0">
-                        {pathVar != 'presale' ?
-                            <Image
-                                src="/images/tokenomics.png"
-                                alt="tokenomics"
-                                width={704}
-                                height={535}
-                                priority
-                            /> :
-                            <Image
-                                src="/images/presale/pumptoken.png"
-                                alt="tokenomics"
-                                width={2}
-                                height={535}
-                                priority
-                            />
-                        }
+                        <Image
+                            src="/images/tokenomics.png"
+                            alt="tokenomics"
+                            width={704}
+                            height={535}
+                            priority
+                        />
 
                     </div>
                 </div>
