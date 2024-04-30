@@ -49,8 +49,8 @@ export default function gameAuthPage() {
     console.log(operationType+"--"+operationData);
 
     if (operationType === "referral") {
-        referralProcessor();
         refID = operationData;
+        referralProcessor();
     }else if (operationType === "login") {
         cross_authkey = operationData;
     }
@@ -65,13 +65,13 @@ export default function gameAuthPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [emailExists, setEmailExists] = useState(false)
-    let canViewGoBackMsg = false;
+    const [canViewGoBackMsg, setCanViewGoBackMsg] = useState(false);
 
     useEffect(() => {
         let encrypt = Cookies.get('encrypt_id');
         if (encrypt) {
             successfullAuth();
-            canViewGoBackMsg = true;
+            setCanViewGoBackMsg(true);
         }
     }, [])
     
@@ -151,7 +151,7 @@ export default function gameAuthPage() {
 
                     Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
                     successfullAuth();
-                    canViewGoBackMsg = true;
+                    setCanViewGoBackMsg(true);
                 }
             } catch (error: any) {
                 if (error.response) {
@@ -208,7 +208,7 @@ export default function gameAuthPage() {
     
       async function reg_auth (){
         try {
-          let token = Cookies.get("user_session_id", { path: "" });
+          let token = Cookies.get("encrypt_id", { path: "" });
         token = token.trim();
           const response = await axios.post(
             "https://evp-cross-auth-handler-service-cea2e4kz5q-uc.a.run.app/reg-auth",
@@ -229,7 +229,7 @@ export default function gameAuthPage() {
       const connectionKey = cross_authkey;
     
       // Get the encrypted session id from cookies
-      const token = Cookies.get("user_session_id", { path: "" });
+      const token = Cookies.get("encrypt_id", { path: "" });
     
       // Create a new object to hold the request parameters
       const data = {
@@ -249,6 +249,9 @@ export default function gameAuthPage() {
     function referralProcessor() {
        
         const genID = uuidv4();
+        // Cache genID and refID using cookies
+        Cookies.set('genID', genID, { expires: 7 }); // Expires in 7 days
+        Cookies.set('refID', refID, { expires: 7 });
     
         // Cache genID and refID using cookies
         const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
