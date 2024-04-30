@@ -51,7 +51,7 @@ export default function gameAuthPage() {
     if (operationType === "referral") {
         referralProcessor();
         refID = operationData;
-    }else if (operationType == "login") {
+    }else if (operationType === "login") {
         cross_authkey = operationData;
     }
     }catch(e){
