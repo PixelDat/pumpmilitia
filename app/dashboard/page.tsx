@@ -4,7 +4,7 @@ import Hero from "../components/hero/hero";
 import Faqs from "../components/faqs/faqs";
 import Footer from "../components/footer/footer";
 import NavBar from "../components/navbar/navbar";
-import { Avatar } from "@mui/material";
+import { Avatar, CircularProgress } from "@mui/material";
 import Image from "next/image";
 import CustomInput from "../components/customInput/customInput";
 import { Check, CheckCircle, People, Person, Person2Rounded } from "@mui/icons-material";
@@ -29,7 +29,10 @@ export default function Dashboard() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setloading] = useState(false)
   const [resMessage, setResMessage] = useState('')
-  const [errMessage, setErrMessage] = useState('')
+  const [errMessage, setErrMessage] = useState({
+    type: '',
+    message: ''
+  })
   const [user, setUser] = useState<UserType>({
     username: "",
     email: "",
@@ -209,7 +212,9 @@ export default function Dashboard() {
     setloading(true)
     if (userName == '') {
       setError(true);
-      setErrMessage('Kindly add the username');
+      setloading(false);
+
+      setErrMessage({ type: 'error', message: 'Kindly add the username' });
       return false
     }
 
@@ -234,7 +239,8 @@ export default function Dashboard() {
     try {
       const response = await axios.request(config);
       setError(true);
-      setErrMessage(response.data.message);
+      setErrMessage({ type: 'success', message: response.data.message });
+      setloading(false);
       setCompletedATask(Math.random() + 1)
       setTimeout(() => {
         setError(false);
@@ -242,7 +248,8 @@ export default function Dashboard() {
     } catch (error: any) {
       if (error.response) {
         setError(true);
-        setErrMessage(error?.response.data.message);
+        setloading(false);
+        setErrMessage({ type: 'error', message: error?.response.data.message });
         setTimeout(() => {
           setError(false);
         }, 2000)
@@ -255,7 +262,7 @@ export default function Dashboard() {
   return (
     <div className="bg-contain bg-[url('/images/dashboardbg.png')] h-full w-full">
       {error &&
-        <ToastComponent addOnStart={<CheckCircle color="inherit" />} content={errMessage} type="success" />
+        <ToastComponent addOnStart={<CheckCircle color="inherit" />} content={errMessage.message} type={errMessage.type} />
       }
       <NavBar />
       <div className="pt-28 w-11/12 m-auto text-[#EDF9D0] font-kanit">
@@ -489,7 +496,7 @@ export default function Dashboard() {
                                   required={true}
                                   autocomplete="off"
                                   addOnStart={<Person2Rounded color="inherit" className="border rounded-full" />}
-                                  addOnEnd={<button onClick={() => { markTaskCompleted(task.task_id, task.action_button_link) }} className="text-[#E1F6B1]" >Continue </button>}
+                                  addOnEnd={<button onClick={() => { markTaskCompleted(task.task_id, task.action_button_link) }} className="text-[#E1F6B1]" >{loading ? <CircularProgress size={18} color="inherit" /> : 'Continue'} </button>}
                                 />
 
                               </div>
