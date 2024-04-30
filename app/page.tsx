@@ -8,7 +8,7 @@ import RoadMap from "./components/roadmap/roadmap";
 import Faqs from "./components/faqs/faqs";
 import Footer from "./components/footer/footer";
 import Onboarding from "./components/onboarding/onboarding";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Tokenomics from "./components/tokenomics/tokennomics";
 const Cookies = require('js-cookie');
 let encrypt = Cookies.get('encrypt_id');
@@ -16,19 +16,31 @@ let encrypt = Cookies.get('encrypt_id');
 // if (encrypt) {
 //   location.href = '/dashboard'
 // }
+
 export default function IndexPage() {
+  const [startLoader, setStartLoader] = useState(true);
   return (
-    <div className="bg-cover bg-[url('/images/background.png')] h-full w-full">
-      <Hero />
-      <Preview />
-      <MinePump />
-      <Features />
-      <Onboarding />
-      <RoadMap />
-      <Tokenomics />
-      <Partners />
-      <Faqs />
-      <Footer />
-    </div>
+    <>
+      {startLoader ?
+        <div >
+          <h2>Loading</h2>
+        </div> :
+
+        <div className="bg-cover bg-[url('/images/background.png')] h-full w-full">
+          <Hero />
+          <Preview />
+          <MinePump />
+          <Features />
+          <Onboarding />
+          <RoadMap />
+          <Tokenomics />
+          <Partners />
+          <Faqs />
+          <Footer />
+        </div>
+      }
+
+    </>
+
   )
 }
