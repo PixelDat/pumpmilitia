@@ -3,6 +3,7 @@ import React from 'react';
 interface CustomInputProps {
     type: string;
     sx?: {};
+    value?: any;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     disabled?: boolean;
     className?: string;
@@ -11,12 +12,14 @@ interface CustomInputProps {
     addOnEnd?: React.ReactNode;
     label?: string;
     error?: boolean;
+    required?: boolean;
+    autocomplete?: 'off' | 'on';
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({ type, className, error, onChange, label, addOnStart, addOnEnd, sx, placeholder, disabled }) => {
-    let color = disabled ? 'border-[#757A6F] blur-[2px]' : error ? 'border-[#757A6F]' : 'border-[#A5E314] ';
+const CustomInput: React.FC<CustomInputProps> = ({ type, autocomplete, required, className, value, error, onChange, label, addOnStart, addOnEnd, sx, placeholder, disabled }) => {
+    let color = disabled ? 'border-[#757A6F] blur-[2px]' : error == true ? 'border-[#ff0000]' : error == false ? 'border-[#A5E314] ' : 'border-[#52594B]';
     return (
-        <div style={sx}>
+        <div style={sx} className={className}>
             {label && <label className='text-[#898989] font-normal '>
                 {label}
             </label>}
@@ -26,10 +29,12 @@ const CustomInput: React.FC<CustomInputProps> = ({ type, className, error, onCha
                 <input
                     className="p-2 w-full focus:outline-none text-[14px] bg-transparent "
                     type={type}
-                    autoComplete=""
+                    // value={value}
                     onChange={onChange}
                     disabled={disabled}
+                    required={required}
                     placeholder={placeholder}
+                    autoComplete={autocomplete}
 
                 />
                 {addOnEnd && addOnEnd}

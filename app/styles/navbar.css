@@ -60,7 +60,7 @@
 }
 
 .hero-overlay {
-  background: linear-gradient(180deg, #212d04 0.18%, rgba(9, 13, 0, 0) 86.06%);
+  background: linear-gradient(180deg, #212d04 0.18%, rgba(9, 13, 0, 0.358) 86.06%);
   position: absolute;
   top: 0;
   left: 0;
@@ -94,6 +94,7 @@
 }
 
 .mlist-link {
+  cursor: pointer;
   font-family: Kanit;
   font-size: 16px;
   font-style: normal;
@@ -101,15 +102,9 @@
   line-height: 24px;
 }
 
-/* @media screen and (max-width: 950px) {
-  .nav-links {
-    display: none;
-  }
-
-} */
 
 
-@media screen and (max-width: 1299px) {
+/* @media screen and (max-width: 1299px) {
   .mainnav {
     padding: 0 50px;
     gap: 20px;
@@ -141,19 +136,18 @@
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 390px) {
   .menu-icon img {
     width: 60px;
   }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 390px) {
   .menu-icon img {
     width: 100px;
   }
 
   .navbar-auth-btn {
     padding: 9px 21px;
-
   }
-}
+} */

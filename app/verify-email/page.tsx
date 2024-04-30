@@ -7,14 +7,54 @@ import { FormHelperText, } from "@mui/material"
 import CustomInput from "../components/customInput/customInput"
 import { ArrowForward, Check, CheckCircle, CloseRounded, MailOutlineRounded, ReportGmailerrorredRounded } from "@mui/icons-material"
 import '../styles/navbar.css';
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import OtpComp from "../components/otpComp/otpComp"
+import axios from "axios"
+const Cookies = require('js-cookie');
+
+
 
 
 export default function VerifyEmail() {
+    let encrypt = Cookies.get('encrypt');
     const [error, setError] = useState(false)
-    const [success, setSuccess] = useState(true)
+    const [success, setSuccess] = useState(false)
     const [loading, setLoading] = useState(false)
+
+    const [otp, setOtp] = useState('');
+
+    useEffect(() => {
+        setTimeout(() => {
+
+        }, 3000)
+    }, [])
+
+    useEffect(() => {
+        if (otp.length == 6) {
+            let verify_otp = async () => {
+                let config = {
+                    method: 'get',
+                    maxBodyLength: Infinity,
+                    url: 'https://evp-user-service-cea2e4kz5q-uc.a.run.app/get-user-details',
+                    headers: {
+                        'Authorization': `${encrypt}`
+                    }
+                };
+                try {
+                    const response = await axios.request(config);
+                    console.log(response);
+                } catch (error: any) {
+                    if (error.response && error.response.status === 400) {
+                    } else {
+                        console.log(`An error occurred: ${error.message}`);
+                    }
+                }
+
+            }
+
+            verify_otp()
+        }
+    }, [otp])
 
 
     return (
@@ -45,7 +85,7 @@ export default function VerifyEmail() {
                 </div>
 
                 <div className="mt-5">
-                    <OtpComp error={error} success={success} />
+                    <OtpComp setOtp={setOtp} error={error} success={success} />
                 </div>
 
 
@@ -71,8 +111,12 @@ export default function VerifyEmail() {
                             </div>
 
                             <div className="mt-10">
-                                <button onClick={() => setError(!error)} className="navbar-auth-btn w-full">Proceed</button>
+                                <button onClick={() => {
+                                    setError(true)
+                                    setSuccess(false);
+                                }} className="navbar-auth-btn w-full">Proceed</button>
                             </div>
+
                         </>
                     }
                     {
@@ -84,6 +128,7 @@ export default function VerifyEmail() {
                             </div>
                         </>
                     }
+
                 </div>
 
 
