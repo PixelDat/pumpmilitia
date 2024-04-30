@@ -34,23 +34,29 @@ export default function gameAuthPage() {
     const [error, setError] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setloading] = useState(false)
+    let cross_authkey = "";
+    let refID = "";
+    
+    try {
+    const collected_param_raw = decodeURIComponent(params.id.toString());
+    const collected_param = collected_param_raw.split(";");
 
-    const collected_param_raw = params.id;
-    const collected_param = decodeURIComponent(collected_param_raw.toString());
-
-    console.log(collected_param);
-
+    
     const operationType = collected_param[0].split("=")[1];
     const operationData = collected_param[1].split("=")[1];
-    let cross_authkey = "";
+ 
 
-    if (operationType == "referral") {
+    console.log(operationType+"--"+operationData);
+
+    if (operationType === "referral") {
         referralProcessor();
-        const refID = operationData;
+        refID = operationData;
     }else if (operationType == "login") {
         cross_authkey = operationData;
     }
-    
+    }catch(e){
+        console.error('Error processing parameters:', e);
+    }
 
 
     const [resMessage, setResMessage] = useState('')
