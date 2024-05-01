@@ -6,8 +6,10 @@ import { CoinbaseWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter, Tor
 import { clusterApiUrl } from '@solana/web3.js';
 import WithdrawPage from '../components/withdraw/withdrawComp';
 require("@solana/wallet-adapter-react-ui/styles.css");
+
+
 export default function Context({ children }: any) {
-    const network = WalletAdapterNetwork.Mainnet;
+    const network = WalletAdapterNetwork.Devnet;
 
     const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
@@ -25,7 +27,8 @@ export default function Context({ children }: any) {
         <ConnectionProvider endpoint={endpoint} >
             <WalletProvider wallets={wallets} >
                 <WalletModalProvider>
-                    <WithdrawPage />
+                    {/* <WithdrawPage /> */}
+                    {children}
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>

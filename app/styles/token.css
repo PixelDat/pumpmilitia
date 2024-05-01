@@ -1,12 +1,17 @@
 .boderToken {
-    /* height: 80%; */
-    /* width: 0; */
-    /* margin: auto; */
-    /*  */
 
     border-left: 3.5px solid transparent;
     padding: 10px;
     background: linear-gradient(#20251a, #20251a) padding-box,
         linear-gradient(180deg, #20251a, #466417, #425c18, #85c936, #425c18, #466417, #20251a) border-box;
+
+}
+
+.topBorder {
+
+    border-top: 3.5px solid transparent;
+    padding: 10px;
+    background: linear-gradient(#20251a, #20251a) padding-box,
+        linear-gradient(270deg, #20251a00, #46641776, #425c18b0, #85c936, #425c18b5, #4664173f, #20251a00) border-box;
 
 }

@@ -14,6 +14,28 @@ export interface RequestResponseInt {
 }
 
 
+// new types
+
+export interface UserType {
+    username: string,
+    email: string,
+    role: string,
+    profilePhoto: string,
+    user_id: string,
+    twitter_id: string,
+    google_id: string,
+    points: number,
+    updated_at: string
+}
+export interface SystemProgramTransfer {
+    fromPubkey: any;
+    toPubkey: string;
+    lamports: number;
+}
+
+//end of new types
+
+
 export interface RequestInt {
     post: (data: {
         url: string;

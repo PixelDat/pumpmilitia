@@ -123,7 +123,7 @@ export default function WithdrawPage() {
     {
       title: 'connect your wallet',
       image: '/images/deposit/connect.png',
-      subtitle: 'ComClick the “Connect” button to connect your Defi walletpleted',
+      subtitle: 'Click the “Connect” button to connect your Defi walletpleted',
     },
     {
       title: 'Enter Amount',
@@ -186,12 +186,14 @@ export default function WithdrawPage() {
       const response = await axios.request(config);
       setError(true);
       setErrMessage({ type: 'success', message: response.data.message });
+      setLoading(false);
       setTimeout(() => {
         setError(false);
       }, 2000)
     } catch (error: any) {
       if (error.response) {
         setError(true);
+        setLoading(false);
         setErrMessage({ type: 'error', message: error?.response.data.message });
         setTimeout(() => {
           setError(false);
@@ -307,7 +309,7 @@ export default function WithdrawPage() {
             </div>
 
 
-            <div className="bg-[#D2F189] rounded-2xl h-[465px] md:h-[485px] space-y-2 p-2 md:p-6">
+            <div className="bg-[#D2F189] rounded-2xl  space-y-2 p-2 md:p-6">
 
 
               <div className="w-10/12 m-auto">
@@ -316,7 +318,7 @@ export default function WithdrawPage() {
                 </p>
               </div>
 
-              <div className="bg-[#20251a] h-[336px] space-y-3 rounded-3xl  p-6">
+              <div className="bg-[#20251a]  space-y-3 rounded-3xl  p-6">
                 <div className="flex flex-row justify-between items-center">
                   <div>
                     <div className="flex flex-row items-center gap-2 md:gap-4">
@@ -364,7 +366,7 @@ export default function WithdrawPage() {
                     alt="" />}
                   type="text"
                   onChange={(e: any) => setAmount(e.target.value)}
-                  placeholder="Enter amount to deposit"
+                  placeholder="Enter amount to withdraw"
                 />
 
                 {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">{walletAddress}</p>}
@@ -424,7 +426,8 @@ export default function WithdrawPage() {
 
 
                   <button onClick={startWithdrawal} className="px-6 relative py-2 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
-                    Withdraw
+                    {loading ? <CircularProgress size={16} color='inherit' /> : 'Withdraw'}
+
                     {visibleMod &&
                       <div className="bg-[#EDF9D0] absolute top-[-20px] right-0 p-2 text-[#181C13] text-[12px] rounded-2xl">
                         Connect your wallet first
@@ -432,9 +435,9 @@ export default function WithdrawPage() {
                     }
                   </button>
                 </div>
-                    <div>
-                      <p className="text-center text-[#898989]">Withdraw your $PUMP airdrop balance at TGE</p>
-                    </div>
+                <div>
+                  <p className="text-center text-[#898989]">Withdraw your $PUMP airdrop balance at TGE</p>
+                </div>
                 <button className="px-6 py-3 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                   Buy from Raydium
                 </button>
