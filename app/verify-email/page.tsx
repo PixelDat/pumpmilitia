@@ -21,6 +21,7 @@ export default function VerifyEmail() {
     const [success, setSuccess] = useState(false)
     const [loading, setLoading] = useState(false)
 
+    const [countDown, setCountDown] = useState(60);
     const [otp, setOtp] = useState('');
 
     useEffect(() => {
@@ -73,20 +74,17 @@ export default function VerifyEmail() {
                             alt=""
                             priority />
                     </div>
-                    <div className='font-kanit text-center text-vivd-lime-green-10 text-[36px]'>
-                        Confirm your email
+                    <div className='font-gameria text-center text-vivd-lime-green-10 text-[36px]'>
+                        Verify Email
                     </div>
-                    <p className="text-center text-[14px] text-vivd-lime-green-10">Enter the code we sent to allineedisagame@gmail.com</p>
+                    <p className="text-center text-[14px] text-vivd-lime-green-10">Check your email inbox, click link to verify account</p>
                 </div>
                 <div className="flex flex-row gap-5 justify-center">
-                    <p className=" text-[#A5E314] border-e-2 border-[#52594B] pe-5">Resend Code in <span className="text-[#52594B]">60s</span></p>
+                    <p className=" text-[#A5E314] border-e-2 border-[#52594B] pe-5">Resend Code in <span className="text-[#52594B]">{countDown}s</span></p>
                     <p className=" text-[#A5E314]">Change Email</p>
 
                 </div>
 
-                <div className="mt-5">
-                    <OtpComp setOtp={setOtp} error={error} success={success} />
-                </div>
 
 
                 <div className="items-center justify-center pt-4">

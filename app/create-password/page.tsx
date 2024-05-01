@@ -55,7 +55,7 @@ export default function LoginPage() {
                     <div className='font-gameria  text-center  text-vivd-lime-green-10 text-[40px]'>
                         PUMP MILLITIA
                     </div>
-                    <p className="text-center text-[14px] text-vivd-lime-green-10">The ultimate rewards arena.</p>
+                    <p className="text-center text-[14px] text-vivd-lime-green-10">Enter a password, to secure your account and carryout transaction</p>
                 </div>
                 {/* email address input */}
 
