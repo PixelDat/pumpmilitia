@@ -49,14 +49,8 @@ const NavBar = () => {
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
             <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
-              <Link
-                activeClass="active"
-                to="whitepaper"
-                spy={true}
-                smooth={true}
-                offset={0}
-                duration={500}
-              >Whitepaper</Link>
+              <a href="https://pump-militia.gitbook.io/whitepaper/" target="_blank"
+              >Whitepaper</a>
             </p>
           </div>
 
@@ -134,7 +128,7 @@ const NavBar = () => {
 
           <div className="bordered-mlist">
             <p className="mlist-link text-vivd-lime-green-10">
-              <a>Whitepaper</a>
+              <a href="https://pump-militia.gitbook.io/whitepaper/" target="blank">Whitepaper</a>
             </p>
           </div>
           <div className="bordered-mlist">

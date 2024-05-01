@@ -1,6 +1,7 @@
 import { AppImages } from "@/lib/constants/app_images"
 import Image from "next/image"
 import '../../styles/footer.css';
+import { Link } from "react-scroll";
 
 
 
@@ -110,11 +111,19 @@ const Footer = () => {
 
                         <div className="flex-flex-col space-y-4">
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                <a href="#airdrop">Airdrop</a>
+                                <Link
+                                    style={{ cursor: 'pointer' }}
+                                    activeClass="active"
+                                    to="airdrop"
+                                    spy={true}
+                                    smooth={true}
+                                    offset={0}
+                                    duration={500}
+                                >Airdrop</Link>
                             </div>
 
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                <a href="">Whitepaper</a>
+                                <a href="https://pump-militia.gitbook.io/whitepaper/" target="_blank">Whitepaper</a>
                             </div>
 
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
@@ -122,7 +131,15 @@ const Footer = () => {
                             </div>
 
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                <a href="#roadmap">Roadmap</a>
+                                <Link
+                                    style={{ cursor: 'pointer' }}
+                                    activeClass="active"
+                                    to="roadmap"
+                                    spy={true}
+                                    smooth={true}
+                                    offset={0}
+                                    duration={500}
+                                >Roadmap</Link>
                             </div>
                         </div>
                     </div>

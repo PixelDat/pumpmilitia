@@ -133,13 +133,20 @@ const Hero = () => {
                 </div>
               </div>
               <div className="flex flex-row space-x-4 mt-8">
-                <button className="bg-vivd-lime-green component_btn px-6 py-2 shadow-sm rounded-lg shadow-white">
-                  Airdrop
-                </button>
+                <Link
+                  className="bg-vivd-lime-green component_btn px-6 py-2 shadow-sm rounded-lg shadow-white"
+                  activeClass="active"
+                  style={{ cursor: 'pointer' }}
+                  to="airdrop"
+                  spy={true}
+                  smooth={true}
+                  offset={0}
+                  duration={500}
+                >Airdrop</Link>
 
-                <button className="px-6 py-2 border component_btn_transparent border-vivd-lime-green rounded-lg text-vivd-lime-green-10">
+                <a href="https://pump-militia.gitbook.io/whitepaper/" target="_blank" className="px-6 py-2 border component_btn_transparent border-vivd-lime-green rounded-lg text-vivd-lime-green-10">
                   WhitePaper
-                </button>
+                </a>
               </div>
             </div>
           </div>
