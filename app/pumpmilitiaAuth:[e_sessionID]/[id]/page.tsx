@@ -64,13 +64,13 @@ export default function gameAuthPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [emailExists, setEmailExists] = useState(false)
-    let canViewGoBackMsg = false;
+    const [canViewGoBackMsg, setcanViewGoBackMsg] = useState(false);
 
     useEffect(() => {
         let encrypt = Cookies.get('encrypt_id');
         if (encrypt) {
             successfullAuth();
-            canViewGoBackMsg = true;
+            setcanViewGoBackMsg(true);
         }
     }, [])
     
@@ -150,7 +150,7 @@ export default function gameAuthPage() {
 
                     Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
                     successfullAuth();
-                    canViewGoBackMsg = true;
+                    setcanViewGoBackMsg(true);
                 }
             } catch (error: any) {
                 if (error.response) {
