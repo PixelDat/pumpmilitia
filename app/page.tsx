@@ -12,12 +12,15 @@ import { useEffect, useState } from "react";
 import Tokenomics from "./components/tokenomics/tokennomics";
 import Image from "next/image";
 import { AppImages } from "@/lib/constants/app_images";
+import { Metadata } from "next";
 const Cookies = require('js-cookie');
 let encrypt = Cookies.get('encrypt_id');
 
 // if (encrypt) {
 //   location.href = '/dashboard'
 // }
+
+
 
 export default function IndexPage() {
   const [startLoader, setStartLoader] = useState(true);
@@ -38,7 +41,7 @@ export default function IndexPage() {
           setWidth(`${widthPixels}px`)
           setPercentage(percentage + 10);
           // updateCounter()
-        }, 1500)
+        }, 1000)
       }
     }
     updateCounter()

@@ -14,8 +14,6 @@ import { initializeApp } from "firebase/app";
 
 
 import { getAuth, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { useSearchParams } from "next/navigation"
-
 
 const firebaseConfig = { apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc", authDomain: "everpump-6e275.firebaseapp.com", projectId: "everpump-6e275", storageBucket: "everpump-6e275.appspot.com", messagingSenderId: "138957984497", appId: "1:138957984497:web:6be3945adff541c5380f50", measurementId: "G-8T2XXV37GT", };
 
@@ -30,7 +28,7 @@ const googleProvider = new GoogleAuthProvider();
 
 
 
-export default function LoginPageMain() {
+export default function LoginPage() {
     const [error, setError] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setloading] = useState(false)
@@ -42,30 +40,6 @@ export default function LoginPageMain() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [emailExists, setEmailExists] = useState(false)
-
-    const router = useSearchParams();
-
-
-    useEffect(() => {
-        const checkLoggedIn = async () => {
-            const encryptedId = Cookies.get('encrypt_id');
-            if (encryptedId) {
-
-                try {
-                    await reg_auth();
-                    await saveConnectionKey();
-                    await confirmPotentialRef();
-                    location.href = '/dashboard'
-                } catch (error) {
-                    console.error('Error during automatic login process:', error);
-                } finally {
-
-                }
-            }
-        };
-
-        checkLoggedIn();
-    }, []);
 
     const checkEmailExists = async () => {
         setloading(true)
@@ -111,10 +85,6 @@ export default function LoginPageMain() {
         try {
             const response = await axios.post(url, params);
             Cookies.set('encrypt_id', `${response.data.encypted_session_id}`)
-
-            await reg_auth();
-            await saveConnectionKey();
-            await confirmPotentialRef();
             location.href = '/dashboard'
 
         } catch (error: any) {
@@ -144,11 +114,7 @@ export default function LoginPageMain() {
                     console.log(res);
                     setloading(false)
 
-                    Cookies.set('encrypt_id', `${res.data.encypted_session_id}`);
-
-                    await reg_auth();
-                    await saveConnectionKey();
-                    await confirmPotentialRef();
+                    Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
                     location.href = '/dashboard'
                 }
             } catch (error: any) {
@@ -170,78 +136,6 @@ export default function LoginPageMain() {
             }
         }
     }
-
-
-
-
-    async function confirmPotentialRef() {
-        // Retrieve genID and refID from cookies
-        const genID = Cookies.get('genID');
-        const refID = Cookies.get('refID');
-
-        // Check if both IDs exist
-        if (!genID || !refID) {
-            console.error("Missing genID or refID for referral confirmation.");
-            return;
-        }
-
-        try {
-            const response = await axios.post(
-                "https://evp-referral-service-cea2e4kz5q-uc.a.run.app/reg-potential-referrals",
-                {
-                    _genID: genID,
-                    _refID: refID,
-                }
-            );
-            console.log("Referral confirmation response:", response.data);
-        } catch (error) {
-            console.error("Error confirming referral:", error);
-        }
-    }
-
-    async function reg_auth() {
-        try {
-            let token = Cookies.get("user_session_id", { path: "" });
-            token = token.trim();
-            const response = await axios.post(
-                "https://evp-cross-auth-handler-service-cea2e4kz5q-uc.a.run.app/reg-auth",
-                {},
-                {
-                    headers: { Authorization: token },
-                }
-            );
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-    async function saveConnectionKey() {
-        const cross_authkey = router.get('cross_authkey');
-        const url = "https://evp-cross-auth-handler-service-cea2e4kz5q-uc.a.run.app/save-connection-key";
-
-        // Generate a new connection key
-        const connectionKey = cross_authkey;
-
-        // Get the encrypted session id from cookies
-        const token = Cookies.get("user_session_id", { path: "" });
-
-        // Create a new object to hold the request parameters
-        const data = {
-            connectionKey: connectionKey,
-            encypted_session_id: token
-        };
-
-        try {
-            const response = await axios.post(url, data);
-            console.log(`Server response: ${response.data}`);
-        } catch (error) {
-            console.log(`Axios error: ${error}`);
-        }
-    }
-
-
-
-
 
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center text-white bg-[#20251A]">
@@ -392,9 +286,3 @@ export default function LoginPageMain() {
         </div>
     )
 }
-
-// export default function LoginPage() {
-//     <Suspense fallback={<div>Loading...</div>}>
-//         <LoginPageMain />
-//     </Suspense>
-// }
