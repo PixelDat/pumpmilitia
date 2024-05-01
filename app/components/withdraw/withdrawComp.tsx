@@ -320,27 +320,7 @@ export default function WithdrawPage() {
 
               <div className="bg-[#20251a]  space-y-3 rounded-3xl  p-6">
                 <div className="flex flex-row justify-between items-center">
-                  <div>
-                    <div className="flex flex-row items-center gap-2 md:gap-4">
-                      <div className="text-[#EDF9D0] text-[14px] md:text-[16px]">
-                        $PUMP
-                      </div>
-                      <div className="text-[#EDF9D0] font-gameria text-[16px] md:text-[24px]">
-                        MAIN-NET
-                      </div>
-                    </div>
-                    <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">099998</span></p>
-                    </div>
-                  </div>
-
-                  <Image
-                    className=""
-                    src={'/images/deposit/arrow.png'}
-                    width={40}
-                    height={40}
-                    priority
-                    alt="" />
+                 
 
                   <div>
                     <div className="flex flex-row items-center gap-4">
@@ -355,6 +335,31 @@ export default function WithdrawPage() {
                       <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">{Number(user?.points).toLocaleString()}</span></p>
                     </div>
                   </div>
+
+                  <Image
+                    className=""
+                    src={'/images/deposit/arrow.png'}
+                    width={40}
+                    height={40}
+                    priority
+                    alt="" />
+
+
+                  <div>
+                    <div className="flex flex-row items-center gap-2 md:gap-4">
+                      <div className="text-[#EDF9D0] text-[14px] md:text-[16px]">
+                        $PUMP
+                      </div>
+                      <div className="text-[#EDF9D0] font-gameria text-[16px] md:text-[24px]">
+                        MAIN-NET
+                      </div>
+                    </div>
+                    <div className="text-end">
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">099998</span></p>
+                    </div>
+                  </div>
+
+                  
                 </div>
                 <CustomInput
                   addOnStart={<Image
