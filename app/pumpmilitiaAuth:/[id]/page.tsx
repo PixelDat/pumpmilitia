@@ -8,7 +8,6 @@ import CustomInput from "../../components/customInput/customInput"
 import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, ReportGmailerrorredRounded, VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material"
 import '../../styles/navbar.css';
 import { useEffect, useState } from "react"
-import { request } from "@/lib/utils/helper"
 import axios from "axios"
 const Cookies = require('js-cookie');
 import { initializeApp } from "firebase/app";
@@ -51,7 +50,7 @@ export default function gameAuthPage() {
     if (operationType === "referral") {
         referralProcessor();
         refID = operationData;
-    }else if (operationType == "login") {
+    }else if (operationType === "login") {
         cross_authkey = operationData;
     }
     }catch(e){
@@ -420,5 +419,3 @@ export default function gameAuthPage() {
         </div>
     )
 }
-
-
