@@ -38,7 +38,7 @@ export default function IndexPage() {
           setWidth(`${widthPixels}px`)
           setPercentage(percentage + 10);
           // updateCounter()
-        }, 1500)
+        }, 1000)
       }
     }
     updateCounter()
