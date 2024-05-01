@@ -41,7 +41,7 @@ const MinePump = () => {
       <div
         className="md:flex hidden relative  flex-col space-y-24 justify-center bg-cover  bg-[url('/images/airdropbg.png')] items-center py-32"
       >
-        <div className="bg-gradient-to-b from-[#20251a05] to: md:to-[#20251a]" style={{ zIndex: 0, position: 'absolute', width: '100%', height: '100%' }}></div>
+        <div className="bg-gradient-to-b from-[#20251a05] to-[#20251a]" style={{ zIndex: 0, position: 'absolute', width: '100%', height: '100%' }}></div>
         <div className="flex flex-col items-center justify-center" style={{ zIndex: 1, }}>
           <div className="font-gameria text-vivd-lime-green-10 text-[40px]">
             AIRDROP - MINE $PUMP
@@ -113,9 +113,11 @@ const MinePump = () => {
 
       {/* Small screens */}
       <div
-        className="flex md:hidden flex-col space-y-24 justify-center bg-cover  bg-[url('/images/airdropbg.png')] items-center py-32"
+        className="flex md:hidden flex-col space-y-24 justify-center relative bg-cover  bg-[url('/images/airdropbg.png')] items-center py-32"
       >
-        <div className="">
+        <div className="bg-gradient-to-b from-[#20251a05] to-[#2C3322] h-full w-full bottom-0" style={{ zIndex: 0, position: 'absolute' }}></div>
+
+        <div className="" style={{ zIndex: 1, }}>
           <div className="font-gameria text-center text-vivd-lime-green-10 text-[40px]">
             AIRDROP - MINE $PUMP
           </div>
@@ -127,7 +129,7 @@ const MinePump = () => {
           </div>
         </div>
 
-        <div className="">
+        <div style={{ zIndex: 1, }} className="">
           <div className="flex flex-col text-start max-w-[518px]">
             <BlipNinja />
             {items.map((item: any, index: number) => {
