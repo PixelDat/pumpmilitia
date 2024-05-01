@@ -126,9 +126,9 @@ const Footer = () => {
                                 <a href="https://pump-militia.gitbook.io/whitepaper/" target="_blank">Whitepaper</a>
                             </div>
 
-                            <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
+                            {/* <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
                                 <a href="/pre-sale">Presale</a>
-                            </div>
+                            </div> */}
 
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
                                 <Link

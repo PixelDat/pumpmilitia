@@ -54,11 +54,11 @@ const NavBar = () => {
             </p>
           </div>
 
-          <div className="font-sans text-vivd-lime-green-10 text-[16px]">
+          {/* <div className="font-sans text-vivd-lime-green-10 text-[16px]">
             <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
               <a style={{ cursor: 'pointer' }} href="/pre-sale">Presale</a>
             </p>
-          </div>
+          </div> */}
 
           <div className="font-sans text-vivd-lime-green-10 text-[16px]">
             <p className="hover:text-vivd-lime-green hover:tracking-wide hover:font-bold">
@@ -90,7 +90,8 @@ const NavBar = () => {
 
           <div>
             {!loggedIn ?
-              <a href="/auth" className="navbar-auth-btn">Dashboard</a> :
+              // <a href="/auth" className="navbar-auth-btn">Dashboard</a> :
+              <div></div> :
               <a onClick={() => {
                 Cookies.remove('encrypt_id');
                 location.href = '/'
@@ -131,11 +132,11 @@ const NavBar = () => {
               <a href="https://pump-militia.gitbook.io/whitepaper/" target="blank">Whitepaper</a>
             </p>
           </div>
-          <div className="bordered-mlist">
+          {/* <div className="bordered-mlist">
             <p className="mlist-link text-vivd-lime-green-10">
               <a style={{ cursor: 'pointer' }} href="/pre-sale">Presale</a>
             </p>
-          </div>
+          </div> */}
           <div className="bordered-mlist">
             <p className="mlist-link text-vivd-lime-green-10">
               <Link
