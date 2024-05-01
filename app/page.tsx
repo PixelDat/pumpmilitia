@@ -51,15 +51,15 @@ export default function IndexPage() {
 
   return (
     <>
-      {startLoader ?
-        <div className="bg-[#20251a] h-screen">
+      {startLoader &&
+        <div style={{ position: 'fixed', zIndex: 99999999, width: '100%' }} className="bg-[#20251a] h-screen">
 
           <div className="absolute" style={{ zIndex: 6 }}>
           </div>
 
           <div className="h-[70%] d flex flex-row items-center justify-center">
             <div>
-              <div className="w-full justify-center flex">
+              <div style={{ zIndex: 999999999, }} className="w-full  justify-center flex">
                 <Image
                   className="object-center"
                   src={AppImages.navBarLogo}
@@ -80,7 +80,7 @@ export default function IndexPage() {
             </div>
           </div>
 
-          <div className="md:inline ">
+          <div style={{ zIndex: 99999999 }} className="md:inline ">
             <Image
               className="object-center bottom-0 w-full absolute"
               src={'/images/launch/desktop.png'}
@@ -89,12 +89,12 @@ export default function IndexPage() {
               alt=""
               priority />
           </div>
-          <div className="md:hidden">
+          <div style={{ zIndex: 99999999 }} className="md:hidden">
             <Image
-              className="object-center bottom-0 absolute"
+              className="object-center bottom-[-100px] w-full absolute"
               src={'/images/launch/mobile.png'}
-              width={1000}
-              height={1000}
+              width={400}
+              height={600}
               alt=""
               priority />
           </div>
@@ -107,21 +107,21 @@ export default function IndexPage() {
 
 
         </div>
-        :
-
-        <div className="bg-cover bg-[url('/images/background.png')] h-full w-full">
-          <Hero />
-          <Preview />
-          <MinePump />
-          <Features />
-          <Onboarding />
-          <RoadMap />
-          <Tokenomics />
-          <Partners />
-          <Faqs />
-          <Footer />
-        </div>
       }
+
+      <div className="bg-cover bg-[url('/images/background.png')] h-full w-full">
+        <Hero />
+        <Preview />
+        <MinePump />
+        <Features />
+        <Onboarding />
+        <RoadMap />
+        <Tokenomics />
+        <Partners />
+        <Faqs />
+        <Footer />
+      </div>
+
 
     </>
 
