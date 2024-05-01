@@ -1,28 +1,13 @@
+import { dashboardfaqs, landingfaqs, presalefaqs } from "@/lib/constants/app_images"
 import { Add, Remove } from "@mui/icons-material"
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material"
+import { usePathname } from "next/navigation"
 import { useState } from "react"
 
 const Faqs = () => {
+    let path = usePathname()
     const [selectedFaq, setSelectedFaq] = useState(0)
-    const faqs = [
-        {
-            title: "What's $PUMP airdrop?",
-            text: "The Pump Militia Airdrop is all about rewarding early supporters and players by giving them ways to mine $PUMP from their mobile phones before TGE.It's designed to reward early members, engage and incentivise users while driving adoption within the community."
-        },
-        {
-            title: 'Who is eligible to mine $PUMP?',
-            text: "The Pump Militia Airdrop is all about rewarding early supporters and players by giving them ways to mine $PUMP from their mobile phones before TGE. It's designed to reward early members, engage and incentivise users while driving adoption within the community."
-        },
-        {
-            title: 'When can I withdraw my mined $PUMP?',
-            text: "The Pump Militia Airdrop is all about rewarding early supporters and players by giving them ways to mine $PUMP from their mobile phones before TGE. It's designed to reward early members, engage and incentivise users while driving adoption within the community."
-        },
-        {
-            title: 'What Blockchain Network is used?',
-            text: "The Pump Militia Airdrop is all about rewarding early supporters and players by giving them ways to mine $PUMP from their mobile phones before TGE. It's designed to reward early members, engage and incentivise users while driving adoption within the community."
-        },
-
-    ]
+    const faqs = path == '/' ? landingfaqs : path == '/pre-sale' ? presalefaqs : path == '/dashboard' ? dashboardfaqs : landingfaqs;
     return (
         <div className="flex flex-col md:w-11/12 m-auto md:flex-row p-4 justify-center items-start md:space-x-24">
             <div className="">
