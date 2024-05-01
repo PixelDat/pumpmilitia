@@ -7,14 +7,14 @@ const Faqs = () => {
     const faqs = [
         {
             title: "What's $PUMP airdrop?",
-            text: "The Pump Militia Airdrop is all about rewarding early supporters and players by giving them ways to mine $PUMP from their mobile phones before TGE. It's designed to reward early members, engage and incentivise users while driving adoption within the community."
+            text: "The Pump Militia Airdrop is all about rewarding early supporters and players by giving them ways to mine $PUMP from their mobile phones before TGE.It's designed to reward early members, engage and incentivise users while driving adoption within the community."
         },
         {
             title: 'Who is eligible to mine $PUMP?',
             text: "The Pump Militia Airdrop is all about rewarding early supporters and players by giving them ways to mine $PUMP from their mobile phones before TGE. It's designed to reward early members, engage and incentivise users while driving adoption within the community."
         },
         {
-            title: 'When can I withdraw my minded $PUMP?',
+            title: 'When can I withdraw my mined $PUMP?',
             text: "The Pump Militia Airdrop is all about rewarding early supporters and players by giving them ways to mine $PUMP from their mobile phones before TGE. It's designed to reward early members, engage and incentivise users while driving adoption within the community."
         },
         {
@@ -41,9 +41,9 @@ const Faqs = () => {
                         </div>
 
                         <button className="border border-[#89BD11] rounded-xl px-6 py-3 w-fit">
-                            <div className='font-sans text-vivd-lime-green-10 text-sm'>
+                            <a href="https://discord.com/invite/tvZGAP4Qt8" target="_blank" className='font-sans text-vivd-lime-green-10 text-sm'>
                                 Join Discord Community
-                            </div>
+                            </a>
                         </button>
                     </div>
 
@@ -87,9 +87,9 @@ const Faqs = () => {
                 </div>
 
                 <button className="border border-[#89BD11] rounded-xl px-6 py-3 w-fit">
-                    <div className='font-sans text-vivd-lime-green-10 text-sm'>
+                    <a href="https://discord.com/invite/tvZGAP4Qt8" target="_blank" className='font-sans text-vivd-lime-green-10 text-sm'>
                         Join Discord Community
-                    </div>
+                    </a>
                 </button>
             </div>
         </div>

@@ -67,7 +67,7 @@ const Hero = () => {
                     alt=""
                   />
                 </a>
-                <a href="#">
+                <a href="https://www.tiktok.com/@pump.militia" target="_blank">
                   <Image
                     className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
                     src={"/svg/tiktok.svg"}
@@ -183,7 +183,7 @@ const Hero = () => {
                 alt=""
               />
             </a>
-            <a href="#">
+            <a href="https://www.tiktok.com/@pump.militia" target="_blank">
               <Image
                 className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
                 src={"/svg/tiktok.svg"}
