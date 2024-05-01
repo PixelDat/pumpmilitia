@@ -18,7 +18,7 @@ const Preview = () => {
                 width='100%'
                 height='457px'
                 // https://youtu.be/pc5j03DBYN8?si=Yk9KDwqS4GZsjBS1
-                src={`http://www.youtube.com/embed/pc5j03DBYN8?autoplay=0&mute=1&controls=1&loop=1&fitToBackground=1&enablejsapi=1&origin=${pathname}`}
+                src={`http://www.youtube.com/embed/pc5j03DBYN8?autoplay=0&mute=0&controls=1&loop=1&fitToBackground=1&enablejsapi=1`}
                 style={{
                     position: 'relative',
                     zIndex: 0,
