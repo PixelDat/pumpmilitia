@@ -1,17 +1,18 @@
 "use client"
 
 import Image from "next/image"
-import BlipNinja from "../components/blipninja/blip"
+import BlipNinja from "../../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
 import { Avatar, AvatarGroup, CircularProgress, FormHelperText, } from "@mui/material"
-import CustomInput from "../components/customInput/customInput"
+import CustomInput from "../../components/customInput/customInput"
 import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, ReportGmailerrorredRounded, VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material"
-import '../styles/navbar.css';
+import '../../styles/navbar.css';
 import { useEffect, useState } from "react"
 import axios from "axios"
 const Cookies = require('js-cookie');
 import { initializeApp } from "firebase/app";
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
+import { v4 as uuidv4 } from 'uuid';
 
 
 import { getAuth, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
@@ -27,12 +28,28 @@ const twitterProvider = new TwitterAuthProvider();
 const googleProvider = new GoogleAuthProvider();
 
 
-
-
 export default function gameAuthPage() {
+    const params = useParams();
     const [error, setError] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setloading] = useState(false)
+
+    const collected_param_raw = params.id;
+    const collected_param = decodeURIComponent(collected_param_raw.toString());
+
+    console.log(collected_param);
+
+    const operationType = collected_param[0].split("=")[1];
+    const operationData = collected_param[1].split("=")[1];
+    let cross_authkey = "";
+
+    if (operationType == "referral") {
+        referralProcessor();
+        const refID = operationData;
+    } else if (operationType == "login") {
+        cross_authkey = operationData;
+    }
+
 
 
     const [resMessage, setResMessage] = useState('')
@@ -41,18 +58,16 @@ export default function gameAuthPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [emailExists, setEmailExists] = useState(false)
-
-    const router = useRouter();
-    let cross_authkey = "";
+    let canViewGoBackMsg = false;
 
     useEffect(() => {
-        const { cross_authkey } = router.query;
         let encrypt = Cookies.get('encrypt_id');
         if (encrypt) {
             successfullAuth();
-
+            canViewGoBackMsg = true;
         }
-    }, [router, router.isReady]);
+    }, [])
+
 
     const checkEmailExists = async () => {
         setloading(true)
@@ -98,7 +113,7 @@ export default function gameAuthPage() {
         try {
             const response = await axios.post(url, params);
             Cookies.set('encrypt_id', `${response.data.encypted_session_id}`)
-            successfullAuth();
+
 
         } catch (error: any) {
             if (error.response) {
@@ -128,7 +143,8 @@ export default function gameAuthPage() {
                     setloading(false)
 
                     Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
-                    location.href = '/dashboard'
+                    successfullAuth();
+                    canViewGoBackMsg = true;
                 }
             } catch (error: any) {
                 if (error.response) {
@@ -223,6 +239,28 @@ export default function gameAuthPage() {
     }
 
 
+    function referralProcessor() {
+
+        const genID = uuidv4();
+
+        // Cache genID and refID using cookies
+        const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
+        if (/iPad|iPhone|iPod/.test(userAgent) && !(navigator as any).MSStream) {
+            // iOS device detected
+            location.href = 'https://apps.apple.com/app'; // Put your App Store link here
+        } else if (/android/i.test(userAgent)) {
+            // Android device detected
+            location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
+        } else {
+            // Non-mobile device detected, redirecting to Play Store as fallback
+            location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
+        }
+
+
+        return null; // This component does not render anything
+    }
+
+
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center text-white bg-[#20251A]">
             <div className="bg-cover  opacity-30 bg-dark bg-[url('/images/auth_bg.png')] h-[627px] top-1/4 absolute w-full">
@@ -280,7 +318,7 @@ export default function gameAuthPage() {
                 </div>
                 {/* email address input */}
 
-                <div className="items-center justify-center">
+                {!canViewGoBackMsg && <div className="items-center justify-center">
                     {!emailExists ?
                         <CustomInput
                             className=""
@@ -364,7 +402,10 @@ export default function gameAuthPage() {
                                 <p className="text-center">Forgot Passord</p>
                             </div>
                     }
-                </div>
+                </div>}
+                {canViewGoBackMsg && <div className="items-center justify-center">
+                    <p className="text-[#EDF9D0] text-center mt-5 font-light">You are signed in! Go Back to Pump Militia</p>
+                </div>}
             </div>
             <div className="hidden md:inline absolute right-[150px] bottom-[20px]">
                 <BlipNinja />
@@ -372,3 +413,5 @@ export default function gameAuthPage() {
         </div>
     )
 }
+
+

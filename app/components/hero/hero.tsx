@@ -2,6 +2,7 @@ import Image from "next/image";
 import NavBar from "../navbar/navbar";
 import '../../styles/hero.css';
 import { useEffect, useRef } from "react";
+import { Link } from "react-scroll";
 
 const Hero = () => {
   return (
@@ -10,8 +11,8 @@ const Hero = () => {
         <video id="background-video"
           controls={true}
           muted={true}
-          autoPlay={true} // Ensure autoPlay is set to a boolean value
-          loop={true} // Ensure loop is set to a boolean value
+          autoPlay={true}
+          loop={true}
           src={`/video/pump.mp4`}
           style={{
             position: 'absolute',
@@ -207,19 +208,13 @@ const Hero = () => {
             </a>
           </div>
           {/* Last slide Items */}
-          <div className="flex flex-col md:flex-row items-center justify-end gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-end md:gap-4">
             {/* Stores Icons */}
 
-            <div className="flex flex-row  mb-3 md:mb-0 justify-center gap-2">
-              <a target="_blank" href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"><Image src={"/svg/play_store.svg"} width={185} height={56} alt="" /></a>
-
-              {/* <Image
-                src={"/svg/play_store.svg"}
-                width={185}
-                height={56}
-                alt=""
-              /> */}
-
+            <div className="flex basis-1/3 flex-row  mb-3 md:mb-0 justify-center items-center gap-2">
+              <a target="_blank" href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US">
+                <Image src={"/svg/play_store.svg"} width={185} height={56} alt="" />
+              </a>
               <Image
                 src={"/svg/app_store.svg"}
                 width={185}
@@ -228,8 +223,10 @@ const Hero = () => {
               />
             </div>
             {/* Iterable but just two items here */}
-            <div style={{ overflowX: 'scroll', scrollbarWidth: 'none', left: '0px', justifyContent: 'start', }} className="flex flex-row p-1 gap-4">
-              <div className="  bg-stone-900 bg-opacity-50  rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-between items-center gap-[50px] inline-flex">
+            <div className="flex basis-2/3 flex-row overflow-scroll w-full md:w-50 carouselScroll items-center justify-start md:justify-end p-1 gap-4">
+
+              {/* Airdrop Mine Pump */}
+              <div className="inline-flex bg-stone-900 bg-opacity-50  rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-between items-center gap-[50px]">
                 <div className="px-4 py-2 flex-col justify-start items-start gap-2 inline-flex">
                   <div className="text-lime-100 text-base font-normal font-gameria">
                     AIRDROP - MINE $PUMP
@@ -259,7 +256,8 @@ const Hero = () => {
                   />
                 </div>
               </div>
-              <div className="w-[300px]  px-4 py-5 bg-stone-900 bg-opacity-50 rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-start items-center gap-[50px] inline-flex z-0">
+              {/* presale-item */}
+              <div id="presaleItem" className="w-[300px]  px-4 py-5 bg-stone-900 bg-opacity-50 rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-start items-center gap-[50px] z-0">
                 <div className="flex-col justify-start items-start gap-2 inline-flex">
                   <div className="text-lime-100 text-opacity-40 text-base font-normal font-gameria">
                     presale
@@ -269,8 +267,11 @@ const Hero = () => {
                   </div>
                 </div>
               </div>
-
-              <div style={{ position: 'absolute', right: '0px', }} className="w-[43.40px] h-[85px] px-2.5  bg-lime-950 rounded-l-lg shadow border border-lime-600 backdrop-blur-[35.50px] justify-end items-center gap-2.5 inline-flex">
+              <Link to="presaleItem"
+                spy={true}
+                smooth={true}
+                offset={0}
+                duration={500} style={{ position: 'absolute', right: '0px', }} className="w-[43.40px] h-[85px] px-2.5  bg-lime-950 rounded-l-lg shadow border border-lime-600 backdrop-blur-[35.50px] justify-end items-center gap-2.5 inline-flex">
                 <Image
                   className="max-w-[15px] max-h-[15px]"
                   src={"/svg/arrow.svg"}
@@ -278,7 +279,8 @@ const Hero = () => {
                   height={15}
                   alt=""
                 />
-              </div>
+
+              </Link>
             </div>
 
           </div>
