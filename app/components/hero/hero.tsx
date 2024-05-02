@@ -230,41 +230,32 @@ const Hero = () => {
               />
             </div>
             {/* Iterable but just two items here */}
-            <div className="flex basis-2/3 flex-row overflow-scroll w-full md:w-50 carouselScroll items-center justify-start md:justify-end p-1 gap-4">
+            <div className="flex basis-2/3 flex-row  overflow-scroll w-full md:w-50 carouselScroll items-center justify-start md:justify-end p-1 gap-4">
 
               {/* Airdrop Mine Pump */}
-              <div className="inline-flex bg-stone-900 bg-opacity-50  rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-between items-center gap-[50px]">
-                <div className="px-4 py-2 flex-col justify-start items-start gap-2 inline-flex">
-                  <div className="text-lime-100 text-base font-normal font-gameria">
+              <div className="shrink-0 md:shrink w-[300px] md:w-full overflow-hidden flex flex-row items-center  h-[92px] bg-stone-900  bg-opacity-50   rounded-2xl    border border-lime-700 border-opacity-50 backdrop-blur-[30px]">
+
+                <div className="basis-1/2 px-4 py-2 flex-col justify-start items-start gap-2">
+                  <div className="text-lime-100 text-[14px] md:text-base  font-normal font-gameria">
                     AIRDROP - MINE $PUMP
                   </div>
-                  <div className="w-[318px] text-lime-100 text-xs font-normal font-sans leading-none">
+                  <div className="w-[160px] md:w-[318px] text-lime-100 text-[10px] md:text-xs font-normal font-sans leading-none">
                     You can start mining $PUMP tokens on your mobile phones
                     right away. We're opening the doors wide for every crypto
                     enthusiast to join in on the fun and rewards.
                   </div>
                 </div>
 
-                <div className="flex flex-row relative">
-                  <Image
-                    className="mr-[2px] rounded-r-lg"
-                    src={"/svg/ad.svg"}
-                    width={200}
-                    height={60}
-                    alt=""
-                  />
+                <Image
+                  src={"/images/hero/airdropmi.png"}
+                  width={300}
+                  height={200}
+                  alt=""
+                />
 
-                  <Image
-                    className="mr-[2px] rounded-r-lg absolute -left-12"
-                    src={"/svg/vec_2.svg"}
-                    width={190}
-                    height={60}
-                    alt=""
-                  />
-                </div>
               </div>
               {/* presale-item */}
-              <div id="presaleItem" className="w-[300px]  px-4 py-5 bg-stone-900 bg-opacity-50 rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-start items-center gap-[50px] z-0">
+              <div id="presaleItem" className="w-[300px] basis-1/2 h-[92px]   px-4 py-5 bg-stone-900 bg-opacity-50 rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-start items-center gap-[50px] z-0">
                 <div className="flex-col justify-start items-start gap-2 inline-flex">
                   <div className="text-lime-100 text-opacity-40 text-base font-normal font-gameria">
                     presale
