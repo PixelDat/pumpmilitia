@@ -53,7 +53,10 @@ export default function Dashboard() {
   let encrypt = Cookies.get('encrypt_id');
 
   const [selectedTask, setSelectedTask] = useState('');
-  const [selectTaskErr, setSelectTaskError] = useState('');
+
+  const [selectTaskErr, setSelectTaskError] = useState({ id: '', status: false });
+
+  console.log(selectTaskErr.id)
 
   useEffect(() => {
     if (!encrypt) {
@@ -215,7 +218,11 @@ export default function Dashboard() {
   const markTaskCompleted = async (taskId: string, tweet_link: string, index: any) => {
     setSelected(index)
     if (selectedTask !== taskId) {
-      setSelectTaskError(taskId)
+      setSelectTaskError({ id: taskId, status: true })
+      setTimeout(() => {
+        setSelectTaskError({ id: '', status: false });
+      }, 2000)
+      console.log('task not selected')
       return false;
     }
     setloading(true)
@@ -489,14 +496,8 @@ export default function Dashboard() {
                             </div>
                             <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
                               <a href={task.action_button_link} onClick={() => { setSelectedTask(task.task_id) }} target="_blank" className="flex flex-row justify-center items-center gap-2 bg-[#A5E314] min-w-60 text-centere p-3 rounded-xl text-[#10130D]">
-                                {/* <Image
-                                src={'/images/xicon.png'}
-                                width={10}
-                                height={10}
-                                priority
-                                alt="" />  */}
                                 {task.action_button_text}</a>
-                              <div>
+                              <div className="relative">
                                 <CustomInput
                                   className="max-w-[250px]"
                                   onChange={(e) => { setUserName(e.target.value) }}
@@ -512,6 +513,11 @@ export default function Dashboard() {
                                     </button>
                                   }
                                 />
+                                {selectTaskErr.status && selectTaskErr.id === task.task_id &&
+                                  <div className="bg-[#EDF9D0] absolute top-[-60px] right-0 p-2 text-[#181C13] text-[12px] rounded-2xl">
+                                    Please {task.task_head}, for this field to be available to you. Thank you
+                                  </div>
+                                }
 
                               </div>
                             </div>

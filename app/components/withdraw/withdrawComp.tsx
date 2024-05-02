@@ -428,8 +428,6 @@ export default function WithdrawPage() {
                   </button>
 
 
-
-
                   <button onClick={startWithdrawal} className="px-6 relative py-2 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                     {loading ? <CircularProgress size={16} color='inherit' /> : 'Withdraw'}
 
