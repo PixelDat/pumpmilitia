@@ -49,6 +49,7 @@ export default function Dashboard() {
   const [allTasks, setAllTasks] = useState<string[]>([]);
   const [showCompletedTask, setShowCompletedTask] = useState(false)
   const [completedATask, setCompletedATask] = useState(0);
+  const [selected, setSelected] = useState(0)
   let encrypt = Cookies.get('encrypt_id');
 
   useEffect(() => {
@@ -208,7 +209,8 @@ export default function Dashboard() {
 
   const [userName, setUserName] = useState('')
 
-  const markTaskCompleted = async (taskId: string, tweet_link: string) => {
+  const markTaskCompleted = async (taskId: string, tweet_link: string, index: any) => {
+    setSelected(index)
     setloading(true)
     if (userName == '') {
       setError(true);
@@ -496,7 +498,11 @@ export default function Dashboard() {
                                   required={true}
                                   autocomplete="off"
                                   addOnStart={<Person2Rounded color="inherit" className="border rounded-full" />}
-                                  addOnEnd={<button onClick={() => { markTaskCompleted(task.task_id, task.action_button_link) }} className="text-[#E1F6B1]" >{loading ? <CircularProgress size={18} color="inherit" /> : 'Continue'} </button>}
+                                  addOnEnd={
+                                    <button onClick={() => { markTaskCompleted(task.task_id, task.action_button_link, index) }} className="text-[#E1F6B1]" >
+                                      {loading && selected === index ? <CircularProgress size={18} color="inherit" /> : 'Continue'}
+                                    </button>
+                                  }
                                 />
 
                               </div>
@@ -528,6 +534,6 @@ export default function Dashboard() {
       </div>
       <Faqs />
       <Footer />
-    </div>
+    </div >
   )
 }

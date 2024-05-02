@@ -76,3 +76,69 @@ export const tasksCount = [
         subtitle: 'When presales end, connect your wallet and claim your $PUMP tokens from the dashboard.',
     },
 ]
+
+export const landingfaqs = [
+    {
+        title: "What's $PUMP airdrop?",
+        text: "The Pump Militia Airdrop is all about rewarding early supporters and players by giving them ways to mine $PUMP from their mobile phones before TGE.It's designed to reward early members, engage and incentivise users while driving adoption within the community."
+    },
+    {
+        title: 'Who is eligible to mine $PUMP?',
+        text: "Everyone with an access to a mobile phone."
+    },
+    {
+        title: 'When can I withdraw my mined $PUMP?',
+        text: "Mined $PUMP balances would be availabe for withdrawal at TGE. you can also statke your $PUMP tokens and earn rewards."
+    },
+    {
+        title: 'What Blockchain Network is used?',
+        text: "The Pump Militia ecosystem is built on the Solana Network."
+    },
+
+]
+
+export const presalefaqs = [
+    {
+        title: "What is $PUMP Pre-sale?",
+        text: "The pre-sale of $PUMP tokens presents an opportunity for early backers and the Pump Militia community to purchase $PUMP tokens under favorable conditions prior to the Token Generation Event (TGE). This enables participants to join a community-centered initiative."
+    },
+    {
+        title: 'What is $PUMP',
+        text: "$PUMP is the native currency of the Pump Militia ecosystem, connecting all value exchanges between games, applications, and players."
+    },
+    {
+        title: 'Who can participate in the pre-sale?',
+        text: "Private Round: Whitelisted members from the whitelisting campaign. Participants who own Militia NFTs. Each held Militia NFT guarantees holder an allocation of $PUMP to a maximum of 3. Public Rounds: In this round, participants have an equal opportunity to acquire $PUMP tokens on a first-come, first-serve basis."
+    },
+    {
+        title: 'Why is Pump Militia offering the Pre-sale?',
+        text: "The Pre-sale is viewed as a way to give back to its loyal community and early supporters. It's a gesture of gratitude to those who believed in the project from the beginning and an opportunity to be part of building the ecosystem."
+    },
+    {
+        title: 'When can I claim $PUMP?',
+        text: "After the Token Generation Event, you would be able to connect your wallet and withdraw your purchased $PUMP tokens. Stay updated by following us on Discord and Twitter."
+    },
+    {
+        title: 'Smart Contracts',
+        text: "The Pump Militia Smart Contract has been audited by Consult Audits, a leading blockchain audit firm in the space."
+    }
+]
+
+export const dashboardfaqs = [
+    {
+        title: 'How do I get $PUMP Airdrops?',
+        text: "$PUMP tokens are earned after completing the ecosystem quests. You can also mine $PUMP daily on your mobile devices via the Pump Militia game."
+    },
+    {
+        title: 'When can I withdraw my balance?',
+        text: "After the Token Generation Event, you would be able to connect your wallet and withdraw your earned $PUMP tokens. Stay updated by following us on Discord and Twitter."
+    },
+    {
+        title: 'When would the Airdrop event end?',
+        text: "This detail would be communicated via our social handles. Stay updated by following us on Discord and Twitter."
+    },
+    {
+        title: 'Why does my account show "Inappropriate behaviour"?',
+        text: "The system has been designed to flag actions that would damage the integrity of the Airdrop event. Users are advised to follow the Airdrop rules accordingly."
+    }
+]

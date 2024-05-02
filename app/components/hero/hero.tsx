@@ -67,7 +67,7 @@ const Hero = () => {
                     alt=""
                   />
                 </a>
-                <a href="#">
+                <a href="https://www.tiktok.com/@pump.militia" target="_blank">
                   <Image
                     className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
                     src={"/svg/tiktok.svg"}
@@ -124,7 +124,7 @@ const Hero = () => {
                   />
                 </div>
 
-                <div className="font-gameria text-[40px] md:text-[80px]">DECENTRALISED GAMING</div>
+                <div className="font-gameria text-[40px] md:text-[80px] leading-tight">DECENTRALISED GAMING</div>
                 <div className="text-[14px] md:text-[16px]  leading-loose md:leading-tight">
                   A revolution in digital ownership and gaming democracy, poised
                   to lead the GameFi space on Solana. An addictive multiplayer
@@ -133,13 +133,20 @@ const Hero = () => {
                 </div>
               </div>
               <div className="flex flex-row space-x-4 mt-8">
-                <button className="bg-vivd-lime-green component_btn px-6 py-2 shadow-sm rounded-lg shadow-white">
-                  Airdrop
-                </button>
+                <Link
+                  className="bg-vivd-lime-green component_btn px-6 py-2 shadow-sm rounded-lg shadow-white"
+                  activeClass="active"
+                  style={{ cursor: 'pointer' }}
+                  to="airdrop"
+                  spy={true}
+                  smooth={true}
+                  offset={0}
+                  duration={500}
+                >Airdrop</Link>
 
-                <button className="px-6 py-2 border component_btn_transparent border-vivd-lime-green rounded-lg text-vivd-lime-green-10">
-                  WhitePaper
-                </button>
+                <a href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US" target="_blank" className="px-6 py-2 border component_btn_transparent border-vivd-lime-green rounded-lg text-vivd-lime-green-10">
+                MINE $PUMP
+                </a>
               </div>
             </div>
           </div>
@@ -176,7 +183,7 @@ const Hero = () => {
                 alt=""
               />
             </a>
-            <a href="#">
+            <a href="https://www.tiktok.com/@pump.militia" target="_blank">
               <Image
                 className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
                 src={"/svg/tiktok.svg"}
@@ -223,41 +230,32 @@ const Hero = () => {
               />
             </div>
             {/* Iterable but just two items here */}
-            <div className="flex basis-2/3 flex-row overflow-scroll w-full md:w-50 carouselScroll items-center justify-start md:justify-end p-1 gap-4">
+            <div className="flex basis-2/3 flex-row  overflow-scroll w-full md:w-50 carouselScroll items-center justify-start md:justify-end p-1 gap-4">
 
               {/* Airdrop Mine Pump */}
-              <div className="inline-flex bg-stone-900 bg-opacity-50  rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-between items-center gap-[50px]">
-                <div className="px-4 py-2 flex-col justify-start items-start gap-2 inline-flex">
-                  <div className="text-lime-100 text-base font-normal font-gameria">
+              <div className="shrink-0 md:shrink w-[300px] md:w-full overflow-hidden flex flex-row items-center  h-[92px] bg-stone-900  bg-opacity-50   rounded-2xl    border border-lime-700 border-opacity-50 backdrop-blur-[30px]">
+
+                <div className="basis-1/2 px-4 py-2 flex-col justify-start items-start gap-2">
+                  <div className="text-lime-100 text-[14px] md:text-base  font-normal font-gameria">
                     AIRDROP - MINE $PUMP
                   </div>
-                  <div className="w-[318px] text-lime-100 text-xs font-normal font-sans leading-none">
+                  <div className="w-[160px] md:w-[318px] text-lime-100 text-[10px] md:text-xs font-normal font-sans leading-none">
                     You can start mining $PUMP tokens on your mobile phones
                     right away. We're opening the doors wide for every crypto
                     enthusiast to join in on the fun and rewards.
                   </div>
                 </div>
 
-                <div className="flex flex-row relative">
-                  <Image
-                    className="mr-[2px] rounded-r-lg"
-                    src={"/svg/ad.svg"}
-                    width={200}
-                    height={60}
-                    alt=""
-                  />
+                <Image
+                  src={"/images/hero/airdropmi.png"}
+                  width={300}
+                  height={200}
+                  alt=""
+                />
 
-                  <Image
-                    className="mr-[2px] rounded-r-lg absolute -left-12"
-                    src={"/svg/vec_2.svg"}
-                    width={190}
-                    height={60}
-                    alt=""
-                  />
-                </div>
               </div>
               {/* presale-item */}
-              <div id="presaleItem" className="w-[300px]  px-4 py-5 bg-stone-900 bg-opacity-50 rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-start items-center gap-[50px] z-0">
+              <div id="presaleItem" className="w-[300px] basis-1/2 h-[92px]   px-4 py-5 bg-stone-900 bg-opacity-50 rounded-2xl border border-lime-700 border-opacity-50 backdrop-blur-[30px] justify-start items-center gap-[50px] z-0">
                 <div className="flex-col justify-start items-start gap-2 inline-flex">
                   <div className="text-lime-100 text-opacity-40 text-base font-normal font-gameria">
                     presale

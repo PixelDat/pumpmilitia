@@ -156,52 +156,82 @@ export default function Presale() {
                         <div className="flex flex-col md:flex-row justify-between">
                           <div className="flex order-2 md:order-1 mb-4 flex-row justify-start  items-start space-x-4">
                             <Image
-                              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                              src={'/svg/twitter.svg'}
+                              className="justify-center items-center inline-flex max-w-[30px] max-h-[90px]"
+                              src={"/svg/vert_border.svg"}
                               width={32}
-                              height={32}
+                              height={40}
                               priority
-                              alt="" />
+                              alt=""
+                            />
+                            <a href="https://x.com/PumpMilitia" target="_blank">
+                              <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/twitter.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                              />
+                            </a>
+                            <a href="https://t.me/PumpMilitia" target="_blank">
+                              <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/telegram.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                              />
+                            </a>
+                            <a href="https://discord.com/invite/tvZGAP4Qt8" target="_blank">
+                              <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/discord.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                              />
+                            </a>
+                            <a href="https://www.tiktok.com/@pump.militia" target="_blank">
+                              <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/tiktok.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                              />
+                            </a>
+                            <a href=" https://youtube.com/@PumpMilitia" target="_blank">
+                              <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/youtube.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                              />
+                            </a>
+                            <a href="https://medium.com/@pumpmilitia" target="_blank">
+                              <Image
+                                className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
+                                src={"/svg/medium.svg"}
+                                width={32}
+                                height={32}
+                                priority
+                                alt=""
+                              />
+                            </a>
 
                             <Image
-                              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                              src={'/svg/telegram.svg'}
+                              className="justify-center items-center inline-flex max-w-[30px] max-h-[70px]"
+                              src={"/svg/vert_border.svg"}
                               width={32}
                               height={32}
                               priority
-                              alt="" />
-
-                            <Image
-                              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                              src={'/svg/discord.svg'}
-                              width={32}
-                              height={32}
-                              priority
-                              alt="" />
-
-                            <Image
-                              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                              src={'/svg/tiktok.svg'}
-                              width={32}
-                              height={32}
-                              priority
-                              alt="" />
-
-                            <Image
-                              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                              src={'/svg/youtube.svg'}
-                              width={32}
-                              height={32}
-                              priority
-                              alt="" />
-
-                            <Image
-                              className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
-                              src={'/svg/medium.svg'}
-                              width={32}
-                              height={32}
-                              priority
-                              alt="" />
+                              alt=""
+                            />
 
                           </div>
 
