@@ -113,7 +113,7 @@ const MinePump = () => {
 
       {/* Small screens */}
       <div
-        className="flex md:hidden flex-col space-y-24 justify-center relative bg-cover  bg-[url('/images/airdropbg.png')] items-center py-32"
+        className="flex md:hidden flex-col space-y-24 justify-center relative bg-cover  bg-[url('/images/airdropbg.png')] items-center py-2 md:py-32"
       >
         <div className="bg-gradient-to-b from-[#20251a05] to-[#2C3322] h-full w-full bottom-0" style={{ zIndex: 0, position: 'absolute' }}></div>
 
