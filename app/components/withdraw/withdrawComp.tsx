@@ -10,7 +10,7 @@ import { WalletMultiButton, useWalletModal } from "@solana/wallet-adapter-react-
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { CircularProgress } from "@mui/material";
 import { ToastComponent } from "../toastComponent/toastComponent";
-import { CancelOutlined, CheckCircle } from "@mui/icons-material";
+import { CancelOutlined, CheckCircle, FolderCopy } from "@mui/icons-material";
 const Cookies = require('js-cookie');
 interface UserType {
   username: string,
@@ -224,6 +224,17 @@ export default function WithdrawPage() {
         break;
     }
   }
+
+
+  function copyClip() {
+    navigator.clipboard.writeText(walletAddress);
+    setError(true);
+    setErrMessage({ type: 'success', message: 'Address Copied' });
+    setTimeout(() => {
+      setError(false);
+    }, 2000)
+  }
+
   return (
 
     <div onClick={() => setVisible(false)} className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
@@ -374,7 +385,9 @@ export default function WithdrawPage() {
                   placeholder="Enter amount to withdraw"
                 />
 
-                {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">{`${walletAddress.slice(0, 10)}..${walletAddress.slice(-3, walletAddress.length)}`}</p>}
+                {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">
+                  {`${walletAddress.slice(0, 7)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy /></span>
+                </p>}
                 <div className="flex flex-row space-x-2 w-full mt-2 relative">
                   {visible &&
                     <span style={{ position: 'absolute', left: '100px', top: '30px' }}>
