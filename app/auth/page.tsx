@@ -11,9 +11,10 @@ import { Suspense, useEffect, useState } from "react"
 import axios from "axios"
 const Cookies = require('js-cookie');
 import { initializeApp } from "firebase/app";
+import { v4 as uuidv4 } from 'uuid';
 
 
-import { getAuth, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, TwitterAuthProvider, GoogleAuthProvider, signInWithPopup, sendEmailVerification } from "firebase/auth";
 
 const firebaseConfig = { apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc", authDomain: "everpump-6e275.firebaseapp.com", projectId: "everpump-6e275", storageBucket: "everpump-6e275.appspot.com", messagingSenderId: "138957984497", appId: "1:138957984497:web:6be3945adff541c5380f50", measurementId: "G-8T2XXV37GT", };
 
@@ -40,6 +41,13 @@ export default function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [emailExists, setEmailExists] = useState(false)
+
+
+
+    const firebaseSignUp = async (email: string) => {
+        let password = uuidv4();
+        
+    }
 
     const checkEmailExists = async () => {
         setloading(true)
@@ -69,6 +77,8 @@ export default function LoginPage() {
             }
         }
     }
+    
+
     const HandleLogin = async () => {
         setError(false)
         if (password == '') {
