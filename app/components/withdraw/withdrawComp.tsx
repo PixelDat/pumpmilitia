@@ -320,7 +320,7 @@ export default function WithdrawPage() {
 
               <div className="bg-[#20251a]  space-y-3 rounded-3xl  p-6">
                 <div className="flex flex-row justify-between items-center">
-                 
+
 
                   <div>
                     <div className="flex flex-row items-center gap-4">
@@ -359,7 +359,7 @@ export default function WithdrawPage() {
                     </div>
                   </div>
 
-                  
+
                 </div>
                 <CustomInput
                   addOnStart={<Image
@@ -374,7 +374,7 @@ export default function WithdrawPage() {
                   placeholder="Enter amount to withdraw"
                 />
 
-                {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">{walletAddress}</p>}
+                {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">{`${walletAddress.slice(0, 10)}..${walletAddress.slice(-3, walletAddress.length)}`}</p>}
                 <div className="flex flex-row space-x-2 w-full mt-2 relative">
                   {visible &&
                     <span style={{ position: 'absolute', left: '100px', top: '30px' }}>

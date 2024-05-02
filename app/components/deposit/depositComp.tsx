@@ -407,7 +407,9 @@ export default function DepositCompPage() {
                 />
 
 
-                {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">{walletAddress}</p>}
+                {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">
+                  {`${walletAddress.slice(0, 10)}..${walletAddress.slice(-3, walletAddress.length)}`}
+                </p>}
                 <div className="flex flex-row space-x-2 w-full mt-2 relative">
                   {visible &&
                     <span style={{ position: 'absolute', left: '100px', top: '30px' }}>
