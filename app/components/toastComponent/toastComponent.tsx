@@ -17,7 +17,7 @@ export const ToastComponent: React.FC<ToastComponentProps> = ({ addOnEnd, addOnS
             top: '120px',
             zIndex: 100,
         }}>
-            <div className={`border-2  bg-[#20251A] rounded-xl flex flex-row justify-center gap-4 text-[#EDF9D0] items-center text-center p-3 py-4 w-6/12 md:w-3/12  m-auto ${color}`}>
+            <div className={`border-2  bg-[#20251A] rounded-xl flex flex-row justify-center gap-4 text-[#EDF9D0] items-center text-center p-3 py-4 w-9/12 md:w-4/12  m-auto ${color}`}>
                 {addOnStart &&
                     addOnStart
                 }

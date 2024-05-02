@@ -122,14 +122,10 @@
 
 .gradual-rectangle {
     width: 300px;
-    /* Initial width */
     height: 40px;
-    background: linear-gradient(to left, #20251a, #20251a, transparent);
-    /* Gradient from transparent to black */
+    background: linear-gradient(to left, #20251a, #20251a, transparent, transparent);
     background-size: 200% 100%;
-    /* Double the width to accommodate animation */
-    animation: decreaseWidth 15s linear;
-    /* Animation to decrease width */
+    animation: decreaseWidth 10s linear;
 }
 
 @keyframes decreaseWidth {
