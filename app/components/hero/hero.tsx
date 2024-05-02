@@ -124,7 +124,7 @@ const Hero = () => {
                   />
                 </div>
 
-                <div className="font-gameria text-[40px] md:text-[80px]">DECENTRALISED GAMING</div>
+                <div className="font-gameria text-[40px] md:text-[80px] leading-tight">DECENTRALISED GAMING</div>
                 <div className="text-[14px] md:text-[16px]  leading-loose md:leading-tight">
                   A revolution in digital ownership and gaming democracy, poised
                   to lead the GameFi space on Solana. An addictive multiplayer
@@ -144,8 +144,8 @@ const Hero = () => {
                   duration={500}
                 >Airdrop</Link>
 
-                <a href="https://pump-militia.gitbook.io/whitepaper/" target="_blank" className="px-6 py-2 border component_btn_transparent border-vivd-lime-green rounded-lg text-vivd-lime-green-10">
-                  WhitePaper
+                <a href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US" target="_blank" className="px-6 py-2 border component_btn_transparent border-vivd-lime-green rounded-lg text-vivd-lime-green-10">
+                MINE $PUMP
                 </a>
               </div>
             </div>
