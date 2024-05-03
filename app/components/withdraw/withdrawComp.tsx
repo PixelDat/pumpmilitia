@@ -216,8 +216,6 @@ export default function WithdrawPage() {
         break;
     }
   }
-
-
   function copyClip() {
     navigator.clipboard.writeText(walletAddress);
     setError(true);
