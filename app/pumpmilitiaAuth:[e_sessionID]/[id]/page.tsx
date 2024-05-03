@@ -35,25 +35,25 @@ export default function gameAuthPage() {
     const [loading, setloading] = useState(false)
     let cross_authkey = "";
     let refID = "";
-    
+
     try {
-    const collected_param_raw = decodeURIComponent(params.id.toString());
-    const collected_param = collected_param_raw.split(";");
+        const collected_param_raw = decodeURIComponent(params.id.toString());
+        const collected_param = collected_param_raw.split(";");
 
-    
-    const operationType = collected_param[0].split("=")[1];
-    const operationData = collected_param[1].split("=")[1];
- 
 
-    console.log(operationType+"--"+operationData);
+        const operationType = collected_param[0].split("=")[1];
+        const operationData = collected_param[1].split("=")[1];
 
-    if (operationType === "referral") {
-        referralProcessor();
-        refID = operationData;
-    }else if (operationType == "login") {
-        cross_authkey = operationData;
-    }
-    }catch(e){
+
+        console.log(operationType + "--" + operationData);
+
+        if (operationType === "referral") {
+            referralProcessor();
+            refID = operationData;
+        } else if (operationType == "login") {
+            cross_authkey = operationData;
+        }
+    } catch (e) {
         console.error('Error processing parameters:', e);
     }
 
@@ -73,13 +73,20 @@ export default function gameAuthPage() {
             setcanViewGoBackMsg(true);
         }
     }, [])
-    
+
 
     const checkEmailExists = async () => {
         setloading(true)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (email == '') {
             setError(true)
             setErrMessage('Email field is empty')
+            setloading(false)
+            return
+        }
+        if (!emailRegex.test(email)) {
+            setError(true)
+            setErrMessage('Please Enter a valid email')
             setloading(false)
             return
         }
@@ -119,7 +126,7 @@ export default function gameAuthPage() {
         try {
             const response = await axios.post(url, params);
             Cookies.set('encrypt_id', `${response.data.encypted_session_id}`)
-            
+
 
         } catch (error: any) {
             if (error.response) {
@@ -173,7 +180,7 @@ export default function gameAuthPage() {
     }
 
     const successfullAuth = async () => {
-        reg_auth ();
+        reg_auth();
         saveConnectionKey();
         confirmPotentialRef();
 
@@ -184,92 +191,92 @@ export default function gameAuthPage() {
         // Retrieve genID and refID from cookies
         const genID = Cookies.get('genID');
         const refID = Cookies.get('refID');
-    
+
         // Check if both IDs exist
         if (!genID || !refID) {
-          console.error("Missing genID or refID for referral confirmation.");
-          return;
+            console.error("Missing genID or refID for referral confirmation.");
+            return;
         }
-    
+
         try {
-          const response = await axios.post(
-            "https://evp-referral-service-cea2e4kz5q-uc.a.run.app/reg-potential-referrals",
-            {
-              _genID: genID,
-              _refID: refID,
-            }
-          );
-          console.log("Referral confirmation response:", response.data);
+            const response = await axios.post(
+                "https://evp-referral-service-cea2e4kz5q-uc.a.run.app/reg-potential-referrals",
+                {
+                    _genID: genID,
+                    _refID: refID,
+                }
+            );
+            console.log("Referral confirmation response:", response.data);
         } catch (error) {
-          console.error("Error confirming referral:", error);
+            console.error("Error confirming referral:", error);
         }
-      }
-    
-      async function reg_auth (){
-        try {
-          let token = Cookies.get("encrypt_id", { path: "" });
-        token = token.trim();
-          const response = await axios.post(
-            "https://evp-cross-auth-handler-service-cea2e4kz5q-uc.a.run.app/reg-auth",
-            {},
-            {
-              headers: { Authorization: token },
-            }
-          );
-      }catch(e){
-        console.log(e)
-      }
     }
-    
+
+    async function reg_auth() {
+        try {
+            let token = Cookies.get("encrypt_id", { path: "" });
+            token = token.trim();
+            const response = await axios.post(
+                "https://evp-cross-auth-handler-service-cea2e4kz5q-uc.a.run.app/reg-auth",
+                {},
+                {
+                    headers: { Authorization: token },
+                }
+            );
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     async function saveConnectionKey() {
-      const url = "https://evp-cross-auth-handler-service-cea2e4kz5q-uc.a.run.app/save-connection-key";
-    
-      // Generate a new connection key
-      const connectionKey = cross_authkey;
-    
-      // Get the encrypted session id from cookies
-      const token = Cookies.get("encrypt_id", { path: "" });
-    
-      // Create a new object to hold the request parameters
-      const data = {
-        connectionKey: connectionKey,
-        encypted_session_id: token
-      };
-    
-      try {
-        const response = await axios.post(url, data);
-        console.log(`Server response: ${response.data}`);
-      } catch (error) {
-        console.log(`Axios error: ${error}`);
-      }
+        const url = "https://evp-cross-auth-handler-service-cea2e4kz5q-uc.a.run.app/save-connection-key";
+
+        // Generate a new connection key
+        const connectionKey = cross_authkey;
+
+        // Get the encrypted session id from cookies
+        const token = Cookies.get("encrypt_id", { path: "" });
+
+        // Create a new object to hold the request parameters
+        const data = {
+            connectionKey: connectionKey,
+            encypted_session_id: token
+        };
+
+        try {
+            const response = await axios.post(url, data);
+            console.log(`Server response: ${response.data}`);
+        } catch (error) {
+            console.log(`Axios error: ${error}`);
+        }
     }
 
 
     function referralProcessor() {
-       
+
         const genID = uuidv4();
 
         // Cache genID and refID using cookies
         Cookies.set('genID', genID, { expires: 7 }); // Expires in 7 days
         Cookies.set('refID', refID, { expires: 7 });
-    
+
         // Cache genID and refID using cookies
         const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
         if (/iPad|iPhone|iPod/.test(userAgent) && !(navigator as any).MSStream) {
-          // iOS device detected
-          location.href = 'https://apps.apple.com/app'; // Put your App Store link here
+            // iOS device detected
+            location.href = 'https://apps.apple.com/app'; // Put your App Store link here
         } else if (/android/i.test(userAgent)) {
-          // Android device detected
-          location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
+            // Android device detected
+            location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
         } else {
-          // Non-mobile device detected, redirecting to Play Store as fallback
-          location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
+            // Non-mobile device detected, redirecting to Play Store as fallback
+            location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
         }
-    
-    
-      return null; // This component does not render anything
+
+
+        return null; // This component does not render anything
     }
-    
+
 
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center text-white bg-[#20251A]">
@@ -414,7 +421,7 @@ export default function gameAuthPage() {
                     }
                 </div>}
                 {canViewGoBackMsg && <div className="items-center justify-center">
-                <p className="text-[#EDF9D0] text-center mt-5 font-light">You are signed in! Go Back to Pump Militia</p>
+                    <p className="text-[#EDF9D0] text-center mt-5 font-light">You are signed in! Go Back to Pump Militia</p>
                 </div>}
             </div>
             <div className="hidden md:inline absolute right-[150px] bottom-[20px]">

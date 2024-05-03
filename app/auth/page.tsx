@@ -46,14 +46,22 @@ export default function LoginPage() {
 
     const firebaseSignUp = async (email: string) => {
         let password = uuidv4();
-        
+
     }
 
     const checkEmailExists = async () => {
         setloading(true)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (email == '') {
             setError(true)
             setErrMessage('Email field is empty')
+            setloading(false)
+            return
+        }
+
+        if (!emailRegex.test(email)) {
+            setError(true)
+            setErrMessage('Please Enter a valid email')
             setloading(false)
             return
         }
@@ -77,7 +85,7 @@ export default function LoginPage() {
             }
         }
     }
-    
+
 
     const HandleLogin = async () => {
         setError(false)

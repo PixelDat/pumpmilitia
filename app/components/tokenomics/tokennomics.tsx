@@ -23,79 +23,65 @@ const Tokenomics = () => {
             border_color: 'border-[#6FFEFE]',
             text_color: 'text-[#6FFEFE]',
             percent: 5,
-            width: 'w-[325px] md:w-[533px]',
-
-            token_amount: 40000000,
-            title: "Seed Round",
-            text: '20% TGE, 10% unlocked each month after',
+            width: 'w-[280px] md:w-[457px]',
+            token_amount: 50000000,
+            title: "Game Development",
         },
         {
             border_color: 'border-[#ff00d6]',
             text_color: 'text-[#ff00d6]',
             percent: 15,
-            width: 'w-[310px] md:w-[528px]',
-
-
-            token_amount: 40000000,
-            title: "Seed Round",
-            text: '20% TGE, 10% unlocked each month after',
+            width: 'w-[270px] md:w-[450px]',
+            token_amount: 150000000,
+            title: "Exchange Listing",
         },
         {
             border_color: 'border-[#a5e314]',
             text_color: 'text-[#a5e314]',
             percent: 50,
-            width: 'w-[340px] md:w-[533px]',
-
-            token_amount: 40000000,
-            title: "Seed Round",
-            text: '20% TGE, 10% unlocked each month after',
+            width: 'w-[230px] md:w-[325px]',
+            token_amount: 500000000,
+            title: "Airdrop",
         },
         {
             border_color: 'border-[#fdce00]',
             text_color: 'text-[#fdce00]',
             percent: 5,
-            width: 'w-[325px] md:w-[500px]',
-
-            token_amount: 40000000,
-            title: "Seed Round",
-            text: '20% TGE, 10% unlocked each month after',
+            width: 'w-[260px] md:w-[387px]',
+            token_amount: 50000000,
+            title: "Treasury",
         },
         {
             border_color: 'border-[#e72a4e]',
             text_color: 'text-[#e72a4e]',
             percent: 5,
-            width: 'w-[338px] md:w-[532px]',
-
-            token_amount: 40000000,
-            title: "Seed Round",
-            text: '20% TGE, 10% unlocked each month after',
+            width: 'w-[280px] md:w-[435px]',
+            token_amount: 50000000,
+            title: "Community Rewards",
         },
         {
             border_color: 'border-[#e0f7ab]',
             text_color: 'text-[#e0f7ab]',
             percent: 10,
-            width: 'w-[303px] md:w-[505px]',
-            token_amount: 40000000,
-            title: "Seed Round",
-            text: '20% TGE, 10% unlocked each month after',
+            width: 'w-[260px] md:w-[393px]',
+            token_amount: 100000000,
+            title: "Public Rounds",
         },
         {
             border_color: 'border-[#5062ff]',
             text_color: 'text-[#5062ff]',
             percent: 5,
-            width: 'w-[325px] md:w-[528px]',
-            token_amount: 40000000,
-            title: "Seed Round",
-            text: '20% TGE, 10% unlocked each month after',
+            width: 'w-[275px] md:w-[418px]',
+            token_amount: 50000000,
+            title: "Private Rounds",
         },
         {
             border_color: 'border-[#36d800]',
             text_color: 'text-[#36d800]',
             percent: 5,
-            width: 'w-[324px] md:w-[531px]',
-            token_amount: 40000000,
-            title: "Seed Round",
-            text: '20% TGE, 10% unlocked each month after',
+            width: 'w-[270px] md:w-[395px]',
+            token_amount: 50000000,
+            title: "Marketing",
         },
     ]
     return (
@@ -154,11 +140,11 @@ const Tokenomics = () => {
                         let randWidth = Math.floor(Math.random() * 10) + 1;
                         let width = `w-${randWidth}/12`;
                         return (
-                            <div key={`${index}-${item.color}`} className="justify-end flex">
-                                <div className={`flex flex-row justify-between border-s-8 leading-loose text-white bg-[#10130D66] ${item.width}  ${item.border_color}  rounded-lg mb-3 px-4 py-3`}>
+                            <div key={`${index}-${item.color}`} className="justify-end h-[68px] flex">
+                                <div className={`flex flex-row items-center justify-between border-s-8 leading-loose text-white bg-[#10130D66] ${item.width}  ${item.border_color}  rounded-lg mb-3 px-4 py-3`}>
                                     <div>
                                         <p className="text-[14px]" ><span className={`${item.text_color}`}>{item.percent}% </span>{item.title}</p>
-                                        <p className="text-[10px] md:text-[12px] text-[#898989]">{item.text}</p>
+                                        {/* <p className="text-[10px] md:text-[12px] text-[#898989]">{item.text}</p> */}
                                     </div>
                                     <div className="text-end">
                                         <p className="text-[14px] ">{'tokens'}</p>
