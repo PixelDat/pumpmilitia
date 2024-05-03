@@ -10,7 +10,8 @@ import { WalletMultiButton, useWalletModal } from "@solana/wallet-adapter-react-
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { CircularProgress } from "@mui/material";
 import { ToastComponent } from "../toastComponent/toastComponent";
-import { CancelOutlined, CheckCircle } from "@mui/icons-material";
+import { CancelOutlined, CheckCircle, FolderCopy } from "@mui/icons-material";
+import { labels } from "@/lib/constants/app_images";
 const Cookies = require('js-cookie');
 interface UserType {
   username: string,
@@ -25,17 +26,9 @@ interface UserType {
 }
 require("@solana/wallet-adapter-react-ui/styles.css");
 
-const labels = {
-  'change-wallet': 'Change wallet',
-  connecting: 'Connecting ...',
-  'copy-address': 'Copy address',
-  copied: 'Copied',
-  disconnect: 'Disconnect',
-  'has-wallet': 'Connect to Wallet',
-  'no-wallet': 'Select Wallet',
-  connected: 'Click to Disconnect',
-} as any;
+
 export default function WithdrawPage() {
+
   let encrypt = Cookies.get('encrypt_id');
   const { connection } = useConnection();
   const [walletAddress, setWalletAddress] = useState('')
@@ -214,7 +207,6 @@ export default function WithdrawPage() {
         if (onConnect) {
           onConnect();
           setVisible(!visible);
-
         }
         break;
       case 'connected':
@@ -224,6 +216,15 @@ export default function WithdrawPage() {
         break;
     }
   }
+  function copyClip() {
+    navigator.clipboard.writeText(walletAddress);
+    setError(true);
+    setErrMessage({ type: 'success', message: 'Address Copied' });
+    setTimeout(() => {
+      setError(false);
+    }, 2000)
+  }
+
   return (
 
     <div onClick={() => setVisible(false)} className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
@@ -320,7 +321,7 @@ export default function WithdrawPage() {
 
               <div className="bg-[#20251a]  space-y-3 rounded-3xl  p-6">
                 <div className="flex flex-row justify-between items-center">
-                 
+
 
                   <div>
                     <div className="flex flex-row items-center gap-4">
@@ -359,7 +360,7 @@ export default function WithdrawPage() {
                     </div>
                   </div>
 
-                  
+
                 </div>
                 <CustomInput
                   addOnStart={<Image
@@ -374,7 +375,9 @@ export default function WithdrawPage() {
                   placeholder="Enter amount to withdraw"
                 />
 
-                {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">{walletAddress}</p>}
+                {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">
+                  {`${walletAddress.slice(0, 7)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy /></span>
+                </p>}
                 <div className="flex flex-row space-x-2 w-full mt-2 relative">
                   {visible &&
                     <span style={{ position: 'absolute', left: '100px', top: '30px' }}>
@@ -426,8 +429,6 @@ export default function WithdrawPage() {
                     {labels[buttonState]}
 
                   </button>
-
-
 
 
                   <button onClick={startWithdrawal} className="px-6 relative py-2 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">

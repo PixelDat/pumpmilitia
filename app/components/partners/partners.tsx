@@ -16,8 +16,8 @@ const Partners = () => {
       </div>
 
 
-      <div className="flex flex-col items-center">
-        <div className="grid grid-cols-2 md:grid-cols-5 items-center justify-center gap-x-20 w-10/12 m-auto">
+      <div className="flex md:hidden flex-col space-y-4 items-center">
+        <div className="flex flex-row items-center gap-x-4 justify-center">
           <img
             className="partner-images"
             src={AppImages.solana}
@@ -25,28 +25,29 @@ const Partners = () => {
 
           <img
             className="partner-images"
-            src={AppImages.google}
-            alt="" />
-
-          <img
-            className="partner-images"
-            src={AppImages.stripe}
-            alt="" />
-
-          <img
-            className="partner-images"
             src={AppImages.aws}
             alt="" />
-
+        </div>
+        <div className="flex flex-row justify-center ">
           <img
-            className="partner-images"
+            className="partner-images w-1/4 basis-2/4"
+            src={AppImages.stripe}
+            alt="" />
+          <img
+            className="partner-images basis-1/4 "
+            src={AppImages.circleImage}
+            alt="" />
+          <img
+            className="partner-images shrink basis-1/4"
+            width={100}
             src={AppImages.epic}
             alt="" />
-
+        </div>
+        <div className="grid grid-cols-2 items-center justify-center gap-x-20 w-10/12 m-auto">
           <img
             className="partner-images"
 
-            src={AppImages.circleImage}
+            src={AppImages.galze}
             alt="" />
 
           <img
@@ -54,7 +55,49 @@ const Partners = () => {
 
             src={AppImages.coinMarket}
             alt="" />
+        </div>
 
+
+        <img
+          className="partner-images"
+          src={AppImages.google}
+          alt="" />
+      </div>
+
+      <div className="hidden md:flex flex-col space-y-4 items-center">
+        <div className="flex flex-row items-center gap-x-4 justify-center">
+          <img
+            className="partner-images"
+            src={AppImages.solana}
+            alt="" />
+          <img
+            className="partner-images"
+            src={AppImages.google}
+            alt="" />
+          <img
+            className="partner-images w-1/4 basis-2/4"
+            src={AppImages.stripe}
+            alt="" />
+          <img
+            className="partner-images"
+            src={AppImages.aws}
+            alt="" />
+          <img
+            className="partner-images shrink basis-1/4"
+            width={100}
+            src={AppImages.epic}
+            alt="" />
+        </div>
+        <div className="flex flex-row items-center justify-center ">
+          <img
+            className="partner-images basis-1/4 "
+            src={AppImages.circleImage}
+            alt="" />
+          <img
+            className="partner-images"
+
+            src={AppImages.coinMarket}
+            alt="" />
           <img
             className="partner-images"
 
