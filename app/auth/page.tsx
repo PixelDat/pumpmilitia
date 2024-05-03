@@ -78,14 +78,47 @@ export default function LoginPage() {
     }
   };
 
-  const checkEmailExists = async () => {
-    setloading(true);
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email == "") {
-      setError(true);
-      setErrMessage("Email field is empty");
-      setloading(false);
-      return;
+    const checkEmailExists = async () => {
+        setloading(true)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email == '') {
+            setError(true)
+            setErrMessage('Email field is empty')
+            setloading(false)
+            setTimeout(() => {
+                setError(false);
+            }, 2000)
+            return
+        }
+
+        if (!emailRegex.test(email)) {
+            setError(true)
+            setErrMessage('Please Enter a valid email')
+            setloading(false)
+            setTimeout(() => {
+                setError(false);
+            }, 2000)
+            return
+        }
+        let params = {
+            email: email
+        }
+        let url = 'https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup';
+        try {
+            const response = await axios.post(url, params);
+            setError(true)
+            setloading(false)
+            location.href = '/verify-email'
+            Cookies.set('verifying_email', email)
+        } catch (error: any) {
+            if (error.response && error.response.status === 400) {
+                setError(false)
+                setEmailExists(true)
+                setloading(false)
+            } else {
+                console.log(`An error occurred: ${error.message}`);
+            }
+        }
     }
 
     if (!emailRegex.test(email)) {
