@@ -331,139 +331,95 @@ export default function gameAuthPage() {
                     </p>
                 </div>
                 {/* email address input */}
-                <div className="items-center justify-center">
-                    {!emailExists ? (
+
+                {!canViewGoBackMsg && <div className="items-center justify-center">
+                    {!emailExists ?
                         <CustomInput
                             className=""
                             error={error}
-                            sx={{ marginBottom: "10px" }}
+                            sx={{ marginBottom: '10px' }}
                             label="Email Address"
                             placeholder="Enter email address"
                             onChange={(e) => setEmail(e.target.value)}
                             type="email"
                             addOnStart={<MailOutlineRounded color="inherit" />}
-                            addOnEnd={
-                                error ? (
-                                    <ReportGmailerrorredRounded className="text-[#E2002B]" />
-                                ) : (
-                                    <ArrowForward />
-                                )
-                            }
+                            addOnEnd={error ? <ReportGmailerrorredRounded className="text-[#E2002B]" /> : <ArrowForward />}
                         />
-                    ) : (
+                        :
                         <CustomInput
                             className=""
                             onChange={(e) => setPassword(e.target.value)}
-                            sx={{ marginBottom: "10px" }}
+                            sx={{ marginBottom: '10px' }}
                             value={password}
                             label="Enter Password"
                             placeholder="Enter password"
                             type={showPassword ? "text" : "password"}
                             addOnStart={<LockRounded color="inherit" />}
-                            addOnEnd={
-                                !showPassword ? (
-                                    <VisibilityRounded
-                                        onClick={() => {
-                                            setShowPassword(!showPassword);
-                                        }}
-                                        className="text-[#E1F6B1]"
-                                    />
-                                ) : (
-                                    <VisibilityOffRounded
-                                        onClick={() => {
-                                            setShowPassword(!showPassword);
-                                        }}
-                                        className="text-[#E1F6B1]"
-                                    />
-                                )
-                            }
+                            addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
                         />
-                    )}
-                    {error && (
-                        <>
+                    }
+                    {
+                        error && <>
                             <hr className={`border-[#E2002B]  border mt-2`} />
+
                             <div className="flex flex-row items-center p-3 gap-3">
                                 <CloseRounded className="bg-[#EC5572] text-[18px] rounded-full text-[black]" />
-                                {errMessage != "" ? (
+                                {errMessage != '' ?
                                     <p className="text-[12px] text-[#F9CCD5] text-start">{errMessage}</p>
-                                ) : (
-                                    <p className="text-[12px] text-[#F9CCD5] text-start">
-                                        Ops! you must have entered the wrong email address, please check and re-enter.
-                                    </p>
-                                )}
+                                    :
+                                    <p className="text-[12px] text-[#F9CCD5] text-start">Ops! you must have entered the wrong email address, please check and re-enter.</p>
+                                }
                             </div>
                         </>
-                    )}
-                    {!emailExists ? (
+                    }
+                    {!emailExists ?
                         <div className="my-5">
-                            <button
-                                onClick={checkEmailExists}
-                                className="navbar-auth-btn w-full"
-                            >
-                                {loading ? <CircularProgress size={16} color="inherit" /> : "Get In"}
-                            </button>
+                            <button onClick={checkEmailExists} className="navbar-auth-btn w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button>
                         </div>
-                    ) : (
+                        :
                         <div className="my-5">
-                            <button
-                                onClick={HandleLogin}
-                                className="navbar-auth-btn w-full"
-                            >
-                                {loading ? <CircularProgress size={16} color="inherit" /> : "Login"}
-                            </button>
+                            <button onClick={HandleLogin} className="navbar-auth-btn w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Login'}</button>
                         </div>
-                    )}
-                    {!emailExists ? (
-                        <>
-                            <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">
-                                Try either of this below, only when “email address” fails to get you in.
-                            </FormHelperText>
+                    }
+                    {
+                        !emailExists ? <>
+
+                            <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try either of this below, only when “email address” fails to get you in.</FormHelperText>
+
                             <div className="flex flex-row items-center justify-center gap-8 my-3">
                                 <Image
-                                    onClick={() => {
-                                        handleExternalLogin("google");
-                                    }}
+                                    onClick={() => { handleExternalLogin('google') }}
                                     className="object-center"
-                                    src={"/images/google.png"}
+                                    src={'/images/google.png'}
                                     width={44}
                                     height={44}
                                     alt="google icon"
-                                    priority
-                                />
+                                    priority />
                                 <Image
-                                    onClick={() => {
-                                        handleExternalLogin("twitter");
-                                    }}
+                                    onClick={() => { handleExternalLogin('twitter') }}
+
                                     className="object-center"
-                                    src={"/images/xacct.png"}
+                                    src={'/images/xacct.png'}
                                     width={44}
                                     height={44}
                                     alt="X(formerly twitter) icon"
-                                    priority
-                                />
+                                    priority />
+
                             </div>
-                            <p className="text-[#EDF9D0] text-center mt-5 font-light">
-                                By continuing, you agree to our{" "}
-                                <span className="font-bold text-[#A5E314]">Terms of service,</span> and acknowledge
-                                you have understood our{" "}
-                                <span className="font-bold text-[#A5E314]">Privacy Policy</span> and{" "}
-                                <span className="font-bold text-[#A5E314]">Collection Statement.</span>
-                            </p>
+
+
+                            <p className="text-[#EDF9D0] text-center mt-5 font-light">By continuing, you agree to our <span className="font-bold text-[#A5E314]">Terms of service,</span> and acknowledge you have understood our <span className="font-bold text-[#A5E314]">Privacy Policy</span> and <span className="font-bold text-[#A5E314]">Collection Statement.</span></p>
                         </>
-                    ) : (
-                        <div className="font-bold text-[#A5E314] mt-3 grid grid-cols-2 divide-[#A5E314] justify-between divide-x-2">
-                            <p
-                                onClick={() => {
-                                    setEmailExists(false);
-                                }}
-                                className="text-center"
-                            >
-                                Change Email
-                            </p>
-                            <p className="text-center">Forgot Passord</p>
-                        </div>
-                    )}
-                </div>
+                            :
+                            <div className="font-bold text-[#A5E314] mt-3 grid grid-cols-2 divide-[#A5E314] justify-between divide-x-2">
+                                <p onClick={() => { setEmailExists(false) }} className="text-center">Change Email</p>
+                                <p className="text-center">Forgot Passord</p>
+                            </div>
+                    }
+                </div>}
+                {canViewGoBackMsg && <div className="items-center justify-center">
+                    <p className="text-[#EDF9D0] text-center mt-5 font-light">You are signed in! Go Back to Pump Militia</p>
+                </div>}
             </div>
             <div className="hidden md:inline absolute right-[150px] bottom-[20px]">
                 <BlipNinja />
