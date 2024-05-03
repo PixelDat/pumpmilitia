@@ -25,17 +25,20 @@ interface UserType {
 }
 require("@solana/wallet-adapter-react-ui/styles.css");
 
-const labels = {
-  'change-wallet': 'Change wallet',
-  connecting: 'Connecting ...',
-  'copy-address': 'Copy address',
-  copied: 'Copied',
-  disconnect: 'Disconnect',
-  'has-wallet': 'Connect to Wallet',
-  'no-wallet': 'Select Wallet',
-  connected: 'Click to Disconnect',
-} as any;
+
 export default function WithdrawPage() {
+
+  const labels = {
+    'change-wallet': 'Change wallet',
+    connecting: 'Connecting ...',
+    'copy-address': 'Copy address',
+    copied: 'Copied',
+    disconnect: 'Disconnect',
+    'has-wallet': 'Connect to Wallet',
+    'no-wallet': 'Select Wallet',
+    connected: 'Click to Disconnect',
+  } as any;
+
   let encrypt = Cookies.get('encrypt_id');
   const { connection } = useConnection();
   const [walletAddress, setWalletAddress] = useState('')

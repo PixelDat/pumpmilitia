@@ -56,6 +56,9 @@ export default function LoginPage() {
             setError(true)
             setErrMessage('Email field is empty')
             setloading(false)
+            setTimeout(() => {
+                setError(false);
+            }, 2000)
             return
         }
 
@@ -63,6 +66,9 @@ export default function LoginPage() {
             setError(true)
             setErrMessage('Please Enter a valid email')
             setloading(false)
+            setTimeout(() => {
+                setError(false);
+            }, 2000)
             return
         }
         let params = {
