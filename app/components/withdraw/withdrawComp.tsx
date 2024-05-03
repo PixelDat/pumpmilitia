@@ -11,6 +11,7 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { CircularProgress } from "@mui/material";
 import { ToastComponent } from "../toastComponent/toastComponent";
 import { CancelOutlined, CheckCircle, FolderCopy } from "@mui/icons-material";
+import { labels } from "@/lib/constants/app_images";
 const Cookies = require('js-cookie');
 interface UserType {
   username: string,
@@ -27,17 +28,6 @@ require("@solana/wallet-adapter-react-ui/styles.css");
 
 
 export default function WithdrawPage() {
-
-  const labels = {
-    'change-wallet': 'Change wallet',
-    connecting: 'Connecting ...',
-    'copy-address': 'Copy address',
-    copied: 'Copied',
-    disconnect: 'Disconnect',
-    'has-wallet': 'Connect to Wallet',
-    'no-wallet': 'Select Wallet',
-    connected: 'Click to Disconnect',
-  } as any;
 
   let encrypt = Cookies.get('encrypt_id');
   const { connection } = useConnection();
@@ -217,7 +207,6 @@ export default function WithdrawPage() {
         if (onConnect) {
           onConnect();
           setVisible(!visible);
-
         }
         break;
       case 'connected':

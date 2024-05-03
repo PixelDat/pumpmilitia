@@ -20,7 +20,7 @@ export const labels = {
     copied: 'Copied',
     disconnect: 'Disconnect',
     'has-wallet': 'Connect to Wallet',
-    'no-wallet': 'Select Wallet',
+    'no-wallet': 'Connect to Wallet',
     connected: 'Click to Disconnect',
 } as any;
 
