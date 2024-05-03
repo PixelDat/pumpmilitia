@@ -163,9 +163,9 @@ export default function DepositCompPage() {
           })
 
         )
-        transaction.feePayer = await publicKey;
+        transaction.feePayer = publicKey;
         let blockhashObj = await connection.getLatestBlockhash();
-        transaction.recentBlockhash = await blockhashObj.blockhash;
+        transaction.recentBlockhash = blockhashObj.blockhash;
 
         if (transaction) {
           console.log("Txn created successfully");
