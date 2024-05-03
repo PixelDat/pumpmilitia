@@ -52,6 +52,12 @@ export default function Dashboard() {
   const [selected, setSelected] = useState(0)
   let encrypt = Cookies.get('encrypt_id');
 
+  const [selectedTask, setSelectedTask] = useState('');
+
+  const [selectTaskErr, setSelectTaskError] = useState({ id: '', status: false });
+
+  console.log(selectTaskErr.id)
+
   useEffect(() => {
     if (!encrypt) {
       location.href = '/auth'
@@ -211,6 +217,14 @@ export default function Dashboard() {
 
   const markTaskCompleted = async (taskId: string, tweet_link: string, index: any) => {
     setSelected(index)
+    if (selectedTask !== taskId) {
+      setSelectTaskError({ id: taskId, status: true })
+      setTimeout(() => {
+        setSelectTaskError({ id: '', status: false });
+      }, 2000)
+      console.log('task not selected')
+      return false;
+    }
     setloading(true)
     if (userName == '') {
       setError(true);
@@ -260,6 +274,7 @@ export default function Dashboard() {
       }
     }
   }
+
 
   return (
     <div className="bg-contain bg-[url('/images/dashboardbg.png')] h-full w-full">
@@ -350,14 +365,14 @@ export default function Dashboard() {
               <h4 className="font-gameria text-[24px] text-center md:text-start mb-3">CHECK FOR NEW TASKS DAILY</h4>
             </div>
             <div className="flex flex-row">
-              <div style={{ cursor: 'pointer' }} onClick={() => setShowCompletedTask(false)} className="bg-[#A5E314] hover:bg-[#10130D] p-4 rounded-tl-2xl text-[#374C07] hover:text-[#EDF9D0]">
+              <div style={{ cursor: 'pointer' }} onClick={() => setShowCompletedTask(false)} className={`${showCompletedTask ? 'bg-[#10130D] text-[#ff0000]' : 'bg-[#A5E314] text-[#ff0000 '}} p-4 rounded-tl-2xl `}>
                 <h4 className="font-gameria text-[14px] md:text-[24px]">UNCOMPLETED TASK</h4>
                 <hr />
                 <p className="py-1 md:py-3 text-[10px] text-[14px]">Perform the task below and win prizes.</p>
               </div>
 
               <div>
-                <div style={{ cursor: 'pointer' }} onClick={() => setShowCompletedTask(true)} className="bg-[#10130D] hover:bg-[#A5E314] p-4 rounded-tr-2xl hover:text-[#374C07] text-[#EDF9D0]" >
+                <div style={{ cursor: 'pointer' }} onClick={() => setShowCompletedTask(true)} className={`${showCompletedTask ? 'bg-[#A5E314] hover:text-[#374C07] text-[#374C07]' : 'bg-[#10130D]'}  p-4 rounded-tr-2xl `}>
                   <h4 className="font-gameria text-[14px] md:text-[24px]">COMPLETED TASK</h4>
                   <hr />
                   <p className="py-1 md:py-3 text-[10px] text-[14px]">See all previously completed tasks here.</p>
@@ -480,15 +495,9 @@ export default function Dashboard() {
                               </div>
                             </div>
                             <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
-                              <a href={task.action_button_link} target="_blank" className="flex flex-row justify-center items-center gap-2 bg-[#A5E314] min-w-60 text-centere p-3 rounded-xl text-[#10130D]">
-                                {/* <Image
-                                src={'/images/xicon.png'}
-                                width={10}
-                                height={10}
-                                priority
-                                alt="" />  */}
+                              <a href={task.action_button_link} onClick={() => { setSelectedTask(task.task_id) }} target="_blank" className="flex flex-row justify-center items-center gap-2 bg-[#A5E314] min-w-60 text-centere p-3 rounded-xl text-[#10130D]">
                                 {task.action_button_text}</a>
-                              <div>
+                              <div className="relative">
                                 <CustomInput
                                   className="max-w-[250px]"
                                   onChange={(e) => { setUserName(e.target.value) }}
@@ -504,6 +513,11 @@ export default function Dashboard() {
                                     </button>
                                   }
                                 />
+                                {selectTaskErr.status && selectTaskErr.id === task.task_id &&
+                                  <div className="bg-[#EDF9D0] absolute top-[-60px] right-0 p-2 text-[#181C13] text-[12px] rounded-2xl">
+                                    Please {task.task_head}, for this field to be available to you. Thank you
+                                  </div>
+                                }
 
                               </div>
                             </div>
