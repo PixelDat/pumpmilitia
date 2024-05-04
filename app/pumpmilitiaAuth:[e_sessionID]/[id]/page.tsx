@@ -122,32 +122,62 @@ export default function gameAuthPage() {
             return;
         }
 
-
-        firebaseSignUp(email, async () => {
-
-             // Perform email existence check via your API
         let params = {
             email: email,
         };
-        let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup";
+        let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/check-user-verification-status";
         try {
+            // If the email exsists and is verified
             const response = await axios.post(url, params);
-            setError(true);
-            setloading(false);
-            // Cookies.set("emailForSignIn", email);
-            location.href = "/verify-email";
+            setloading(true);
+            setSignedInText("Account Already Exists, Go Back to Pump Militia and use your email and password to login");
+            setcanViewGoBackMsg(true);
             
         } catch (error: any) {
             if (error.response && error.response.status === 400) {
-                setError(false);
-                setEmailExists(true);
+                
+                // If the email does not exsist
+
+                firebaseSignUp(email, async () => {
+
+                    // Perform email existence check via your API
+               let params = {
+                   email: email,
+               };
+               let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup";
+               try {
+                   const response = await axios.post(url, params);
+                   setError(true);
+                   setloading(false);
+                   Cookies.set("emailForSignIn", email);
+                   Cookies.set("tempSessionId", response.data.userId);
+                   location.href = "/verify-email";
+                   
+               } catch (error: any) {
+                   if (error.response && error.response.status === 400) {
+                       setError(false);
+                       setEmailExists(true);
+                       setloading(false);
+                   } else {
+                       console.log(`An error occurred: ${error.message}`);
+                   }
+               }
+       
+               });
+
+            } else if (error.response && error.response.status === 405) {
+                // If the email exsists but is not verified
+                setError(true);
                 setloading(false);
-            } else {
+                Cookies.set("emailForSignIn", email);
+                Cookies.set("tempSessionId", error.response.data.userId);
+                location.href = "/verify-email";
+            }else {
                 console.log(`An error occurred: ${error.message}`);
             }
         }
 
-        });
+       
 
 
        

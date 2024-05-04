@@ -12,6 +12,7 @@ import { initializeApp } from "firebase/app"
 import { GoogleAuthProvider, TwitterAuthProvider, applyActionCode, getAuth } from "firebase/auth"
 import { useSearchParams } from "next/navigation"
 import axios from "axios"
+const Cookies = require("js-cookie");
 
 
 const firebaseConfig = {
@@ -35,6 +36,9 @@ export default function SavePassword() {
     const [confirmPassword, setConfirmPassword] = useState('')
     const searchParams = useSearchParams()
     const [errors, setErrors] = useState<string[]>([]);
+    const [tempSessionId, setTempSessionId] = useState("")
+    const [canViewGoBackMsg, setcanViewGoBackMsg] = useState(false);
+    const [signedInText, setSignedInText] = useState("");
 
 
     useEffect(() => {
@@ -43,8 +47,8 @@ export default function SavePassword() {
         const checkAction = async () => {
             if (oobCode != null) {
                 try {
-                    const response = await applyActionCode(auth, oobCode);
-                    console.log(response);
+                    // const response = await applyActionCode(auth, oobCode);
+                    setTempSessionId(Cookies.get("tempSessionId"));
                 } catch (error: any) {
                     console.log(error?.message)
                 }
@@ -75,13 +79,17 @@ export default function SavePassword() {
             maxBodyLength: Infinity,
             url: 'https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/set-password',
             headers: {
-                'Authorization': `${''}`
+                'Authorization': `${tempSessionId}`
             },
             body: JSON.stringify({ password: password })
         };
         try {
             const response = await axios.request(config);
-            console.log(response);
+            if(response.status === 200){
+                Cookies.set("encrypt_id", `${response.data.encypted_session_id}`);
+                setSignedInText("Go Back to Pump Militia and use your email and password to login");
+                setcanViewGoBackMsg(true);
+            }
 
         } catch (error: any) {
             if (error.response && error.response.status === 400) {
@@ -118,7 +126,7 @@ export default function SavePassword() {
                 </div>
                 {/* email address input */}
 
-                <div className="items-center justify-center">
+                {!canViewGoBackMsg &&  <div className="items-center justify-center">
                     <CustomInput
                         className=""
                         onChange={(e) => setPassword(e.target.value)}
@@ -189,6 +197,11 @@ export default function SavePassword() {
                     </div>
 
                 </div>
+                }
+
+                {canViewGoBackMsg && <div className="items-center justify-center">
+                                    <p className="text-[#EDF9D0] text-center mt-5 font-light">{signedInText}</p>
+                                </div>}
 
             </div>
             <div className="hidden md:inline absolute right-[150px] bottom-[20px]">
