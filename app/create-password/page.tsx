@@ -1,5 +1,4 @@
 "use client"
-
 import Image from "next/image"
 import BlipNinja from "../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
@@ -9,15 +8,51 @@ import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, ReportGmai
 import '../styles/navbar.css';
 import { useEffect, useState } from "react"
 import { Helpers } from "@/lib/utils/helper"
+import { initializeApp } from "firebase/app"
+import { GoogleAuthProvider, TwitterAuthProvider, applyActionCode, getAuth } from "firebase/auth"
+import { useSearchParams } from "next/navigation"
+import axios from "axios"
 
 
-export default function LoginPage() {
+const firebaseConfig = {
+    apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc",
+    authDomain: "everpump-6e275.firebaseapp.com",
+    projectId: "everpump-6e275",
+    storageBucket: "everpump-6e275.appspot.com",
+    messagingSenderId: "138957984497",
+    appId: "1:138957984497:web:6be3945adff541c5380f50",
+    measurementId: "G-8T2XXV37GT",
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+
+
+export default function SavePassword() {
     const [showPassword, setShowPassword] = useState(true)
     const [error, setError] = useState(false)
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-
+    const searchParams = useSearchParams()
     const [errors, setErrors] = useState<string[]>([]);
+
+
+    useEffect(() => {
+        const apiKey = searchParams.get('apiKey');
+        const oobCode = searchParams.get('oobCode');
+        const checkAction = async () => {
+            if (oobCode != null) {
+                try {
+                    const response = await applyActionCode(auth, oobCode);
+                    console.log(response);
+                } catch (error: any) {
+                    console.log(error?.message)
+                }
+            }
+        }
+        checkAction();
+    }, [])
+
     useEffect(() => {
         let val = Helpers.isValidPassword(password)
         if (val !== true) {
@@ -32,6 +67,30 @@ export default function LoginPage() {
         }
 
     }, [password, confirmPassword])
+
+
+    async function CreatePassword() {
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/set-password',
+            headers: {
+                'Authorization': `${''}`
+            },
+            body: JSON.stringify({ password: password })
+        };
+        try {
+            const response = await axios.request(config);
+            console.log(response);
+
+        } catch (error: any) {
+            if (error.response && error.response.status === 400) {
+            } else {
+                console.log(`An error occurred: ${error.message}`);
+            }
+        }
+
+    }
 
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center      text-white bg-[#20251A]">
@@ -126,7 +185,7 @@ export default function LoginPage() {
                         </>
                     }
                     <div className={`${errors.length == 0 ? "my-5" : "blur-[2px] my-5"}`}>
-                        <button disabled onClick={() => { }} className="navbar-auth-btn  w-full">Set Password</button>
+                        <button disabled={error} onClick={() => CreatePassword()} className="navbar-auth-btn  w-full">Set Password</button>
                     </div>
 
                 </div>
