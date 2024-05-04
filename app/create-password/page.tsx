@@ -1,34 +1,21 @@
 "use client"
 
 import Image from "next/image"
-import BlipNinja from "../../components/blipninja/blip"
+import BlipNinja from "../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
 import { FormHelperText, } from "@mui/material"
-import CustomInput from "../../components/customInput/customInput"
+import CustomInput from "../components/customInput/customInput"
 import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, ReportGmailerrorredRounded, VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material"
-import '../../styles/navbar.css';
+import '../styles/navbar.css';
 import { useEffect, useState } from "react"
 import { Helpers } from "@/lib/utils/helper"
 
-export async function getServerSideProps(context: any) {
-        const { query } = context;
-    
-        // Now you can use query parameters
-        const { oobCode } = query;
-    
-        // Pass the query parameters to your component as props
-        return {
-            props: { oobCode }, // will be passed to the page component as props
-        };
-    }
 
-export default function LoginPage({ oobCode }: { oobCode: any }) {
+export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(true)
     const [error, setError] = useState(false)
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-
-    console.log("OOB Code:", oobCode);
 
     const [errors, setErrors] = useState<string[]>([]);
     useEffect(() => {
