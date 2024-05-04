@@ -110,7 +110,7 @@ export default function VerifyEmail() {
                 </div>
                 <div className="flex flex-row gap-5 justify-center">
                     <p className=" text-[#A5E314] border-e-2 border-[#52594B] pe-5">Resend Code in <span className="text-[#52594B]">{countDown}s</span></p>
-                    <a href="/auth" className=" text-[#A5E314]">Change Email</a>
+                    <a href="/pumpmilitiaAuth/type=login;data=" className=" text-[#A5E314]">Change Email</a>
 
                 </div>
 
