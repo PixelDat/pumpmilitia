@@ -66,6 +66,7 @@ export default function LoginPageMain() {
         checkLoggedIn();
     }, []);
 
+
     const checkEmailExists = async () => {
         setloading(true)
         if (email == '') {
