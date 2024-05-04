@@ -45,8 +45,8 @@ export default function SavePassword() {
                 try {
                     const response = await applyActionCode(auth, oobCode);
                     console.log(response);
-                } catch {
-                    console.log("error");
+                } catch (error: any) {
+                    console.log(error?.message)
                 }
             }
         }
