@@ -39,12 +39,12 @@ export default function SavePassword() {
 
     useEffect(() => {
         const apiKey = searchParams.get('apiKey');
-        const obbCode = searchParams.get('obbCode');
+        const oobCode = searchParams.get('oobCode');
         const checkAction = async () => {
-            if (obbCode != null) {
+            if (oobCode != null) {
                 try {
-                    const user = await applyActionCode(auth, obbCode);
-                    console.log(user);
+                    const response = await applyActionCode(auth, oobCode);
+                    console.log(response);
                 } catch {
                     console.log("error");
                 }
@@ -52,6 +52,7 @@ export default function SavePassword() {
         }
         checkAction();
     }, [])
+
     useEffect(() => {
         let val = Helpers.isValidPassword(password)
         if (val !== true) {
