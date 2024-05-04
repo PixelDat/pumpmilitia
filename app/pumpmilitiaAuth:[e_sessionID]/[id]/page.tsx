@@ -134,7 +134,7 @@ export default function gameAuthPage() {
             const response = await axios.post(url, params);
             setError(true);
             setloading(false);
-            Cookies.set("emailForSignIn", email);
+            // Cookies.set("emailForSignIn", email);
             location.href = "/verify-email";
             
         } catch (error: any) {
@@ -301,8 +301,9 @@ export default function gameAuthPage() {
     async function saveConnectionKey() {
         const url = "https://evp-cross-auth-handler-service-cea2e4kz5q-uc.a.run.app/save-connection-key";
 
-        // Generate a new connection key
+        // Passed connection key
         const connectionKey = cross_authkey;
+        
 
         // Get the encrypted session id from cookies
         const token = Cookies.get("encrypt_id", { path: "" });
