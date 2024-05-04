@@ -48,7 +48,7 @@ const auth = getAuth(app);
 const twitterProvider = new TwitterAuthProvider();
 const googleProvider = new GoogleAuthProvider();
 const actionCodeSettings = {
-    url: "https://pumpmilitia.io/pumpmilitiaAuth/",
+    url: "https://pumpmilitia.io/create-password/",
     handleCodeInApp: true,
 };
 export default function gameAuthPage() {
