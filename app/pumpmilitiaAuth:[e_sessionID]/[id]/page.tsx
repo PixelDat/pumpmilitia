@@ -33,6 +33,7 @@ import {
     isSignInWithEmailLink,
     signInWithEmailLink,
 } from "firebase/auth";
+import { useParams } from 'next/navigation';
 const firebaseConfig = {
     apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc",
     authDomain: "everpump-6e275.firebaseapp.com",
@@ -47,7 +48,7 @@ const auth = getAuth(app);
 const twitterProvider = new TwitterAuthProvider();
 const googleProvider = new GoogleAuthProvider();
 const actionCodeSettings = {
-    url: "https://your-app.com/finishSignIn",
+    url: "https://pumpmilitia.io/pumpmilitiaAuth/",
     handleCodeInApp: true,
 };
 export default function gameAuthPage() {
@@ -60,21 +61,44 @@ export default function gameAuthPage() {
     const [password, setPassword] = useState("");
     const [emailExists, setEmailExists] = useState(false);
     const [canViewGoBackMsg, setcanViewGoBackMsg] = useState(false);
+    const [signedInText, setSignedInText] = useState("You are signed in! Go Back to Pump Militia");
 
     let cross_authkey = "";
     let refID = "";
+    const params = useParams();
+    
+    try {
+    const collected_param_raw = decodeURIComponent(params.id.toString());
+    const collected_param = collected_param_raw.split(";");
 
-    const firebaseSignUp = async (email: string) => {
+    
+    const operationType = collected_param[0].split("=")[1];
+    const operationData = collected_param[1].split("=")[1];
+ 
+
+    console.log(operationType+"--"+operationData);
+
+    if (operationType === "referral") {
+        referralProcessor();
+        refID = operationData;
+    }else if (operationType == "login") {
+        cross_authkey = operationData;
+    }
+    }catch(e){
+        console.error('Error processing parameters:', e);
+    }
+
+    const firebaseSignUp = async (email: string, callback: () => void) => {
         let password = uuidv4();
         try {
             await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-            Cookies.set("emailForSignIn", email);
-            alert("Email sent! Please check your inbox.");
-            location.href = "/verify-email";
+            // Execute the callback function
+            callback();
         } catch (error) {
             console.error("Error sending email link", error);
         }
     };
+    
 
     const checkEmailExists = async () => {
         setloading(true);
@@ -97,7 +121,11 @@ export default function gameAuthPage() {
             }, 2000)
             return;
         }
-        // Perform email existence check via your API
+
+
+        firebaseSignUp(email, async () => {
+
+             // Perform email existence check via your API
         let params = {
             email: email,
         };
@@ -106,8 +134,9 @@ export default function gameAuthPage() {
             const response = await axios.post(url, params);
             setError(true);
             setloading(false);
-            // If email doesn't exist, initiate signup and verification
-            firebaseSignUp(email);
+            Cookies.set("emailForSignIn", email);
+            location.href = "/verify-email";
+            
         } catch (error: any) {
             if (error.response && error.response.status === 400) {
                 setError(false);
@@ -117,6 +146,11 @@ export default function gameAuthPage() {
                 console.log(`An error occurred: ${error.message}`);
             }
         }
+
+        });
+
+
+       
     };
     const HandleLogin = async () => {
         setError(false);
@@ -134,7 +168,10 @@ export default function gameAuthPage() {
         try {
             const response = await axios.post(url, params);
             Cookies.set("encrypt_id", `${response.data.encypted_session_id}`);
-            location.href = "/dashboard";
+            setloading(false);
+            setSignedInText("Go Back to Pump Militia and use your email and password to login");
+            setcanViewGoBackMsg(true);
+
         } catch (error: any) {
             if (error.response) {
                 setError(true);
@@ -206,6 +243,11 @@ export default function gameAuthPage() {
     };
     useEffect(() => {
         handleSignInWithEmailLink();
+        let encrypt = Cookies.get('encrypt_id');
+        if (encrypt) {
+            successfullAuth();
+            setcanViewGoBackMsg(true);
+        }
     }, []);
 
     const successfullAuth = async () => {
@@ -277,6 +319,31 @@ export default function gameAuthPage() {
         } catch (error) {
             console.log(`Axios error: ${error}`);
         }
+    }
+
+    function referralProcessor() {
+       
+        const genID = uuidv4();
+
+        // Cache genID and refID using cookies
+        Cookies.set('genID', genID, { expires: 7 }); // Expires in 7 days
+        Cookies.set('refID', refID, { expires: 7 });
+    
+        // Cache genID and refID using cookies
+        const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
+        if (/iPad|iPhone|iPod/.test(userAgent) && !(navigator as any).MSStream) {
+          // iOS device detected
+          location.href = 'https://apps.apple.com/app'; // Put your App Store link here
+        } else if (/android/i.test(userAgent)) {
+          // Android device detected
+          location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
+        } else {
+          // Non-mobile device detected, redirecting to Play Store as fallback
+          location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
+        }
+    
+    
+      return null; // This component does not render anything
     }
 
     return (
@@ -418,7 +485,7 @@ export default function gameAuthPage() {
                     }
                 </div>}
                 {canViewGoBackMsg && <div className="items-center justify-center">
-                    <p className="text-[#EDF9D0] text-center mt-5 font-light">You are signed in! Go Back to Pump Militia</p>
+                    <p className="text-[#EDF9D0] text-center mt-5 font-light">{signedInText}</p>
                 </div>}
             </div>
             <div className="hidden md:inline absolute right-[150px] bottom-[20px]">
