@@ -2,7 +2,7 @@
 import Image from "next/image"
 import BlipNinja from "../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
-import { FormHelperText, } from "@mui/material"
+import { CircularProgress, FormHelperText, } from "@mui/material"
 import CustomInput from "../components/customInput/customInput"
 import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, ReportGmailerrorredRounded, VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material"
 import '../styles/navbar.css';
@@ -37,8 +37,9 @@ export default function SavePassword() {
     const searchParams = useSearchParams()
     const [errors, setErrors] = useState<string[]>([]);
     const [tempSessionId, setTempSessionId] = useState("")
-    const [canViewGoBackMsg, setcanViewGoBackMsg] = useState(false);
-    const [signedInText, setSignedInText] = useState("");
+    const [canViewGoBackMsg, setcanViewGoBackMsg] = useState(true);
+    const [signedInText, setSignedInText] = useState("This is moses");
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
@@ -74,6 +75,7 @@ export default function SavePassword() {
 
 
     async function CreatePassword() {
+        setLoading(true);
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
@@ -85,16 +87,18 @@ export default function SavePassword() {
         };
         try {
             const response = await axios.request(config);
-            if(response.status === 200){
+            if (response.status === 200) {
                 Cookies.set("encrypt_id", `${response.data.encypted_session_id}`);
+                setLoading(false);
                 setSignedInText("Go Back to Pump Militia and use your email and password to login");
                 setcanViewGoBackMsg(true);
             }
 
         } catch (error: any) {
-            if (error.response && error.response.status === 400) {
-            } else {
-                console.log(`An error occurred: ${error.message}`);
+            if (error.response) {
+                setLoading(false)
+                console.log(error.response)
+                console.log(`An error occurred: ${error.response.data.message}`);
             }
         }
 
@@ -122,11 +126,16 @@ export default function SavePassword() {
                     <div className='font-gameria  text-center  text-vivd-lime-green-10 text-[40px]'>
                         PUMP MILLITIA
                     </div>
-                    <p className="text-center text-[14px] text-vivd-lime-green-10">Enter a password, to secure your account and carryout transaction</p>
+                    {canViewGoBackMsg ?
+                        <p className="text-center text-[14px] text-vivd-lime-green-10">{signedInText}</p>
+                        :
+                        <p className="text-center text-[14px] text-vivd-lime-green-10">Enter a password, to secure your account and carryout transaction</p>
+                    }
+
                 </div>
                 {/* email address input */}
 
-                {!canViewGoBackMsg &&  <div className="items-center justify-center">
+                {!canViewGoBackMsg && <div className="items-center justify-center">
                     <CustomInput
                         className=""
                         onChange={(e) => setPassword(e.target.value)}
@@ -193,15 +202,15 @@ export default function SavePassword() {
                         </>
                     }
                     <div className={`${errors.length == 0 ? "my-5" : "blur-[2px] my-5"}`}>
-                        <button disabled={error} onClick={() => CreatePassword()} className="navbar-auth-btn  w-full">Set Password</button>
+                        <button disabled={error} onClick={() => CreatePassword()} className="navbar-auth-btn  w-full">{loading ? <CircularProgress size={14} color="inherit" /> : 'Set Password'}</button>
                     </div>
 
                 </div>
                 }
 
-                {canViewGoBackMsg && <div className="items-center justify-center">
-                                    <p className="text-[#EDF9D0] text-center mt-5 font-light">{signedInText}</p>
-                                </div>}
+                {/* {canViewGoBackMsg && <div className="items-center justify-center">
+                    <p className="text-[#EDF9D0] text-center mt-5 font-light">{signedInText}</p>
+                </div>} */}
 
             </div>
             <div className="hidden md:inline absolute right-[150px] bottom-[20px]">
