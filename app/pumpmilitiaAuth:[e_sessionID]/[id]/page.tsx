@@ -122,6 +122,9 @@ export default function gameAuthPage() {
             return;
         }
 
+        // Save email to cookie
+        Cookies.set("emailForSignIn", email);
+
         let params = {
             email: email,
         };
@@ -377,6 +380,31 @@ export default function gameAuthPage() {
         return null; // This component does not render anything
     }
 
+    const forgotPassword = async () => {
+        const emailGotten = Cookies.get('emailForSignIn');
+        setloading(true);
+        let params = {
+            email: emailGotten,
+        };
+        let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/login";
+        try {
+            const response = await axios.post(url, params);
+            location.href = "/forget-password";
+        } catch (error: any) {
+            if (error.response) {
+                setError(true);
+                setErrMessage(error.response.data.message);
+                setloading(false)
+                console.log(`${error.response.data.message}`);
+                setTimeout(() => { setError(false) }, 2000)
+            } else {
+                console.log(`An error occurred: ${error.message}`);
+            }
+        }
+
+        // console.log('Forgot Password Clicked', emailGotten)
+
+    }
     return (
         <div
             style={{ position: "fixed", width: "100%", height: "100vh" }}
@@ -510,8 +538,9 @@ export default function gameAuthPage() {
                         </>
                             :
                             <div className="font-bold text-[#A5E314] mt-3 grid grid-cols-2 divide-[#A5E314] justify-between divide-x-2">
-                                <p onClick={() => { setEmailExists(false) }} className="text-center">Change Email</p>
-                                <p className="text-center">Forgot Passord</p>
+                                <p style={{ cursor: 'pointer' }} onClick={() => { setEmailExists(false) }} className="text-center">Change Email</p>
+                                <p style={{ cursor: 'pointer' }} onClick={() => forgotPassword()} className="text-center">Forgot Passord</p>
+
                             </div>
                     }
                 </div>}
