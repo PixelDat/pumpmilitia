@@ -96,9 +96,8 @@ export default function ForgotPassword() {
             if (response.status === 200) {
                 Cookies.set("encrypt_id", `${response.data.encypted_session_id}`);
                 setLoading(false);
-                setToastItem({ toastType: 'success', toastMessage: "Signed In Successfully!" });
-                setSignedInText("Go Back to Pump Militia and use your email and password to login");
-                setcanViewGoBackMsg(true);
+                setToastItem({ toastType: 'success', toastMessage: "Password Updated Successfully!" });
+                location.href = "pumpmilitiaAuth/type=login;data=";
                 setTimeout(() => {
                     setToastItem({
                         toastType: '',
