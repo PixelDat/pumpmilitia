@@ -27,15 +27,15 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
 
             {type == "gradient" ?
-                <button className="bg-vivd-lime-green component_btn px-6 py-2 shadow-sm rounded-lg shadow-white">
+                <button className="bg-vivd-lime-green buttonTracker component_btn px-6 py-2 shadow-sm rounded-lg shadow-white">
                     {text}
                 </button>
                 : type == "transparent" ?
-                    <button className="px-6 py-2 border component_btn_transparent border-vivd-lime-green rounded-lg text-vivd-lime-green-10">
+                    <button className="px-6 py-2 border buttonTracker component_btn_transparent border-vivd-lime-green rounded-lg text-vivd-lime-green-10">
                         {text}
                     </button>
                     :
-                    <button className="px-6 py-2 border normal_btn border-vivd-lime-green rounded-lg ">
+                    <button className="px-6 py-2 border buttonTracker normal_btn border-vivd-lime-green rounded-lg ">
                         {text}
                     </button>
             }

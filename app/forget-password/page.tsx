@@ -245,7 +245,7 @@ export default function ForgotPassword() {
                         addOnStart={<Password color="inherit" />}
                     />
                     <div className={`${errors.length == 0 ? "my-5" : "blur-[2px] my-5"}`}>
-                        <button disabled={error} onClick={() => UpdatePassword()} className="navbar-auth-btn  w-full">{loading ? <CircularProgress size={14} color="inherit" /> : 'Update Password'}</button>
+                        <button disabled={error} onClick={() => UpdatePassword()} className="navbar-auth-btn buttonTracker  w-full">{loading ? <CircularProgress size={14} color="inherit" /> : 'Update Password'}</button>
                     </div>
 
                 </div>

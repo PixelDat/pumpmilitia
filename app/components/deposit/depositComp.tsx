@@ -466,12 +466,12 @@ export default function DepositCompPage() {
                       </ul>
                     </span>
                   }
-                  <button onClick={startConnection} className="bg-vivd-lime-green w-full component_btn px-6 py-2 shadow-sm rounded-xl shadow-white">
+                  <button onClick={startConnection} className="bg-vivd-lime-green buttonTracker w-full component_btn px-6 py-2 shadow-sm rounded-xl shadow-white">
                     {labels[buttonState]}
 
                   </button>
 
-                  <button disabled={loading} onClick={startDeposit} className="px-6 relative py-2 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                  <button disabled={loading} onClick={startDeposit} className="px-6 buttonTracker relative py-2 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                     {loading ? <CircularProgress size={16} color='inherit' /> : 'Deposit'}
                     {visibleMod &&
                       <div className="bg-[#EDF9D0] absolute top-[-20px] right-0 p-2 text-[#181C13] text-[12px] rounded-2xl">
@@ -484,7 +484,7 @@ export default function DepositCompPage() {
                 <div>
                   <p className="text-center text-[#898989]">Deposits would begin after $PUMP token launch</p>
                 </div>
-                <button className="px-6 py-3 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                <button className="px-6 py-3 buttonTracker border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                   Buy from Raydium
                 </button>
 

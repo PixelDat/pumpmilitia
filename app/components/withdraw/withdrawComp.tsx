@@ -425,13 +425,13 @@ export default function WithdrawPage() {
                       </ul>
                     </span>
                   }
-                  <button onClick={startConnection} className="bg-vivd-lime-green w-full component_btn px-6 py-2 shadow-sm rounded-xl shadow-white">
+                  <button onClick={startConnection} className="bg-vivd-lime-green buttonTracker w-full component_btn px-6 py-2 shadow-sm rounded-xl shadow-white">
                     {labels[buttonState]}
 
                   </button>
 
 
-                  <button onClick={startWithdrawal} className="px-6 relative py-2 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                  <button onClick={startWithdrawal} className="px-6 relative py-2 buttonTracker border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                     {loading ? <CircularProgress size={16} color='inherit' /> : 'Withdraw'}
 
                     {visibleMod &&
@@ -444,7 +444,7 @@ export default function WithdrawPage() {
                 <div>
                   <p className="text-center text-[#898989]">Withdraw your $PUMP airdrop balance at TGE</p>
                 </div>
-                <button className="px-6 py-3 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                <button className="px-6 py-3 border w-full buttonTracker component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                   Buy from Raydium
                 </button>
 

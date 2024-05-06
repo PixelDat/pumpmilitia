@@ -31,33 +31,41 @@ const kanit = Kanit({
   subsets: ['latin'],
   weight: ['400']
 })
-
+// Initialize Firebase app and analytics
+const firebaseConfig = {
+  apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc",
+  authDomain: "everpump-6e275.firebaseapp.com",
+  projectId: "everpump-6e275",
+  storageBucket: "everpump-6e275.appspot.com",
+  messagingSenderId: "138957984497",
+  appId: "1:138957984497:web:6be3945adff541c5380f50",
+  measurementId: "G-8T2XXV37GT",
+};
 
 export default function RootLayout({ children }: Props) {
 
   useEffect(() => {
-    // Initialize Firebase app and analytics
-    const firebaseConfig = {
-      apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc",
-      authDomain: "everpump-6e275.firebaseapp.com",
-      projectId: "everpump-6e275",
-      storageBucket: "everpump-6e275.appspot.com",
-      messagingSenderId: "138957984497",
-      appId: "1:138957984497:web:6be3945adff541c5380f50",
-      measurementId: "G-8T2XXV37GT",
-    };
-
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
 
-    // Track initial page view
     logEvent(analytics, 'page-viewed', { name: window.location.pathname });
 
-    // Clean up
+    const buttons = document.querySelectorAll('button');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const buttonText = button.textContent || 'Unknown';
+        console.log(buttonText)
+        logEvent(analytics, 'button_click', {
+          description: `This button is ${buttonText.trim()} button`
+        });
+      });
+    });
     return () => {
-      // Perform cleanup, if necessary
     };
   }, []);
+
+
 
   return (
 

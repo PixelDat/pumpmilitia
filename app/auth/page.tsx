@@ -347,7 +347,7 @@ export default function LoginPage() {
                         <div className="my-5">
                             <button
                                 onClick={checkEmailExists}
-                                className="navbar-auth-btn w-full"
+                                className="navbar-auth-btn buttonTracker w-full"
                             >
                                 {loading ? <CircularProgress size={16} color="inherit" /> : "Get In"}
                             </button>
@@ -356,7 +356,7 @@ export default function LoginPage() {
                         <div className="my-5">
                             <button
                                 onClick={HandleLogin}
-                                className="navbar-auth-btn w-full"
+                                className="navbar-auth-btn buttonTracker w-full"
                             >
                                 {loading ? <CircularProgress size={16} color="inherit" /> : "Login"}
                             </button>

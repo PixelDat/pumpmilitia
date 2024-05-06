@@ -233,7 +233,7 @@ export default function SavePassword() {
                         </>
                     }
                     <div className={`${errors.length == 0 ? "my-5" : "blur-[2px] my-5"}`}>
-                        <button disabled={error} onClick={() => CreatePassword()} className="navbar-auth-btn  w-full">{loading ? <CircularProgress size={14} color="inherit" /> : 'Set Password'}</button>
+                        <button disabled={error} onClick={() => CreatePassword()} className="navbar-auth-btn buttonTracker  w-full">{loading ? <CircularProgress size={14} color="inherit" /> : 'Set Password'}</button>
                     </div>
 
                 </div>
