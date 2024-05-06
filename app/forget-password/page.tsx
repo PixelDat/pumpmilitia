@@ -240,9 +240,9 @@ export default function ForgotPassword() {
                         error={false}
                         onChange={(e) => setOtp(e.target.value)}
                         sx={{ marginBottom: '10px' }}
-                        label="Enter OTP SENT"
+                        label="Enter OTP Sent"
                         placeholder="Enter Otp Sent"
-                        type={"text"}
+                        type={"number"}
                         addOnStart={<Password color="inherit" />}
                     />
                     <div className={`${errors.length == 0 ? "my-5" : "blur-[2px] my-5"}`}>
