@@ -66,25 +66,25 @@ export default function gameAuthPage() {
     let cross_authkey = "";
     let refID = "";
     const params = useParams();
-    
+
     try {
-    const collected_param_raw = decodeURIComponent(params.id.toString());
-    const collected_param = collected_param_raw.split(";");
+        const collected_param_raw = decodeURIComponent(params.id.toString());
+        const collected_param = collected_param_raw.split(";");
 
-    
-    const operationType = collected_param[0].split("=")[1];
-    const operationData = collected_param[1].split("=")[1];
- 
 
-    console.log(operationType+"--"+operationData);
+        const operationType = collected_param[0].split("=")[1];
+        const operationData = collected_param[1].split("=")[1];
 
-    if (operationType === "referral") {
-        referralProcessor();
-        refID = operationData;
-    }else if (operationType == "login") {
-        cross_authkey = operationData;
-    }
-    }catch(e){
+
+        console.log(operationType + "--" + operationData);
+
+        if (operationType === "referral") {
+            referralProcessor();
+            refID = operationData;
+        } else if (operationType == "login") {
+            cross_authkey = operationData;
+        }
+    } catch (e) {
         console.error('Error processing parameters:', e);
     }
 
@@ -98,7 +98,7 @@ export default function gameAuthPage() {
             console.error("Error sending email link", error);
         }
     };
-    
+
 
     const checkEmailExists = async () => {
         setloading(true);
@@ -132,38 +132,38 @@ export default function gameAuthPage() {
             setloading(true);
             setSignedInText("Account Already Exists, Go Back to Pump Militia and use your email and password to login");
             setcanViewGoBackMsg(true);
-            
+
         } catch (error: any) {
             if (error.response && error.response.status === 400) {
-                
+
                 // If the email does not exsist
 
                 firebaseSignUp(email, async () => {
 
                     // Perform email existence check via your API
-               let params = {
-                   email: email,
-               };
-               let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup";
-               try {
-                   const response = await axios.post(url, params);
-                   setError(true);
-                   setloading(false);
-                   Cookies.set("emailForSignIn", email);
-                   Cookies.set("tempSessionId", response.data.userId);
-                   location.href = "/verify-email";
-                   
-               } catch (error: any) {
-                   if (error.response && error.response.status === 400) {
-                       setError(false);
-                       setEmailExists(true);
-                       setloading(false);
-                   } else {
-                       console.log(`An error occurred: ${error.message}`);
-                   }
-               }
-       
-               });
+                    let params = {
+                        email: email,
+                    };
+                    let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup";
+                    try {
+                        const response = await axios.post(url, params);
+                        //    setError(true);
+                        setloading(false);
+                        Cookies.set("emailForSignIn", email);
+                        Cookies.set("tempSessionId", response.data.userId);
+                        location.href = "/verify-email";
+
+                    } catch (error: any) {
+                        if (error.response && error.response.status === 400) {
+                            setError(false);
+                            setEmailExists(true);
+                            setloading(false);
+                        } else {
+                            console.log(`An error occurred: ${error.message}`);
+                        }
+                    }
+
+                });
 
             } else if (error.response && error.response.status === 405) {
                 // If the email exsists but is not verified
@@ -172,15 +172,15 @@ export default function gameAuthPage() {
                 Cookies.set("emailForSignIn", email);
                 Cookies.set("tempSessionId", error.response.data.userId);
                 location.href = "/verify-email";
-            }else {
+            } else {
                 console.log(`An error occurred: ${error.message}`);
             }
         }
 
-       
 
 
-       
+
+
     };
     const HandleLogin = async () => {
         setError(false);
@@ -333,7 +333,7 @@ export default function gameAuthPage() {
 
         // Passed connection key
         const connectionKey = cross_authkey;
-        
+
 
         // Get the encrypted session id from cookies
         const token = Cookies.get("encrypt_id", { path: "" });
@@ -353,28 +353,28 @@ export default function gameAuthPage() {
     }
 
     function referralProcessor() {
-       
+
         const genID = uuidv4();
 
         // Cache genID and refID using cookies
         Cookies.set('genID', genID, { expires: 7 }); // Expires in 7 days
         Cookies.set('refID', refID, { expires: 7 });
-    
+
         // Cache genID and refID using cookies
         const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
         if (/iPad|iPhone|iPod/.test(userAgent) && !(navigator as any).MSStream) {
-          // iOS device detected
-          location.href = 'https://apps.apple.com/app'; // Put your App Store link here
+            // iOS device detected
+            location.href = 'https://apps.apple.com/app'; // Put your App Store link here
         } else if (/android/i.test(userAgent)) {
-          // Android device detected
-          location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
+            // Android device detected
+            location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
         } else {
-          // Non-mobile device detected, redirecting to Play Store as fallback
-          location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
+            // Non-mobile device detected, redirecting to Play Store as fallback
+            location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
         }
-    
-    
-      return null; // This component does not render anything
+
+
+        return null; // This component does not render anything
     }
 
     return (
