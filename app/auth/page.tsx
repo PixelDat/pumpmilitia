@@ -217,7 +217,9 @@ export default function LoginPage() {
             if (error.response) {
                 setError(true);
                 setErrMessage(error.response.data.message);
+                setloading(false)
                 console.log(`${error.response.data.message}`);
+                setTimeout(() => { setError(false) }, 2000)
             } else {
                 console.log(`An error occurred: ${error.message}`);
             }

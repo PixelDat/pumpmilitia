@@ -4,7 +4,7 @@ import BlipNinja from "../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
 import { CircularProgress, FormHelperText, } from "@mui/material"
 import CustomInput from "../components/customInput/customInput"
-import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, ReportGmailerrorredRounded, VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material"
+import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, Password, ReportGmailerrorredRounded, VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material"
 import '../styles/navbar.css';
 import { useEffect, useState } from "react"
 import { Helpers } from "@/lib/utils/helper"
@@ -31,9 +31,10 @@ const auth = getAuth(app);
 
 
 export default function ForgotPassword() {
-    const [showPassword, setShowPassword] = useState(true)
+    const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState(false)
     const [password, setPassword] = useState('')
+    const [otp, setOtp] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const searchParams = useSearchParams()
     const [errors, setErrors] = useState<string[]>([]);
@@ -79,7 +80,7 @@ export default function ForgotPassword() {
     }, [password, confirmPassword])
 
 
-    async function CreatePassword() {
+    async function UpdatePassword() {
         setLoading(true);
         let config = {
             method: 'post',
@@ -88,7 +89,7 @@ export default function ForgotPassword() {
             headers: {
                 'Authorization': `${tempSessionId}`
             },
-            body: JSON.stringify({ password: password })
+            body: JSON.stringify({ password: password, otp: otp })
         };
         try {
             const response = await axios.request(config);
@@ -171,8 +172,8 @@ export default function ForgotPassword() {
                         className=""
                         onChange={(e) => setPassword(e.target.value)}
                         sx={{ marginBottom: '10px' }}
-                        label="Password"
-                        placeholder="Enter password"
+                        label="Enter New Password"
+                        placeholder="Enter New password"
                         type={showPassword ? "text" : "password"}
                         addOnStart={<LockRounded color="inherit" />}
                         addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
@@ -216,8 +217,8 @@ export default function ForgotPassword() {
                         error={error}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         sx={{ marginBottom: '10px' }}
-                        label="Re-enter Password"
-                        placeholder="Enter password"
+                        label="Re-enter New Password"
+                        placeholder="Re-enter New password"
                         type={showPassword ? "text" : "password"}
                         addOnStart={<LockRounded color="inherit" />}
                         addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
@@ -232,8 +233,20 @@ export default function ForgotPassword() {
                             </div>
                         </>
                     }
+
+                    <CustomInput
+                        disabled={errors.length == 0 ? false : true}
+                        className=""
+                        error={false}
+                        onChange={(e) => setOtp(e.target.value)}
+                        sx={{ marginBottom: '10px' }}
+                        label="Enter OTP SENT"
+                        placeholder="Enter Otp Sent"
+                        type={"text"}
+                        addOnStart={<Password color="inherit" />}
+                    />
                     <div className={`${errors.length == 0 ? "my-5" : "blur-[2px] my-5"}`}>
-                        <button disabled={error} onClick={() => CreatePassword()} className="navbar-auth-btn  w-full">{loading ? <CircularProgress size={14} color="inherit" /> : 'Set Password'}</button>
+                        <button disabled={error} onClick={() => UpdatePassword()} className="navbar-auth-btn  w-full">{loading ? <CircularProgress size={14} color="inherit" /> : 'Update Password'}</button>
                     </div>
 
                 </div>
