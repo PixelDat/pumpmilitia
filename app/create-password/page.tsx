@@ -12,6 +12,7 @@ import { initializeApp } from "firebase/app"
 import { GoogleAuthProvider, TwitterAuthProvider, applyActionCode, getAuth } from "firebase/auth"
 import { useSearchParams } from "next/navigation"
 import axios from "axios"
+import { ToastComponent, toast } from "../components/toastComponent/toastComponent"
 const Cookies = require("js-cookie");
 
 
@@ -37,9 +38,13 @@ export default function SavePassword() {
     const searchParams = useSearchParams()
     const [errors, setErrors] = useState<string[]>([]);
     const [tempSessionId, setTempSessionId] = useState("")
-    const [canViewGoBackMsg, setcanViewGoBackMsg] = useState(true);
-    const [signedInText, setSignedInText] = useState("This is moses");
+    const [canViewGoBackMsg, setcanViewGoBackMsg] = useState(false);
+    const [signedInText, setSignedInText] = useState(" ");
     const [loading, setLoading] = useState(false);
+    const [toastItem, setToastItem] = useState({
+        toastType: '',
+        toastMessage: '',
+    })
 
 
     useEffect(() => {
@@ -90,15 +95,27 @@ export default function SavePassword() {
             if (response.status === 200) {
                 Cookies.set("encrypt_id", `${response.data.encypted_session_id}`);
                 setLoading(false);
+                setToastItem({ toastType: 'success', toastMessage: "Signed In Successfully!" });
                 setSignedInText("Go Back to Pump Militia and use your email and password to login");
                 setcanViewGoBackMsg(true);
+                setTimeout(() => {
+                    setToastItem({
+                        toastType: '',
+                        toastMessage: '',
+                    })
+                }, 2000)
             }
 
         } catch (error: any) {
             if (error.response) {
                 setLoading(false)
-                console.log(error.response)
-                console.log(`An error occurred: ${error.response.data.message}`);
+                setToastItem({ toastType: 'error', toastMessage: error.response.data.message });
+                setTimeout(() => {
+                    setToastItem({
+                        toastType: '',
+                        toastMessage: '',
+                    })
+                }, 2000)
             }
         }
 
@@ -106,6 +123,20 @@ export default function SavePassword() {
 
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center      text-white bg-[#20251A]">
+            {toastItem.toastType !== '' && (
+                <ToastComponent
+                    type={toastItem.toastType}
+                    content={toastItem.toastMessage}
+                    addOnStart={
+                        <Image
+                            src={"/images/launch/sms-tracking.png"}
+                            alt=""
+                            width={20}
+                            height={20}
+                        />
+                    }
+                />
+            )}
             <div className="bg-cover  opacity-30 bg-dark bg-[url('/images/auth_bg.png')] h-[627px] top-1/4 absolute w-full">
             </div>
             <div className="z-[20] p-2 md:p-0 w-[371px]">
