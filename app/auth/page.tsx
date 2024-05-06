@@ -374,6 +374,7 @@ export default function LoginPage() {
                     ) : (
                         <div className="font-bold text-[#A5E314] mt-3 grid grid-cols-2 divide-[#A5E314] justify-between divide-x-2">
                             <p
+                                style={{ cursor: 'pointer' }}
                                 onClick={() => {
                                     setEmailExists(false);
                                 }}
@@ -381,7 +382,7 @@ export default function LoginPage() {
                             >
                                 Change Email
                             </p>
-                            <p className="text-center">Forgot Passord</p>
+                            <p style={{ cursor: 'pointer' }} className="text-center">Forgot Passord</p>
                         </div>
                     )}
                 </div>
