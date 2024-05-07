@@ -225,6 +225,8 @@ export default function WithdrawPage() {
     }, 2000)
   }
 
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
 
     <div onClick={() => setVisible(false)} className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
@@ -271,8 +273,7 @@ export default function WithdrawPage() {
                     alt="" />
                   <p className="text-[15px] font-[300]">Your balance today</p>
                   <h4 className="text-[24px] font-gameria font-[500]">CONFIRM AND COMPLETE PURCHASE</h4>
-                  <p className="text-[15px] font-[300]">Click “Deposit” button and accept/approve transaction in your wallet. Wait for deposit to process</p>
-
+                  <p className="text-[15px] font-[300]">Click “Withdraw” button and accept/approve transaction in your wallet. Wait for Withdraw to process</p>
                 </div>
               </div>
 
@@ -444,9 +445,23 @@ export default function WithdrawPage() {
                 <div>
                   <p className="text-center text-[#898989]">Withdraw your $PUMP airdrop balance at TGE</p>
                 </div>
-                <button className="px-6 py-3 border w-full buttonTracker component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
-                  Buy from Raydium
-                </button>
+                <div className="relative">
+                  <button onClick={() => {
+                    setShowPopup(true)
+                    setTimeout(() => {
+                      setShowPopup(false)
+                    }, 1000)
+                  }} className="px-6 py-3 buttonTracker border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                    Buy from Raydium
+                  </button>
+                  {
+                    showPopup &&
+                    <span className="bg-[#EDF9D0] absolute top-[-20px] left-0 p-2 text-[#181C13] text-[12px] rounded-2xl">
+                      Would be available at launch!
+                    </span>
+                  }
+
+                </div>
 
               </div>
             </div>

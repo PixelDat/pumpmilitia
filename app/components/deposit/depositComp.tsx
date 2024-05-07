@@ -105,7 +105,7 @@ export default function DepositCompPage() {
     {
       title: 'connect your wallet',
       image: '/images/deposit/connect.png',
-      subtitle: 'ComClick the “Connect” button to connect your Defi walletpleted',
+      subtitle: 'Click the “Connect” button to connect your Defi walletpleted',
     },
     {
       title: 'Enter Amount',
@@ -268,6 +268,8 @@ export default function DepositCompPage() {
     }, 2000)
   }
 
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
 
     <div onClick={() => setVisible(false)} className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
@@ -358,7 +360,7 @@ export default function DepositCompPage() {
 
               <div className="w-10/12 m-auto">
                 <p className="text-[14px] md:text-[16px] pt-8 text-center">
-                  Swap your in-game coins for $PUMP tokens and unlock a whole new level of value in your gaming experience.
+                  Swap your $PUMP tokens for in-game coins and unlock a whole new level of value in your gaming experience.
                 </p>
               </div>
 
@@ -376,7 +378,7 @@ export default function DepositCompPage() {
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">099998</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#e4a43d] font-gameria text-[16px] md:text-[24px]">099998</span></p>
                     </div>
                   </div>
 
@@ -484,9 +486,23 @@ export default function DepositCompPage() {
                 <div>
                   <p className="text-center text-[#898989]">Deposits would begin after $PUMP token launch</p>
                 </div>
-                <button className="px-6 py-3 buttonTracker border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
-                  Buy from Raydium
-                </button>
+                <div className="relative">
+                  <button onClick={() => {
+                    setShowPopup(true)
+                    setTimeout(() => {
+                      setShowPopup(false)
+                    }, 1000)
+                  }} className="px-6 py-3 buttonTracker border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                    Buy from Raydium
+                  </button>
+                  {
+                    showPopup &&
+                    <span className="bg-[#EDF9D0] absolute top-[-20px] left-0 p-2 text-[#181C13] text-[12px] rounded-2xl">
+                      Would be available at launch!
+                    </span>
+                  }
+
+                </div>
 
               </div>
             </div>
