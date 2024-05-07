@@ -91,6 +91,8 @@ export default function LoginPage() {
             }, 2000)
             return;
         }
+        // Save email to cookie
+        Cookies.set("emailForSignIn", email);
         // Perform email existence check via your API
         let params = {
             email: email,
@@ -200,6 +202,32 @@ export default function LoginPage() {
     useEffect(() => {
         handleSignInWithEmailLink();
     }, []);
+
+    const forgotPassword = async () => {
+        const emailGotten = Cookies.get('emailForSignIn');
+        setloading(true);
+        let params = {
+            email: emailGotten,
+        };
+        let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/login";
+        try {
+            const response = await axios.post(url, params);
+            location.href = "/forget-password";
+        } catch (error: any) {
+            if (error.response) {
+                setError(true);
+                setErrMessage(error.response.data.message);
+                setloading(false)
+                console.log(`${error.response.data.message}`);
+                setTimeout(() => { setError(false) }, 2000)
+            } else {
+                console.log(`An error occurred: ${error.message}`);
+            }
+        }
+
+        // console.log('Forgot Password Clicked', emailGotten)
+
+    }
     return (
         <div
             style={{ position: "fixed", width: "100%", height: "100vh" }}
@@ -319,7 +347,7 @@ export default function LoginPage() {
                         <div className="my-5">
                             <button
                                 onClick={checkEmailExists}
-                                className="navbar-auth-btn w-full"
+                                className="navbar-auth-btn buttonTracker w-full"
                             >
                                 {loading ? <CircularProgress size={16} color="inherit" /> : "Get In"}
                             </button>
@@ -328,7 +356,7 @@ export default function LoginPage() {
                         <div className="my-5">
                             <button
                                 onClick={HandleLogin}
-                                className="navbar-auth-btn w-full"
+                                className="navbar-auth-btn buttonTracker w-full"
                             >
                                 {loading ? <CircularProgress size={16} color="inherit" /> : "Login"}
                             </button>
@@ -374,6 +402,7 @@ export default function LoginPage() {
                     ) : (
                         <div className="font-bold text-[#A5E314] mt-3 grid grid-cols-2 divide-[#A5E314] justify-between divide-x-2">
                             <p
+                                style={{ cursor: 'pointer' }}
                                 onClick={() => {
                                     setEmailExists(false);
                                 }}
@@ -381,7 +410,7 @@ export default function LoginPage() {
                             >
                                 Change Email
                             </p>
-                            <p className="text-center">Forgot Passord</p>
+                            <p style={{ cursor: 'pointer' }} onClick={() => forgotPassword()} className="text-center">Forgot Passord</p>
                         </div>
                     )}
                 </div>

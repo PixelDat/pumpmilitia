@@ -105,7 +105,7 @@ export default function Signup() {
                         </>
                     }
                     <div className="my-5">
-                        <button onClick={HandleSignup} className="navbar-auth-btn w-full">Get In</button>
+                        <button onClick={HandleSignup} className="navbar-auth-btn buttonTracker w-full">Get In</button>
                     </div>
                     <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try either of this below, only when “email address” fails to get you in.</FormHelperText>
 

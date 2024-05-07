@@ -25,8 +25,8 @@ const Faqs = () => {
                             If there are any questions not answered here, please join the Discord community to request for further assistance.
                         </div>
 
-                        <button className="border border-[#89BD11] rounded-xl px-6 py-3 w-fit">
-                            <a href="https://discord.com/invite/tvZGAP4Qt8" target="_blank" className='font-sans text-vivd-lime-green-10 text-sm'>
+                        <button className="border buttonTracker border-[#89BD11] rounded-xl px-6 py-3 w-fit">
+                            <a href="https://discord.com/invite/tvZGAP4Qt8" target="_blank" className='font-sans buttonTracker text-vivd-lime-green-10 text-sm'>
                                 Join Discord Community
                             </a>
                         </button>
@@ -71,8 +71,8 @@ const Faqs = () => {
                     If there are any questions not answered here, please join the Discord community to request for further assistance.
                 </div>
 
-                <button className="border border-[#89BD11] rounded-xl px-6 py-3 w-fit">
-                    <a href="https://discord.com/invite/tvZGAP4Qt8" target="_blank" className='font-sans text-vivd-lime-green-10 text-sm'>
+                <button className="border buttonTracker border-[#89BD11] rounded-xl px-6 py-3 w-fit">
+                    <a href="https://discord.com/invite/tvZGAP4Qt8" target="_blank" className='font-sans buttonTracker text-vivd-lime-green-10 text-sm'>
                         Join Discord Community
                     </a>
                 </button>
