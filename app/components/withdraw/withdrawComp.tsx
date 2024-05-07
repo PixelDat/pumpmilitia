@@ -366,7 +366,7 @@ export default function WithdrawPage() {
                 <CustomInput
                   addOnStart={<Image
                     className=""
-                    src={'/images/deposit/pumpcoin.png'}
+                    src={'/images/deposit/pumpgreencoin.png'}
                     width={32}
                     height={32}
                     priority
