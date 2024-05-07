@@ -81,6 +81,11 @@ export default function SavePassword() {
 
     async function CreatePassword() {
         setLoading(true);
+        let data = {
+            password: password,
+        }
+        // console.log(tempSessionId);
+        // return
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
@@ -88,8 +93,10 @@ export default function SavePassword() {
             headers: {
                 'Authorization': `${tempSessionId}`
             },
-            body: JSON.stringify({ password: password })
+            body: JSON.stringify(data)
         };
+
+        // console.log(config);
         try {
             const response = await axios.request(config);
             if (response.status === 200) {

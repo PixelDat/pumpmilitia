@@ -452,7 +452,7 @@ export default function WithdrawPage() {
                       setShowPopup(false)
                     }, 1000)
                   }} className="px-6 py-3 buttonTracker border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
-                    Buy from Raydium
+                    Sell on Raydium
                   </button>
                   {
                     showPopup &&
