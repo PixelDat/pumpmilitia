@@ -285,16 +285,16 @@ export default function Presale() {
                             </div>
 
                             <div className="flex flex-col md:flex-row gap-4">
-                              <button className="bg-vivd-lime-green w-full component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
+                              <button className="bg-vivd-lime-green w-full buttonTracker component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
                                 Connect Wallet
                               </button>
 
-                              <button className="px-6 py-3 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                              <button className="px-6 py-3 border w-full component_btn_transparent buttonTracker border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                                 Buy now
                               </button>
                             </div>
 
-                            <button className="px-6 py-3 font-gameria border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
+                            <button className="px-6 py-3 font-gameria border w-full buttonTracker component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                               Whitelist Status
                             </button>
                           </div>
@@ -356,7 +356,7 @@ export default function Presale() {
                                 }
                               />
                             </div>
-                            <button onClick={() => checkWhitelistStatus()} className="px-6 py-4 font-gameria border w-full text-[#161911] bg-vivd-lime-green  hover:bg-[#466417]  border-vivd-lime-green rounded-xl">
+                            <button onClick={() => checkWhitelistStatus()} className="px-6 py-4 buttonTracker font-gameria border w-full text-[#161911] bg-vivd-lime-green  hover:bg-[#466417]  border-vivd-lime-green rounded-xl">
                               {loading ? <CircularProgress color="inherit" size={16} /> : 'Check  Whitelist Status'}
                             </button>
                           </div>
@@ -531,7 +531,7 @@ export default function Presale() {
                           </div>
                           {index == 1 &&
                             <div>
-                              <button className="px-6 relative py-2 border w-full bg-[#A5E314] h-border-vivd-lime-green rounded-xl text-[#303827]">
+                              <button className="px-6 relative py-2 border w-full bg-[#A5E314] buttonTracker h-border-vivd-lime-green rounded-xl text-[#303827]">
                                 Buy $PUMP Token
                               </button>
                             </div>

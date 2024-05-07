@@ -8,10 +8,10 @@ import BlipNinja from '../blipninja/blip'
 const MinePump = () => {
   const [selectedItem, setSelectedItem] = useState(0);
   function switchItems(index: number, button: string) {
-    if (button === 'backward') {
+    if (button === 'forward') {
       index == 0 ? setSelectedItem(2) : setSelectedItem(index - 1)
     }
-    if (button === 'forward') {
+    if (button === 'backward') {
       index == items.length - 1 ? setSelectedItem(0) : setSelectedItem(index + 1)
     }
   }

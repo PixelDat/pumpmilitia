@@ -342,11 +342,11 @@ export default function LoginPageMain() {
                     }
                     {!emailExists ?
                         <div className="my-5">
-                            <button onClick={checkEmailExists} className="navbar-auth-btn w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button>
+                            <button onClick={checkEmailExists} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button>
                         </div>
                         :
                         <div className="my-5">
-                            <button onClick={HandleLogin} className="navbar-auth-btn w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Login'}</button>
+                            <button onClick={HandleLogin} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Login'}</button>
                         </div>
                     }
                     {

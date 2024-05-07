@@ -162,7 +162,7 @@ export default function VerifyEmail() {
                         <button
                             disabled={countDown > 0}
                             onClick={resendVerificationLink}
-                            className={`navbar-auth-btn w-full ${countDown > 0 && "blur-[2px]"}`}
+                            className={`navbar-auth-btn buttonTracker w-full ${countDown > 0 && "blur-[2px]"}`}
                         >
                             Resend Link
                         </button>

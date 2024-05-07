@@ -4,7 +4,7 @@ import BlipNinja from "../components/blipninja/blip"
 import { AppImages } from "@/lib/constants/app_images"
 import { CircularProgress, FormHelperText, } from "@mui/material"
 import CustomInput from "../components/customInput/customInput"
-import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, ReportGmailerrorredRounded, VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material"
+import { ArrowForward, CloseRounded, LockRounded, MailOutlineRounded, Password, ReportGmailerrorredRounded, VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material"
 import '../styles/navbar.css';
 import { useEffect, useState } from "react"
 import { Helpers } from "@/lib/utils/helper"
@@ -30,10 +30,11 @@ const auth = getAuth(app);
 
 
 
-export default function SavePassword() {
-    const [showPassword, setShowPassword] = useState(true)
+export default function ForgotPassword() {
+    const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState(false)
     const [password, setPassword] = useState('')
+    const [otp, setOtp] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const searchParams = useSearchParams()
     const [errors, setErrors] = useState<string[]>([]);
@@ -79,7 +80,7 @@ export default function SavePassword() {
     }, [password, confirmPassword])
 
 
-    async function CreatePassword() {
+    async function UpdatePassword() {
         setLoading(true);
         let config = {
             method: 'post',
@@ -88,16 +89,15 @@ export default function SavePassword() {
             headers: {
                 'Authorization': `${tempSessionId}`
             },
-            body: JSON.stringify({ password: password })
+            body: JSON.stringify({ password: password, otp: otp })
         };
         try {
             const response = await axios.request(config);
             if (response.status === 200) {
                 Cookies.set("encrypt_id", `${response.data.encypted_session_id}`);
                 setLoading(false);
-                setToastItem({ toastType: 'success', toastMessage: "Signed In Successfully!" });
-                setSignedInText("Go Back to Pump Militia and use your email and password to login");
-                setcanViewGoBackMsg(true);
+                setToastItem({ toastType: 'success', toastMessage: "Password Updated Successfully!" });
+                location.href = "pumpmilitiaAuth/type=login;data=";
                 setTimeout(() => {
                     setToastItem({
                         toastType: '',
@@ -171,8 +171,8 @@ export default function SavePassword() {
                         className=""
                         onChange={(e) => setPassword(e.target.value)}
                         sx={{ marginBottom: '10px' }}
-                        label="Password"
-                        placeholder="Enter password"
+                        label="Enter New Password"
+                        placeholder="Enter New password"
                         type={showPassword ? "text" : "password"}
                         addOnStart={<LockRounded color="inherit" />}
                         addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
@@ -216,8 +216,8 @@ export default function SavePassword() {
                         error={error}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         sx={{ marginBottom: '10px' }}
-                        label="Re-enter Password"
-                        placeholder="Enter password"
+                        label="Re-enter New Password"
+                        placeholder="Re-enter New password"
                         type={showPassword ? "text" : "password"}
                         addOnStart={<LockRounded color="inherit" />}
                         addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
@@ -232,8 +232,20 @@ export default function SavePassword() {
                             </div>
                         </>
                     }
+
+                    <CustomInput
+                        disabled={errors.length == 0 ? false : true}
+                        className=""
+                        error={false}
+                        onChange={(e) => setOtp(e.target.value)}
+                        sx={{ marginBottom: '10px' }}
+                        label="Enter OTP Sent"
+                        placeholder="Enter Otp Sent"
+                        type={"number"}
+                        addOnStart={<Password color="inherit" />}
+                    />
                     <div className={`${errors.length == 0 ? "my-5" : "blur-[2px] my-5"}`}>
-                        <button disabled={error} onClick={() => CreatePassword()} className="navbar-auth-btn buttonTracker  w-full">{loading ? <CircularProgress size={14} color="inherit" /> : 'Set Password'}</button>
+                        <button disabled={error} onClick={() => UpdatePassword()} className="navbar-auth-btn buttonTracker  w-full">{loading ? <CircularProgress size={14} color="inherit" /> : 'Update Password'}</button>
                     </div>
 
                 </div>

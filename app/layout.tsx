@@ -1,13 +1,17 @@
-import type { ReactNode } from "react";
+"use client"
+import { useEffect, type ReactNode } from "react";
 import "./styles/globals.css";
 import { Kanit } from 'next/font/google'
 import localFont from 'next/font/local'
 import Context from "./context/context";
-export const metadata = {
-  icons: {
-    icon: '/images/favicon-32x32.png',
-  },
-};
+import { initializeApp } from "firebase/app";
+import { getAnalytics, logEvent } from "@firebase/analytics";
+
+// export const metadata = {
+//   icons: {
+//     icon: '/images/favicon-32x32.png',
+//   },
+// };
 
 interface Props {
   readonly children: ReactNode;
@@ -27,10 +31,42 @@ const kanit = Kanit({
   subsets: ['latin'],
   weight: ['400']
 })
-
-
+// Initialize Firebase app and analytics
+const firebaseConfig = {
+  apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc",
+  authDomain: "everpump-6e275.firebaseapp.com",
+  projectId: "everpump-6e275",
+  storageBucket: "everpump-6e275.appspot.com",
+  messagingSenderId: "138957984497",
+  appId: "1:138957984497:web:6be3945adff541c5380f50",
+  measurementId: "G-8T2XXV37GT",
+};
 
 export default function RootLayout({ children }: Props) {
+
+  useEffect(() => {
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    logEvent(analytics, 'page-viewed', { name: window.location.pathname });
+
+    const buttons = document.querySelectorAll('button');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const buttonText = button.textContent || 'Unknown';
+        console.log(buttonText)
+        logEvent(analytics, 'button_click', {
+          description: `This button is ${buttonText.trim()} button`
+        });
+      });
+    });
+    return () => {
+    };
+  }, []);
+
+
+
   return (
 
     <html lang="en">

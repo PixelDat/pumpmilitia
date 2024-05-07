@@ -508,7 +508,7 @@ export default function Dashboard() {
                                   autocomplete="off"
                                   addOnStart={<Person2Rounded color="inherit" className="border rounded-full" />}
                                   addOnEnd={
-                                    <button onClick={() => { markTaskCompleted(task.task_id, task.action_button_link, index) }} className="text-[#E1F6B1]" >
+                                    <button onClick={() => { markTaskCompleted(task.task_id, task.action_button_link, index) }} className="text-[#E1F6B1] buttonTracker" >
                                       {loading && selected === index ? <CircularProgress size={18} color="inherit" /> : 'Continue'}
                                     </button>
                                   }
