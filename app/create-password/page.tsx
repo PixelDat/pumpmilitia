@@ -31,7 +31,7 @@ const auth = getAuth(app);
 
 
 export default function SavePassword() {
-    const [showPassword, setShowPassword] = useState(true)
+    const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState(false)
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
