@@ -34,10 +34,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const actionCodeSettings = {
-    url: "https://pumpmilitia.io/create-password/",
-    handleCodeInApp: true,
-};
+
 
 export default function VerifyEmail() {
     let encrypt = Cookies.get("encrypt");
@@ -48,6 +45,23 @@ export default function VerifyEmail() {
     const [countDown, setCountDown] = useState(60);
     const [otp, setOtp] = useState("");
     const [toastShow, setToastShow] = useState(true);
+    const [toastContent, setToastContent] = useState("Click on the verification link sent to your email");
+    const [toastType, setToastType] = useState('info');
+    
+    const [email, setEmail] = useState("");
+    const [tempSessionId, setTempSessionId] = useState("");
+
+    const actionCodeSettings = {
+        url: "https://pumpmilitia.io/create-password/?tempSessionId={tempSessionId}",
+        handleCodeInApp: true,
+    };
+
+    
+
+    useEffect(() => {
+        setEmail(Cookies.get("emailForSignIn"));
+        setTempSessionId(Cookies.get("tempSessionId"));
+    }, []);
 
     useEffect(() => {
         setTimeout(() => {
@@ -89,17 +103,32 @@ export default function VerifyEmail() {
 
     function resendVerificationLink() {
         setCountDown(60); // reset countdown timer
-        firebaseSignUp(() => console.log("Email sent"));
+        firebaseSignUp(email, async () => {
+            console.log("Email sent")
+        });
     }
 
-    const firebaseSignUp = async (callback: () => void) => {
+    const firebaseSignUp = async (email: string, callback: () => void) => {
         try {
-            let email = Cookies.get("emailForSignIn");
-            await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-            // Execute the callback function
+            const encodedtempSessionId = encodeURIComponent(tempSessionId);
+            const customUrl = actionCodeSettings.url.replace("{tempSessionId}", encodedtempSessionId);
+
+            await sendSignInLinkToEmail(auth, email, {
+                ...actionCodeSettings,
+                url: customUrl
+            });
+
+            // Update the toast message state
+            setToastType('success');
+            setToastContent('Click on the verification link sent to your email');
+            setToastShow(true);
             callback();
         } catch (error) {
             console.error("Error sending email link", error);
+            // Optionally, you could handle error showing in toast as well
+            setToastType('error');
+            setToastContent('Failed to send verification link. Please try again.');
+            setToastShow(true);
         }
     };
 
@@ -110,8 +139,8 @@ export default function VerifyEmail() {
         >
             {toastShow && (
                 <ToastComponent
-                    type="success"
-                    content="Click on the verification link sent to your email"
+                    type={toastType}
+                    content={toastContent}
                     addOnStart={
                         <Image
                             src={"/images/launch/sms-tracking.png"}

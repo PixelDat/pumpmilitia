@@ -47,10 +47,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const twitterProvider = new TwitterAuthProvider();
 const googleProvider = new GoogleAuthProvider();
-const actionCodeSettings = {
-    url: "https://pumpmilitia.io/create-password/?tempSessionId={tempSessionId}",
-    handleCodeInApp: true,
-};
+
 export default function gameAuthPage() {
     const [error, setError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -67,6 +64,11 @@ export default function gameAuthPage() {
     let cross_authkey = "";
     let refID = "";
     const params = useParams();
+
+    const actionCodeSettings = {
+        url: "https://pumpmilitia.io/create-password/?tempSessionId={tempSessionId}",
+        handleCodeInApp: true,
+    };
 
     try {
         const collected_param_raw = decodeURIComponent(params.id.toString());
