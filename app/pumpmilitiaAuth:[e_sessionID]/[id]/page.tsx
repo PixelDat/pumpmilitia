@@ -48,7 +48,7 @@ const auth = getAuth(app);
 const twitterProvider = new TwitterAuthProvider();
 const googleProvider = new GoogleAuthProvider();
 const actionCodeSettings = {
-    url: "https://pumpmilitia.io/create-password/",
+    url: "https://pumpmilitia.io/create-password/?tempSessionId={tempSessionId}",
     handleCodeInApp: true,
 };
 export default function gameAuthPage() {
@@ -62,6 +62,7 @@ export default function gameAuthPage() {
     const [emailExists, setEmailExists] = useState(false);
     const [canViewGoBackMsg, setcanViewGoBackMsg] = useState(false);
     const [signedInText, setSignedInText] = useState("You are signed in! Go Back to Pump Militia");
+    const [tempSessionId, setTempSessionId] = useState("");
 
     let cross_authkey = "";
     let refID = "";
@@ -89,9 +90,17 @@ export default function gameAuthPage() {
     }
 
     const firebaseSignUp = async (email: string, callback: () => void) => {
-        let password = uuidv4();
+
         try {
-            await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+            // Encode the user's email to make it URL-safe
+            const encodedtempSessionId = encodeURIComponent(tempSessionId);
+            // Replace the placeholder in the URL with the encoded email
+            const customUrl = actionCodeSettings.url.replace("{tempSessionId}", encodedtempSessionId);
+
+            await sendSignInLinkToEmail(auth, email, {
+            ...actionCodeSettings,
+            url: customUrl
+             });
             // Execute the callback function
             callback();
         } catch (error) {
@@ -141,32 +150,35 @@ export default function gameAuthPage() {
 
                 // If the email does not exsist
 
-                firebaseSignUp(email, async () => {
 
-                    // Perform email existence check via your API
-                    let params = {
-                        email: email,
-                    };
-                    let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup";
-                    try {
-                        const response = await axios.post(url, params);
-                        //    setError(true);
-                        setloading(false);
+                // Perform email existence check via your API
+                let params = {
+                    email: email,
+                };
+                let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/temp-signup";
+                try {
+                    const response = await axios.post(url, params);
+                    //    setError(true);
+                    setloading(false);
+                    setTempSessionId(response.data.userId);
+                    firebaseSignUp(email, async () => {
                         Cookies.set("emailForSignIn", email);
                         Cookies.set("tempSessionId", response.data.userId);
                         location.href = "/verify-email";
+                    });
+                    
 
-                    } catch (error: any) {
-                        if (error.response && error.response.status === 400) {
-                            setError(false);
-                            setEmailExists(true);
-                            setloading(false);
-                        } else {
-                            console.log(`An error occurred: ${error.message}`);
-                        }
+                } catch (error: any) {
+                    if (error.response && error.response.status === 400) {
+                        setError(false);
+                        setEmailExists(true);
+                        setloading(false);
+                    } else {
+                        console.log(`An error occurred: ${error.message}`);
                     }
+                }
 
-                });
+                
 
             } else if (error.response && error.response.status === 405) {
                 // If the email exsists but is not verified
