@@ -79,8 +79,6 @@ export default function gameAuthPage() {
         const operationData = collected_param[1].split("=")[1];
 
 
-        console.log(operationType + "--" + operationData);
-
         if (operationType === "referral") {
             referralProcessor();
             refID = operationData;
@@ -91,15 +89,13 @@ export default function gameAuthPage() {
         console.error('Error processing parameters:', e);
     }
 
-    const firebaseSignUp = async (email: string, callback: () => void) => {
+    const firebaseSignUp = async (email: string, _tempSessionId: string,  callback: () => void) => {
 
         try {
             // Encode the user's email to make it URL-safe
-            const encodedtempSessionId = encodeURIComponent(tempSessionId);
+            const encodedtempSessionId = encodeURIComponent(_tempSessionId);
             // Replace the placeholder in the URL with the encoded email
             const customUrl = actionCodeSettings.url.replace("{tempSessionId}", encodedtempSessionId);
-
-            console.log("Custom URL", customUrl);
 
             await sendSignInLinkToEmail(auth, email, {
             ...actionCodeSettings,
@@ -165,14 +161,12 @@ export default function gameAuthPage() {
                     //    setError(true);
                     setloading(false);
                     setTempSessionId(response.data.userId);
-                    Cookies.set("emailForSignIn", email);
-                    Cookies.set("tempSessionId", response.data.userId);
-                    // firebaseSignUp(email, async () => {
-                    //     Cookies.set("emailForSignIn", email);
-                    //     Cookies.set("tempSessionId", response.data.userId);
-                    //     location.href = "/verify-email";
-                    // });
-                    location.href = "/verify-email";
+                    firebaseSignUp(email, response.data.userId, async () => {
+                        Cookies.set("emailForSignIn", email);
+                        Cookies.set("tempSessionId", response.data.userId);
+                        location.href = "/verify-email";
+                    });
+                    
 
                 } catch (error: any) {
                     if (error.response && error.response.status === 400) {
@@ -249,7 +243,6 @@ export default function gameAuthPage() {
                     { headers: { Authorization: authToken } }
                 );
                 if (res.status === 200) {
-                    console.log(res);
                     setloading(false)
                     Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
                     successfullAuth();
