@@ -99,6 +99,8 @@ export default function gameAuthPage() {
             // Replace the placeholder in the URL with the encoded email
             const customUrl = actionCodeSettings.url.replace("{tempSessionId}", encodedtempSessionId);
 
+            console.log("Custom URL", customUrl);
+
             await sendSignInLinkToEmail(auth, email, {
             ...actionCodeSettings,
             url: customUrl

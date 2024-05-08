@@ -111,7 +111,10 @@ export default function VerifyEmail() {
     const firebaseSignUp = async (email: string, callback: () => void) => {
         try {
             const encodedtempSessionId = encodeURIComponent(tempSessionId);
+          
             const customUrl = actionCodeSettings.url.replace("{tempSessionId}", encodedtempSessionId);
+
+            console.log("Custom URL", customUrl);
 
             await sendSignInLinkToEmail(auth, email, {
                 ...actionCodeSettings,
