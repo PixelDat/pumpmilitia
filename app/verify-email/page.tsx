@@ -61,6 +61,7 @@ export default function VerifyEmail() {
     useEffect(() => {
         setEmail(Cookies.get("emailForSignIn"));
         setTempSessionId(Cookies.get("tempSessionId"));
+        resendVerificationLink();
     }, []);
 
     useEffect(() => {

@@ -165,12 +165,14 @@ export default function gameAuthPage() {
                     //    setError(true);
                     setloading(false);
                     setTempSessionId(response.data.userId);
-                    firebaseSignUp(email, async () => {
-                        Cookies.set("emailForSignIn", email);
-                        Cookies.set("tempSessionId", response.data.userId);
-                        location.href = "/verify-email";
-                    });
-                    
+                    Cookies.set("emailForSignIn", email);
+                    Cookies.set("tempSessionId", response.data.userId);
+                    // firebaseSignUp(email, async () => {
+                    //     Cookies.set("emailForSignIn", email);
+                    //     Cookies.set("tempSessionId", response.data.userId);
+                    //     location.href = "/verify-email";
+                    // });
+                    location.href = "/verify-email";
 
                 } catch (error: any) {
                     if (error.response && error.response.status === 400) {
