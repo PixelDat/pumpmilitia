@@ -10,7 +10,8 @@ const NavBar = () => {
   const [loggedIn, setLoggedIn] = useState(false)
   useEffect(() => {
     let encrypt = Cookies.get('encrypt_id');
-    if (encrypt) {
+    console.log(encrypt);
+    if (encrypt && encrypt != undefined) {
       setLoggedIn(true)
     } else {
       setLoggedIn(false)
