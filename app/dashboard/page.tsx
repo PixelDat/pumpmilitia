@@ -56,7 +56,7 @@ export default function Dashboard() {
 
   const [selectTaskErr, setSelectTaskError] = useState({ id: '', status: false });
 
-  console.log(selectTaskErr.id)
+  // console.log(selectTaskErr.id)
 
   useEffect(() => {
     if (!encrypt) {
@@ -337,8 +337,8 @@ export default function Dashboard() {
               {tasksCount.map((task, index) => {
                 let gradient = index % 2 != 0 ? 'bg-gradient-to-t md:bg-gradient-to-b' : 'bg-gradient-to-t';
                 return (
-                  <div className={`${gradient} basis-1/3 from-[#A5E314]/50 to-black flex flex-row justify-center p-0.5 rounded-3xl`}>
-                    <div key={`${index}-${task}`} className="h-[261px] relative px-[34.7px] py-[13px] w-full text-center md:text-start md:w-full bg-black/80 rounded-3xl">
+                  <div key={`${index}-${task}`} className={`${gradient} basis-1/3 from-[#A5E314]/50 to-black flex flex-row justify-center p-0.5 rounded-3xl`}>
+                    <div className="h-[261px] relative px-[34.7px] py-[13px] w-full text-center md:text-start md:w-full bg-black/80 rounded-3xl">
                       <h4 className="text-[45px] font-[500]">{task.number}</h4>
                       <p className="text-[17px]">{task.status}</p>
                       <div className="flex flex-row justify-center md:justify-start">

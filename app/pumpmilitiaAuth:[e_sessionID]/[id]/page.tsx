@@ -78,7 +78,6 @@ export default function gameAuthPage() {
         const operationType = collected_param[0].split("=")[1];
         const operationData = collected_param[1].split("=")[1];
 
-
         if (operationType === "referral") {
             referralProcessor();
             refID = operationData;
@@ -89,7 +88,7 @@ export default function gameAuthPage() {
         console.error('Error processing parameters:', e);
     }
 
-    const firebaseSignUp = async (email: string, _tempSessionId: string,  callback: () => void) => {
+    const firebaseSignUp = async (email: string, _tempSessionId: string, callback: () => void) => {
 
         try {
             // Encode the user's email to make it URL-safe
@@ -98,9 +97,9 @@ export default function gameAuthPage() {
             const customUrl = actionCodeSettings.url.replace("{tempSessionId}", encodedtempSessionId);
 
             await sendSignInLinkToEmail(auth, email, {
-            ...actionCodeSettings,
-            url: customUrl
-             });
+                ...actionCodeSettings,
+                url: customUrl
+            });
             // Execute the callback function
             callback();
         } catch (error) {
@@ -158,15 +157,13 @@ export default function gameAuthPage() {
                 let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/temp-signup";
                 try {
                     const response = await axios.post(url, params);
-                    //    setError(true);
-                    setloading(false);
                     setTempSessionId(response.data.userId);
                     firebaseSignUp(email, response.data.userId, async () => {
                         Cookies.set("emailForSignIn", email);
                         Cookies.set("tempSessionId", response.data.userId);
                         location.href = "/verify-email";
                     });
-                    
+
 
                 } catch (error: any) {
                     if (error.response && error.response.status === 400) {
@@ -178,12 +175,12 @@ export default function gameAuthPage() {
                     }
                 }
 
-                
+
 
             } else if (error.response && error.response.status === 405) {
                 // If the email exsists but is not verified
-                setError(true);
-                setloading(false);
+                setError(false);
+                // setloading(false);
                 Cookies.set("emailForSignIn", email);
                 Cookies.set("tempSessionId", error.response.data.userId);
                 location.href = "/verify-email";
@@ -288,7 +285,7 @@ export default function gameAuthPage() {
     useEffect(() => {
         handleSignInWithEmailLink();
         let encrypt = Cookies.get('encrypt_id');
-        if (encrypt) {
+        if (encrypt != 'undefined' && encrypt) {
             successfullAuth();
             setcanViewGoBackMsg(true);
         }
@@ -536,7 +533,7 @@ export default function gameAuthPage() {
                                     onClick={() => { handleExternalLogin('twitter') }}
 
                                     className="object-center"
-                                    src={'/images/xacct.png'}
+                                    src={'/images/xicon.png'}
                                     width={44}
                                     height={44}
                                     alt="X(formerly twitter) icon"
