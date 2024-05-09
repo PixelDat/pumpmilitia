@@ -47,7 +47,7 @@ export default function VerifyEmail() {
     const [toastShow, setToastShow] = useState(true);
     const [toastContent, setToastContent] = useState("Click on the verification link sent to your email");
     const [toastType, setToastType] = useState('info');
-    
+
     const [email, setEmail] = useState("");
     const [tempSessionId, setTempSessionId] = useState("");
 
@@ -56,7 +56,7 @@ export default function VerifyEmail() {
         handleCodeInApp: true,
     };
 
-    
+
 
     useEffect(() => {
         setEmail(Cookies.get("emailForSignIn"));
@@ -111,7 +111,7 @@ export default function VerifyEmail() {
     const firebaseSignUp = async (email: string, callback: () => void) => {
         try {
             const encodedtempSessionId = encodeURIComponent(tempSessionId);
-          
+
             const customUrl = actionCodeSettings.url.replace("{tempSessionId}", encodedtempSessionId);
 
             console.log("Custom URL", customUrl);

@@ -58,7 +58,7 @@ export default function SavePassword() {
                     // const response = await applyActionCode(auth, oobCode);
                     setTempSessionId(Cookies.get("tempSessionId"));
                     setPassedTempSessionId(passedTempSessionIdRaw || ''); // Provide a default value for passedEmail
-                    console.log("tempSessionId",passedTempSessionIdRaw);
+                    console.log("tempSessionId", passedTempSessionIdRaw);
                 } catch (error: any) {
                     console.log(error?.message)
                 }
@@ -82,22 +82,22 @@ export default function SavePassword() {
 
     }, [password, confirmPassword])
 
- async function CreatePassword() {
+    async function CreatePassword() {
         setLoading(true);  // Activate the loading state
-    
+
         try {
             // Step 1: Fetch the email from the endpoint, include Authorization header
             const emailResponse = await axios.post("https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/check-temp-user-email", {}, {
                 headers: { Authorization: `${passedTempSessionId}` }
             });
             const email = emailResponse.data.email; // Extract email from the fetched data
-    
+
             // Step 2: Use the email to perform the signup
             const signupUrl = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup";
             const signupResponse = await axios.post(signupUrl, { email });
             if (signupResponse.status === 200) {
                 const userId = signupResponse.data.userId; // Extract userId from the signup response
-    
+
                 // Step 3: Set the password using the userId for Authorization
                 const setPasswordUrl = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/set-password";
                 const setPasswordResponse = await axios.post(
@@ -105,7 +105,7 @@ export default function SavePassword() {
                     { password },
                     { headers: { Authorization: `${userId}` } } // Use userId as the Authorization header
                 );
-    
+
                 if (setPasswordResponse.status === 200) {
                     Cookies.set("encrypt_id", `${userId}`);
                     setLoading(false);
@@ -130,7 +130,7 @@ export default function SavePassword() {
             }, 2000);
         }
     }
-    
+
 
 
     return (

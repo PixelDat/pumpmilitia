@@ -75,7 +75,7 @@ const MinePump = () => {
                   </div>)
               } else {
                 return (
-                  <div onMouseEnter={() => { setSelectedItem(index) }} onClick={() => { setSelectedItem(index) }} className="flex flex-col justify-start items-start">
+                  <div key={index} onMouseEnter={() => { setSelectedItem(index) }} onClick={() => { setSelectedItem(index) }} className="flex flex-col justify-start items-start">
                     <div className="font-gameria text-vivd-lime-green-10 text-[32px]">
                       {item.title}
                     </div>
@@ -135,7 +135,7 @@ const MinePump = () => {
             {items.map((item: any, index: number) => {
               if (selectedItem == index) {
                 return (
-                  <div className="flex flex-col p-4 justify-start items-start">
+                  <div key={index} className="flex flex-col p-4 justify-start items-start">
                     <div
                       //  data-aos="zoom-in-up" data-aos-duration="2000"
                       className="mb-3">

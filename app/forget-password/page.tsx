@@ -34,8 +34,9 @@ export default function ForgotPassword() {
     const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState(false)
     const [password, setPassword] = useState('')
-    const [otp, setOtp] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [otpToken, setOtpToken] = useState('')
+
     const searchParams = useSearchParams()
     const [errors, setErrors] = useState<string[]>([]);
     const [tempSessionId, setTempSessionId] = useState("")
@@ -46,7 +47,9 @@ export default function ForgotPassword() {
         toastType: '',
         toastMessage: '',
     })
+    const [countDown, setCountDown] = useState(60);
 
+    console.log(otpToken);
 
     useEffect(() => {
         const apiKey = searchParams.get('apiKey');
@@ -63,7 +66,14 @@ export default function ForgotPassword() {
         }
         checkAction();
     }, [])
-
+    useEffect(() => {
+        if (countDown > 0) {
+            const timer = setTimeout(() => {
+                setCountDown((prevCount) => prevCount - 1);
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [countDown]);
     useEffect(() => {
         let val = Helpers.isValidPassword(password)
         if (val !== true) {
@@ -82,17 +92,14 @@ export default function ForgotPassword() {
 
     async function UpdatePassword() {
         setLoading(true);
-        let config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: 'https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/set-password',
-            headers: {
-                'Authorization': `${tempSessionId}`
-            },
-            body: JSON.stringify({ password: password, otp: otp })
+        let params = {
+            token: otpToken,
+            newPassword: password,
         };
+
+        let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/password-reset";
         try {
-            const response = await axios.request(config);
+            const response = await axios.post(url, params);
             if (response.status === 200) {
                 Cookies.set("encrypt_id", `${response.data.encypted_session_id}`);
                 setLoading(false);
@@ -121,6 +128,10 @@ export default function ForgotPassword() {
 
     }
 
+    function resendOtp() {
+        setCountDown(60); // reset countdown timer
+
+    }
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center      text-white bg-[#20251A]">
             {toastItem.toastType !== '' && (
@@ -167,6 +178,9 @@ export default function ForgotPassword() {
                 {/* email address input */}
 
                 {!canViewGoBackMsg && <div className="items-center justify-center">
+                    <p style={{ cursor: 'pointer' }} onClick={() => resendOtp()} className=" text-[#A5E314] text-center my-5 pe-5">
+                        Resend Link in <span className="text-[#52594B]">{countDown}s</span>
+                    </p>
                     <CustomInput
                         className=""
                         onChange={(e) => setPassword(e.target.value)}
@@ -210,43 +224,68 @@ export default function ForgotPassword() {
                             </div>
                         </>
                     }
-                    <CustomInput
-                        disabled={errors.length == 0 ? false : true}
-                        className=""
-                        error={error}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        sx={{ marginBottom: '10px' }}
-                        label="Re-enter New Password"
-                        placeholder="Re-enter New password"
-                        type={showPassword ? "text" : "password"}
-                        addOnStart={<LockRounded color="inherit" />}
-                        addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
-                    />
-                    {
-                        error && confirmPassword.length > 0 && <>
-                            <hr className={`border-[#E2002B]  border mt-2`} />
+                    {password.length > 0 &&
+                        <>
+                            <CustomInput
+                                disabled={errors.length == 0 ? false : true}
+                                className=""
+                                error={error}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                sx={{ marginBottom: '10px' }}
+                                label="Re-enter New Password"
+                                placeholder="Re-enter New password"
+                                type={showPassword ? "text" : "password"}
+                                addOnStart={<LockRounded color="inherit" />}
+                                addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
+                            />
+                            {
+                                error && confirmPassword.length > 0 && <>
+                                    <hr className={`border-[#E2002B]  border mt-2`} />
 
-                            <div className="flex flex-row items-center p-3 gap-3">
-                                <CloseRounded className="bg-[#EC5572] text-[18px] rounded-full text-[black]" />
-                                <p className="text-[12px] text-[#F9CCD5] text-start">Password do not match.</p>
-                            </div>
+                                    <div className="flex flex-row items-center p-3 gap-3">
+                                        <CloseRounded className="bg-[#EC5572] text-[18px] rounded-full text-[black]" />
+                                        <p className="text-[12px] text-[#F9CCD5] text-start">Password do not match.</p>
+                                    </div>
+                                </>
+                            }
+
+                            <CustomInput
+                                disabled={errors.length == 0 ? false : true}
+                                className=""
+                                error={false}
+                                onChange={(e) => setOtpToken(e.target.value)}
+                                sx={{ marginBottom: '10px' }}
+                                label="Enter Token Sent"
+                                placeholder="Enter Token Sent"
+                                type={"text"}
+                                addOnStart={<Password color="inherit" />}
+                            />
+                            {/* <CustomInput
+                                className=""
+                                error={false}
+                                onChange={(e) => {
+                                    setConfirmPassword(e.target.value)
+                                    console.log(e.target.value);
+                                }}
+
+                                sx={{ marginBottom: '10px' }}
+                                label="Enter OTP Sent"
+                                placeholder="Enter Otp Sent"
+                                type={"number"}
+                                addOnStart={<Password color="inherit" />}
+                            /> */}
                         </>
-                    }
 
-                    <CustomInput
-                        disabled={errors.length == 0 ? false : true}
-                        className=""
-                        error={false}
-                        onChange={(e) => setOtp(e.target.value)}
-                        sx={{ marginBottom: '10px' }}
-                        label="Enter OTP Sent"
-                        placeholder="Enter Otp Sent"
-                        type={"number"}
-                        addOnStart={<Password color="inherit" />}
-                    />
+                    }
+                    {password.length == 0 &&
+                        <div className={`my-5`}>
+                            <button onClick={() => resendOtp()} className=" buttonTracker py-3 border w-full component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">{loading ? <CircularProgress size={14} color="inherit" /> : 'Resend OTP'}</button>
+                        </div>
+                    }
                     <div className={`${errors.length == 0 ? "my-5" : "blur-[2px] my-5"}`}>
                         <button disabled={error} onClick={() => UpdatePassword()} className="navbar-auth-btn buttonTracker  w-full">{loading ? <CircularProgress size={14} color="inherit" /> : 'Update Password'}</button>
                     </div>
+
 
                 </div>
                 }

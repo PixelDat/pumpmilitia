@@ -406,8 +406,8 @@ export default function Presale() {
                   let gradient = index % 2 != 0 ? 'bg-gradient-to-l md:bg-gradient-to-b' : 'bg-gradient-to-r md:bg-gradient-to-t';
                   let hidden = index == tasksCount.length - 1 && 'md:hidden';
                   return (
-                    <div className={`${gradient} ${hidden} h-[281px] shrink-0 w-[274px] md:max-w-[284px]  from-[#A5E314]/50 to-black  p-0.5 rounded-3xl`}>
-                      <div key={`${index}-${task}`} className=" w-full h-full flex flex-row items-center justify-center relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] space-y-2 text-start  bg-black/80 rounded-3xl">
+                    <div key={`${index}-${task}`} className={`${gradient} ${hidden} h-[281px] shrink-0 w-[274px] md:max-w-[284px]  from-[#A5E314]/50 to-black  p-0.5 rounded-3xl`}>
+                      <div className=" w-full h-full flex flex-row items-center justify-center relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] space-y-2 text-start  bg-black/80 rounded-3xl">
                         <div className="space-y-4 md:space-y-0">
                           <div className="flex flex-row leading-tight justify-start">
                             <Image
@@ -483,8 +483,8 @@ export default function Presale() {
                 // let border = index == 0 ? 'border-t-2 md:border-e-2 md:border-t-0 md:p-e-8' : index == 2 ? 'border-t-2 md:border-t-0 md:border-s-2 md:p-s-8' : '';
                 return (
                   <div className={`border-[#A5E314] ${order} ${border} p-6`}>
-                    <div className={`${gradient} basis-1/2 from-[#A5E314]/40 to-black/20 flex flex-row justify-center p-0.5 rounded-3xl`}>
-                      <div key={`${index}-${stage}`} className={`${width} ${height} flex flex-row justify-center items-center   text-start  bg-black/70 rounded-3xl`}>
+                    <div key={`${index}-${stage}`} className={`${gradient} basis-1/2 from-[#A5E314]/40 to-black/20 flex flex-row justify-center p-0.5 rounded-3xl`}>
+                      <div className={`${width} ${height} flex flex-row justify-center items-center   text-start  bg-black/70 rounded-3xl`}>
                         <div className="space-y-8 relative px-[10px] md:px-[34.7px] py-[10px] md:py-[13px] w-full">
                           <div className="flex flex-row justify-between items-center">
                             <h4 className="text-[24px] w-full font-gameria font-[500]">{stage.title}</h4>
