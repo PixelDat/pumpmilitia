@@ -78,7 +78,6 @@ export default function gameAuthPage() {
         const operationType = collected_param[0].split("=")[1];
         const operationData = collected_param[1].split("=")[1];
 
-
         if (operationType === "referral") {
             referralProcessor();
             refID = operationData;
@@ -286,7 +285,7 @@ export default function gameAuthPage() {
     useEffect(() => {
         handleSignInWithEmailLink();
         let encrypt = Cookies.get('encrypt_id');
-        if (encrypt) {
+        if (encrypt != 'undefined' && encrypt) {
             successfullAuth();
             setcanViewGoBackMsg(true);
         }

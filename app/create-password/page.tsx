@@ -108,14 +108,13 @@ export default function SavePassword() {
 
                 if (setPasswordResponse.status === 200) {
                     Cookies.set("encrypt_id", `${setPasswordResponse.data.encrypted_session_id}`);
-                    console.log(setPasswordResponse)
-                    // setLoading(false);
-                    // setToastItem({ toastType: 'success', toastMessage: "Signed In Successfully!" });
-                    // setSignedInText("Go Back to Pump Militia and use your email and password to login");
-                    // setcanViewGoBackMsg(true);
-                    // setTimeout(() => {
-                    //     setToastItem({ toastType: '', toastMessage: '' });
-                    // }, 2000);
+                    setLoading(false);
+                    setToastItem({ toastType: 'success', toastMessage: "Signed In Successfully!" });
+                    setSignedInText("Go Back to Pump Militia and use your email and password to login");
+                    setcanViewGoBackMsg(true);
+                    setTimeout(() => {
+                        setToastItem({ toastType: '', toastMessage: '' });
+                    }, 2000);
                 }
             }
         } catch (error: any) {
