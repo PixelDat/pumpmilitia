@@ -89,7 +89,7 @@ export default function gameAuthPage() {
         console.error('Error processing parameters:', e);
     }
 
-    const firebaseSignUp = async (email: string, _tempSessionId: string,  callback: () => void) => {
+    const firebaseSignUp = async (email: string, _tempSessionId: string, callback: () => void) => {
 
         try {
             // Encode the user's email to make it URL-safe
@@ -98,9 +98,9 @@ export default function gameAuthPage() {
             const customUrl = actionCodeSettings.url.replace("{tempSessionId}", encodedtempSessionId);
 
             await sendSignInLinkToEmail(auth, email, {
-            ...actionCodeSettings,
-            url: customUrl
-             });
+                ...actionCodeSettings,
+                url: customUrl
+            });
             // Execute the callback function
             callback();
         } catch (error) {
@@ -166,7 +166,7 @@ export default function gameAuthPage() {
                         Cookies.set("tempSessionId", response.data.userId);
                         location.href = "/verify-email";
                     });
-                    
+
 
                 } catch (error: any) {
                     if (error.response && error.response.status === 400) {
@@ -178,7 +178,7 @@ export default function gameAuthPage() {
                     }
                 }
 
-                
+
 
             } else if (error.response && error.response.status === 405) {
                 // If the email exsists but is not verified
@@ -536,7 +536,7 @@ export default function gameAuthPage() {
                                     onClick={() => { handleExternalLogin('twitter') }}
 
                                     className="object-center"
-                                    src={'/images/xacct.png'}
+                                    src={'/images/xicon.png'}
                                     width={44}
                                     height={44}
                                     alt="X(formerly twitter) icon"
