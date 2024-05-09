@@ -31,7 +31,7 @@ const auth = getAuth(app);
 
 
 export default function SavePassword() {
-    const [showPassword, setShowPassword] = useState(true)
+    const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState(false)
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -82,8 +82,7 @@ export default function SavePassword() {
 
     }, [password, confirmPassword])
 
-
-    async function CreatePassword() {
+ async function CreatePassword() {
         setLoading(true);  // Activate the loading state
     
         try {
@@ -131,7 +130,6 @@ export default function SavePassword() {
             }, 2000);
         }
     }
-    
     
 
 
