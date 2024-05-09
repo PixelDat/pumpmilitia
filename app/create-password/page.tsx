@@ -45,16 +45,20 @@ export default function SavePassword() {
         toastType: '',
         toastMessage: '',
     })
+    const [passedTempSessionId, setPassedTempSessionId] = useState('');
 
 
     useEffect(() => {
         const apiKey = searchParams.get('apiKey');
         const oobCode = searchParams.get('oobCode');
+        const passedTempSessionIdRaw = searchParams.get('tempSessionId');
         const checkAction = async () => {
             if (oobCode != null) {
                 try {
                     // const response = await applyActionCode(auth, oobCode);
                     setTempSessionId(Cookies.get("tempSessionId"));
+                    setPassedTempSessionId(passedTempSessionIdRaw || ''); // Provide a default value for passedEmail
+                    console.log("tempSessionId",passedTempSessionIdRaw);
                 } catch (error: any) {
                     console.log(error?.message)
                 }
@@ -78,55 +82,56 @@ export default function SavePassword() {
 
     }, [password, confirmPassword])
 
-
-    async function CreatePassword() {
-        setLoading(true);
-        let data = {
-            password: password,
-        }
-        // console.log(tempSessionId);
-        // return
-        let config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: 'https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/set-password',
-            headers: {
-                'Authorization': `${tempSessionId}`
-            },
-            body: JSON.stringify(data)
-        };
-
-        // console.log(config);
+ async function CreatePassword() {
+        setLoading(true);  // Activate the loading state
+    
         try {
-            const response = await axios.request(config);
-            if (response.status === 200) {
-                Cookies.set("encrypt_id", `${response.data.encypted_session_id}`);
-                setLoading(false);
-                setToastItem({ toastType: 'success', toastMessage: "Signed In Successfully!" });
-                setSignedInText("Go Back to Pump Militia and use your email and password to login");
-                setcanViewGoBackMsg(true);
-                setTimeout(() => {
-                    setToastItem({
-                        toastType: '',
-                        toastMessage: '',
-                    })
-                }, 2000)
+            // Step 1: Fetch the email from the endpoint, include Authorization header
+            const emailResponse = await axios.post("https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/check-temp-user-email", {}, {
+                headers: { Authorization: `${passedTempSessionId}` }
+            });
+            const email = emailResponse.data.email; // Extract email from the fetched data
+    
+            // Step 2: Use the email to perform the signup
+            const signupUrl = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup";
+            const signupResponse = await axios.post(signupUrl, { email });
+            if (signupResponse.status === 200) {
+                const userId = signupResponse.data.userId; // Extract userId from the signup response
+    
+                // Step 3: Set the password using the userId for Authorization
+                const setPasswordUrl = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/set-password";
+                const setPasswordResponse = await axios.post(
+                    setPasswordUrl,
+                    { password },
+                    { headers: { Authorization: `${userId}` } } // Use userId as the Authorization header
+                );
+    
+                if (setPasswordResponse.status === 200) {
+                    Cookies.set("encrypt_id", `${setPasswordResponse.data.encrypted_session_id}`);
+                    setLoading(false);
+                    setToastItem({ toastType: 'success', toastMessage: "Signed In Successfully!" });
+                    setSignedInText("Go Back to Pump Militia and use your email and password to login");
+                    setcanViewGoBackMsg(true);
+                    setTimeout(() => {
+                        setToastItem({ toastType: '', toastMessage: '' });
+                    }, 2000);
+                }
             }
-
         } catch (error: any) {
-            if (error.response) {
-                setLoading(false)
-                setToastItem({ toastType: 'error', toastMessage: error.response.data.message });
-                setTimeout(() => {
-                    setToastItem({
-                        toastType: '',
-                        toastMessage: '',
-                    })
-                }, 2000)
-            }
+            // Handle errors for the entire process within a single catch block
+            setLoading(false);
+            const errorMessage = error.response?.data.message || 'Failed to process the request';
+            setToastItem({ toastType: 'error', toastMessage: errorMessage });
+            setTimeout(() => {
+                setToastItem({
+                    toastType: '',
+                    toastMessage: '',
+                });
+            }, 2000);
         }
-
     }
+    
+
 
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center      text-white bg-[#20251A]">

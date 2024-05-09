@@ -47,10 +47,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const twitterProvider = new TwitterAuthProvider();
 const googleProvider = new GoogleAuthProvider();
-const actionCodeSettings = {
-    url: "https://pumpmilitia.io/create-password/",
-    handleCodeInApp: true,
-};
+
 export default function gameAuthPage() {
     const [error, setError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -62,10 +59,16 @@ export default function gameAuthPage() {
     const [emailExists, setEmailExists] = useState(false);
     const [canViewGoBackMsg, setcanViewGoBackMsg] = useState(false);
     const [signedInText, setSignedInText] = useState("You are signed in! Go Back to Pump Militia");
+    const [tempSessionId, setTempSessionId] = useState("");
 
     let cross_authkey = "";
     let refID = "";
     const params = useParams();
+
+    const actionCodeSettings = {
+        url: "https://pumpmilitia.io/create-password/?tempSessionId={tempSessionId}",
+        handleCodeInApp: true,
+    };
 
     try {
         const collected_param_raw = decodeURIComponent(params.id.toString());
@@ -75,8 +78,6 @@ export default function gameAuthPage() {
         const operationType = collected_param[0].split("=")[1];
         const operationData = collected_param[1].split("=")[1];
 
-
-        console.log(operationType + "--" + operationData);
 
         if (operationType === "referral") {
             referralProcessor();
@@ -88,10 +89,18 @@ export default function gameAuthPage() {
         console.error('Error processing parameters:', e);
     }
 
-    const firebaseSignUp = async (email: string, callback: () => void) => {
-        let password = uuidv4();
+    const firebaseSignUp = async (email: string, _tempSessionId: string,  callback: () => void) => {
+
         try {
-            await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+            // Encode the user's email to make it URL-safe
+            const encodedtempSessionId = encodeURIComponent(_tempSessionId);
+            // Replace the placeholder in the URL with the encoded email
+            const customUrl = actionCodeSettings.url.replace("{tempSessionId}", encodedtempSessionId);
+
+            await sendSignInLinkToEmail(auth, email, {
+            ...actionCodeSettings,
+            url: customUrl
+             });
             // Execute the callback function
             callback();
         } catch (error) {
@@ -141,32 +150,35 @@ export default function gameAuthPage() {
 
                 // If the email does not exsist
 
-                firebaseSignUp(email, async () => {
 
-                    // Perform email existence check via your API
-                    let params = {
-                        email: email,
-                    };
-                    let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup";
-                    try {
-                        const response = await axios.post(url, params);
-                        //    setError(true);
-                        setloading(false);
+                // Perform email existence check via your API
+                let params = {
+                    email: email,
+                };
+                let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/temp-signup";
+                try {
+                    const response = await axios.post(url, params);
+                    //    setError(true);
+                    setloading(false);
+                    setTempSessionId(response.data.userId);
+                    firebaseSignUp(email, response.data.userId, async () => {
                         Cookies.set("emailForSignIn", email);
                         Cookies.set("tempSessionId", response.data.userId);
                         location.href = "/verify-email";
+                    });
+                    
 
-                    } catch (error: any) {
-                        if (error.response && error.response.status === 400) {
-                            setError(false);
-                            setEmailExists(true);
-                            setloading(false);
-                        } else {
-                            console.log(`An error occurred: ${error.message}`);
-                        }
+                } catch (error: any) {
+                    if (error.response && error.response.status === 400) {
+                        setError(false);
+                        setEmailExists(true);
+                        setloading(false);
+                    } else {
+                        console.log(`An error occurred: ${error.message}`);
                     }
+                }
 
-                });
+                
 
             } else if (error.response && error.response.status === 405) {
                 // If the email exsists but is not verified
@@ -231,7 +243,6 @@ export default function gameAuthPage() {
                     { headers: { Authorization: authToken } }
                 );
                 if (res.status === 200) {
-                    console.log(res);
                     setloading(false)
                     Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
                     successfullAuth();
