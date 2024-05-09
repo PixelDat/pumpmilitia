@@ -158,8 +158,6 @@ export default function gameAuthPage() {
                 let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/temp-signup";
                 try {
                     const response = await axios.post(url, params);
-                    //    setError(true);
-                    setloading(false);
                     setTempSessionId(response.data.userId);
                     firebaseSignUp(email, response.data.userId, async () => {
                         Cookies.set("emailForSignIn", email);
@@ -182,8 +180,8 @@ export default function gameAuthPage() {
 
             } else if (error.response && error.response.status === 405) {
                 // If the email exsists but is not verified
-                setError(true);
-                setloading(false);
+                setError(false);
+                // setloading(false);
                 Cookies.set("emailForSignIn", email);
                 Cookies.set("tempSessionId", error.response.data.userId);
                 location.href = "/verify-email";

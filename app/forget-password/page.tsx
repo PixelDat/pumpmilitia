@@ -34,8 +34,9 @@ export default function ForgotPassword() {
     const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState(false)
     const [password, setPassword] = useState('')
-    const [otp, setOtp] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [otpToken, setOtpToken] = useState('')
+
     const searchParams = useSearchParams()
     const [errors, setErrors] = useState<string[]>([]);
     const [tempSessionId, setTempSessionId] = useState("")
@@ -48,7 +49,7 @@ export default function ForgotPassword() {
     })
     const [countDown, setCountDown] = useState(60);
 
-
+    console.log(otpToken);
 
     useEffect(() => {
         const apiKey = searchParams.get('apiKey');
@@ -91,17 +92,14 @@ export default function ForgotPassword() {
 
     async function UpdatePassword() {
         setLoading(true);
-        let config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: 'https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/set-password',
-            headers: {
-                'Authorization': `${tempSessionId}`
-            },
-            body: JSON.stringify({ password: password, otp: otp })
+        let params = {
+            token: otpToken,
+            newPassword: password,
         };
+
+        let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/password-reset";
         try {
-            const response = await axios.request(config);
+            const response = await axios.post(url, params);
             if (response.status === 200) {
                 Cookies.set("encrypt_id", `${response.data.encypted_session_id}`);
                 setLoading(false);
@@ -255,13 +253,27 @@ export default function ForgotPassword() {
                                 disabled={errors.length == 0 ? false : true}
                                 className=""
                                 error={false}
-                                onChange={(e) => setOtp(e.target.value)}
+                                onChange={(e) => setOtpToken(e.target.value)}
+                                sx={{ marginBottom: '10px' }}
+                                label="Enter Token Sent"
+                                placeholder="Enter Token Sent"
+                                type={"text"}
+                                addOnStart={<Password color="inherit" />}
+                            />
+                            {/* <CustomInput
+                                className=""
+                                error={false}
+                                onChange={(e) => {
+                                    setConfirmPassword(e.target.value)
+                                    console.log(e.target.value);
+                                }}
+
                                 sx={{ marginBottom: '10px' }}
                                 label="Enter OTP Sent"
                                 placeholder="Enter Otp Sent"
                                 type={"number"}
                                 addOnStart={<Password color="inherit" />}
-                            />
+                            /> */}
                         </>
 
                     }
