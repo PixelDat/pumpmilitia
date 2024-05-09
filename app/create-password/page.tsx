@@ -89,7 +89,7 @@ export default function SavePassword() {
         try {
             // Step 1: Fetch the email from the endpoint, include Authorization header
             const emailResponse = await axios.post("https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/check-temp-user-email", {}, {
-                headers: { Authorization: `${tempSessionId}` }
+                headers: { Authorization: `${passedTempSessionId}` }
             });
             const email = emailResponse.data.email; // Extract email from the fetched data
     
