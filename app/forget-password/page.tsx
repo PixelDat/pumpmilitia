@@ -130,7 +130,36 @@ export default function ForgotPassword() {
 
     function resendOtp() {
         setCountDown(60); // reset countdown timer
+        const forgotPassword = async () => {
+            const emailGotten = Cookies.get('emailForSignIn');
+            let params = {
+                email: emailGotten,
+            };
+            let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/send-password-reset-email";
+            try {
+                const response = await axios.post(url, params);
+                // location.href = "/forget-password";
+                setCountDown(60);
+                setLoading(false);
+                setToastItem({ toastType: 'success', toastMessage: `Password reset mail sent to ${emailGotten}` });
+                setTimeout(() => {
+                    setToastItem({ toastType: '', toastMessage: "" });
+                }, 2000)
+            } catch (error: any) {
+                if (error.response) {
+                    setToastItem({ toastType: 'error', toastMessage: error.response.data.message });
+                    console.log(`${error.response.data.message}`);
+                    setLoading(false);
+                    setTimeout(() => {
+                        setToastItem({ toastType: '', toastMessage: "" });
+                    }, 2000)
+                } else {
+                    console.log(`An error occurred: ${error.message}`);
+                }
+            }
+        }
 
+        forgotPassword();
     }
     return (
         <div style={{ position: 'fixed', width: '100%', height: '100vh' }} className="flex justify-center items-center      text-white bg-[#20251A]">
