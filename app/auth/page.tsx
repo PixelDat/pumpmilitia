@@ -100,7 +100,7 @@ export default function LoginPage() {
         let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/signup";
         try {
             const response = await axios.post(url, params);
-            setError(true);
+            // setError(true);
             setloading(false);
             // If email doesn't exist, initiate signup and verification
             firebaseSignUp(email);
@@ -405,6 +405,7 @@ export default function LoginPage() {
                                 style={{ cursor: 'pointer' }}
                                 onClick={() => {
                                     setEmailExists(false);
+                                    setError(false)
                                 }}
                                 className="text-center"
                             >
