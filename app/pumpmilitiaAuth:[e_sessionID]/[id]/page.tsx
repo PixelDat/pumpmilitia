@@ -394,7 +394,7 @@ export default function gameAuthPage() {
         let params = {
             email: emailGotten,
         };
-        let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/login";
+        let url = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/send-password-reset-email";
         try {
             const response = await axios.post(url, params);
             location.href = "/forget-password";
@@ -409,7 +409,6 @@ export default function gameAuthPage() {
                 console.log(`An error occurred: ${error.message}`);
             }
         }
-
         // console.log('Forgot Password Clicked', emailGotten)
 
     }

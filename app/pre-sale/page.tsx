@@ -91,7 +91,7 @@ export default function Presale() {
   }
   return (
 
-    <div className="bg-cover overflow-hidden bg-[url('/images/background.png')] h-full w-screen">
+    <div className="bg-cover overflow-hidden bg-[url('/images/background.jpeg')] h-full w-screen">
       {error &&
         <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
       }
