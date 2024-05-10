@@ -109,7 +109,7 @@ export default function IndexPage() {
         </div>
         :
 
-        <div className="bg-cover bg-[url('/images/background.png')] h-full w-full">
+        <div className="bg-cover bg-[url('/images/background.jpeg')] h-full w-full">
           <Hero />
           <Preview />
           <MinePump />

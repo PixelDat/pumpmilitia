@@ -277,7 +277,7 @@ export default function Dashboard() {
 
 
   return (
-    <div className="bg-contain bg-[url('/images/dashboardbg.png')] h-full w-full">
+    <div className="bg-contain bg-[url('/images/dashboardbg.jpeg')] h-full w-full">
       {error &&
         <ToastComponent addOnStart={<CheckCircle color="inherit" />} content={errMessage.message} type={errMessage.type} />
       }

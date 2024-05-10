@@ -30,7 +30,7 @@ const Features = () => {
           className=" feature-box relative">
 
           <Image
-            src={'/images/feature1.png'}
+            src={'/images/feature1.jpeg'}
             width={333}
             height={214}
             alt=""
@@ -60,7 +60,7 @@ const Features = () => {
           data-aos="zoom-in-center"
           className="feature-box relative">
           <Image
-            src={'/images/feature2.png'}
+            src={'/images/feature2.jpeg'}
             width={333}
             height={214}
             alt=""
@@ -89,7 +89,7 @@ const Features = () => {
           data-aos="zoom-in-up"
           className="feature-box relative">
           <Image
-            src={'/images/feature3.png'}
+            src={'/images/feature3.jpeg'}
             width={333}
             height={214}
             alt=""

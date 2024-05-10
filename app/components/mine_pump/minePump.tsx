@@ -19,18 +19,18 @@ const MinePump = () => {
     {
       title: "Download Pump Millitia",
       sub_title: "Download the Pump Militia game from the Play Store and App Store, Install and Create an account and start this epic journey.",
-      image: "/images/mine1.png",
+      image: "/images/mine1.jpeg",
     },
     {
       title: "Claim Your $PUMP Tokens",
       sub_title: "Tap the claim button to receive your $PUMP tokens. Remember, you can do this twice a day. (every 12 hours!).It's simple.",
-      image: "/images/mine2.png",
+      image: "/images/mine2.jpeg",
 
     },
     {
       title: "EARN MORE REWARDS",
       sub_title: " Maximize your earnings by playing the game, completing daily and special quests and inviting your friends to mine",
-      image: "/images/mine3.png",
+      image: "/images/mine3.jpeg",
 
     }
   ]
@@ -39,7 +39,7 @@ const MinePump = () => {
 
       {/* Big screens */}
       <div
-        className="md:flex hidden relative  flex-col space-y-24 justify-center bg-cover  bg-[url('/images/airdropbg.png')] items-center py-32"
+        className="md:flex hidden relative  flex-col space-y-24 justify-center bg-cover  bg-[url('/images/airdropbg.jpeg')] items-center py-32"
       >
         <div className="bg-gradient-to-b from-[#20251a05] to-[#20251a]" style={{ zIndex: 0, position: 'absolute', width: '100%', height: '100%' }}></div>
         <div className="flex flex-col items-center justify-center" style={{ zIndex: 1, }}>
@@ -113,7 +113,7 @@ const MinePump = () => {
 
       {/* Small screens */}
       <div
-        className="flex md:hidden flex-col space-y-24 justify-center relative bg-cover  bg-[url('/images/airdropbg.png')] items-center py-2 md:py-32"
+        className="flex md:hidden flex-col space-y-24 justify-center relative bg-cover  bg-[url('/images/airdropbg.jpeg')] items-center py-2 md:py-32"
       >
         <div className="bg-gradient-to-b from-[#20251a05] to-[#2C3322] h-full w-full bottom-0" style={{ zIndex: 0, position: 'absolute' }}></div>
 
