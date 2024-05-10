@@ -13,7 +13,7 @@ const Preview = () => {
         }
     }, [])
     return (
-        <div className="h-[457px] bg-cover bg-no-repeat bg-[url('/images/preview.png')] flex flex-row items-center justify-center space-x-2">
+        <div className="h-[457px] bg-cover bg-no-repeat bg-[url('/images/preview.jpeg')] flex flex-row items-center justify-center space-x-2">
             <iframe id="background-video"
                 width='100%'
                 height='457px'
@@ -24,12 +24,12 @@ const Preview = () => {
                 //     zIndex: 0,
                 //     objectFit: 'cover',
                 // }}
-                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                >
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            >
             </iframe>
 
 
-           
+
 
         </div>
     )
