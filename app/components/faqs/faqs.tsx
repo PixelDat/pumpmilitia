@@ -39,6 +39,7 @@ const Faqs = () => {
                 {faqs.map((item: any, index: number) => {
                     return (
                         <Accordion
+                            key={index}
                             onChange={() => { setSelectedFaq(index) }}
                             expanded={selectedFaq == index ? true : false}
                             defaultExpanded={index == 0 ? true : false}
