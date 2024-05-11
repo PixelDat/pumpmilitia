@@ -545,7 +545,10 @@ export default function gameAuthPage() {
                         </>
                             :
                             <div className="font-bold text-[#A5E314] mt-3 grid grid-cols-2 divide-[#A5E314] justify-between divide-x-2">
-                                <p style={{ cursor: 'pointer' }} onClick={() => { setEmailExists(false) }} className="text-center">Change Email</p>
+                                <p style={{ cursor: 'pointer' }} onClick={() => {
+                                    setEmailExists(false)
+                                    setError(false)
+                                }} className="text-center">Change Email</p>
                                 <p style={{ cursor: 'pointer' }} onClick={() => forgotPassword()} className="text-center">Forgot Passord</p>
 
                             </div>

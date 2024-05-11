@@ -96,7 +96,7 @@ export default function Presale() {
         <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
       }
       <div>
-        <div className="sm:pb-10 md:pb-20  overflow-hidden bg-cover bg-[url('/images/presale/presalebg.png')] md:bg-[url('/images/presale/presalebg.png')] z-0">
+        <div className="sm:pb-10 md:pb-20  overflow-hidden bg-cover bg-[url('/images/presale/presalebg.jpeg')] md:bg-[url('/images/presale/.jpeg')] z-0">
 
           <div className="z-10 flex flex-col space-y-8 relative">
             <NavBar />

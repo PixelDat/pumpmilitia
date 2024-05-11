@@ -24,12 +24,12 @@ const Preview = () => {
                 //     zIndex: 0,
                 //     objectFit: 'cover',
                 // }}
-                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                >
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            >
             </iframe>
 
 
-           
+
 
         </div>
     )
