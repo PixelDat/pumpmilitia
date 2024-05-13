@@ -235,16 +235,20 @@ export default function gameAuthPage() {
             }
             const authToken = user.user.uid.trim();
             try {
-                const res = await axios.get(
-                    "https://us-central1-everpump-6e275.cloudfunctions.net/app/checkAuth",
-                    { headers: { Authorization: authToken } }
-                );
-                if (res.status === 200) {
-                    setloading(false)
-                    Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
-                    successfullAuth();
-                    setcanViewGoBackMsg(true);
-                }
+              
+              setTimeout(async () => {
+                    const res = await axios.get(
+                        "https://us-central1-everpump-6e275.cloudfunctions.net/app/checkAuth",
+                        { headers: { Authorization: authToken } }
+                    );
+                    if (res.status === 200) {
+                        setloading(false)
+                        Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
+                        successfullAuth();
+                        setcanViewGoBackMsg(true);
+                    }
+                    }, 4000);
+            
             } catch (error: any) {
                 if (error.response) {
                     setError(true);
