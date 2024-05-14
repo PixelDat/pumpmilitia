@@ -304,6 +304,8 @@ export default function LoginPage() {
                             onChange={(e) => setPassword(e.target.value)}
                             sx={{ marginBottom: "10px" }}
                             value={password}
+                            name={"password"}
+                            autocomplete="off"
                             label="Enter Password"
                             placeholder="Enter password"
                             type={showPassword ? "text" : "password"}
