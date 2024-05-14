@@ -367,7 +367,7 @@ export default function LoginPageMain() {
                                     onClick={() => { handleExternalLogin('twitter') }}
 
                                     className="object-center"
-                                    src={'/images/xacct.png'}
+                                    src={'/images/xicon.png'}
                                     width={44}
                                     height={44}
                                     alt="X(formerly twitter) icon"
