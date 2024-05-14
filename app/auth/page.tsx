@@ -305,7 +305,7 @@ export default function LoginPage() {
                             sx={{ marginBottom: "10px" }}
                             value={password}
                             name={"password"}
-                            autocomplete="off"
+                            autocomplete="new-password"
                             label="Enter Password"
                             placeholder="Enter password"
                             type={showPassword ? "text" : "password"}

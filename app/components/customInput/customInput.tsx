@@ -14,7 +14,7 @@ interface CustomInputProps {
     label?: string;
     error?: boolean;
     required?: boolean;
-    autocomplete?: 'off' | 'on';
+    autocomplete?: string;
     name?: string;
 }
 
