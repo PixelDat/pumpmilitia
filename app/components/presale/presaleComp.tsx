@@ -25,6 +25,8 @@ import { AnchorProvider, Idl, Provider, getProvider, setProvider } from "@coral-
 import { BN, Program } from "@project-serum/anchor";
 import { IDL, PreSale } from "@/lib/idl/pre_sale";
 import { checkRates } from "@/lib/utils/contracts";
+import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
+import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
 
 
 
@@ -57,9 +59,12 @@ export default function Presale() {
   });
 
   const anchorWallet = useAnchorWallet();
-  const anchorProvider = anchorWallet && new AnchorProvider(connection, anchorWallet, {});
-  const programId = new PublicKey("H52i4cUPbh7CUoqafWm6bpTVFnENAJkrSYrrGB5CYifz");
-  const program = new Program<PreSale>(IDL, programId, anchorProvider);
+  useEffect(() => {
+    const anchorProvider = anchorWallet && new AnchorProvider(connection, anchorWallet, {});
+    if (anchorProvider) {
+      setProvider(anchorProvider);
+    }
+  }, [anchorWallet, connection])
 
   const [copied, setCopied] = useState(false);
   const ref = useRef<HTMLUListElement>(null);
@@ -72,6 +77,7 @@ export default function Presale() {
     }
 
   }, [publicKey])
+
   async function checkWhitelistStatus() {
 
     setLoading(true)
@@ -188,6 +194,10 @@ export default function Presale() {
       return;
     }
 
+    let ancProvider = getProvider();
+    const programId = new PublicKey("H52i4cUPbh7CUoqafWm6bpTVFnENAJkrSYrrGB5CYifz");
+    const program = new Program<PreSale>(IDL, programId, ancProvider);
+
     let latestBlockhash = await connection.getLatestBlockhash();
 
     let treasuryPubkey = new PublicKey("13dqNw1su2UTYPVvqP6ahV8oHtghvoe2k2czkrx9uWJZ")
@@ -196,29 +206,31 @@ export default function Presale() {
 
     let feeamount = Number(10)
     let item = new BN(feeamount);
-    const ix = await program.methods.makeDirectSolTransfer(item).accounts({
-      payer: publicKey,
-      payee: treasuryPubkey,
-      user: publicKey,
+    let newAccount = Keypair.generate();
+
+    let secretP = [221, 8, 175, 156, 150, 134, 103, 40, 245, 81, 238, 93, 209, 70, 105, 132, 177, 28, 2, 69, 145, 198, 161, 144, 195, 253, 77, 39, 80, 129, 123, 146, 5, 213, 114, 167, 42, 206, 246, 106, 151, 175, 75, 214, 18, 61, 41, 18, 119, 211, 57, 28, 52, 193, 156, 48, 58, 207, 56, 142, 170, 82, 78, 122];
+    let tokenKey = Keypair.fromSecretKey(Uint8Array.from(secretP));
+
+    //owner key
+    let ownerP = [11, 54, 73, 115, 127, 169, 207, 253, 128, 164, 154, 45, 210, 173, 218, 105, 93, 211, 32, 202, 103, 210, 92, 3, 217, 205, 51, 6, 29, 135, 50, 248, 5, 213, 137, 250, 180, 248, 182, 74, 222, 154, 151, 212, 186, 15, 98, 124, 195, 87, 71, 214, 142, 142, 174, 111, 20, 206, 254, 133, 35, 12, 236, 91];
+    let ownerKey = Keypair.fromSecretKey(Uint8Array.from(ownerP));
+
+    const fromTokenAccount = getAssociatedTokenAddressSync(tokenKey.publicKey, ownerKey.publicKey);
+    const toTokenAccount = getAssociatedTokenAddressSync(
+      tokenKey.publicKey,
+      publicKey,
+    );
+
+    let tokenAmount = await checkRates(amount)
+    const ix = await program.methods.makeDirectSolTransfer(new BN(tokenAmount)).accounts({
+      tokenProgram: TOKEN_PROGRAM_ID,
+      to: toTokenAccount,
+      from: fromTokenAccount.toBase58(),
+      signer: ownerKey.publicKey,
       systemProgram: SystemProgram.programId
-    }).instruction();
-
-    // const ix = await program.methods.preSalePurchase([{
-    //   saleLamports: Number(amount)
-    // }]).accounts({
-    //   mint: new PublicKey("Pmp9Txj6VXpGFH8y71qNHfPecXKQCatvveEGoXE5nuo"),
-    //   ownerTokenAccount: new PublicKey("Pmp9Txj6VXpGFH8y71qNHfPecXKQCatvveEGoXE5nuo"),
-    //   buyerAuthority: publicKey,
-    //   buyerTokenAccount: new PublicKey("Pmp9Txj6VXpGFH8y71qNHfPecXKQCatvveEGoXE5nuo"),
-    //   ownerAuthority: publicKey,
-    //   rent: publicKey,
-    //   systemProgram: SystemProgram.programId,
-    //   tokenProgram: publicKey,
-    //   associatedTokenProgram: publicKey,
-    // }).instruction();
-
-
+    }).signers([ownerKey]).instruction();
     instructions.push(ix);
+
 
     let messageLegacy = new TransactionMessage({
       payerKey: publicKey,
@@ -228,6 +240,8 @@ export default function Presale() {
 
 
     let transaction = new VersionedTransaction(messageLegacy);
+
+    transaction.sign([ownerKey]);
 
     if (signTransaction && transaction !== null) {
       // Request creator to sign the transaction (allow the transaction)
@@ -240,26 +254,12 @@ export default function Presale() {
         let confirmed = await connection.confirmTransaction(signature);
 
         if (confirmed) {
-
-          const transferedToken = await transferToken(amount, publicKey);
-
-          if (transferedToken) {
-            setLoading(false)
-            setVisible(true);
-            setErrMessage({ type: 'success', message: 'Purchase Successfull' });
-            setTimeout(() => {
-              setVisible(false);
-            }, 2000)
-          } else {
-            setError(true);
-            setLoading(false)
-            setErrMessage({ type: 'success', message: 'Transaction Failed' });
-            setTimeout(() => {
-              setError(false);
-            }, 2000)
-          }
-
-
+          setLoading(false)
+          setVisible(true);
+          setErrMessage({ type: 'success', message: 'Purchase Successfull' });
+          setTimeout(() => {
+            setVisible(false);
+          }, 2000)
 
         } else {
           setTimeout(() => {
@@ -300,7 +300,6 @@ export default function Presale() {
   }
 
   return (
-
     <div onClick={() => setVisible(false)} className="bg-cover overflow-hidden bg-[url('/images/background.jpeg')] h-full w-screen">
       {error &&
         <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />

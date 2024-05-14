@@ -6,18 +6,23 @@ export type PreSale = {
       "name": "makeDirectSolTransfer",
       "accounts": [
         {
-          "name": "payer",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "payee",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "user",
+          "name": "tokenProgram",
           "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "from",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "to",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "signer",
+          "isMut": true,
           "isSigner": true
         },
         {
@@ -32,6 +37,46 @@ export type PreSale = {
           "type": "u64"
         }
       ]
+    },
+    {
+      "name": "initialize",
+      "accounts": [
+        {
+          "name": "myAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "data",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "myAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "data",
+            "type": "u64"
+          }
+        ]
+      }
     }
   ]
 };
@@ -44,18 +89,23 @@ export const IDL: PreSale = {
       "name": "makeDirectSolTransfer",
       "accounts": [
         {
-          "name": "payer",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "payee",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "user",
+          "name": "tokenProgram",
           "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "from",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "to",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "signer",
+          "isMut": true,
           "isSigner": true
         },
         {
@@ -70,6 +120,46 @@ export const IDL: PreSale = {
           "type": "u64"
         }
       ]
+    },
+    {
+      "name": "initialize",
+      "accounts": [
+        {
+          "name": "myAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "data",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "myAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "data",
+            "type": "u64"
+          }
+        ]
+      }
     }
   ]
 };
