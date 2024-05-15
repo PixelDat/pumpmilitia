@@ -334,7 +334,7 @@ export default function WithdrawPage() {
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">{Number(user?.points).toLocaleString()}</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#e4a43d] font-gameria text-[16px] md:text-[24px]">{Number(user?.points).toLocaleString()}</span></p>
                     </div>
                   </div>
 
