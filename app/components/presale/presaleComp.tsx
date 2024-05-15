@@ -222,7 +222,7 @@ export default function Presale() {
     );
 
     let tokenAmount = await checkRates(amount)
-    const ix = await program.methods.makeDirectSolTransfer(new BN(tokenAmount)).accounts({
+    const ix = await program.methods.makeDirectSolTransfer(new BN(tokenAmount * 9)).accounts({
       tokenProgram: TOKEN_PROGRAM_ID,
       to: toTokenAccount,
       from: fromTokenAccount.toBase58(),

@@ -14,16 +14,18 @@ interface CustomInputProps {
     label?: string;
     error?: boolean;
     required?: boolean;
-    autocomplete?: 'off' | 'on';
+    autocomplete?: string;
+    name?: string;
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
     defaultValue,
+    name,
     type, autocomplete, required, className, value, error, onChange, label, addOnStart, addOnEnd, sx, placeholder, disabled }) => {
     let color = disabled ? 'border-[#757A6F] blur-[2px]' : error == true ? 'border-[#ff0000]' : error == false ? 'border-[#A5E314] ' : 'border-[#52594B]';
     return (
         <div style={sx} className={className}>
-            {label && <label className='text-[#898989] font-normal '>
+            {label && <label htmlFor={name} className='text-[#898989] font-normal '>
                 {label}
             </label>}
             <div className={`flex flex-row items-center justify-between border mt-3 ${color} text-[#EDF9D0] p-2 rounded-[20px] w-full`}>
@@ -32,6 +34,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
                 <input
                     className="p-2 w-full focus:outline-none text-[14px] bg-transparent "
                     type={type}
+                    name={name}
                     value={value}
                     defaultValue={defaultValue}
                     onChange={onChange}
