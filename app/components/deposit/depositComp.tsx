@@ -378,7 +378,7 @@ export default function DepositCompPage() {
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#e4a43d] font-gameria text-[16px] md:text-[24px]">099998</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">?</span></p>
                     </div>
                   </div>
 
@@ -393,21 +393,21 @@ export default function DepositCompPage() {
                   <div>
                     <div className="flex flex-row items-center gap-4">
                       <div className="text-[#EDF9D0] text-[14px] md:text-[16px]">
-                        $PUMP
+                        $COIN
                       </div>
                       <div className="text-[#EDF9D0] font-gameria text-[16px] md:text-[24px]">
                         IN-GAME
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">{Number(user?.points).toLocaleString()}</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#e4a43d] font-gameria text-[16px] md:text-[24px]">{Number(user?.points).toLocaleString()}</span></p>
                     </div>
                   </div>
                 </div>
                 <CustomInput
                   addOnStart={<Image
                     className=""
-                    src={'/images/deposit/pumpcoin.png'}
+                    src={'/images/deposit/pumpgreencoin.png'}
                     width={32}
                     height={32}
                     priority
