@@ -417,6 +417,19 @@ export default function DepositCompPage() {
                   placeholder="Enter amount to deposit"
                 />
 
+                <CustomInput
+                  addOnStart={<Image
+                    className=""
+                    src={'/images/deposit/pumpcoin.png'}
+                    width={32}
+                    height={32}
+                    priority
+                    alt="" />}
+                  type="text"
+                  onChange={(e: any) => setAmount(e.target.value)}
+                  placeholder="?"
+                />
+
 
                 {buttonState == 'connected' && <p className="text-[14px] items-center text-vivd-lime-green text-center ">
                   {`${walletAddress.slice(0, 7)}....${walletAddress.slice(-3, walletAddress.length)}`}  <span onClick={copyClip} className=''><FolderCopy /></span>

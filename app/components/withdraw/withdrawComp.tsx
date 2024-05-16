@@ -376,6 +376,19 @@ export default function WithdrawPage() {
                   placeholder="Enter amount to withdraw"
                 />
 
+                <CustomInput
+                  addOnStart={<Image
+                    className=""
+                    src={'/images/deposit/pumpgreencoin.png'}
+                    width={32}
+                    height={32}
+                    priority
+                    alt="" />}
+                  type="text"
+                  onChange={(e: any) => setAmount(e.target.value)}
+                  placeholder="?"
+                />
+
                 {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">
                   {`${walletAddress.slice(0, 7)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy /></span>
                 </p>}
