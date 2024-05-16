@@ -119,7 +119,7 @@ export default function Signup() {
                             priority />
                         <Image
                             className="object-center"
-                            src={'/images/xacct.png'}
+                            src={'/images/xicon.png'}
                             width={44}
                             height={44}
                             alt="X(formerly twitter) icon"
