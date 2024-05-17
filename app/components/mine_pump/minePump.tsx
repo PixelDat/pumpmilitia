@@ -22,7 +22,7 @@ const MinePump = () => {
       image: "/images/mine1.jpeg",
     },
     {
-      title: "Claim Your $PUMP Tokens",
+      title: "Claim Your $COIN Tokens",
       sub_title: "Tap the claim button to receive your $PUMP tokens. Remember, you can do this twice a day. (every 12 hours!).It's simple.",
       image: "/images/mine2.jpeg",
 
@@ -48,9 +48,7 @@ const MinePump = () => {
           </div>
 
           <div className="font-sans font-[700] text-vivd-lime-green-10 text-[16px] max-w-[800px] text-center">
-            You can start mining $PUMP tokens on your mobile phones right away.
-            We're opening the doors wide for every crypto enthusiast to join in on
-            the fun and rewards.
+          You can start mining $PUMP tokens on your mobile phones right away by accumulating $COIN. We're opening the doors wide for every crypto enthusiast to join in on the fun and rewards.
           </div>
         </div>
 
@@ -123,9 +121,7 @@ const MinePump = () => {
           </div>
 
           <div className="font-sans font-[700] p-3  text-vivd-lime-green-10 text-[14px] max-w-[800px] text-center">
-            You can start mining $PUMP tokens on your mobile phones right away.
-            We're opening the doors wide for every crypto enthusiast to join in on
-            the fun and rewards.
+          You can start mining $PUMP tokens on your mobile phones right away by accumulating $COIN. We're opening the doors wide for every crypto enthusiast to join in on the fun and rewards.
           </div>
         </div>
 
