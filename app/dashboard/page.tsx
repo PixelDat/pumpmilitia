@@ -307,7 +307,7 @@ export default function Dashboard() {
         <div className="md:flex  md:flex-row  md:gap-x-14 px-4 md:w-11/12 m-auto  pb-20  items-start justify-between">
           <div className="basis-1/4">
             <div >
-              <h1 className="font-gameria text-[32px] mb-[24px]">$PUMP BALANCE</h1>
+              <h1 className="font-gameria text-[32px] mb-[24px]">COIN BALANCE</h1>
             </div>
 
             <div className="bg-gradient-to-r from-[#A5E314]/50 to-black p-0.5 rounded-3xl">
