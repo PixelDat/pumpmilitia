@@ -152,7 +152,7 @@ export default function DepositCompPage() {
     }
     if (1 == 1) {
       setError(true);
-      setErrMessage({ type: 'error', message: "Deposit not available. Deposits would begin after $PUMP token launch" });
+      setErrMessage({ type: 'error', message: "Deposits would begin after $PUMP token launch" });
       setLoading(false);
       setTimeout(() => {
         setError(false);
