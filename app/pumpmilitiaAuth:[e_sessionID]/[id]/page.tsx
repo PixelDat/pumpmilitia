@@ -235,8 +235,8 @@ export default function gameAuthPage() {
             }
             const authToken = user.user.uid.trim();
             try {
-              
-              setTimeout(async () => {
+
+                setTimeout(async () => {
                     const res = await axios.get(
                         "https://us-central1-everpump-6e275.cloudfunctions.net/app/checkAuth",
                         { headers: { Authorization: authToken } }
@@ -247,8 +247,8 @@ export default function gameAuthPage() {
                         successfullAuth();
                         setcanViewGoBackMsg(true);
                     }
-                    }, 4000);
-            
+                }, 4000);
+
             } catch (error: any) {
                 if (error.response) {
                     setError(true);
@@ -470,6 +470,34 @@ export default function gameAuthPage() {
                 {/* email address input */}
 
                 {!canViewGoBackMsg && <div className="items-center justify-center">
+
+                    {!emailExists &&
+                        <>
+
+                            <div className="flex flex-row items-center justify-center gap-8 my-3">
+                                <Image
+                                    onClick={() => { handleExternalLogin('google') }}
+                                    className="object-center"
+                                    src={'/images/google.png'}
+                                    width={60}
+                                    height={60}
+                                    alt="google icon"
+                                    priority />
+                                <Image
+                                    onClick={() => { handleExternalLogin('twitter') }}
+
+                                    className="object-center"
+                                    src={'/images/xicon.png'}
+                                    width={60}
+                                    height={60}
+                                    alt="X(formerly twitter) icon"
+                                    priority />
+
+                            </div>
+                            <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try this below, only when you fail to login via Google or X.</FormHelperText>
+                        </>
+
+                    }
                     {!emailExists ?
                         <CustomInput
                             className=""
@@ -521,28 +549,7 @@ export default function gameAuthPage() {
                     {
                         !emailExists ? <>
 
-                            <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try either of this below, only when “email address” fails to get you in.</FormHelperText>
 
-                            <div className="flex flex-row items-center justify-center gap-8 my-3">
-                                <Image
-                                    onClick={() => { handleExternalLogin('google') }}
-                                    className="object-center"
-                                    src={'/images/google.png'}
-                                    width={44}
-                                    height={44}
-                                    alt="google icon"
-                                    priority />
-                                <Image
-                                    onClick={() => { handleExternalLogin('twitter') }}
-
-                                    className="object-center"
-                                    src={'/images/xicon.png'}
-                                    width={44}
-                                    height={44}
-                                    alt="X(formerly twitter) icon"
-                                    priority />
-
-                            </div>
 
 
                             <p className="text-[#EDF9D0] text-center mt-5 font-light">By continuing, you agree to our <span className="font-bold text-[#A5E314]">Terms of service,</span> and acknowledge you have understood our <span className="font-bold text-[#A5E314]">Privacy Policy</span> and <span className="font-bold text-[#A5E314]">Collection Statement.</span></p>

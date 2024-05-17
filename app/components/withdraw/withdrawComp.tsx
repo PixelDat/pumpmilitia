@@ -116,12 +116,12 @@ export default function WithdrawPage() {
     {
       title: 'connect your wallet',
       image: '/images/deposit/connect.png',
-      subtitle: 'Click the “Connect” button to connect your Defi walletpleted',
+      subtitle: 'Click the “Connect” button to connect your Defi wallet',
     },
     {
       title: 'Enter Amount',
       image: '/images/deposit/coins.png',
-      subtitle: 'Input amount of $PUMP tokens you want to deposit into Pump Militia',
+      subtitle: 'Input amount of $PUMP tokens you want to withdraw',
     },
   ]
   const [error, setError] = useState(false)
@@ -160,6 +160,16 @@ export default function WithdrawPage() {
       }, 2000)
       return false
     }
+
+    setError(true);
+    setErrMessage({ type: 'error', message: "Withdraw your $PUMP airdrop balance at TGE" });
+    setLoading(false);
+    setTimeout(() => {
+      setError(false);
+    }, 2000)
+
+    return;
+    // This is what prevents withdrawal from happening till withdrawal is ready
 
     let params = {
       walletAddress: walletAddress,
@@ -273,7 +283,9 @@ export default function WithdrawPage() {
                     alt="" />
                   <p className="text-[15px] font-[300]">Your balance today</p>
                   <h4 className="text-[24px] font-gameria font-[500]">CONFIRM AND COMPLETE PURCHASE</h4>
-                  <p className="text-[15px] font-[300]">Click “Withdraw” button and accept/approve transaction in your wallet. Wait for Withdraw to process</p>
+                  <p className="text-[15px] font-[300]">
+                    Click “Withdraw” button and accept/approve transaction in your wallet. Wait for Withdraw to process
+                  </p>
                 </div>
               </div>
 

@@ -150,6 +150,16 @@ export default function DepositCompPage() {
       }, 2000)
       return false
     }
+    if (1 == 1) {
+      setError(true);
+      setErrMessage({ type: 'error', message: "Deposits would begin after $PUMP token launch" });
+      setLoading(false);
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return;
+    }
+
     if (publicKey) {
 
       const binder: boolean = await bindAddress(walletAddress);
