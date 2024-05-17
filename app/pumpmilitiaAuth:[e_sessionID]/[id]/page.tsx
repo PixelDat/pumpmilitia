@@ -140,9 +140,11 @@ export default function gameAuthPage() {
         try {
             // If the email exsists and is verified
             const response = await axios.post(url, params);
-            setloading(true);
-            setSignedInText("Account Already Exists, Go Back to Pump Militia and use your email and password to login");
-            setcanViewGoBackMsg(true);
+            setError(false);
+            setEmailExists(true);
+            setloading(false);
+
+            
 
         } catch (error: any) {
             if (error.response && error.response.status === 400) {
