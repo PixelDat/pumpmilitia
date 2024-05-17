@@ -162,7 +162,7 @@ export default function WithdrawPage() {
     }
 
     setError(true);
-    setErrMessage({ type: 'error', message: "Withdrawal not available. Withdraw your $PUMP airdrop balance at TGE" });
+    setErrMessage({ type: 'success', message: "Withdrawal not available. Withdraw your $PUMP airdrop balance at TGE" });
     setLoading(false);
     setTimeout(() => {
       setError(false);
