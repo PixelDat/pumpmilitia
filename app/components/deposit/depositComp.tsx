@@ -64,7 +64,7 @@ export default function DepositCompPage() {
 
   useEffect(() => {
     if (!encrypt) {
-      location.href = '/auth'
+      location.href = '/pumpmilitiaAuth/type=logib;data='
       return
     }
     let userDetails = async () => {
