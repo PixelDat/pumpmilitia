@@ -22,7 +22,7 @@ const MinePump = () => {
       image: "/images/mine1.jpeg",
     },
     {
-      title: "Claim Your $PUMP Tokens",
+      title: "Claim Your $COIN Tokens",
       sub_title: "Tap the claim button to receive your $PUMP tokens. Remember, you can do this twice a day. (every 12 hours!).It's simple.",
       image: "/images/mine2.jpeg",
 
