@@ -145,7 +145,7 @@ export default function gameAuthPage() {
             setEmailExists(true);
             setloading(false);
 
-            
+
 
         } catch (error: any) {
             if (error.response && error.response.status === 400) {
@@ -472,108 +472,114 @@ export default function gameAuthPage() {
                         {emailExists ? "Enter your password to get in" : "The ultimate rewards arena."}
                     </p>
                 </div>
-                {/* email address input */}
-
-                {!canViewGoBackMsg && <div className="items-center justify-center">
-
-                    {!emailExists &&
-                        <>
-
-                            <div className="flex flex-row items-center justify-center gap-8 my-3">
-                                <Image
-                                    onClick={() => { handleExternalLogin('google') }}
-                                    className="object-center"
-                                    src={'/images/google.png'}
-                                    width={60}
-                                    height={60}
-                                    alt="google icon"
-                                    priority />
-                                <Image
-                                    onClick={() => { handleExternalLogin('twitter') }}
-
-                                    className="object-center"
-                                    src={'/images/xicon.png'}
-                                    width={60}
-                                    height={60}
-                                    alt="X(formerly twitter) icon"
-                                    priority />
-
-                            </div>
-                            <FormHelperText className="text-[12px] text-vivd-lime-green-10 leading-tight mb-5 w-8/12 m-auto text-center font-bold">Try this below, only when you fail to login via Google or X.</FormHelperText>
-                        </>
-
-                    }
-                    {!emailExists ?
-                        <CustomInput
-                            className=""
-                            disabled={!failedExternalAuth}
-                            error={error}
-                            sx={{ marginBottom: '10px' }}
-                            label="Email Address"
-                            placeholder="Enter email address"
-                            onChange={(e) => setEmail(e.target.value)}
-                            type="email"
-                            addOnStart={<MailOutlineRounded color="inherit" />}
-                            addOnEnd={error ? <ReportGmailerrorredRounded className="text-[#E2002B]" /> : <ArrowForward />}
-                        />
-                        :
-                        <CustomInput
-                            className=""
-                            onChange={(e) => setPassword(e.target.value)}
-                            sx={{ marginBottom: '10px' }}
-                            value={password}
-                            label="Enter Password"
-                            placeholder="Enter password"
-                            type={showPassword ? "text" : "password"}
-                            addOnStart={<LockRounded color="inherit" />}
-                            addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
-                        />
-                    }
-                    {
-                        error && <>
-                            <hr className={`border-[#E2002B]  border mt-2`} />
-
-                            <div className="flex flex-row items-center p-3 gap-3">
-                                <CloseRounded className="bg-[#EC5572] text-[18px] rounded-full text-[black]" />
-                                {errMessage != '' ?
-                                    <p className="text-[12px] text-[#F9CCD5] text-start">{errMessage}</p>
-                                    :
-                                    <p className="text-[12px] text-[#F9CCD5] text-start">Ops! you must have entered the wrong email address, please check and re-enter.</p>
-                                }
-                            </div>
-                        </>
-                    }
-                    <div className={`${!failedExternalAuth ? "blur-[2px] my-5" : "my-5"}`}>
-
-                        {!emailExists ?
-                            <div className="my-5">
-                                <button disabled={!failedExternalAuth} onClick={checkEmailExists} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button>
-                            </div>
-                            :
-                            <div className="my-5">
-                                <button onClick={HandleLogin} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Login'}</button>
+                {!canViewGoBackMsg &&
+                    <div className="items-center justify-center">
+                        {loading &&
+                            <div className="flex flex-row justify-center relative top-[100px]">
+                                <CircularProgress className="text-[#A5E314] text-center" />
                             </div>
                         }
-                    </div>
-                    {
-                        !emailExists ? <>
+                        <div className={loading ? "blur-[5px]" : ""}>
+                            {!emailExists &&
+                                <>
+                                    <FormHelperText className="text-[14px] text-vivd-lime-green-10 leading-tight mb-5 w-8/12 m-auto text-center font-bold">Sign Up With</FormHelperText>
+                                    <div className="flex flex-row items-center justify-center gap-8 my-3">
+                                        <Image
+                                            onClick={() => { handleExternalLogin('google') }}
+                                            className="object-center"
+                                            src={'/images/google.png'}
+                                            width={60}
+                                            height={60}
+                                            alt="google icon"
+                                            priority />
+                                        <Image
+                                            onClick={() => { handleExternalLogin('twitter') }}
 
+                                            className="object-center"
+                                            src={'/images/xicon.png'}
+                                            width={60}
+                                            height={60}
+                                            alt="X(formerly twitter) icon"
+                                            priority />
 
+                                    </div>
+                                    <FormHelperText className="text-[12px] text-vivd-lime-green-10 leading-tight mb-5 w-8/12 m-auto text-center font-bold">Try this below, only when you fail to sign up via Google or X.</FormHelperText>
+                                </>
 
+                            }
+                            {!emailExists ?
+                                <CustomInput
+                                    className=""
+                                    disabled={!failedExternalAuth}
+                                    error={error}
+                                    sx={{ marginBottom: '10px' }}
+                                    label="Email Address"
+                                    placeholder="Enter email address"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    type="email"
+                                    addOnStart={<MailOutlineRounded color="inherit" />}
+                                    addOnEnd={error ? <ReportGmailerrorredRounded className="text-[#E2002B]" /> : <ArrowForward />}
+                                />
+                                :
+                                <CustomInput
+                                    className=""
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    sx={{ marginBottom: '10px' }}
+                                    value={password}
+                                    label="Enter Password"
+                                    placeholder="Enter password"
+                                    type={showPassword ? "text" : "password"}
+                                    addOnStart={<LockRounded color="inherit" />}
+                                    addOnEnd={!showPassword ? <VisibilityRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" /> : <VisibilityOffRounded onClick={() => { setShowPassword(!showPassword) }} className="text-[#E1F6B1]" />}
+                                />
+                            }
+                            {
+                                error && <>
+                                    <hr className={`border-[#E2002B]  border mt-2`} />
 
-                            <p className="text-[#EDF9D0] text-center mt-5 font-light">By continuing, you agree to our <span className="font-bold text-[#A5E314]">Terms of service,</span> and acknowledge you have understood our <span className="font-bold text-[#A5E314]">Privacy Policy</span> and <span className="font-bold text-[#A5E314]">Collection Statement.</span></p>
-                        </>
-                            :
-                            <div className="font-bold text-[#A5E314] mt-3 grid grid-cols-2 divide-[#A5E314] justify-between divide-x-2">
-                                <p style={{ cursor: 'pointer' }} onClick={() => {
-                                    setEmailExists(false)
-                                    setError(false)
-                                }} className="text-center">Change Email</p>
-                                <p style={{ cursor: 'pointer' }} onClick={() => forgotPassword()} className="text-center">Forgot Passord</p>
+                                    <div className="flex flex-row items-center p-3 gap-3">
+                                        <CloseRounded className="bg-[#EC5572] text-[18px] rounded-full text-[black]" />
+                                        {errMessage != '' ?
+                                            <p className="text-[12px] text-[#F9CCD5] text-start">{errMessage}</p>
+                                            :
+                                            <p className="text-[12px] text-[#F9CCD5] text-start">Ops! you must have entered the wrong email address, please check and re-enter.</p>
+                                        }
+                                    </div>
+                                </>
+                            }
+                            <div className={`${!failedExternalAuth ? "blur-[2px] my-5" : "my-5"}`}>
 
+                                {!emailExists ?
+                                    <div className="my-5">
+                                        <button disabled={!failedExternalAuth} onClick={checkEmailExists} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button>
+                                    </div>
+                                    :
+                                    <div className="my-5">
+                                        <button onClick={HandleLogin} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Login'}</button>
+                                    </div>
+                                }
                             </div>
-                    }
-                </div>}
+                            {
+                                !emailExists ? <>
+
+
+
+
+                                    <p className="text-[#EDF9D0] text-center mt-5 font-light">By continuing, you agree to our <span className="font-bold text-[#A5E314]">Terms of service,</span> and acknowledge you have understood our <span className="font-bold text-[#A5E314]">Privacy Policy</span> and <span className="font-bold text-[#A5E314]">Collection Statement.</span></p>
+                                </>
+                                    :
+                                    <div className="font-bold text-[#A5E314] mt-3 grid grid-cols-2 divide-[#A5E314] justify-between divide-x-2">
+                                        <p style={{ cursor: 'pointer' }} onClick={() => {
+                                            setEmailExists(false)
+                                            setError(false)
+                                        }} className="text-center">Change Email</p>
+                                        <p style={{ cursor: 'pointer' }} onClick={() => forgotPassword()} className="text-center">Forgot Passord</p>
+
+                                    </div>
+                            }
+                        </div>
+                    </div>
+                }
                 {canViewGoBackMsg && <div className="items-center justify-center">
                     <p className="text-[#EDF9D0] text-center mt-5 font-light">{signedInText}</p>
                 </div>}
