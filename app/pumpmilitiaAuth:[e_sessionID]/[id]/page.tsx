@@ -60,6 +60,7 @@ export default function gameAuthPage() {
     const [canViewGoBackMsg, setcanViewGoBackMsg] = useState(false);
     const [signedInText, setSignedInText] = useState("You are signed in! Go Back to Pump Militia");
     const [tempSessionId, setTempSessionId] = useState("");
+    const [failedExternalAuth, setFailedExternalAuth] = useState(false);
 
     let cross_authkey = "";
     let refID = "";
@@ -237,7 +238,6 @@ export default function gameAuthPage() {
             }
             const authToken = user.user.uid.trim();
             try {
-
                 setTimeout(async () => {
                     const res = await axios.get(
                         "https://us-central1-everpump-6e275.cloudfunctions.net/app/checkAuth",
@@ -256,6 +256,7 @@ export default function gameAuthPage() {
                     setError(true);
                     setErrMessage(error.response.data.message);
                     setloading(false);
+                    setFailedExternalAuth(true);
                 } else {
                     setloading(false);
                 }
@@ -418,6 +419,8 @@ export default function gameAuthPage() {
         // console.log('Forgot Password Clicked', emailGotten)
 
     }
+
+
     return (
         <div
             style={{ position: "fixed", width: "100%", height: "100vh" }}
@@ -496,13 +499,14 @@ export default function gameAuthPage() {
                                     priority />
 
                             </div>
-                            <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try this below, only when you fail to login via Google or X.</FormHelperText>
+                            <FormHelperText className="text-[12px] text-vivd-lime-green-10 leading-tight mb-5 w-8/12 m-auto text-center font-bold">Try this below, only when you fail to login via Google or X.</FormHelperText>
                         </>
 
                     }
                     {!emailExists ?
                         <CustomInput
                             className=""
+                            disabled={!failedExternalAuth}
                             error={error}
                             sx={{ marginBottom: '10px' }}
                             label="Email Address"
@@ -539,15 +543,18 @@ export default function gameAuthPage() {
                             </div>
                         </>
                     }
-                    {!emailExists ?
-                        <div className="my-5">
-                            <button onClick={checkEmailExists} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button>
-                        </div>
-                        :
-                        <div className="my-5">
-                            <button onClick={HandleLogin} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Login'}</button>
-                        </div>
-                    }
+                    <div className={`${!failedExternalAuth ? "blur-[2px] my-5" : "my-5"}`}>
+
+                        {!emailExists ?
+                            <div className="my-5">
+                                <button disabled={!failedExternalAuth} onClick={checkEmailExists} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button>
+                            </div>
+                            :
+                            <div className="my-5">
+                                <button onClick={HandleLogin} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Login'}</button>
+                            </div>
+                        }
+                    </div>
                     {
                         !emailExists ? <>
 
@@ -574,6 +581,6 @@ export default function gameAuthPage() {
             <div className="hidden md:inline absolute right-[150px] bottom-[20px]">
                 <BlipNinja />
             </div>
-        </div>
+        </div >
     );
 }
