@@ -4,7 +4,6 @@ import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { CoinbaseWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter, TorusWalletAdapter, TrustWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl } from '@solana/web3.js';
-import WithdrawPage from '../components/withdraw/withdrawComp';
 require("@solana/wallet-adapter-react-ui/styles.css");
 
 
@@ -27,7 +26,6 @@ export default function Context({ children }: any) {
         <ConnectionProvider endpoint={endpoint} >
             <WalletProvider wallets={wallets} >
                 <WalletModalProvider>
-                    {/* <WithdrawPage /> */}
                     {children}
                 </WalletModalProvider>
             </WalletProvider>

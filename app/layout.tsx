@@ -7,11 +7,6 @@ import Context from "./context/context";
 import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent } from "@firebase/analytics";
 
-// export const metadata = {
-//   icons: {
-//     icon: '/images/favicon-32x32.png',
-//   },
-// };
 
 interface Props {
   readonly children: ReactNode;
