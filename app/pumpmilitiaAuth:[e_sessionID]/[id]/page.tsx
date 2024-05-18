@@ -61,6 +61,7 @@ export default function gameAuthPage() {
     const [signedInText, setSignedInText] = useState("You are signed in! Go Back to Pump Militia");
     const [tempSessionId, setTempSessionId] = useState("");
     const [failedExternalAuth, setFailedExternalAuth] = useState(false);
+    const [paramsData, setParamsData] = useState("");
 
     let cross_authkey = "";
     let refID = "";
@@ -70,14 +71,26 @@ export default function gameAuthPage() {
         url: "https://pumpmilitia.io/create-password/?tempSessionId={tempSessionId}",
         handleCodeInApp: true,
     };
+    useEffect(() => {
+        const collected_param_raw = decodeURIComponent(params.id.toString());
+        const collected_param = collected_param_raw.split(";");
+
+        const operationType = collected_param[0].split("=")[1];
+        const operationData = collected_param[1].split("=")[1];
+
+        setParamsData(operationData);
+
+    }, [])
 
     try {
         const collected_param_raw = decodeURIComponent(params.id.toString());
         const collected_param = collected_param_raw.split(";");
 
-
         const operationType = collected_param[0].split("=")[1];
         const operationData = collected_param[1].split("=")[1];
+
+        //== null or empty  blur should not be effected
+        // if it is not null or empty blur should be effected
 
         if (operationType === "referral") {
             referralProcessor();
@@ -107,7 +120,6 @@ export default function gameAuthPage() {
             console.error("Error sending email link", error);
         }
     };
-
 
     const checkEmailExists = async () => {
         setloading(true);
@@ -510,7 +522,7 @@ export default function gameAuthPage() {
                             {!emailExists ?
                                 <CustomInput
                                     className=""
-                                    disabled={!failedExternalAuth}
+                                    disabled={!failedExternalAuth && paramsData != ""}
                                     error={error}
                                     sx={{ marginBottom: '10px' }}
                                     label="Email Address"
@@ -547,7 +559,7 @@ export default function gameAuthPage() {
                                     </div>
                                 </>
                             }
-                            <div className={`${!failedExternalAuth ? "blur-[2px] my-5" : "my-5"}`}>
+                            <div className={`${!failedExternalAuth && paramsData != "" ? "blur-[2px] my-5" : "my-5"}`}>
 
                                 {!emailExists ?
                                     <div className="my-5">
