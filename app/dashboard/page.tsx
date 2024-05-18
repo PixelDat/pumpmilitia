@@ -469,15 +469,14 @@ export default function Dashboard() {
                                   priority
                                   alt="" />
                               </div>
-                              <div className="md:hidden">
-                                <Image
+                              <div className="md:hidden h-[53px] w-[53px] bg-center bg-[url('/images/tasksItem.png')] rounded">
+                                {/* <Image
                                   className="m-auto"
-                                  style={{ objectFit: 'cover' }}
-                                  src={'/images/smallScreentask.png'}
-                                  width={53}
-                                  height={53}
+                                  style={{ objectFit: 'fill' }}
+                                  src={'/images/tasksItem.png'}
+                                  fill={true}
                                   priority
-                                  alt="" />
+                                  alt="" /> */}
                               </div>
                               <div>
                                 <div className="flex flex-row gap-8 items-center">
