@@ -482,7 +482,7 @@ export default function gameAuthPage() {
                         <div className={loading ? "blur-[5px]" : ""}>
                             {!emailExists &&
                                 <>
-                                    <FormHelperText className="text-[14px] text-vivd-lime-green-10 leading-tight mb-5 w-8/12 m-auto text-center font-bold">Sign Up With</FormHelperText>
+                                    <FormHelperText className="text-[14px] text-vivd-lime-green-10 leading-tight mb-5 w-8/12 m-auto text-center font-bold">Login With</FormHelperText>
                                     <div className="flex flex-row items-center justify-center gap-8 my-3">
                                         <Image
                                             onClick={() => { handleExternalLogin('google') }}
