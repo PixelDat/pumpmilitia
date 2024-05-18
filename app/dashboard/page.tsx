@@ -60,7 +60,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!encrypt) {
-      location.href = '/pumpmilitiaAuth/type=logib;data='
+      location.href = '/pumpmilitiaAuth/type=login;data='
       return
     }
     let userDetails = async () => {

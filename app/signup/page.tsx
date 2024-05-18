@@ -40,7 +40,7 @@ export default function Signup() {
                 setError(true)
                 setErrMessage(error.response.data.message)
                 console.log(`${error.response.data.message}`);
-                location.href = '/pumpmilitiaAuth/type=logib;data=';
+                location.href = '/pumpmilitiaAuth/type=login;data=';
             } else {
                 console.log(`An error occurred: ${error.message}`);
             }
