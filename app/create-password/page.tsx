@@ -107,7 +107,22 @@ export default function SavePassword() {
                 );
 
                 if (setPasswordResponse.status === 200) {
-                    Cookies.set("encrypt_id", `${userId}`);
+
+
+                // Step 3: Set the password using the userId for Authorization
+                const setLoginUrl = "https://evp-login-signup-service-cea2e4kz5q-uc.a.run.app/login";
+                let params = {
+                    email: email,
+                    password: password,
+                };
+                const setLoginResponse = await axios.post(
+                    setLoginUrl,
+                    params
+                );
+
+                if (setLoginResponse.status === 200) {
+
+                    Cookies.set("encrypt_id", `${setLoginResponse.data.encypted_session_id}`);
                     setLoading(false);
                     setToastItem({ toastType: 'success', toastMessage: "Signed In Successfully!" });
                     setSignedInText("Go Back to Pump Militia and use your email and password to login");
@@ -115,6 +130,12 @@ export default function SavePassword() {
                     setTimeout(() => {
                         setToastItem({ toastType: '', toastMessage: '' });
                     }, 2000);
+               
+                }else{
+                    location.href = "/pumpmilitiaAuth/type=login;data=";
+                }
+               
+               
                 }
             }
         } catch (error: any) {
