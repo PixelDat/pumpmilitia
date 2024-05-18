@@ -475,10 +475,10 @@ export default function gameAuthPage() {
                 {/* email address input */}
 
                 {!canViewGoBackMsg && <div className="items-center justify-center">
-
+                    
                     {!emailExists &&
                         <>
-
+   <FormHelperText className="text-[14px] text-vivd-lime-green-10 leading-tight mb-5 w-8/12 m-auto text-center font-bold">Login With</FormHelperText>
                             <div className="flex flex-row items-center justify-center gap-8 my-3">
                                 <Image
                                     onClick={() => { handleExternalLogin('google') }}
@@ -506,7 +506,7 @@ export default function gameAuthPage() {
                     {!emailExists ?
                         <CustomInput
                             className=""
-                            disabled={!failedExternalAuth}
+                            // disabled={!failedExternalAuth}
                             error={error}
                             sx={{ marginBottom: '10px' }}
                             label="Email Address"
@@ -543,11 +543,13 @@ export default function gameAuthPage() {
                             </div>
                         </>
                     }
-                    <div className={`${!failedExternalAuth ? "blur-[2px] my-5" : "my-5"}`}>
+                    {/* <div className={`${!failedExternalAuth ? "blur-[2px] my-5" : "my-5"}`}> */}
+                    <div className="my-5">
 
                         {!emailExists ?
                             <div className="my-5">
-                                <button disabled={!failedExternalAuth} onClick={checkEmailExists} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button>
+                                {/* <button disabled={!failedExternalAuth} onClick={checkEmailExists} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button> */}
+                                <button onClick={checkEmailExists} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button>
                             </div>
                             :
                             <div className="my-5">
