@@ -546,7 +546,7 @@ export default function Presale() {
           </div>
         </div>
       </div>
-      <Tokenomics />
+      {/* <Tokenomics /> */}
       <Faqs />
       <Footer />
     </div>
