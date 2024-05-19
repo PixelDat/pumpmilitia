@@ -240,7 +240,7 @@ const Hero = () => {
                     AIRDROP - MINE $PUMP
                   </div>
                   <div className="w-[160px] md:w-[318px] text-lime-100 text-[10px] md:text-xs font-normal font-sans leading-none">
-                  You can start mining $PUMP tokens on your mobile phones right away by accumulating $COIN. We're opening the doors wide for every crypto enthusiast to join in on the fun and rewards.
+                  You can start mining $PUMP tokens on your mobile phones right away by accumulating $PUMP. We're opening the doors wide for every crypto enthusiast to join in on the fun and rewards.
                   </div>
                 </div>
 

@@ -339,7 +339,7 @@ export default function WithdrawPage() {
                   <div>
                     <div className="flex flex-row items-center gap-4">
                       <div className="text-[#EDF9D0] text-[14px] md:text-[16px]">
-                        $COIN
+                        $PUMP
                       </div>
                       <div className="text-[#EDF9D0] font-gameria text-[16px] md:text-[24px]">
                         IN-GAME
