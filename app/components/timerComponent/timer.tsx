@@ -33,7 +33,7 @@ export default function TimerCount() {
     // Function to start countdown
     function startCountdown() {
         // Get the launch date string (example format: "March 17, 2024 12:00:00")
-        var launchDateString = "May 17, 2024 12:00:00";
+        var launchDateString = "June 17, 2024 12:00:00";
         var targetDate = new Date(launchDateString).getTime();
 
         // Update the countdown timer every second
