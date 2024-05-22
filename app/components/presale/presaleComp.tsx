@@ -29,7 +29,7 @@ import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
 
 
 
-export default function Presale() {
+export default function PresaleComp() {
   let encrypt = Cookies.get('encrypt_id');
   const { connection } = useConnection();
   const [showPopup, setShowPopup] = useState(false);
@@ -47,7 +47,7 @@ export default function Presale() {
   //This checks the whitelist
   const [checkWl, setCheckWl] = useState(false)
   const [walletAddress, setWalletAddress] = useState('')
-  const [amount, setAmount] = useState('')
+  const [amount, setAmount] = useState<any>('')
   const { sendTransaction, signTransaction, wallets, wallet } = useWallet();
   const [convertedAmount, setConvertedAmount] = useState('')
   // Wallet button
@@ -218,12 +218,12 @@ export default function Presale() {
       publicKey,
     );
 
-    // let tokenAmount = await checkRates(amount)
+
 
     const saleAccount = await program.account.sale.fetch(treasuryPubkey);
 
     const ix = await program.methods.buyTokens(
-      new BN(tokenAmount * 9)
+      new BN(amount * 9)
     ).accounts({
       sale: TOKEN_PROGRAM_ID,
       buyer: publicKey,
@@ -296,13 +296,13 @@ export default function Presale() {
     // }
   }
 
-  async function getRates(value: string) {
-    let val = await checkRates(value);
-    console.log(val)
-    setAmount(value);
-    setConvertedAmount(Number(val).toLocaleString());
-    return
-  }
+  // async function getRates(value: string) {
+  //   let val = await checkRates(value);
+  //   console.log(val)
+  //   setAmount(value);
+  //   setConvertedAmount(Number(val).toLocaleString());
+  //   return
+  // }
 
   return (
     <div onClick={() => setVisible(false)} className="bg-cover overflow-hidden bg-[url('/images/background.jpeg')] h-full w-screen">
