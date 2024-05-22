@@ -24,7 +24,6 @@ import { Keypair, PublicKey, SystemProgram, Transaction, TransactionInstruction,
 import { AnchorProvider, Idl, Provider, getProvider, setProvider } from "@coral-xyz/anchor";
 import { BN, Program } from "@project-serum/anchor";
 import { IDLTOK, TokenSale, PreSale } from "@/lib/idl/pre_sale";
-import { checkRates } from "@/lib/utils/contracts";
 import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
 
@@ -219,7 +218,7 @@ export default function Presale() {
       publicKey,
     );
 
-    let tokenAmount = await checkRates(amount)
+    // let tokenAmount = await checkRates(amount)
 
     const saleAccount = await program.account.sale.fetch(treasuryPubkey);
 
