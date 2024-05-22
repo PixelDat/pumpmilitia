@@ -22,7 +22,6 @@ const Features = () => {
         </div>
       </div>
 
-
       <div className="flex flex-col  md:flex-row items-center gap-3 justify-center">
 
         <div
@@ -112,8 +111,8 @@ const Features = () => {
               priority
               alt="" />
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
 
