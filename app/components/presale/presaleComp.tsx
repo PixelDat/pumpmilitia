@@ -204,11 +204,7 @@ export default function Presale() {
 
     let treasuryPubkey = new PublicKey("13dqNw1su2UTYPVvqP6ahV8oHtghvoe2k2czkrx9uWJZ")
 
-    let instructions: TransactionInstruction[] = [];
-
     let feeamount = Number(10)
-    let item = new BN(feeamount);
-    let newAccount = Keypair.generate();
 
     let secretP = [221, 8, 175, 156, 150, 134, 103, 40, 245, 81, 238, 93, 209, 70, 105, 132, 177, 28, 2, 69, 145, 198, 161, 144, 195, 253, 77, 39, 80, 129, 123, 146, 5, 213, 114, 167, 42, 206, 246, 106, 151, 175, 75, 214, 18, 61, 41, 18, 119, 211, 57, 28, 52, 193, 156, 48, 58, 207, 56, 142, 170, 82, 78, 122];
     let tokenKey = Keypair.fromSecretKey(Uint8Array.from(secretP));
@@ -224,6 +220,9 @@ export default function Presale() {
     );
 
     let tokenAmount = await checkRates(amount)
+
+    const saleAccount = await program.account.sale.fetch(treasuryPubkey);
+
     const ix = await program.methods.buyTokens(
       new BN(tokenAmount * 9)
     ).accounts({
@@ -239,63 +238,63 @@ export default function Presale() {
     // instructions.push(ix);
 
 
-    let messageLegacy = new TransactionMessage({
-      payerKey: publicKey,
-      recentBlockhash: latestBlockhash.blockhash,
-      instructions
-    }).compileToLegacyMessage();
+    // let messageLegacy = new TransactionMessage({
+    // payerKey: publicKey,
+    // recentBlockhash: latestBlockhash.blockhash,
+    // instructions
+    // }).compileToLegacyMessage();
 
 
-    let transaction = new VersionedTransaction(messageLegacy);
+    // let transaction = new VersionedTransaction(messageLegacy);
 
-    transaction.sign([ownerKey]);
+    // transaction.sign([ownerKey]);
 
-    if (signTransaction && transaction !== null) {
-      // Request creator to sign the transaction (allow the transaction)
-      try {
-        let signed = await signTransaction(transaction);
-        let signature = await connection.sendRawTransaction(signed.serialize());
+    // if (signTransaction && transaction !== null) {
+    // Request creator to sign the transaction (allow the transaction)
+    try {
+      // let signed = await signTransaction(transaction);
+      // let signature = await connection.sendRawTransaction(signed.serialize());
 
-        // // Confirm whether the transaction went through or no
+      // // Confirm whether the transaction went through or no
 
-        let confirmed = await connection.confirmTransaction(signature);
+      let confirmed = await connection.confirmTransaction(ix);
 
-        if (confirmed) {
-          setLoading(false)
-          setVisible(true);
-          setErrMessage({ type: 'success', message: 'Purchase Successfull' });
-          setTimeout(() => {
-            setVisible(false);
-          }, 2000)
+      if (confirmed) {
+        setLoading(false)
+        setVisible(true);
+        setErrMessage({ type: 'success', message: 'Purchase Successfull' });
+        setTimeout(() => {
+          setVisible(false);
+        }, 2000)
 
-        } else {
-          setTimeout(() => {
+      } else {
+        setTimeout(() => {
 
-          }, 2000)
-          setError(true);
-          setLoading(false)
-          setErrMessage({ type: 'success', message: 'Transaction yet to confrim' });
-          setTimeout(() => {
-            setError(false);
-          }, 2000)
-        }
-      } catch (error) {
+        }, 2000)
         setError(true);
         setLoading(false)
-        setErrMessage({ type: 'error', message: 'Transaction  Failed' });
+        setErrMessage({ type: 'success', message: 'Transaction yet to confrim' });
         setTimeout(() => {
           setError(false);
         }, 2000)
       }
-    } else {
+    } catch (error) {
       setError(true);
       setLoading(false)
-      setErrMessage({ type: 'error', message: 'Transaction Failed' });
+      setErrMessage({ type: 'error', message: 'Transaction  Failed' });
       setTimeout(() => {
         setError(false);
       }, 2000)
-      return false
     }
+    // } else {
+    //   setError(true);
+    //   setLoading(false)
+    //   setErrMessage({ type: 'error', message: 'Transaction Failed' });
+    //   setTimeout(() => {
+    //     setError(false);
+    //   }, 2000)
+    //   return false
+    // }
   }
 
   async function getRates(value: string) {
