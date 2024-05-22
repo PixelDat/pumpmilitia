@@ -23,7 +23,7 @@ const Cookies = require('js-cookie');
 import { Keypair, PublicKey, SystemProgram, Transaction, TransactionInstruction, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
 import { AnchorProvider, Idl, Provider, getProvider, setProvider } from "@coral-xyz/anchor";
 import { BN, Program } from "@project-serum/anchor";
-import { IDL, PreSale } from "@/lib/idl/pre_sale";
+import { IDLTOK, TokenSale, PreSale } from "@/lib/idl/pre_sale";
 import { checkRates } from "@/lib/utils/contracts";
 import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
@@ -44,6 +44,8 @@ export default function Presale() {
     type: '',
     message: '',
   })
+
+  //This checks the whitelist
   const [checkWl, setCheckWl] = useState(false)
   const [walletAddress, setWalletAddress] = useState('')
   const [amount, setAmount] = useState('')
@@ -196,7 +198,7 @@ export default function Presale() {
 
     let ancProvider = getProvider();
     const programId = new PublicKey("H52i4cUPbh7CUoqafWm6bpTVFnENAJkrSYrrGB5CYifz");
-    const program = new Program<PreSale>(IDL, programId, ancProvider);
+    const program = new Program<TokenSale>(IDLTOK, programId, ancProvider);
 
     let latestBlockhash = await connection.getLatestBlockhash();
 
@@ -222,14 +224,19 @@ export default function Presale() {
     );
 
     let tokenAmount = await checkRates(amount)
-    const ix = await program.methods.makeDirectSolTransfer(new BN(tokenAmount * 9)).accounts({
+    const ix = await program.methods.buyTokens(
+      new BN(tokenAmount * 9)
+    ).accounts({
+      sale: TOKEN_PROGRAM_ID,
+      buyer: publicKey,
+      saleTokenAccount: publicKey,
+      buyerTokenAccount: publicKey,
+      user: publicKey,
       tokenProgram: TOKEN_PROGRAM_ID,
-      to: toTokenAccount,
-      from: fromTokenAccount.toBase58(),
-      signer: ownerKey.publicKey,
       systemProgram: SystemProgram.programId
-    }).signers([ownerKey]).instruction();
-    instructions.push(ix);
+    }).signers([]).rpc();
+
+    // instructions.push(ix);
 
 
     let messageLegacy = new TransactionMessage({
