@@ -64,7 +64,7 @@ export default function DepositCompPage() {
 
   useEffect(() => {
     if (!encrypt) {
-      location.href = '/auth'
+      location.href = '/pumpmilitiaAuth/type=login;data='
       return
     }
     let userDetails = async () => {
@@ -150,6 +150,16 @@ export default function DepositCompPage() {
       }, 2000)
       return false
     }
+    if (1 == 1) {
+      setError(true);
+      setErrMessage({ type: 'success', message: "Deposit not available. Deposits would begin after $PUMP token launch" });
+      setLoading(false);
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return;
+    }
+
     if (publicKey) {
 
       const binder: boolean = await bindAddress(walletAddress);
@@ -272,7 +282,7 @@ export default function DepositCompPage() {
 
   return (
 
-    <div onClick={() => setVisible(false)} className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
+    <div onClick={() => setVisible(false)} className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.jpeg')] md:h-screen w-full">
       {error &&
         <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
       }
@@ -378,7 +388,7 @@ export default function DepositCompPage() {
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#e4a43d] font-gameria text-[16px] md:text-[24px]">099998</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">?</span></p>
                     </div>
                   </div>
 
@@ -400,10 +410,23 @@ export default function DepositCompPage() {
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">{Number(user?.points).toLocaleString()}</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#e4a43d] font-gameria text-[16px] md:text-[24px]">{Number(user?.points).toLocaleString()}</span></p>
                     </div>
                   </div>
                 </div>
+                <CustomInput
+                  addOnStart={<Image
+                    className=""
+                    src={'/images/deposit/pumpgreencoin.png'}
+                    width={32}
+                    height={32}
+                    priority
+                    alt="" />}
+                  type="text"
+                  onChange={(e: any) => setAmount(e.target.value)}
+                  placeholder="Enter amount to deposit"
+                />
+
                 <CustomInput
                   addOnStart={<Image
                     className=""
@@ -414,7 +437,7 @@ export default function DepositCompPage() {
                     alt="" />}
                   type="text"
                   onChange={(e: any) => setAmount(e.target.value)}
-                  placeholder="Enter amount to deposit"
+                  placeholder="?"
                 />
 
 

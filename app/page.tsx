@@ -116,7 +116,7 @@ export default function IndexPage() {
           <Features />
           <Onboarding />
           <RoadMap />
-          <Tokenomics />
+          {/* <Tokenomics /> */}
           <Partners />
           <Faqs />
           <Footer />

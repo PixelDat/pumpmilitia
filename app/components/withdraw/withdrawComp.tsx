@@ -74,7 +74,7 @@ export default function WithdrawPage() {
 
   useEffect(() => {
     if (!encrypt) {
-      location.href = '/auth'
+      location.href = '/pumpmilitiaAuth/type=login;data='
       return
     }
     let userDetails = async () => {
@@ -116,12 +116,12 @@ export default function WithdrawPage() {
     {
       title: 'connect your wallet',
       image: '/images/deposit/connect.png',
-      subtitle: 'Click the “Connect” button to connect your Defi walletpleted',
+      subtitle: 'Click the “Connect” button to connect your Defi wallet',
     },
     {
       title: 'Enter Amount',
       image: '/images/deposit/coins.png',
-      subtitle: 'Input amount of $PUMP tokens you want to deposit into Pump Militia',
+      subtitle: 'Input amount of $PUMP tokens you want to withdraw',
     },
   ]
   const [error, setError] = useState(false)
@@ -160,6 +160,16 @@ export default function WithdrawPage() {
       }, 2000)
       return false
     }
+
+    setError(true);
+    setErrMessage({ type: 'success', message: "Withdrawal not available. Withdraw your $PUMP airdrop balance at TGE" });
+    setLoading(false);
+    setTimeout(() => {
+      setError(false);
+    }, 2000)
+
+    return;
+    // This is what prevents withdrawal from happening till withdrawal is ready
 
     let params = {
       walletAddress: walletAddress,
@@ -229,7 +239,7 @@ export default function WithdrawPage() {
 
   return (
 
-    <div onClick={() => setVisible(false)} className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.png')] md:h-screen w-full">
+    <div onClick={() => setVisible(false)} className="md:bg-cover bg-contain bg-center overflow-hidden bg-[url('/images/deposit/bgmobile.png')] md:bg-[url('/images/deposit/depbag.jpeg')] md:h-screen w-full">
       {error &&
         <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
       }
@@ -273,7 +283,9 @@ export default function WithdrawPage() {
                     alt="" />
                   <p className="text-[15px] font-[300]">Your balance today</p>
                   <h4 className="text-[24px] font-gameria font-[500]">CONFIRM AND COMPLETE PURCHASE</h4>
-                  <p className="text-[15px] font-[300]">Click “Withdraw” button and accept/approve transaction in your wallet. Wait for Withdraw to process</p>
+                  <p className="text-[15px] font-[300]">
+                    Click “Withdraw” button and accept/approve transaction in your wallet. Wait for Withdraw to process
+                  </p>
                 </div>
               </div>
 
@@ -334,7 +346,7 @@ export default function WithdrawPage() {
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">{Number(user?.points).toLocaleString()}</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#e4a43d] font-gameria text-[16px] md:text-[24px]">{Number(user?.points).toLocaleString()}</span></p>
                     </div>
                   </div>
 
@@ -357,12 +369,25 @@ export default function WithdrawPage() {
                       </div>
                     </div>
                     <div className="text-end">
-                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">099998</span></p>
+                      <p className="text-[#898989] text-[10px]">Balance: <span className="text-[#A5E314] font-gameria text-[16px] md:text-[24px]">?</span></p>
                     </div>
                   </div>
 
 
                 </div>
+                <CustomInput
+                  addOnStart={<Image
+                    className=""
+                    src={'/images/deposit/pumpcoin.png'}
+                    width={32}
+                    height={32}
+                    priority
+                    alt="" />}
+                  type="text"
+                  onChange={(e: any) => setAmount(e.target.value)}
+                  placeholder="Enter amount to withdraw"
+                />
+
                 <CustomInput
                   addOnStart={<Image
                     className=""
@@ -373,7 +398,7 @@ export default function WithdrawPage() {
                     alt="" />}
                   type="text"
                   onChange={(e: any) => setAmount(e.target.value)}
-                  placeholder="Enter amount to withdraw"
+                  placeholder="?"
                 />
 
                 {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">

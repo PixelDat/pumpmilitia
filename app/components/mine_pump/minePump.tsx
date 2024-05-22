@@ -48,9 +48,7 @@ const MinePump = () => {
           </div>
 
           <div className="font-sans font-[700] text-vivd-lime-green-10 text-[16px] max-w-[800px] text-center">
-            You can start mining $PUMP tokens on your mobile phones right away.
-            We're opening the doors wide for every crypto enthusiast to join in on
-            the fun and rewards.
+          You can start mining $PUMP tokens on your mobile phones right away by accumulating $PUMP. We're opening the doors wide for every crypto enthusiast to join in on the fun and rewards.
           </div>
         </div>
 
@@ -123,9 +121,7 @@ const MinePump = () => {
           </div>
 
           <div className="font-sans font-[700] p-3  text-vivd-lime-green-10 text-[14px] max-w-[800px] text-center">
-            You can start mining $PUMP tokens on your mobile phones right away.
-            We're opening the doors wide for every crypto enthusiast to join in on
-            the fun and rewards.
+          You can start mining $PUMP tokens on your mobile phones right away by accumulating $PUMP. We're opening the doors wide for every crypto enthusiast to join in on the fun and rewards.
           </div>
         </div>
 
