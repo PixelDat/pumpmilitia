@@ -68,7 +68,10 @@ export default function PresaleComp() {
   }, [anchorWallet, connection])
 
   const [copied, setCopied] = useState(false);
+  const [coinBalPercentage, setCoinBalPercentage] = useState(0);
+
   const ref = useRef<HTMLUListElement>(null);
+
   useEffect(() => {
     if (!publicKey) {
       setConnected(false);
@@ -78,6 +81,24 @@ export default function PresaleComp() {
     }
 
   }, [publicKey])
+
+  useEffect(() => {
+
+    (async () => {
+      let ancProvider = getProvider();
+      const programId = new PublicKey("28QBJ3VXAUsJRkxV9owTJQ3NdwVeoTBWCH5F8AAvNjhY");
+      const program = new Program<TokenSale>(IDLTOK, programId, ancProvider);
+      const saleAccount = await program.account.sale.fetch(new PublicKey('5yBx9igpeXbD5L8xEmcQ9FWZRkwPYpyuiw4QTuBCPwhr'));
+      let rate = saleAccount.rate.toNumber()
+      let coinSold = saleAccount.totalTokensSold.toNumber()
+      let coinBalance = saleAccount.totalTokensForSale.toNumber()
+      let val = amount * rate;
+      console.log(val)
+      setConvertedAmount(Number(val).toLocaleString());
+      setCoinBalPercentage((coinSold / coinBalance) * 100)
+    })()
+
+  }, [amount])
 
   async function checkWhitelistStatus() {
 
@@ -91,15 +112,6 @@ export default function PresaleComp() {
       }, 2000)
       return false
     }
-    // if (!encrypt) {
-    //   setError(true);
-    //   setLoading(false)
-    //   setErrMessage({ type: 'error', message: 'Kindly Login' });
-    //   setTimeout(() => {
-    //     setError(false);
-    //   }, 2000)
-    //   return false
-    // }
 
     let config = {
       method: 'get',
@@ -196,83 +208,62 @@ export default function PresaleComp() {
     }
 
     let ancProvider = getProvider();
-    const programId = new PublicKey("H52i4cUPbh7CUoqafWm6bpTVFnENAJkrSYrrGB5CYifz");
+    const programId = new PublicKey("28QBJ3VXAUsJRkxV9owTJQ3NdwVeoTBWCH5F8AAvNjhY");
     const program = new Program<TokenSale>(IDLTOK, programId, ancProvider);
 
-    let latestBlockhash = await connection.getLatestBlockhash();
-
-    let treasuryPubkey = new PublicKey("13dqNw1su2UTYPVvqP6ahV8oHtghvoe2k2czkrx9uWJZ")
-
     let feeamount = Number(10)
-
-    let secretP = [221, 8, 175, 156, 150, 134, 103, 40, 245, 81, 238, 93, 209, 70, 105, 132, 177, 28, 2, 69, 145, 198, 161, 144, 195, 253, 77, 39, 80, 129, 123, 146, 5, 213, 114, 167, 42, 206, 246, 106, 151, 175, 75, 214, 18, 61, 41, 18, 119, 211, 57, 28, 52, 193, 156, 48, 58, 207, 56, 142, 170, 82, 78, 122];
-    let tokenKey = Keypair.fromSecretKey(Uint8Array.from(secretP));
+    let saleToken = [104, 169, 43, 181, 195, 206, 70, 151, 219, 144, 10, 188, 25, 81, 137, 225, 205, 228, 253, 148, 56, 125, 198, 63, 237, 238, 142, 95, 168, 80, 106, 216, 73, 211, 167, 187, 33, 62, 163, 147, 111, 235, 158, 235, 236, 122, 248, 172, 137, 16, 254, 161, 217, 69, 28, 121, 225, 8, 127, 67, 25, 196, 81, 57];
+    let saleTokenKeyPair = Keypair.fromSecretKey(Uint8Array.from(saleToken));
 
     //owner key
     let ownerP = [11, 54, 73, 115, 127, 169, 207, 253, 128, 164, 154, 45, 210, 173, 218, 105, 93, 211, 32, 202, 103, 210, 92, 3, 217, 205, 51, 6, 29, 135, 50, 248, 5, 213, 137, 250, 180, 248, 182, 74, 222, 154, 151, 212, 186, 15, 98, 124, 195, 87, 71, 214, 142, 142, 174, 111, 20, 206, 254, 133, 35, 12, 236, 91];
     let ownerKey = Keypair.fromSecretKey(Uint8Array.from(ownerP));
 
-    const fromTokenAccount = getAssociatedTokenAddressSync(tokenKey.publicKey, ownerKey.publicKey);
+    const fromTokenAccount = getAssociatedTokenAddressSync(saleTokenKeyPair.publicKey, ownerKey.publicKey);
     const toTokenAccount = getAssociatedTokenAddressSync(
-      tokenKey.publicKey,
+      saleTokenKeyPair.publicKey,
       publicKey,
     );
 
 
-
-    const saleAccount = await program.account.sale.fetch(treasuryPubkey);
-
-    const ix = await program.methods.buyTokens(
-      new BN(amount * 9)
-    ).accounts({
-      sale: TOKEN_PROGRAM_ID,
-      buyer: publicKey,
-      saleTokenAccount: publicKey,
-      buyerTokenAccount: publicKey,
-      user: publicKey,
-      tokenProgram: TOKEN_PROGRAM_ID,
-      systemProgram: SystemProgram.programId
-    }).signers([]).rpc();
-
-    // instructions.push(ix);
-
-
-    // let messageLegacy = new TransactionMessage({
-    // payerKey: publicKey,
-    // recentBlockhash: latestBlockhash.blockhash,
-    // instructions
-    // }).compileToLegacyMessage();
-
-
-    // let transaction = new VersionedTransaction(messageLegacy);
-
-    // transaction.sign([ownerKey]);
-
-    // if (signTransaction && transaction !== null) {
-    // Request creator to sign the transaction (allow the transaction)
     try {
-      // let signed = await signTransaction(transaction);
-      // let signature = await connection.sendRawTransaction(signed.serialize());
+      const ix = await program.methods.buyTokens(
+        new BN(Number(convertedAmount))
+      ).accounts({
+        sale: new PublicKey('5yBx9igpeXbD5L8xEmcQ9FWZRkwPYpyuiw4QTuBCPwhr'),
+        buyer: publicKey,
+        saleTokenAccount: fromTokenAccount,
+        buyerTokenAccount: toTokenAccount,
+        user: publicKey,
+        tokenProgram: TOKEN_PROGRAM_ID,
+        systemProgram: SystemProgram.programId
+      }).signers([]).rpc();
 
-      // // Confirm whether the transaction went through or no
+      try {
+        let confirmed = await connection.confirmTransaction(ix);
 
-      let confirmed = await connection.confirmTransaction(ix);
+        if (confirmed) {
+          setLoading(false)
+          setVisible(true);
+          setErrMessage({ type: 'success', message: 'Purchase Successfull' });
+          setTimeout(() => {
+            setVisible(false);
+          }, 2000)
 
-      if (confirmed) {
-        setLoading(false)
-        setVisible(true);
-        setErrMessage({ type: 'success', message: 'Purchase Successfull' });
-        setTimeout(() => {
-          setVisible(false);
-        }, 2000)
-
-      } else {
-        setTimeout(() => {
-
-        }, 2000)
+        } else {
+          setTimeout(() => {
+          }, 2000)
+          setError(true);
+          setLoading(false)
+          setErrMessage({ type: 'success', message: 'Transaction yet to confrim' });
+          setTimeout(() => {
+            setError(false);
+          }, 2000)
+        }
+      } catch (error) {
         setError(true);
         setLoading(false)
-        setErrMessage({ type: 'success', message: 'Transaction yet to confrim' });
+        setErrMessage({ type: 'error', message: 'Transaction  Failed' });
         setTimeout(() => {
           setError(false);
         }, 2000)
@@ -280,29 +271,18 @@ export default function PresaleComp() {
     } catch (error) {
       setError(true);
       setLoading(false)
-      setErrMessage({ type: 'error', message: 'Transaction  Failed' });
+      setErrMessage({ type: 'error', message: 'Transaction Rejected' });
       setTimeout(() => {
         setError(false);
       }, 2000)
     }
-    // } else {
-    //   setError(true);
-    //   setLoading(false)
-    //   setErrMessage({ type: 'error', message: 'Transaction Failed' });
-    //   setTimeout(() => {
-    //     setError(false);
-    //   }, 2000)
-    //   return false
-    // }
   }
 
-  // async function getRates(value: string) {
-  //   let val = await checkRates(value);
-  //   console.log(val)
-  //   setAmount(value);
-  //   setConvertedAmount(Number(val).toLocaleString());
-  //   return
-  // }
+  async function getRates(value: string) {
+
+    setAmount(value);
+    return
+  }
 
   return (
     <div onClick={() => setVisible(false)} className="bg-cover overflow-hidden bg-[url('/images/background.jpeg')] h-full w-screen">
@@ -348,10 +328,10 @@ export default function PresaleComp() {
                         </div>
                         {/* Rectangle */}
                         <div className="bg-[#374C07] my-4 h-[4px] rounded-full w-full">
-                          <div className="bg-[#A5E314] rounded-full h-[4px] w-[192px]">
+                          <div className={`bg-[#A5E314] rounded-full h-[4px]`} style={{ width: `${coinBalPercentage}%` }}>
 
                           </div>
-                          <div className="bg-[#A5E314] relative top-[-12px] left-[192px] h-[20px] rounded-full border w-[20px]">
+                          <div className={`bg-[#A5E314] relative top-[-12px] left-[${coinBalPercentage}%] h-[20px] rounded-full border w-[20px]`}>
 
                           </div>
                         </div>
