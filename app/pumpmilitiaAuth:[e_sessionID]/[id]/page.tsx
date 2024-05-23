@@ -61,7 +61,6 @@ export default function gameAuthPage() {
     const [signedInText, setSignedInText] = useState("You are signed in! Go Back to Pump Militia");
     const [tempSessionId, setTempSessionId] = useState("");
     const [failedExternalAuth, setFailedExternalAuth] = useState(false);
-    const [called_reg_potential_referal, set_called_reg_potential_referal] = useState(false);
 
     let cross_authkey = "";
     let refID = "";
@@ -80,10 +79,8 @@ export default function gameAuthPage() {
         const operationType = collected_param[0].split("=")[1];
         const operationData = collected_param[1].split("=")[1];
 
-        console.log("Operation operationData:", operationData);
-
         if (operationType === "referral") {
-            referralProcessor(operationData);
+            referralProcessor();
             refID = operationData;
         } else if (operationType == "login") {
             cross_authkey = operationData;
@@ -304,7 +301,7 @@ export default function gameAuthPage() {
     const successfullAuth = async () => {
         reg_auth();
         saveConnectionKey();
-        // confirmPotentialRef();
+        confirmPotentialRef();
         // Display `You are signed in! Go back to pumpmilitia`
     }
 
@@ -332,28 +329,6 @@ export default function gameAuthPage() {
             console.error("Error confirming referral:", error);
         }
     }
-
-    // async function confirmPotentialRef_passed_params(genID: string, refID: string) {
-        
-    //     // Check if both IDs exist
-    //     if (!genID || !refID) {
-    //         console.error("Missing genID or refID for referral confirmation.");
-    //         return;
-    //     }
-
-    //     try {
-    //         const response = await axios.post(
-    //             "https://evp-referral-service-cea2e4kz5q-uc.a.run.app/reg-potential-referrals",
-    //             {
-    //                 _genID: genID,
-    //                 _refID: refID,
-    //             }
-    //         );
-    //         console.log("Referral confirmation response:", response.data);
-    //     } catch (error) {
-    //         console.error("Error confirming referral:", error);
-    //     }
-    // }
 
     async function reg_auth() {
         try {
@@ -395,17 +370,17 @@ export default function gameAuthPage() {
         }
     }
 
-    function referralProcessor  (operationData: string) {
+    function referralProcessor() {
 
-        if(!called_reg_potential_referal){
         const genID = uuidv4();
 
         // Cache genID and refID using cookies
         Cookies.set('genID', genID, { expires: 7 }); // Expires in 7 days
-        Cookies.set('refID', operationData, { expires: 7 });
+        Cookies.set('refID', refID, { expires: 7 });
 
-        confirmPotentialRef().then(() => {
-             // Cache genID and refID using cookies
+        confirmPotentialRef();
+        
+        // Cache genID and refID using cookies
         const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
         if (/iPad|iPhone|iPod/.test(userAgent) && !(navigator as any).MSStream) {
             // iOS device detected
@@ -417,13 +392,9 @@ export default function gameAuthPage() {
             // Non-mobile device detected, redirecting to Play Store as fallback
             location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
         }
-            });
-       
-        set_called_reg_potential_referal(true);
-    }
 
 
-    
+        return null; // This component does not render anything
     }
 
     const forgotPassword = async () => {
