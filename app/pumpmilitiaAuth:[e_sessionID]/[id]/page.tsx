@@ -375,6 +375,8 @@ export default function gameAuthPage() {
         Cookies.set('genID', genID, { expires: 7 }); // Expires in 7 days
         Cookies.set('refID', refID, { expires: 7 });
 
+        confirmPotentialRef();
+        
         // Cache genID and refID using cookies
         const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
         if (/iPad|iPhone|iPod/.test(userAgent) && !(navigator as any).MSStream) {
