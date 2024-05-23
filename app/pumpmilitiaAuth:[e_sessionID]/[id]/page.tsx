@@ -330,9 +330,8 @@ export default function gameAuthPage() {
         }
     }
 
-    async function confirmPotentialRef_passed_params(genID,refID) {
-        // Retrieve genID and refID from cookies
-
+    async function confirmPotentialRef_passed_params(genID: string, refID: string) {
+        
         // Check if both IDs exist
         if (!genID || !refID) {
             console.error("Missing genID or refID for referral confirmation.");
