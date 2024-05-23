@@ -81,14 +81,12 @@ export default function PresaleComp() {
     }
 
   }, [publicKey])
-
   useEffect(() => {
-
     (async () => {
       let ancProvider = getProvider();
-      const programId = new PublicKey("28QBJ3VXAUsJRkxV9owTJQ3NdwVeoTBWCH5F8AAvNjhY");
+      const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
       const program = new Program<TokenSale>(IDLTOK, programId, ancProvider);
-      const saleAccount = await program.account.sale.fetch(new PublicKey('5yBx9igpeXbD5L8xEmcQ9FWZRkwPYpyuiw4QTuBCPwhr'));
+      const saleAccount = await program.account.sale.fetch(new PublicKey('FaqTwm6Xy5yotTg9uT3qUz85wDqsf1P3fCYM8o1vCPNF'));
       let rate = saleAccount.rate.toNumber()
       let coinSold = saleAccount.totalTokensSold.toNumber()
       let coinBalance = saleAccount.totalTokensForSale.toNumber()
@@ -208,15 +206,15 @@ export default function PresaleComp() {
     }
 
     let ancProvider = getProvider();
-    const programId = new PublicKey("28QBJ3VXAUsJRkxV9owTJQ3NdwVeoTBWCH5F8AAvNjhY");
+    const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
     const program = new Program<TokenSale>(IDLTOK, programId, ancProvider);
 
-    let feeamount = Number(10)
     let saleToken = [104, 169, 43, 181, 195, 206, 70, 151, 219, 144, 10, 188, 25, 81, 137, 225, 205, 228, 253, 148, 56, 125, 198, 63, 237, 238, 142, 95, 168, 80, 106, 216, 73, 211, 167, 187, 33, 62, 163, 147, 111, 235, 158, 235, 236, 122, 248, 172, 137, 16, 254, 161, 217, 69, 28, 121, 225, 8, 127, 67, 25, 196, 81, 57];
     let saleTokenKeyPair = Keypair.fromSecretKey(Uint8Array.from(saleToken));
 
     //owner key
     let ownerP = [11, 54, 73, 115, 127, 169, 207, 253, 128, 164, 154, 45, 210, 173, 218, 105, 93, 211, 32, 202, 103, 210, 92, 3, 217, 205, 51, 6, 29, 135, 50, 248, 5, 213, 137, 250, 180, 248, 182, 74, 222, 154, 151, 212, 186, 15, 98, 124, 195, 87, 71, 214, 142, 142, 174, 111, 20, 206, 254, 133, 35, 12, 236, 91];
+
     let ownerKey = Keypair.fromSecretKey(Uint8Array.from(ownerP));
 
     const fromTokenAccount = getAssociatedTokenAddressSync(saleTokenKeyPair.publicKey, ownerKey.publicKey);
@@ -241,11 +239,10 @@ export default function PresaleComp() {
 
       try {
         let confirmed = await connection.confirmTransaction(ix);
-
         if (confirmed) {
           setLoading(false)
           setVisible(true);
-          setErrMessage({ type: 'success', message: 'Purchase Successfull' });
+          setErrMessage({ type: 'success', message: 'Purchase Successful' });
           setTimeout(() => {
             setVisible(false);
           }, 2000)
