@@ -395,7 +395,7 @@ export default function gameAuthPage() {
         }
     }
 
-    async function referralProcessor  (operationData: string) {
+    function referralProcessor  (operationData: string) {
 
         if(!called_reg_potential_referal){
         const genID = uuidv4();
