@@ -404,9 +404,8 @@ export default function gameAuthPage() {
         Cookies.set('genID', genID, { expires: 7 }); // Expires in 7 days
         Cookies.set('refID', operationData, { expires: 7 });
 
-        confirmPotentialRef();
-        
-        // Cache genID and refID using cookies
+        confirmPotentialRef().then(() => {
+             // Cache genID and refID using cookies
         const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
         if (/iPad|iPhone|iPod/.test(userAgent) && !(navigator as any).MSStream) {
             // iOS device detected
@@ -418,11 +417,13 @@ export default function gameAuthPage() {
             // Non-mobile device detected, redirecting to Play Store as fallback
             location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
         }
+            });
+       
         set_called_reg_potential_referal(true);
     }
 
 
-        return null; // This component does not render anything
+    
     }
 
     const forgotPassword = async () => {
