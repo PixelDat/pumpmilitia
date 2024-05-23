@@ -330,6 +330,29 @@ export default function gameAuthPage() {
         }
     }
 
+    async function confirmPotentialRef_passed_params(genID,refID) {
+        // Retrieve genID and refID from cookies
+
+        // Check if both IDs exist
+        if (!genID || !refID) {
+            console.error("Missing genID or refID for referral confirmation.");
+            return;
+        }
+
+        try {
+            const response = await axios.post(
+                "https://evp-referral-service-cea2e4kz5q-uc.a.run.app/reg-potential-referrals",
+                {
+                    _genID: genID,
+                    _refID: refID,
+                }
+            );
+            console.log("Referral confirmation response:", response.data);
+        } catch (error) {
+            console.error("Error confirming referral:", error);
+        }
+    }
+
     async function reg_auth() {
         try {
             let token = Cookies.get("encrypt_id", { path: "" });
@@ -370,7 +393,7 @@ export default function gameAuthPage() {
         }
     }
 
-    function referralProcessor() {
+    async function referralProcessor  () {
 
         const genID = uuidv4();
 
@@ -378,7 +401,7 @@ export default function gameAuthPage() {
         Cookies.set('genID', genID, { expires: 7 }); // Expires in 7 days
         Cookies.set('refID', refID, { expires: 7 });
 
-        confirmPotentialRef();
+        await confirmPotentialRef_passed_params(genID,refID);
         
         // Cache genID and refID using cookies
         const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
