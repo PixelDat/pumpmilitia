@@ -64,7 +64,7 @@ export default function DepositCompPage() {
 
   useEffect(() => {
     if (!encrypt) {
-      location.href = '/auth'
+      location.href = '/pumpmilitiaAuth/type=login;data='
       return
     }
     let userDetails = async () => {
@@ -150,6 +150,16 @@ export default function DepositCompPage() {
       }, 2000)
       return false
     }
+    if (1 == 1) {
+      setError(true);
+      setErrMessage({ type: 'success', message: "Deposit not available. Deposits would begin after $PUMP token launch" });
+      setLoading(false);
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return;
+    }
+
     if (publicKey) {
 
       const binder: boolean = await bindAddress(walletAddress);
@@ -393,7 +403,7 @@ export default function DepositCompPage() {
                   <div>
                     <div className="flex flex-row items-center gap-4">
                       <div className="text-[#EDF9D0] text-[14px] md:text-[16px]">
-                        $COIN
+                        $PUMP
                       </div>
                       <div className="text-[#EDF9D0] font-gameria text-[16px] md:text-[24px]">
                         IN-GAME
@@ -415,6 +425,19 @@ export default function DepositCompPage() {
                   type="text"
                   onChange={(e: any) => setAmount(e.target.value)}
                   placeholder="Enter amount to deposit"
+                />
+
+                <CustomInput
+                  addOnStart={<Image
+                    className=""
+                    src={'/images/deposit/pumpcoin.png'}
+                    width={32}
+                    height={32}
+                    priority
+                    alt="" />}
+                  type="text"
+                  onChange={(e: any) => setAmount(e.target.value)}
+                  placeholder="?"
                 />
 
 

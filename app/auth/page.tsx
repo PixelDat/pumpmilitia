@@ -157,7 +157,6 @@ export default function LoginPage() {
                     { headers: { Authorization: authToken } }
                 );
                 if (res.status === 200) {
-                    console.log(res);
                     setloading(false);
                     Cookies.set("encrypt_id", `${res.data.encypted_session_id}`);
                     location.href = "/dashboard";
@@ -305,6 +304,8 @@ export default function LoginPage() {
                             onChange={(e) => setPassword(e.target.value)}
                             sx={{ marginBottom: "10px" }}
                             value={password}
+                            name={"password"}
+                            autocomplete="new-password"
                             label="Enter Password"
                             placeholder="Enter password"
                             type={showPassword ? "text" : "password"}
@@ -384,7 +385,7 @@ export default function LoginPage() {
                                         handleExternalLogin("twitter");
                                     }}
                                     className="object-center"
-                                    src={"/images/xacct.png"}
+                                    src={"/images/xicon.png"}
                                     width={44}
                                     height={44}
                                     alt="X(formerly twitter) icon"

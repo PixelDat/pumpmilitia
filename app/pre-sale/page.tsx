@@ -31,7 +31,7 @@ export default function Presale() {
     type: '',
     message: '',
   })
-
+  //This function changes presale to whitelist status
   const [checkWl, setCheckWl] = useState(true)
   const [walletAddress, setWalletAddress] = useState('')
 
@@ -546,7 +546,7 @@ export default function Presale() {
           </div>
         </div>
       </div>
-      <Tokenomics />
+      {/* <Tokenomics /> */}
       <Faqs />
       <Footer />
     </div>

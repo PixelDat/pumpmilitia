@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 
 const Tokenomics = () => {
     let path = usePathname()
-    console.log(path)
     const [pathVar, setpathVar] = useState('')
     useEffect(() => {
 

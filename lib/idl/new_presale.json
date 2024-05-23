@@ -1,0 +1,63 @@
+{
+  "version": "0.1.0",
+  "name": "pre_sale",
+  "address": "H52i4cUPbh7CUoqafWm6bpTVFnENAJkrSYrrGB5CYifz",
+  "instructions": [
+    {
+      "name": "preSalePurchase",
+      "accounts": [
+        {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ownerTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ownerAuthority",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerAuthority",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "saleLamports",
+          "type": "u64"
+        }
+      ]
+    }
+  ]
+}

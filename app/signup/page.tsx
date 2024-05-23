@@ -40,7 +40,7 @@ export default function Signup() {
                 setError(true)
                 setErrMessage(error.response.data.message)
                 console.log(`${error.response.data.message}`);
-                location.href = '/auth';
+                location.href = '/pumpmilitiaAuth/type=login;data=';
             } else {
                 console.log(`An error occurred: ${error.message}`);
             }
@@ -119,7 +119,7 @@ export default function Signup() {
                             priority />
                         <Image
                             className="object-center"
-                            src={'/images/xacct.png'}
+                            src={'/images/xicon.png'}
                             width={44}
                             height={44}
                             alt="X(formerly twitter) icon"

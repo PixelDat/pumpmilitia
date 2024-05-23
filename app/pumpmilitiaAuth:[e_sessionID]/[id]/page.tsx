@@ -60,6 +60,7 @@ export default function gameAuthPage() {
     const [canViewGoBackMsg, setcanViewGoBackMsg] = useState(false);
     const [signedInText, setSignedInText] = useState("You are signed in! Go Back to Pump Militia");
     const [tempSessionId, setTempSessionId] = useState("");
+    const [failedExternalAuth, setFailedExternalAuth] = useState(false);
 
     let cross_authkey = "";
     let refID = "";
@@ -140,9 +141,11 @@ export default function gameAuthPage() {
         try {
             // If the email exsists and is verified
             const response = await axios.post(url, params);
-            setloading(true);
-            setSignedInText("Account Already Exists, Go Back to Pump Militia and use your email and password to login");
-            setcanViewGoBackMsg(true);
+            setError(false);
+            setEmailExists(true);
+            setloading(false);
+
+            
 
         } catch (error: any) {
             if (error.response && error.response.status === 400) {
@@ -235,8 +238,7 @@ export default function gameAuthPage() {
             }
             const authToken = user.user.uid.trim();
             try {
-              
-              setTimeout(async () => {
+                setTimeout(async () => {
                     const res = await axios.get(
                         "https://us-central1-everpump-6e275.cloudfunctions.net/app/checkAuth",
                         { headers: { Authorization: authToken } }
@@ -247,13 +249,14 @@ export default function gameAuthPage() {
                         successfullAuth();
                         setcanViewGoBackMsg(true);
                     }
-                    }, 4000);
-            
+                }, 4000);
+
             } catch (error: any) {
                 if (error.response) {
                     setError(true);
                     setErrMessage(error.response.data.message);
                     setloading(false);
+                    setFailedExternalAuth(true);
                 } else {
                     setloading(false);
                 }
@@ -418,6 +421,8 @@ export default function gameAuthPage() {
         // console.log('Forgot Password Clicked', emailGotten)
 
     }
+
+
     return (
         <div
             style={{ position: "fixed", width: "100%", height: "100vh" }}
@@ -472,9 +477,38 @@ export default function gameAuthPage() {
                 {/* email address input */}
 
                 {!canViewGoBackMsg && <div className="items-center justify-center">
+                    
+                    {!emailExists &&
+                        <>
+   <FormHelperText className="text-[14px] text-vivd-lime-green-10 leading-tight mb-5 w-8/12 m-auto text-center font-bold">Login With</FormHelperText>
+                            <div className="flex flex-row items-center justify-center gap-8 my-3">
+                                <Image
+                                    onClick={() => { handleExternalLogin('google') }}
+                                    className="object-center"
+                                    src={'/images/google.png'}
+                                    width={60}
+                                    height={60}
+                                    alt="google icon"
+                                    priority />
+                                <Image
+                                    onClick={() => { handleExternalLogin('twitter') }}
+
+                                    className="object-center"
+                                    src={'/images/xicon.png'}
+                                    width={60}
+                                    height={60}
+                                    alt="X(formerly twitter) icon"
+                                    priority />
+
+                            </div>
+                            <FormHelperText className="text-[12px] text-vivd-lime-green-10 leading-tight mb-5 w-8/12 m-auto text-center font-bold">Try this below, only when you fail to login via Google or X.</FormHelperText>
+                        </>
+
+                    }
                     {!emailExists ?
                         <CustomInput
                             className=""
+                            // disabled={!failedExternalAuth}
                             error={error}
                             sx={{ marginBottom: '10px' }}
                             label="Email Address"
@@ -511,40 +545,24 @@ export default function gameAuthPage() {
                             </div>
                         </>
                     }
-                    {!emailExists ?
-                        <div className="my-5">
-                            <button onClick={checkEmailExists} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button>
-                        </div>
-                        :
-                        <div className="my-5">
-                            <button onClick={HandleLogin} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Login'}</button>
-                        </div>
-                    }
+                    {/* <div className={`${!failedExternalAuth ? "blur-[2px] my-5" : "my-5"}`}> */}
+                    <div className="my-5">
+
+                        {!emailExists ?
+                            <div className="my-5">
+                                {/* <button disabled={!failedExternalAuth} onClick={checkEmailExists} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button> */}
+                                <button onClick={checkEmailExists} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Get In'}</button>
+                            </div>
+                            :
+                            <div className="my-5">
+                                <button onClick={HandleLogin} className="navbar-auth-btn buttonTracker w-full">{loading ? <CircularProgress size={16} color="inherit" /> : 'Login'}</button>
+                            </div>
+                        }
+                    </div>
                     {
                         !emailExists ? <>
 
-                            <FormHelperText className="text-[#898989] text-[10px] leading-loose italic w-7/12 m-auto text-center font-light">Try either of this below, only when “email address” fails to get you in.</FormHelperText>
 
-                            <div className="flex flex-row items-center justify-center gap-8 my-3">
-                                <Image
-                                    onClick={() => { handleExternalLogin('google') }}
-                                    className="object-center"
-                                    src={'/images/google.png'}
-                                    width={44}
-                                    height={44}
-                                    alt="google icon"
-                                    priority />
-                                <Image
-                                    onClick={() => { handleExternalLogin('twitter') }}
-
-                                    className="object-center"
-                                    src={'/images/xicon.png'}
-                                    width={44}
-                                    height={44}
-                                    alt="X(formerly twitter) icon"
-                                    priority />
-
-                            </div>
 
 
                             <p className="text-[#EDF9D0] text-center mt-5 font-light">By continuing, you agree to our <span className="font-bold text-[#A5E314]">Terms of service,</span> and acknowledge you have understood our <span className="font-bold text-[#A5E314]">Privacy Policy</span> and <span className="font-bold text-[#A5E314]">Collection Statement.</span></p>
@@ -567,6 +585,6 @@ export default function gameAuthPage() {
             <div className="hidden md:inline absolute right-[150px] bottom-[20px]">
                 <BlipNinja />
             </div>
-        </div>
+        </div >
     );
 }
