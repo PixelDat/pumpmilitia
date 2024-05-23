@@ -304,7 +304,7 @@ export default function gameAuthPage() {
     const successfullAuth = async () => {
         reg_auth();
         saveConnectionKey();
-        confirmPotentialRef();
+        // confirmPotentialRef();
         // Display `You are signed in! Go back to pumpmilitia`
     }
 
@@ -333,27 +333,27 @@ export default function gameAuthPage() {
         }
     }
 
-    async function confirmPotentialRef_passed_params(genID: string, refID: string) {
+    // async function confirmPotentialRef_passed_params(genID: string, refID: string) {
         
-        // Check if both IDs exist
-        if (!genID || !refID) {
-            console.error("Missing genID or refID for referral confirmation.");
-            return;
-        }
+    //     // Check if both IDs exist
+    //     if (!genID || !refID) {
+    //         console.error("Missing genID or refID for referral confirmation.");
+    //         return;
+    //     }
 
-        try {
-            const response = await axios.post(
-                "https://evp-referral-service-cea2e4kz5q-uc.a.run.app/reg-potential-referrals",
-                {
-                    _genID: genID,
-                    _refID: refID,
-                }
-            );
-            console.log("Referral confirmation response:", response.data);
-        } catch (error) {
-            console.error("Error confirming referral:", error);
-        }
-    }
+    //     try {
+    //         const response = await axios.post(
+    //             "https://evp-referral-service-cea2e4kz5q-uc.a.run.app/reg-potential-referrals",
+    //             {
+    //                 _genID: genID,
+    //                 _refID: refID,
+    //             }
+    //         );
+    //         console.log("Referral confirmation response:", response.data);
+    //     } catch (error) {
+    //         console.error("Error confirming referral:", error);
+    //     }
+    // }
 
     async function reg_auth() {
         try {
@@ -404,7 +404,7 @@ export default function gameAuthPage() {
         Cookies.set('genID', genID, { expires: 7 }); // Expires in 7 days
         Cookies.set('refID', operationData, { expires: 7 });
 
-        await confirmPotentialRef_passed_params(genID,operationData);
+        await confirmPotentialRef();
         
         // Cache genID and refID using cookies
         const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
