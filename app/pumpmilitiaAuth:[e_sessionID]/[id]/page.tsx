@@ -61,6 +61,7 @@ export default function gameAuthPage() {
     const [signedInText, setSignedInText] = useState("You are signed in! Go Back to Pump Militia");
     const [tempSessionId, setTempSessionId] = useState("");
     const [failedExternalAuth, setFailedExternalAuth] = useState(false);
+    const [called_reg_potential_referal, set_called_reg_potential_referal] = useState(false);
 
     let cross_authkey = "";
     let refID = "";
@@ -79,8 +80,10 @@ export default function gameAuthPage() {
         const operationType = collected_param[0].split("=")[1];
         const operationData = collected_param[1].split("=")[1];
 
+        console.log("Operation operationData:", operationData);
+
         if (operationType === "referral") {
-            referralProcessor();
+            referralProcessor(operationData);
             refID = operationData;
         } else if (operationType == "login") {
             cross_authkey = operationData;
@@ -392,15 +395,16 @@ export default function gameAuthPage() {
         }
     }
 
-    async function referralProcessor  () {
+    async function referralProcessor  (operationData) {
 
+        if(!called_reg_potential_referal){
         const genID = uuidv4();
 
         // Cache genID and refID using cookies
         Cookies.set('genID', genID, { expires: 7 }); // Expires in 7 days
-        Cookies.set('refID', refID, { expires: 7 });
+        Cookies.set('refID', operationData, { expires: 7 });
 
-        await confirmPotentialRef_passed_params(genID,refID);
+        await confirmPotentialRef_passed_params(genID,operationData);
         
         // Cache genID and refID using cookies
         const userAgent = (navigator.userAgent || navigator.vendor || (window as any).opera) as string;
@@ -414,6 +418,8 @@ export default function gameAuthPage() {
             // Non-mobile device detected, redirecting to Play Store as fallback
             location.href = 'https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia'; // Put your Play Store link here
         }
+        set_called_reg_potential_referal(true);
+    }
 
 
         return null; // This component does not render anything
