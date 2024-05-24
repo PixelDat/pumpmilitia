@@ -19,8 +19,8 @@ export const labels = {
     'copy-address': 'Copy address',
     copied: 'Copied',
     disconnect: 'Disconnect',
-    'has-wallet': 'Connect to Solana Wallet',
-    'no-wallet': 'Connect to Solana Wallet',
+    'has-wallet': 'Connect Solana Wallet',
+    'no-wallet': 'Connect Solana Wallet',
     connected: 'Click to Disconnect',
 } as any;
 
