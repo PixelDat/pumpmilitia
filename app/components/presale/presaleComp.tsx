@@ -205,6 +205,8 @@ export default function PresaleComp() {
       return;
     }
 
+
+
     let ancProvider = getProvider();
     const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
     const program = new Program<TokenSale>(IDLTOK, programId, ancProvider);
