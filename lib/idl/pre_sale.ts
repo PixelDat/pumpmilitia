@@ -219,7 +219,9 @@ export type TransferSol = {
           {
             "name": "buyers",
             "type": {
-              "vec": "publicKey"
+              "vec": {
+                "defined": "Buyer"
+              }
             }
           },
           {
@@ -228,31 +230,20 @@ export type TransferSol = {
           }
         ]
       }
-    },
+    }
+  ],
+  "types": [
     {
-      "name": "buyer",
+      "name": "Buyer",
       "type": {
         "kind": "struct",
         "fields": [
           {
+            "name": "key",
+            "type": "publicKey"
+          },
+          {
             "name": "amount",
-            "type": "u64"
-          },
-          {
-            "name": "exists",
-            "type": "bool"
-          },
-          {
-            "name": "isUnlocked",
-            "type": {
-              "array": [
-                "bool",
-                4
-              ]
-            }
-          },
-          {
-            "name": "unlockedAmount",
             "type": "u64"
           }
         ]
@@ -514,7 +505,9 @@ export const IDL: TransferSol = {
           {
             "name": "buyers",
             "type": {
-              "vec": "publicKey"
+              "vec": {
+                "defined": "Buyer"
+              }
             }
           },
           {
@@ -523,31 +516,20 @@ export const IDL: TransferSol = {
           }
         ]
       }
-    },
+    }
+  ],
+  "types": [
     {
-      "name": "buyer",
+      "name": "Buyer",
       "type": {
         "kind": "struct",
         "fields": [
           {
+            "name": "key",
+            "type": "publicKey"
+          },
+          {
             "name": "amount",
-            "type": "u64"
-          },
-          {
-            "name": "exists",
-            "type": "bool"
-          },
-          {
-            "name": "isUnlocked",
-            "type": {
-              "array": [
-                "bool",
-                4
-              ]
-            }
-          },
-          {
-            "name": "unlockedAmount",
             "type": "u64"
           }
         ]

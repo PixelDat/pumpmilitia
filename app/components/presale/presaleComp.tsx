@@ -92,17 +92,18 @@ export default function PresaleComp() {
 
       const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
       const program = new Program<TransferSol>(IDL, programId, anchorProvider);
-      const saleAccount = await program.account.sale.fetch(new PublicKey('FaqTwm6Xy5yotTg9uT3qUz85wDqsf1P3fCYM8o1vCPNF'));
+      const saleAccount = await program.account.sale.fetch(new PublicKey('FgjJYqV4Y3dMq5cgVB3ES3gAKFzWSRjCCTJrGgu2kaau'));
       let rate = saleAccount.rate.toNumber()
       let coinSold = saleAccount.totalTokensSold.toNumber()
       let coinBalance = saleAccount.totalTokensForSale.toNumber()
+      console.log(rate, coinSold, coinBalance);
       let val = amount * rate;
       console.log(val)
       setConvertedAmount(Number(val).toLocaleString());
       setCoinBalPercentage((coinSold / coinBalance) * 100)
     })()
 
-  }, [amount])
+  }, [anchorWallet, amount])
 
   async function checkWhitelistStatus() {
 
@@ -211,14 +212,12 @@ export default function PresaleComp() {
       return;
     }
 
-
-
     let ancProvider = getProvider();
     const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
     const program = new Program<TransferSol>(IDL, programId, ancProvider);
 
     let mintKey = new PublicKey('MeRScrk9zGLsG5B9o3TEFHZFRWsoPhCXniYcbwskHiK');
-    let saleDetails = new PublicKey('FaqTwm6Xy5yotTg9uT3qUz85wDqsf1P3fCYM8o1vCPNF')
+    let saleDetails = new PublicKey('FgjJYqV4Y3dMq5cgVB3ES3gAKFzWSRjCCTJrGgu2kaau')
     const saleAccount = await program.account.sale.fetch(saleDetails);
 
     if (!anchorWallet) return;
@@ -226,6 +225,7 @@ export default function PresaleComp() {
       const ix = await program.methods.transferSol(
         new BN(Number(convertedAmount))
       ).accounts({
+        sale: saleDetails,
         recipient: new PublicKey('2YG2chi4SJ9KSZwRaxU1XiDQcT2CeyWNxjyR4eZqpwUm'),
         payer: publicKey,
         systemProgram: SystemProgram.programId,
