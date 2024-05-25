@@ -1,171 +1,3 @@
-export type PreSale = {
-  "version": "0.1.0",
-  "name": "pre_sale",
-  "instructions": [
-    {
-      "name": "makeDirectSolTransfer",
-      "accounts": [
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "from",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "to",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "amount",
-          "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "initialize",
-      "accounts": [
-        {
-          "name": "myAccount",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "data",
-          "type": "u64"
-        }
-      ]
-    }
-  ],
-  "accounts": [
-    {
-      "name": "myAccount",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "data",
-            "type": "u64"
-          }
-        ]
-      }
-    }
-  ]
-};
-
-export const IDLPRE: PreSale = {
-  "version": "0.1.0",
-  "name": "pre_sale",
-  "instructions": [
-    {
-      "name": "makeDirectSolTransfer",
-      "accounts": [
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "from",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "to",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "amount",
-          "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "initialize",
-      "accounts": [
-        {
-          "name": "myAccount",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "data",
-          "type": "u64"
-        }
-      ]
-    }
-  ],
-  "accounts": [
-    {
-      "name": "myAccount",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "data",
-            "type": "u64"
-          }
-        ]
-      }
-    }
-  ]
-};
-
-
-
 export type TokenSale = {
   "version": "0.1.0",
   "name": "token_sale",
@@ -306,36 +138,16 @@ export type TokenSale = {
       "args": []
     },
     {
-      "name": "buyTokens",
+      "name": "transferSol",
       "accounts": [
         {
-          "name": "sale",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "buyer",
+          "name": "payer",
           "isMut": true,
           "isSigner": true
         },
         {
-          "name": "saleTokenAccount",
+          "name": "recipient",
           "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "buyerTokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
           "isSigner": false
         },
         {
@@ -350,42 +162,6 @@ export type TokenSale = {
           "type": "u64"
         }
       ]
-    },
-    {
-      "name": "withdrawTokens",
-      "accounts": [
-        {
-          "name": "sale",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "buyer",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "saleTokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "buyerTokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "user",
-          "isMut": false,
-          "isSigner": true
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
     }
   ],
   "accounts": [
@@ -507,7 +283,7 @@ export type TokenSale = {
   ]
 };
 
-export const IDLTOK: TokenSale = {
+export const IDL: TokenSale = {
   "version": "0.1.0",
   "name": "token_sale",
   "instructions": [
@@ -647,36 +423,16 @@ export const IDLTOK: TokenSale = {
       "args": []
     },
     {
-      "name": "buyTokens",
+      "name": "transferSol",
       "accounts": [
         {
-          "name": "sale",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "buyer",
+          "name": "payer",
           "isMut": true,
           "isSigner": true
         },
         {
-          "name": "saleTokenAccount",
+          "name": "recipient",
           "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "buyerTokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
           "isSigner": false
         },
         {
@@ -691,42 +447,6 @@ export const IDLTOK: TokenSale = {
           "type": "u64"
         }
       ]
-    },
-    {
-      "name": "withdrawTokens",
-      "accounts": [
-        {
-          "name": "sale",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "buyer",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "saleTokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "buyerTokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "user",
-          "isMut": false,
-          "isSigner": true
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
     }
   ],
   "accounts": [

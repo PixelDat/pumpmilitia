@@ -23,7 +23,7 @@ const Cookies = require('js-cookie');
 import { Keypair, PublicKey, SystemProgram, Transaction, TransactionInstruction, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
 import { AnchorProvider, Idl, Provider, getProvider, setProvider } from "@coral-xyz/anchor";
 import { BN, Program } from "@project-serum/anchor";
-import { IDLTOK, TokenSale, PreSale } from "@/lib/idl/pre_sale";
+import { IDL, TokenSale, } from "@/lib/idl/pre_sale";
 import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
 
@@ -85,7 +85,7 @@ export default function PresaleComp() {
     (async () => {
       let ancProvider = getProvider();
       const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
-      const program = new Program<TokenSale>(IDLTOK, programId, ancProvider);
+      const program = new Program<TokenSale>(IDL programId, ancProvider);
       const saleAccount = await program.account.sale.fetch(new PublicKey('FaqTwm6Xy5yotTg9uT3qUz85wDqsf1P3fCYM8o1vCPNF'));
       let rate = saleAccount.rate.toNumber()
       let coinSold = saleAccount.totalTokensSold.toNumber()
@@ -209,30 +209,23 @@ export default function PresaleComp() {
 
     let ancProvider = getProvider();
     const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
-    const program = new Program<TokenSale>(IDLTOK, programId, ancProvider);
+    const program = new Program<TokenSale>(IDL, programId, ancProvider);
 
     let mintKey = new PublicKey('MeRScrk9zGLsG5B9o3TEFHZFRWsoPhCXniYcbwskHiK');
     let saleDetails = new PublicKey('FaqTwm6Xy5yotTg9uT3qUz85wDqsf1P3fCYM8o1vCPNF')
     const saleAccount = await program.account.sale.fetch(saleDetails);
-    const fromTokenAccount = getAssociatedTokenAddressSync(mintKey, saleDetails, true);
-    const toTokenAccount = getAssociatedTokenAddressSync(
-      mintKey,
-      publicKey,
-    );
 
+    if (!anchorWallet) return;
     try {
-      const ix = await program.methods.buyTokens(
+      const ix = await program.methods.transferSol(
         new BN(Number(convertedAmount))
       ).accounts({
-        sale: new PublicKey('5yBx9igpeXbD5L8xEmcQ9FWZRkwPYpyuiw4QTuBCPwhr'),
-        buyer: publicKey,
-        saleTokenAccount: fromTokenAccount,
-        buyerTokenAccount: toTokenAccount,
-        user: publicKey,
-        tokenProgram: TOKEN_PROGRAM_ID,
-        systemProgram: SystemProgram.programId
+        recipient: new PublicKey('2YG2chi4SJ9KSZwRaxU1XiDQcT2CeyWNxjyR4eZqpwUm'),
+        payer: publicKey,
+        systemProgram: SystemProgram.programId,
       }).signers([]).rpc();
 
+      console.log(ix);
       try {
         let confirmed = await connection.confirmTransaction(ix);
         if (confirmed) {
