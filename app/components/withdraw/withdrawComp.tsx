@@ -52,7 +52,7 @@ export default function WithdrawPage() {
     updated_at: ""
   })
 
-
+// aded here for commit
   // Wallet button
   const { setVisible: setModalVisible } = useWalletModal();
   const { buttonState, onConnect, onDisconnect, publicKey, walletIcon, walletName } = useWalletMultiButton({
@@ -162,7 +162,7 @@ export default function WithdrawPage() {
     }
 
     setError(true);
-    setErrMessage({ type: 'success', message: "Withdrawal not available. Withdraw your $PUMP airdrop balance at TGE" });
+    setErrMessage({ type: 'success', message: "Withdrawal not available. Withdraw your $PUMP airdrop balance after listing" });
     setLoading(false);
     setTimeout(() => {
       setError(false);
@@ -468,7 +468,7 @@ export default function WithdrawPage() {
                   </button>
                 </div>
                 <div>
-                  <p className="text-center text-[#898989]">Withdraw your $PUMP airdrop balance at TGE</p>
+                  <p className="text-center text-[#898989]">Withdraw your $PUMP airdrop balance after listing</p>
                 </div>
                 <div className="relative">
                   <button onClick={() => {
