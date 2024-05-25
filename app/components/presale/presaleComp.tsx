@@ -23,7 +23,7 @@ const Cookies = require('js-cookie');
 import { Keypair, PublicKey, SystemProgram, Transaction, TransactionInstruction, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
 import { AnchorProvider, Idl, Provider, getProvider, setProvider } from "@coral-xyz/anchor";
 import { BN, Program } from "@project-serum/anchor";
-import { IDL, TokenSale, } from "@/lib/idl/pre_sale";
+import { IDL, TransferSol, } from "@/lib/idl/pre_sale";
 import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
 
@@ -85,7 +85,7 @@ export default function PresaleComp() {
     (async () => {
       let ancProvider = getProvider();
       const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
-      const program = new Program<TokenSale>(IDL, programId, ancProvider);
+      const program = new Program<TransferSol>(IDL, programId, ancProvider);
       const saleAccount = await program.account.sale.fetch(new PublicKey('FaqTwm6Xy5yotTg9uT3qUz85wDqsf1P3fCYM8o1vCPNF'));
       let rate = saleAccount.rate.toNumber()
       let coinSold = saleAccount.totalTokensSold.toNumber()
@@ -209,7 +209,7 @@ export default function PresaleComp() {
 
     let ancProvider = getProvider();
     const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
-    const program = new Program<TokenSale>(IDL, programId, ancProvider);
+    const program = new Program<TransferSol>(IDL, programId, ancProvider);
 
     let mintKey = new PublicKey('MeRScrk9zGLsG5B9o3TEFHZFRWsoPhCXniYcbwskHiK');
     let saleDetails = new PublicKey('FaqTwm6Xy5yotTg9uT3qUz85wDqsf1P3fCYM8o1vCPNF')
@@ -226,34 +226,28 @@ export default function PresaleComp() {
       }).signers([]).rpc();
 
       console.log(ix);
-      try {
-        let confirmed = await connection.confirmTransaction(ix);
-        if (confirmed) {
-          setLoading(false)
-          setVisible(true);
-          setErrMessage({ type: 'success', message: 'Purchase Successful' });
-          setTimeout(() => {
-            setVisible(false);
-          }, 2000)
+      let confirmed = await connection.confirmTransaction(ix);
 
-        } else {
-          setTimeout(() => {
-          }, 2000)
-          setError(true);
-          setLoading(false)
-          setErrMessage({ type: 'success', message: 'Transaction yet to confrim' });
-          setTimeout(() => {
-            setError(false);
-          }, 2000)
-        }
-      } catch (error) {
-        setError(true);
-        setLoading(false)
-        setErrMessage({ type: 'error', message: 'Transaction  Failed' });
-        setTimeout(() => {
-          setError(false);
-        }, 2000)
-      }
+      console.log(confirmed);
+      // if (confirmed) {
+      //   setLoading(false)
+      //   setVisible(true);
+      //   setErrMessage({ type: 'success', message: 'Purchase Successful' });
+      //   setTimeout(() => {
+      //     setVisible(false);
+      //   }, 2000)
+
+      // } else {
+      //   setTimeout(() => {
+      //   }, 2000)
+      //   setError(true);
+      //   setLoading(false)
+      //   setErrMessage({ type: 'success', message: 'Transaction yet to confrim' });
+      //   setTimeout(() => {
+      //     setError(false);
+      //   }, 2000)
+      // }
+
     } catch (error) {
       setError(true);
       setLoading(false)

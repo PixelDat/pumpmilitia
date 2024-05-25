@@ -1,6 +1,6 @@
-export type TokenSale = {
+export type TransferSol = {
   "version": "0.1.0",
-  "name": "token_sale",
+  "name": "transfer_sol",
   "instructions": [
     {
       "name": "initialize",
@@ -141,6 +141,11 @@ export type TokenSale = {
       "name": "transferSol",
       "accounts": [
         {
+          "name": "sale",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "payer",
           "isMut": true,
           "isSigner": true
@@ -279,13 +284,18 @@ export type TokenSale = {
       "code": 6004,
       "name": "Overflow",
       "msg": "Operation caused an overflow."
+    },
+    {
+      "code": 6005,
+      "name": "TransferFailed",
+      "msg": "Transfer of Sol Not Successfull."
     }
   ]
 };
 
-export const IDL: TokenSale = {
+export const IDL: TransferSol = {
   "version": "0.1.0",
-  "name": "token_sale",
+  "name": "transfer_sol",
   "instructions": [
     {
       "name": "initialize",
@@ -426,6 +436,11 @@ export const IDL: TokenSale = {
       "name": "transferSol",
       "accounts": [
         {
+          "name": "sale",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "payer",
           "isMut": true,
           "isSigner": true
@@ -564,6 +579,11 @@ export const IDL: TokenSale = {
       "code": 6004,
       "name": "Overflow",
       "msg": "Operation caused an overflow."
+    },
+    {
+      "code": 6005,
+      "name": "TransferFailed",
+      "msg": "Transfer of Sol Not Successfull."
     }
   ]
 };
