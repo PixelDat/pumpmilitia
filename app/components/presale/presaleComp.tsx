@@ -85,7 +85,7 @@ export default function PresaleComp() {
     (async () => {
       let ancProvider = getProvider();
       const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
-      const program = new Program<TokenSale>(IDL programId, ancProvider);
+      const program = new Program<TokenSale>(IDL, programId, ancProvider);
       const saleAccount = await program.account.sale.fetch(new PublicKey('FaqTwm6Xy5yotTg9uT3qUz85wDqsf1P3fCYM8o1vCPNF'));
       let rate = saleAccount.rate.toNumber()
       let coinSold = saleAccount.totalTokensSold.toNumber()
