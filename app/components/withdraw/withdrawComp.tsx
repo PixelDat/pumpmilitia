@@ -162,7 +162,7 @@ export default function WithdrawPage() {
     }
 
     setError(true);
-    setErrMessage({ type: 'success', message: "Withdrawal not available. Withdraw your $PUMP airdrop balance after listing" });
+    setErrMessage({ type: 'success', message: "Withdrawal not available. Withdraw your $PUMP on the 23rd of June 2024" });
     setLoading(false);
     setTimeout(() => {
       setError(false);
@@ -468,7 +468,7 @@ export default function WithdrawPage() {
                   </button>
                 </div>
                 <div>
-                  <p className="text-center text-[#898989]">Withdraw your $PUMP airdrop balance after listing</p>
+                  <p className="text-center text-[#898989]">Withdraw your $PUMP on the 23rd of June 2024</p>
                 </div>
                 <div className="relative">
                   <button onClick={() => {
