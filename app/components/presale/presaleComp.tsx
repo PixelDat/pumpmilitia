@@ -332,7 +332,7 @@ export default function PresaleComp() {
                         <div className="space-y-2 mb-5">
                           <p>Purchased $PUMP Balance</p>
                           <p className="font-gameria font-300 text-[48px]">$0.0089</p>
-                          <p>One token, Endless possibilities. Purchased token would be available for claim at TGE.</p>
+                          <p>One token, Endless possibilities. Purchased token would be available for claim on 23rd June, 2024.</p>
                           <div className="flex flex-col md:flex-row justify-between gap-x-4 ">
                             <p><span className="text-[#C3EC62]">Starts:</span>  15/05/2024 (12:00 UTC)</p>
                             <p><span className="text-[#C3EC62]">Ends:</span> 16/05/2024 (12:00 UTC)</p>
