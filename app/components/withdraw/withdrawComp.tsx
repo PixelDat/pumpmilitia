@@ -162,7 +162,7 @@ export default function WithdrawPage() {
     }
 
     setError(true);
-    setErrMessage({ type: 'success', message: "Withdrawal not available. Withdraw your $PUMP on the 23rd of June 2024" });
+    setErrMessage({ type: 'success', message: "Withdraw your $PUMP on the 23rd of June 2024" });
     setLoading(false);
     setTimeout(() => {
       setError(false);
