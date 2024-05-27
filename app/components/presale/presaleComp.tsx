@@ -28,7 +28,6 @@ import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
 
 
-
 export default function PresaleComp() {
   let encrypt = Cookies.get('encrypt_id');
   const { connection } = useConnection();
@@ -49,7 +48,7 @@ export default function PresaleComp() {
   const [walletAddress, setWalletAddress] = useState('')
   const [amount, setAmount] = useState<any>('')
   const { sendTransaction, signTransaction, wallets, wallet } = useWallet();
-  const [convertedAmount, setConvertedAmount] = useState('')
+  const [convertedAmount, setConvertedAmount] = useState(0)
   // Wallet button
   const { setVisible: setModalVisible } = useWalletModal();
 
@@ -61,6 +60,9 @@ export default function PresaleComp() {
 
   const anchorWallet = useAnchorWallet();
   useEffect(() => {
+    if (onConnect) {
+      onConnect();
+    }
     const anchorProvider = anchorWallet && new AnchorProvider(connection, anchorWallet, {});
     if (anchorProvider) {
       setProvider(anchorProvider);
@@ -69,7 +71,7 @@ export default function PresaleComp() {
 
   const [copied, setCopied] = useState(false);
   const [coinBalPercentage, setCoinBalPercentage] = useState(0);
-
+  const [userBalance, setUserBalance] = useState(0);
   const ref = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
@@ -90,17 +92,23 @@ export default function PresaleComp() {
         return;
       }
 
-      const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
+      const programId = new PublicKey("3EAfgHxhMKesGivsHDitzVrMaiqYgXbWviR86BAJWzN4");
       const program = new Program<TransferSol>(IDL, programId, anchorProvider);
-      const saleAccount = await program.account.sale.fetch(new PublicKey('5ZqNYeKqM2ic6uSToTWDFtWUwyHJnkQ9js5xr6RVyiv6'));
+      const saleAccount = await program.account.sale.fetch(new PublicKey('6TSsFNoKPoWQJYRzUqdKuLK12PPggNFzLqqsBGuy6Z8F'));
       let rate = saleAccount.rate.toNumber()
       let coinSold = saleAccount.totalTokensSold.toNumber()
       let coinBalance = saleAccount.totalTokensForSale.toNumber()
-      console.log((coinSold / coinBalance) * 100);
       let val = amount * rate;
-      console.log(val)
-      setConvertedAmount(Number(val).toLocaleString());
+      setConvertedAmount(Number(val));
       setCoinBalPercentage((coinSold / coinBalance) * 100)
+
+      // get user balance  
+      const userBalance = await program.account.buyerAccount.all();
+      userBalance?.forEach(element => {
+        if (element.account.key.toBase58() === publicKey?.toBase58()) {
+          setUserBalance(element.account.amount.toNumber());
+        };
+      });
     })()
 
   }, [anchorWallet, amount])
@@ -190,6 +198,7 @@ export default function PresaleComp() {
     }
 
     setLoading(true)
+
     if (amount == '' || !Number(amount)) {
       setError(true);
       setLoading(false)
@@ -199,6 +208,7 @@ export default function PresaleComp() {
       }, 2000)
       return false
     }
+
     if (!publicKey) {
       setError(true);
       setLoading(false)
@@ -208,25 +218,32 @@ export default function PresaleComp() {
       }, 2000)
       return false
     }
+
     if (!wallet) {
       return;
     }
 
     let ancProvider = getProvider();
-    const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
+    const programId = new PublicKey("3EAfgHxhMKesGivsHDitzVrMaiqYgXbWviR86BAJWzN4");
     const program = new Program<TransferSol>(IDL, programId, ancProvider);
-
-    let mintKey = new PublicKey('MeRScrk9zGLsG5B9o3TEFHZFRWsoPhCXniYcbwskHiK');
-    let saleDetails = new PublicKey('5ZqNYeKqM2ic6uSToTWDFtWUwyHJnkQ9js5xr6RVyiv6')
-    const saleAccount = await program.account.sale.fetch(saleDetails);
-
+    let saleDetails = new PublicKey('6TSsFNoKPoWQJYRzUqdKuLK12PPggNFzLqqsBGuy6Z8F')
+    // Define the accounts for the transfer_sol context
+    const [buyerPDA, buyerBump] = await PublicKey.findProgramAddress(
+      [
+        Buffer.from("buyer"),
+        publicKey.toBuffer(),
+        saleDetails.toBuffer(),
+      ],
+      program.programId
+    );
     if (!anchorWallet) return;
     try {
       const ix = await program.methods.transferSol(
         new BN(Number(convertedAmount))
       ).accounts({
         sale: saleDetails,
-        recipient: new PublicKey('2YG2chi4SJ9KSZwRaxU1XiDQcT2CeyWNxjyR4eZqpwUm'),
+        buyer: buyerPDA,
+        recipient: new PublicKey('5vUcLGZ96onngcGozSus2ipfU7iMVkAtx4nmtKmXoSUT'),
         payer: publicKey,
         systemProgram: SystemProgram.programId,
       }).signers([]).rpc();
@@ -234,25 +251,25 @@ export default function PresaleComp() {
       console.log(ix);
       let confirmed = await connection.confirmTransaction(ix);
 
-      console.log(confirmed);
-      // if (confirmed) {
-      //   setLoading(false)
-      //   setVisible(true);
-      //   setErrMessage({ type: 'success', message: 'Purchase Successful' });
-      //   setTimeout(() => {
-      //     setVisible(false);
-      //   }, 2000)
+      // console.log(confirmed);
+      if (confirmed) {
+        setLoading(false)
+        setError(true);
+        setErrMessage({ type: 'success', message: 'Purchase Successful' });
+        setTimeout(() => {
+          setError(false);
+        }, 2000)
 
-      // } else {
-      //   setTimeout(() => {
-      //   }, 2000)
-      //   setError(true);
-      //   setLoading(false)
-      //   setErrMessage({ type: 'success', message: 'Transaction yet to confrim' });
-      //   setTimeout(() => {
-      //     setError(false);
-      //   }, 2000)
-      // }
+      } else {
+        setTimeout(() => {
+        }, 2000)
+        setError(true);
+        setLoading(false)
+        setErrMessage({ type: 'success', message: 'Transaction yet to confrim' });
+        setTimeout(() => {
+          setError(false);
+        }, 2000)
+      }
 
     } catch (error) {
       setError(true);
@@ -317,7 +334,7 @@ export default function PresaleComp() {
                           <div className={`bg-[#A5E314] rounded-full h-[4px]`} style={{ width: `${coinBalPercentage}%` }}>
 
                           </div>
-                          <div className={`bg-[#A5E314] relative top-[-12px] left-[${coinBalPercentage}%] h-[20px] rounded-full border w-[20px]`}>
+                          <div style={{ left: `${Math.floor(coinBalPercentage)}%` }} className={`bg-[#A5E314] relative top-[-12px] h-[20px] rounded-full border w-[20px]`}>
 
                           </div>
                         </div>
@@ -410,7 +427,7 @@ export default function PresaleComp() {
 
                       </div>
                       <div className="bg-gradient-to-l from-[#89bd34] rounded-2xl  p-0.5">
-                        <div className="basis-1/2 rounded-2xl p-4 md:h-[330px]  bg-[#282F20E9] presaleGradient">
+                        <div className="basis-1/2 rounded-2xl p-4 md:h-full  bg-[#282F20E9] presaleGradient">
                           <div className="flex flex-row items-center justify-between">
                             <p>Pay with <span className="text-[#C3EC62] text-[24px] font-gameria mx-3">SOL</span> <span className="text-[#757A6F] text-[10px]">  Min buy 0.6</span></p>
                             <p>Receive <span className="text-[#C3EC62] text-[24px] font-gameria">$PUMP</span></p>
@@ -514,6 +531,11 @@ export default function PresaleComp() {
                                 }
                               </button>
                             </div>
+                            {publicKey &&
+                              <div className="text-center font-bold">
+                                Total Balance: {userBalance.toLocaleString()} $PUMP
+                              </div>
+                            }
 
                             <button className="px-6 py-3 font-gameria border w-full buttonTracker component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                               Whitelist Status

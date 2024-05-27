@@ -8,7 +8,7 @@ export type TransferSol = {
         {
           "name": "sale",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "saleToken",
@@ -58,6 +58,22 @@ export type TransferSol = {
           }
         }
       ]
+    },
+    {
+      "name": "clearBuyerList",
+      "accounts": [
+        {
+          "name": "sale",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": []
     },
     {
       "name": "startSale",
@@ -146,6 +162,11 @@ export type TransferSol = {
           "isSigner": false
         },
         {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "payer",
           "isMut": true,
           "isSigner": true
@@ -225,7 +246,31 @@ export type TransferSol = {
             }
           },
           {
+            "name": "buyerCount",
+            "type": "u64"
+          },
+          {
             "name": "owner",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "buyerAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "key",
+            "type": "publicKey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "saleAccount",
             "type": "publicKey"
           }
         ]
@@ -282,7 +327,7 @@ export type TransferSol = {
       "msg": "Transfer of Sol Not Successfull."
     }
   ]
-};
+}
 
 export const IDL: TransferSol = {
   "version": "0.1.0",
@@ -294,7 +339,7 @@ export const IDL: TransferSol = {
         {
           "name": "sale",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "saleToken",
@@ -344,6 +389,22 @@ export const IDL: TransferSol = {
           }
         }
       ]
+    },
+    {
+      "name": "clearBuyerList",
+      "accounts": [
+        {
+          "name": "sale",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": []
     },
     {
       "name": "startSale",
@@ -432,6 +493,11 @@ export const IDL: TransferSol = {
           "isSigner": false
         },
         {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "payer",
           "isMut": true,
           "isSigner": true
@@ -511,7 +577,31 @@ export const IDL: TransferSol = {
             }
           },
           {
+            "name": "buyerCount",
+            "type": "u64"
+          },
+          {
             "name": "owner",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "buyerAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "key",
+            "type": "publicKey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "saleAccount",
             "type": "publicKey"
           }
         ]
@@ -568,4 +658,4 @@ export const IDL: TransferSol = {
       "msg": "Transfer of Sol Not Successfull."
     }
   ]
-};
+}
