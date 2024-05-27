@@ -92,11 +92,11 @@ export default function PresaleComp() {
 
       const programId = new PublicKey("JCGaPpGu8qSFbeFT464ScTMDZCp3w9nrA5g7H1EhbCTM");
       const program = new Program<TransferSol>(IDL, programId, anchorProvider);
-      const saleAccount = await program.account.sale.fetch(new PublicKey('FgjJYqV4Y3dMq5cgVB3ES3gAKFzWSRjCCTJrGgu2kaau'));
+      const saleAccount = await program.account.sale.fetch(new PublicKey('5ZqNYeKqM2ic6uSToTWDFtWUwyHJnkQ9js5xr6RVyiv6'));
       let rate = saleAccount.rate.toNumber()
       let coinSold = saleAccount.totalTokensSold.toNumber()
       let coinBalance = saleAccount.totalTokensForSale.toNumber()
-      console.log(rate, coinSold, coinBalance);
+      console.log((coinSold / coinBalance) * 100);
       let val = amount * rate;
       console.log(val)
       setConvertedAmount(Number(val).toLocaleString());
@@ -217,7 +217,7 @@ export default function PresaleComp() {
     const program = new Program<TransferSol>(IDL, programId, ancProvider);
 
     let mintKey = new PublicKey('MeRScrk9zGLsG5B9o3TEFHZFRWsoPhCXniYcbwskHiK');
-    let saleDetails = new PublicKey('FgjJYqV4Y3dMq5cgVB3ES3gAKFzWSRjCCTJrGgu2kaau')
+    let saleDetails = new PublicKey('5ZqNYeKqM2ic6uSToTWDFtWUwyHJnkQ9js5xr6RVyiv6')
     const saleAccount = await program.account.sale.fetch(saleDetails);
 
     if (!anchorWallet) return;
