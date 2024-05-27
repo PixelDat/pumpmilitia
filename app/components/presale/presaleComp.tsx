@@ -351,7 +351,9 @@ export default function PresaleComp() {
 
                         <div className="space-y-2 mb-5">
                           <p>Purchased $PUMP Balance</p>
-                          <p className="font-gameria font-300 text-[48px]">$0.0089</p>
+                          <p className="font-gameria font-300 text-[48px]">
+                            ${!publicKey ? "0.00" : userBalance.toLocaleString()}
+                          </p>
                           <p>One token, Endless possibilities. Purchased token would be available for claim at TGE.</p>
                           <div className="flex flex-col md:flex-row justify-between gap-x-4 ">
                             <p><span className="text-[#C3EC62]">Starts:</span>  15/05/2024 (12:00 UTC)</p>
@@ -541,11 +543,11 @@ export default function PresaleComp() {
                                 }
                               </button>
                             </div>
-                            {publicKey &&
+                            {/* {publicKey &&
                               <div className="text-center font-bold">
                                 Total Balance: {userBalance.toLocaleString()} $PUMP
                               </div>
-                            }
+                            } */}
 
                             <button className="px-6 py-3 font-gameria border w-full buttonTracker component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                               Whitelist Status
