@@ -244,6 +244,7 @@ export default function PresaleComp() {
       ],
       program.programId
     );
+
     if (!anchorWallet) return;
     try {
       const ix = await program.methods.transferSol(
