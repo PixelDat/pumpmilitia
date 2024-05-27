@@ -105,11 +105,18 @@ export default function PresaleComp() {
 
       // get user balance  
       const userBalance = await program.account.buyerAccount.all();
+      let balanceFound = false;
+
       userBalance?.forEach(element => {
         if (element.account.key.toBase58() === publicKey?.toBase58()) {
           setUserBalance(element.account.amount.toNumber());
-        };
+          balanceFound = true;
+        }
       });
+
+      if (!balanceFound) {
+        setUserBalance(0);
+      }
     })()
 
   }, [anchorWallet, amount, updateD])
@@ -322,7 +329,7 @@ export default function PresaleComp() {
                   </div>
                   <div className="flex flex-col md:flex-row justify-between gap-14 md:items-end">
                     <div className="basis-1/2  order-2 md:order-1 overflow-hidden rounded-2xl  bg-gradient-to-r from-[#89bd34] p-[1px] presaleGradient">
-                      <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-[383px] ">
+                      <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-full ">
                         <div className="flex flex-row items-center justify-between">
                           <p>Presale Progress</p>
                           <p>Raised <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
