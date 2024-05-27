@@ -72,6 +72,7 @@ export default function PresaleComp() {
   const [copied, setCopied] = useState(false);
   const [coinBalPercentage, setCoinBalPercentage] = useState(0);
   const [userBalance, setUserBalance] = useState(0);
+  const [updateD, setUpdate] = useState(0);
   const ref = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
@@ -111,7 +112,7 @@ export default function PresaleComp() {
       });
     })()
 
-  }, [anchorWallet, amount])
+  }, [anchorWallet, amount, updateD])
 
   async function checkWhitelistStatus() {
 
@@ -255,6 +256,7 @@ export default function PresaleComp() {
       if (confirmed) {
         setLoading(false)
         setError(true);
+        setUpdate(Math.random())
         setErrMessage({ type: 'success', message: 'Purchase Successful' });
         setTimeout(() => {
           setError(false);
