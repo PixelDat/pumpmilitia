@@ -11,6 +11,9 @@ export async function loadBalances(anchorProvider: AnchorProvider, amount: numbe
     let rate = saleAccount.rate.toNumber()
     let coinSold = saleAccount.totalTokensSold.toNumber()
     let coinBalance = saleAccount.totalTokensForSale.toNumber()
+    let unlockingTimes = saleAccount.unlockingTimes.map((item) => {
+        return item.toNumber();
+    })
 
     let val = amount * rate;
     // setConvertedAmount(Number(val));
@@ -29,10 +32,12 @@ export async function loadBalances(anchorProvider: AnchorProvider, amount: numbe
         }
     });
 
+
     return {
         conversionRate: Number(val),
         percentage: ((coinSold / coinBalance) * 100),
-        balance: balance
+        balance: balance,
+        unlockingTimes: unlockingTimes,
     }
 
 }
