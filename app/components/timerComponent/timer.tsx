@@ -44,21 +44,21 @@ export default function TimerCount() {
     // Start the countdown when the page loads
     startCountdown();
     return (
-        <div id="timerDiv" className='flex relative flex-row  border border-[#A5E314] bg-[#10130DBF] h-[65px] md:h-[89px] py-4 rounded-3xl  mb-5  items-center justify-center timerDiv'>
+        <div id="timerDiv" className='flex relative flex-row  border border-[#A5E314] bg-[#10130DBF] h-[65px] md:h-[89px] py-4 rounded-3xl  mb-10  items-center justify-center timerDiv'>
             <div className='flex items-center'>
-                <div className='max-h-[86px] md:max-h-[115px] absolute -left-0 md:left-0 bottom-0 max-w-[67px] md:max-w-[109px]'>
+                <div className='absolute -left-0 md:left-[-10px] bottom-0'>
                     <Image
                         src={'/images/deposit/military.png'}
-                        width={109}
-                        height={115}
+                        width={129}
+                        height={137}
                         priority
                         alt="" />
                 </div>
-                <div className='max-h-[75px] max-w-[75px] md:max-h-[129px] absolute bottom-2 -right-5 md:-top-5 md:w-[129px]'>
+                <div className='absolute bottom-2 -right-5 md:-top-5'>
                     <Image
                         src={'/images/coins.png'}
-                        width={129}
-                        height={129}
+                        width={140}
+                        height={140}
                         alt="" />
                 </div>
 

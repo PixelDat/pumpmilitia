@@ -311,7 +311,12 @@ export default function PresaleComp() {
                       alt=""
                     />
                   </div>
-                  <div className="flex flex-col md:flex-row justify-between gap-14 md:items-end">
+                  <div className="md:w-5/12 m-auto">
+                    <TimerCount />
+
+                  </div>
+                  <div className="flex flex-col md:flex-row justify-between gap-14 md:items-stretch">
+                    {/* First Box */}
                     <div className="basis-1/2  order-2 md:order-1 overflow-hidden rounded-2xl  bg-gradient-to-r from-[#89bd34] p-[1px] presaleGradient">
                       <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-full ">
                         <div className="flex flex-row items-center justify-between">
@@ -338,11 +343,30 @@ export default function PresaleComp() {
                             ${!publicKey ? "0.00" : userBalance.toLocaleString()}
                           </p>
                           <p>One token, Endless possibilities. Purchased token would be available for claim at TGE.</p>
-                          <div className="flex flex-col md:flex-row justify-between gap-x-4 ">
+                          <div className="flex flex-col md:flex-row justify-center gap-x-4 ">
                             <p><span className="text-[#C3EC62]">Starts:</span>  15/05/2024 (12:00 UTC)</p>
                             <p><span className="text-[#C3EC62]">Ends:</span> 16/05/2024 (12:00 UTC)</p>
                           </div>
                         </div>
+
+                        {tasksCount.map((task, index) => {
+                          let gradient = 'bg-gradient-to-r';
+                          let hidden = index == tasksCount.length - 1 && 'md:hidden';
+                          return (
+                            <div key={`${index}-${task}`} className={`${gradient} ${hidden} shrink-0 w-full mb-5 from-[#A5E314]/50 to-black  p-0.5 rounded-2xl`}>
+                              <div className=" w-full  flex flex-row items-center justify-between relative p-2 space-y-2 text-start  bg-black/80 rounded-2xl">
+                                <div className="">
+                                  <div><span className="font-gameria text-[#C3EC62]">Date:</span>{new Date().toLocaleDateString()} </div>
+                                  <h4 className=" text-[22px] w-full font-gameria font-[400] text-[#C3EC62]">Amount</h4>
+                                  <h4 className=" text-[22px] w-full font-gameria font-[400]">100,000,000</h4>
+                                </div>
+                                <div>
+                                  <button className="bg-[#A5E314] p-[10px]  w-[233px] rounded-2xl text-[#303827]">Claim</button>
+                                </div>
+                              </div>
+                            </div>
+                          )
+                        })}
 
                         {/* Social Icons and Total Prices  */}
                         <div className="flex flex-col md:flex-row  justify-between">
@@ -416,12 +440,9 @@ export default function PresaleComp() {
                         </div>
                       </div>
                     </div>
-                    <div className="basis-1/2 order-1 md:order-2">
-                      <div>
-                        <TimerCount />
-
-                      </div>
-                      <div className="bg-gradient-to-l from-[#89bd34] rounded-2xl  p-0.5">
+                    {/* Second Box */}
+                    <div className="basis-1/2  order-1 md:order-2">
+                      <div className="bg-gradient-to-l h-[513px] from-[#89bd34] rounded-2xl  p-0.5">
                         <div className="basis-1/2 rounded-2xl p-4 md:h-full  bg-[#282F20E9] presaleGradient">
                           <div className="flex flex-row items-center justify-between">
                             <p>Pay with <span className="text-[#C3EC62] text-[24px] font-gameria mx-3">SOL</span> <span className="text-[#757A6F] text-[10px]">  Min buy 0.6</span></p>
@@ -526,12 +547,6 @@ export default function PresaleComp() {
                                 }
                               </button>
                             </div>
-                            {/* {publicKey &&
-                              <div className="text-center font-bold">
-                                Total Balance: {userBalance.toLocaleString()} $PUMP
-                              </div>
-                            } */}
-
                             <button className="px-6 py-3 font-gameria border w-full buttonTracker component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                               Whitelist Status
                             </button>
