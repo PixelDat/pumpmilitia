@@ -313,12 +313,12 @@ export default function PresaleComp() {
                       <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-[383px] ">
                         <div className="flex flex-row items-center justify-between">
                           <p>Presale Progress</p>
-                          <p>Raised <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
+                          <p>Raised <span className="text-[#C3EC62] text-[24px] font-gameria">$0</span></p>
                         </div>
-                        <div className="flex flex-row items-center justify-between">
+                        {/* <div className="flex flex-row items-center justify-between">
                           <p className="text-[#C3EC62]">Private Round</p>
                           <p>Hard Cap <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
-                        </div>
+                        </div> */}
                         {/* Rectangle */}
                         <div className="bg-[#374C07] my-4 h-[4px] rounded-full w-full">
                           <div className={`bg-[#A5E314] rounded-full h-[4px]`} style={{ width: `${coinBalPercentage}%` }}>
@@ -331,11 +331,11 @@ export default function PresaleComp() {
 
                         <div className="space-y-2 mb-5">
                           <p>Purchased $PUMP Balance</p>
-                          <p className="font-gameria font-300 text-[48px]">$0.0089</p>
+                          <p className="font-gameria font-300 text-[48px]">0</p>
                           <p>One token, Endless possibilities. Purchased token would be available for claim on 23rd June, 2024.</p>
                           <div className="flex flex-col md:flex-row justify-between gap-x-4 ">
-                            <p><span className="text-[#C3EC62]">Starts:</span>  15/05/2024 (12:00 UTC)</p>
-                            <p><span className="text-[#C3EC62]">Ends:</span> 16/05/2024 (12:00 UTC)</p>
+                            <p><span className="text-[#C3EC62]">Starts:</span>  20/06/2024 (12:00 UTC)</p>
+                            <p><span className="text-[#C3EC62]">Ends:</span> 22/06/2024 (12:00 UTC)</p>
                           </div>
                         </div>
 

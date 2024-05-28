@@ -27,31 +27,31 @@ export const labels = {
 
 export const stages = [
     {
-        title: 'Private Round 1',
-        startDate: '04 April 2024',
-        endDate: '30 May 2024',
-        tokePrice: '$0.0230',
-        minInvestment: '$500',
-        hardCap: '$100M',
-        maxInvestment: '$500,000'
+        title: 'Private Round',
+        startDate: '20/06/2024',
+        endDate: '22/06/2024',
+        tokePrice: '$0.00015',
+        minInvestment: '$2000',
+        hardCap: '$2000',
+        maxInvestment: '$200,000'
     },
     {
-        title: 'Public Round ',
-        startDate: '04 April 2024',
-        endDate: '30 May 2024',
-        tokePrice: '$0.0230',
-        minInvestment: '$500',
-        hardCap: '$100M',
-        maxInvestment: '$500,000'
+        title: 'Public Round 1',
+        startDate: 'TBA',
+        endDate: 'TBA',
+        tokePrice: '$0.00017',
+        minInvestment: 'TBA',
+        hardCap: 'TBA',
+        maxInvestment: 'TBA'
     },
     {
         title: 'Public Round 2',
         startDate: '04 April 2024',
-        endDate: '30 May 2024',
-        tokePrice: '$0.0230',
-        minInvestment: '$500',
-        hardCap: '$100M',
-        maxInvestment: '$500,000'
+        endDate: 'TBA',
+        tokePrice: '$0.00017',
+        minInvestment: 'TBA',
+        hardCap: 'TBA',
+        maxInvestment: 'TBA'
     },
 ]
 export const tasksCount = [
