@@ -221,9 +221,9 @@ export default function PresaleComp() {
     }
 
     let ancProvider = getProvider();
-    const programId = new PublicKey("3EAfgHxhMKesGivsHDitzVrMaiqYgXbWviR86BAJWzN4");
+    const programId = new PublicKey("H1gw4ZtABwmBhDCcKravEryyNodDGQYP1qVQySTTZqN6");
     const program = new Program<TransferSol>(IDL, programId, ancProvider);
-    let saleDetails = new PublicKey('6TSsFNoKPoWQJYRzUqdKuLK12PPggNFzLqqsBGuy6Z8F')
+    let saleDetails = new PublicKey('CgVh6qemnouBuc5BPPcA3nWzdHfYDSqnaswjKV3b249b')
     // Define the accounts for the transfer_sol context
     const [buyerPDA, buyerBump] = await PublicKey.findProgramAddress(
       [
