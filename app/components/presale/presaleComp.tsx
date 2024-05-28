@@ -26,6 +26,7 @@ import { BN, Program } from "@project-serum/anchor";
 import { IDL, TransferSol, } from "@/lib/idl/pre_sale";
 import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
+import { loadBalances } from "./utilities";
 
 
 export default function PresaleComp() {
@@ -92,31 +93,13 @@ export default function PresaleComp() {
       if (!anchorProvider) {
         return;
       }
-
-      const programId = new PublicKey("3EAfgHxhMKesGivsHDitzVrMaiqYgXbWviR86BAJWzN4");
-      const program = new Program<TransferSol>(IDL, programId, anchorProvider);
-      const saleAccount = await program.account.sale.fetch(new PublicKey('6TSsFNoKPoWQJYRzUqdKuLK12PPggNFzLqqsBGuy6Z8F'));
-      let rate = saleAccount.rate.toNumber()
-      let coinSold = saleAccount.totalTokensSold.toNumber()
-      let coinBalance = saleAccount.totalTokensForSale.toNumber()
-      let val = amount * rate;
-      setConvertedAmount(Number(val));
-      setCoinBalPercentage((coinSold / coinBalance) * 100)
-
-      // get user balance  
-      const userBalance = await program.account.buyerAccount.all();
-      let balanceFound = false;
-
-      userBalance?.forEach(element => {
-        if (element.account.key.toBase58() === publicKey?.toBase58()) {
-          setUserBalance(element.account.amount.toNumber());
-          balanceFound = true;
-        }
-      });
-
-      if (!balanceFound) {
-        setUserBalance(0);
+      if (!publicKey) {
+        return;
       }
+      const { conversionRate, balance, percentage } = await loadBalances(anchorProvider, amount, publicKey)
+      setConvertedAmount(conversionRate);
+      setCoinBalPercentage(percentage)
+      setUserBalance(balance)
     })()
 
   }, [anchorWallet, amount, updateD])
