@@ -26,6 +26,7 @@ import { BN, Program } from "@project-serum/anchor";
 import { IDL, TransferSol, } from "@/lib/idl/pre_sale";
 import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
+import { UnlockingItem, loadBalances } from "./utilities";
 
 
 export default function PresaleComp() {
@@ -73,6 +74,12 @@ export default function PresaleComp() {
   const [coinBalPercentage, setCoinBalPercentage] = useState(0);
   const [userBalance, setUserBalance] = useState(0);
   const [updateD, setUpdate] = useState(0);
+  const [unlocking, setUnlocking] = useState<UnlockingItem[]>([
+    {
+      amount: 0,
+      time: Number(Date.now() * 1000),
+    }
+  ]);
   const ref = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
@@ -92,31 +99,14 @@ export default function PresaleComp() {
       if (!anchorProvider) {
         return;
       }
-
-      const programId = new PublicKey("3EAfgHxhMKesGivsHDitzVrMaiqYgXbWviR86BAJWzN4");
-      const program = new Program<TransferSol>(IDL, programId, anchorProvider);
-      const saleAccount = await program.account.sale.fetch(new PublicKey('6TSsFNoKPoWQJYRzUqdKuLK12PPggNFzLqqsBGuy6Z8F'));
-      let rate = saleAccount.rate.toNumber()
-      let coinSold = saleAccount.totalTokensSold.toNumber()
-      let coinBalance = saleAccount.totalTokensForSale.toNumber()
-      let val = amount * rate;
-      setConvertedAmount(Number(val));
-      setCoinBalPercentage((coinSold / coinBalance) * 100)
-
-      // get user balance  
-      const userBalance = await program.account.buyerAccount.all();
-      let balanceFound = false;
-
-      userBalance?.forEach(element => {
-        if (element.account.key.toBase58() === publicKey?.toBase58()) {
-          setUserBalance(element.account.amount.toNumber());
-          balanceFound = true;
-        }
-      });
-
-      if (!balanceFound) {
-        setUserBalance(0);
+      if (!publicKey) {
+        return;
       }
+      const { conversionRate, balance, percentage, unlockingTimes } = await loadBalances(anchorProvider, amount, publicKey)
+      setConvertedAmount(conversionRate);
+      setCoinBalPercentage(percentage)
+      setUserBalance(balance)
+      setUnlocking(unlockingTimes as [])
     })()
 
   }, [anchorWallet, amount, updateD])
@@ -232,9 +222,9 @@ export default function PresaleComp() {
     }
 
     let ancProvider = getProvider();
-    const programId = new PublicKey("3EAfgHxhMKesGivsHDitzVrMaiqYgXbWviR86BAJWzN4");
+    const programId = new PublicKey("H1gw4ZtABwmBhDCcKravEryyNodDGQYP1qVQySTTZqN6");
     const program = new Program<TransferSol>(IDL, programId, ancProvider);
-    let saleDetails = new PublicKey('6TSsFNoKPoWQJYRzUqdKuLK12PPggNFzLqqsBGuy6Z8F')
+    let saleDetails = new PublicKey('CgVh6qemnouBuc5BPPcA3nWzdHfYDSqnaswjKV3b249b')
     // Define the accounts for the transfer_sol context
     const [buyerPDA, buyerBump] = await PublicKey.findProgramAddress(
       [
@@ -328,7 +318,12 @@ export default function PresaleComp() {
                       alt=""
                     />
                   </div>
-                  <div className="flex flex-col md:flex-row justify-between gap-14 md:items-end">
+                  <div className="md:w-5/12 m-auto">
+                    <TimerCount />
+
+                  </div>
+                  <div className="flex flex-col md:flex-row justify-between gap-14 md:items-stretch">
+                    {/* First Box */}
                     <div className="basis-1/2  order-2 md:order-1 overflow-hidden rounded-2xl  bg-gradient-to-r from-[#89bd34] p-[1px] presaleGradient">
                       <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-full ">
                         <div className="flex flex-row items-center justify-between">
@@ -355,12 +350,33 @@ export default function PresaleComp() {
                             ${!publicKey ? "0.00" : userBalance.toLocaleString()}
                           </p>
                           <p>One token, Endless possibilities. Purchased token would be available for claim at TGE.</p>
-                          <div className="flex flex-col md:flex-row justify-between gap-x-4 ">
+                          <div className="flex flex-col md:flex-row justify-center gap-x-4 ">
                             <p><span className="text-[#C3EC62]">Starts:</span>  15/05/2024 (12:00 UTC)</p>
                             <p><span className="text-[#C3EC62]">Ends:</span> 16/05/2024 (12:00 UTC)</p>
                           </div>
                         </div>
 
+                        <div className="h-[150px] overflow-scroll">
+                          {unlocking.length > 0 && unlocking.map((item, index) => {
+                            return (
+                              <div key={`${index}-${item}`} className={`bg-gradient-to-r shrink-0 w-full mb-5 from-[#A5E314]/50 to-black  p-0.5 rounded-2xl`}>
+                                <div className=" w-full  flex flex-col md:flex-row items-center justify-between relative p-2 space-y-2 text-start  bg-black/80 rounded-2xl">
+                                  <div className="">
+                                    <div><span className="font-gameria text-[#C3EC62]">Date:</span>{new Date(item.time * 1000).toLocaleDateString()} </div>
+                                    <div className="flex flex-row md:flex-col gap-2 md:gap-0 ">
+                                      <span className=" text-[22px] w-full font-gameria font-[400] text-[#C3EC62]">Amount:</span>
+                                      <span className=" text-[22px] w-full font-gameria font-[400]">{item.amount.toLocaleString()}</span>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <button className="bg-[#A5E314] p-[10px] font-bold  w-[233px] rounded-2xl text-[#303827]">Claim</button>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          })}
+
+                        </div>
                         {/* Social Icons and Total Prices  */}
                         <div className="flex flex-col md:flex-row  justify-between">
                           <div className="flex order-2 md:order-1  flex-row justify-start  space-x-2">
@@ -433,11 +449,8 @@ export default function PresaleComp() {
                         </div>
                       </div>
                     </div>
-                    <div className="basis-1/2 order-1 md:order-2">
-                      <div>
-                        <TimerCount />
-
-                      </div>
+                    {/* Second Box */}
+                    <div className="basis-1/2  order-1 md:order-2">
                       <div className="bg-gradient-to-l from-[#89bd34] rounded-2xl  p-0.5">
                         <div className="basis-1/2 rounded-2xl p-4 md:h-full  bg-[#282F20E9] presaleGradient">
                           <div className="flex flex-row items-center justify-between">
@@ -543,15 +556,35 @@ export default function PresaleComp() {
                                 }
                               </button>
                             </div>
-                            {/* {publicKey &&
-                              <div className="text-center font-bold">
-                                Total Balance: {userBalance.toLocaleString()} $PUMP
-                              </div>
-                            } */}
-
                             <button className="px-6 py-3 font-gameria border w-full buttonTracker component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                               Whitelist Status
                             </button>
+
+                            <div className="space-y-4">
+                              <span className="italic text-[#ffffff]/50">"if you cannot connect"</span>
+                              <p>Transfer to: <span className="text-[14px] text-vivd-lime-green text-center ">
+                                {`${walletAddress.slice(0, 30)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy sx={{ fontSize: '14px' }} /></span>
+                              </span></p>
+
+                              <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+
+                                <CustomInput
+                                  addOnStart={<Image
+                                    className=""
+                                    src={'/images/presale/pumplogo.png'}
+                                    width={24}
+                                    height={24}
+                                    priority
+                                    alt="" />}
+                                  placeholder="Enter wallet address"
+                                  type="text"
+                                />
+                                <button onClick={startConnection} className="mt-2 bg-vivd-lime-green buttonTracker w-10/12 md:w-6/12 component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
+                                  Check Balance
+
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
