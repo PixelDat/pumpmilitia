@@ -283,10 +283,19 @@ export default function PresaleComp() {
   }
 
   async function checkBalance() {
+    if (userWalletAddress == "") {
+      setError(true);
+      setLoading(false)
+      setErrMessage({ type: 'error', message: 'Enter a valid address' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return false
+    }
     let userPub = new PublicKey(userWalletAddress)
     let ancProvider = getProvider();
     let result = await getUserBalance(ancProvider, userPub);
-    console.log(result);
+    console.log(result?.balance);
   }
   async function getRates(value: string) {
 
@@ -589,7 +598,7 @@ export default function PresaleComp() {
                                   type="text"
                                   onChange={(e) => setUserWalletAddress(e.target.value)}
                                 />
-                                <button onClick={startConnection} className="mt-2 bg-vivd-lime-green buttonTracker w-10/12 md:w-6/12 component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
+                                <button onClick={checkBalance} className="mt-2 bg-vivd-lime-green buttonTracker w-10/12 md:w-6/12 component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
                                   Check Balance
                                 </button>
                               </div>
