@@ -39,6 +39,7 @@ export default function PresaleComp() {
   const [visibleMod, setVisibleMod] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+
   const [errMessage, setErrMessage] = useState({
     type: '',
     message: '',
