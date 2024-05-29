@@ -42,9 +42,18 @@ export async function loadBalances(anchorProvider: AnchorProvider, amount: numbe
 export async function getUserBalance(anchorProvider: Provider, walletAddress: PublicKey) {
     const programId = new PublicKey("H1gw4ZtABwmBhDCcKravEryyNodDGQYP1qVQySTTZqN6");
     const program = new Program<TransferSol>(IDL, programId, anchorProvider);
+    const saleDetails = new PublicKey('CgVh6qemnouBuc5BPPcA3nWzdHfYDSqnaswjKV3b249b');
 
     try {
-        const buyerAccount = await program.account.buyerAccount.fetch(walletAddress);
+        const [buyerPDA, buyerBump] = await PublicKey.findProgramAddress(
+            [
+                Buffer.from("buyer"),
+                walletAddress.toBuffer(),
+                saleDetails.toBuffer(),
+            ],
+            programId
+        );
+        const buyerAccount = await program.account.buyerAccount.fetch(buyerPDA);
         if (buyerAccount) {
             return {
                 status: true,

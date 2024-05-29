@@ -57,6 +57,10 @@ export default function PresaleComp() {
   const [updateD, setUpdate] = useState(0);
   const [userWalletAddress, setUserWalletAddress] = useState("");
   const [sentWalletAddress, setSentWalletAddress] = useState("");
+  const [showBalance, setShowBalance] = useState({
+    status: false,
+    balance: 0,
+  })
   const [unlocking, setUnlocking] = useState<UnlockingItem[]>([
     {
       amount: 0,
@@ -295,7 +299,17 @@ export default function PresaleComp() {
     let userPub = new PublicKey(userWalletAddress)
     let ancProvider = getProvider();
     let result = await getUserBalance(ancProvider, userPub);
-    console.log(result?.balance);
+    if (result.status != false) {
+      setShowBalance({ status: true, balance: result.balance })
+    } else {
+      setError(true);
+      setLoading(false)
+      setErrMessage({ type: 'error', message: 'Account Not Found' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return false
+    }
   }
   async function getRates(value: string) {
 
@@ -317,7 +331,7 @@ export default function PresaleComp() {
             <NavBar />
             {!checkWl ?
 
-              <div className="w-full md:w-10/12 m-auto pt-36">
+              <div className="w-full md:w-10/12 m-auto pt-36 relative">
                 <Image
                   className="max-w-full"
                   src={'/images/presale/horizontal.png'}
@@ -325,10 +339,11 @@ export default function PresaleComp() {
                   height={80}
                   priority
                   alt="" />
+
                 <div className="pt-20 px-5 pb-10 relative bg-[#10130DB2] font-kanit text-[#EDF9D0] rounded-2xl ">
                   <div className="flex flex-row absolute items-center top-[-40px] md:top-[-65px]  w-full justify-center">
                     <Image
-                      className="inline-flex max-w-[209px] md:max-w-[299px] max-h-[81px] md:max-h-[112px]"
+                      className="inline-flex max-w-[209px] md:max-w-[299px] z-50 max-h-[81px] md:max-h-[112px]"
                       src={"/images/presale/pumppresale.png"}
                       width={299}
                       height={112}
@@ -336,6 +351,20 @@ export default function PresaleComp() {
                       alt=""
                     />
                   </div>
+                  {/* Pop Up Balance Image */}
+                  {showBalance.status &&
+                    <div className="absolute h-full w-full top-0 right-0 rounded-3xl flex flex-row justify-center items-center m-auto bg-black/50 z-40">
+                      <div className={`bg-gradient-to-r shrink-0 w-4/12 mb-5 from-[#A5E314]/50 to-black  p-0.5 rounded-2xl`}>
+                        <div className="py-10 p-2 space-y-2 text-start  bg-black/80 rounded-2xl">
+                          <div className="text-center" onClick={() => { setShowBalance({ status: false, balance: 0 }) }}>
+                            <div><span className="text-[#C3EC62]"></span>$PUMP Balance</div>
+                            <span className=" text-[64px] text-center w-full font-gameria font-[400] text-[#C3EC62]">${showBalance.balance <= 0 ? "000.000" : showBalance.balance.toLocaleString()}</span>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  }
                   <div className="md:w-5/12 m-auto">
                     <TimerCount />
 
@@ -639,6 +668,7 @@ export default function PresaleComp() {
                     />
                   </div>
                   <div className="flex flex-col md:flex-row justify-center items-center ">
+
                     <div className="basis-1/2 order-1 md:order-2">
 
                       <div className="bg-gradient-to-t from-[#89bd34] rounded-2xl overflow-hidden p-0.5">
