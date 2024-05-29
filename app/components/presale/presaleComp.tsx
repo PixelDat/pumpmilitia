@@ -23,10 +23,10 @@ const Cookies = require('js-cookie');
 import { Keypair, PublicKey, SystemProgram, Transaction, TransactionInstruction, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
 import { AnchorProvider, Idl, Provider, getProvider, setProvider } from "@coral-xyz/anchor";
 import { BN, Program } from "@project-serum/anchor";
-import { IDLTOK, TokenSale, PreSale } from "@/lib/idl/pre_sale";
+import { IDL, TransferSol, } from "@/lib/idl/pre_sale";
 import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
-
+import { UnlockingItem, loadBalances } from "./utilities";
 
 
 export default function PresaleComp() {
@@ -49,7 +49,7 @@ export default function PresaleComp() {
   const [walletAddress, setWalletAddress] = useState('')
   const [amount, setAmount] = useState<any>('')
   const { sendTransaction, signTransaction, wallets, wallet } = useWallet();
-  const [convertedAmount, setConvertedAmount] = useState('')
+  const [convertedAmount, setConvertedAmount] = useState(0)
   // Wallet button
   const { setVisible: setModalVisible } = useWalletModal();
 
@@ -61,6 +61,9 @@ export default function PresaleComp() {
 
   const anchorWallet = useAnchorWallet();
   useEffect(() => {
+    if (onConnect) {
+      onConnect();
+    }
     const anchorProvider = anchorWallet && new AnchorProvider(connection, anchorWallet, {});
     if (anchorProvider) {
       setProvider(anchorProvider);
@@ -69,7 +72,14 @@ export default function PresaleComp() {
 
   const [copied, setCopied] = useState(false);
   const [coinBalPercentage, setCoinBalPercentage] = useState(0);
-
+  const [userBalance, setUserBalance] = useState(0);
+  const [updateD, setUpdate] = useState(0);
+  const [unlocking, setUnlocking] = useState<UnlockingItem[]>([
+    {
+      amount: 0,
+      time: Number(Date.now() * 1000),
+    }
+  ]);
   const ref = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
@@ -81,24 +91,25 @@ export default function PresaleComp() {
     }
 
   }, [publicKey])
-
   useEffect(() => {
-
     (async () => {
-      let ancProvider = getProvider();
-      const programId = new PublicKey("28QBJ3VXAUsJRkxV9owTJQ3NdwVeoTBWCH5F8AAvNjhY");
-      const program = new Program<TokenSale>(IDLTOK, programId, ancProvider);
-      const saleAccount = await program.account.sale.fetch(new PublicKey('5yBx9igpeXbD5L8xEmcQ9FWZRkwPYpyuiw4QTuBCPwhr'));
-      let rate = saleAccount.rate.toNumber()
-      let coinSold = saleAccount.totalTokensSold.toNumber()
-      let coinBalance = saleAccount.totalTokensForSale.toNumber()
-      let val = amount * rate;
-      console.log(val)
-      setConvertedAmount(Number(val).toLocaleString());
-      setCoinBalPercentage((coinSold / coinBalance) * 100)
+      // let ancProvider = await getProvider();
+      const anchorProvider = anchorWallet && new AnchorProvider(connection, anchorWallet, {});
+
+      if (!anchorProvider) {
+        return;
+      }
+      if (!publicKey) {
+        return;
+      }
+      const { conversionRate, balance, percentage, unlockingTimes } = await loadBalances(anchorProvider, amount, publicKey)
+      setConvertedAmount(conversionRate);
+      setCoinBalPercentage(percentage)
+      setUserBalance(balance)
+      setUnlocking(unlockingTimes as [])
     })()
 
-  }, [amount])
+  }, [anchorWallet, amount, updateD])
 
   async function checkWhitelistStatus() {
 
@@ -185,6 +196,7 @@ export default function PresaleComp() {
     }
 
     setLoading(true)
+
     if (amount == '' || !Number(amount)) {
       setError(true);
       setLoading(false)
@@ -194,6 +206,7 @@ export default function PresaleComp() {
       }, 2000)
       return false
     }
+
     if (!publicKey) {
       setError(true);
       setLoading(false)
@@ -203,71 +216,61 @@ export default function PresaleComp() {
       }, 2000)
       return false
     }
+
     if (!wallet) {
       return;
     }
 
     let ancProvider = getProvider();
-    const programId = new PublicKey("28QBJ3VXAUsJRkxV9owTJQ3NdwVeoTBWCH5F8AAvNjhY");
-    const program = new Program<TokenSale>(IDLTOK, programId, ancProvider);
-
-    let feeamount = Number(10)
-    let saleToken = [104, 169, 43, 181, 195, 206, 70, 151, 219, 144, 10, 188, 25, 81, 137, 225, 205, 228, 253, 148, 56, 125, 198, 63, 237, 238, 142, 95, 168, 80, 106, 216, 73, 211, 167, 187, 33, 62, 163, 147, 111, 235, 158, 235, 236, 122, 248, 172, 137, 16, 254, 161, 217, 69, 28, 121, 225, 8, 127, 67, 25, 196, 81, 57];
-    let saleTokenKeyPair = Keypair.fromSecretKey(Uint8Array.from(saleToken));
-
-    //owner key
-    let ownerP = [11, 54, 73, 115, 127, 169, 207, 253, 128, 164, 154, 45, 210, 173, 218, 105, 93, 211, 32, 202, 103, 210, 92, 3, 217, 205, 51, 6, 29, 135, 50, 248, 5, 213, 137, 250, 180, 248, 182, 74, 222, 154, 151, 212, 186, 15, 98, 124, 195, 87, 71, 214, 142, 142, 174, 111, 20, 206, 254, 133, 35, 12, 236, 91];
-    let ownerKey = Keypair.fromSecretKey(Uint8Array.from(ownerP));
-
-    const fromTokenAccount = getAssociatedTokenAddressSync(saleTokenKeyPair.publicKey, ownerKey.publicKey);
-    const toTokenAccount = getAssociatedTokenAddressSync(
-      saleTokenKeyPair.publicKey,
-      publicKey,
+    const programId = new PublicKey("H1gw4ZtABwmBhDCcKravEryyNodDGQYP1qVQySTTZqN6");
+    const program = new Program<TransferSol>(IDL, programId, ancProvider);
+    let saleDetails = new PublicKey('CgVh6qemnouBuc5BPPcA3nWzdHfYDSqnaswjKV3b249b')
+    // Define the accounts for the transfer_sol context
+    const [buyerPDA, buyerBump] = await PublicKey.findProgramAddress(
+      [
+        Buffer.from("buyer"),
+        publicKey.toBuffer(),
+        saleDetails.toBuffer(),
+      ],
+      program.programId
     );
 
-
+    if (!anchorWallet) return;
     try {
-      const ix = await program.methods.buyTokens(
+      const ix = await program.methods.transferSol(
         new BN(Number(convertedAmount))
       ).accounts({
-        sale: new PublicKey('5yBx9igpeXbD5L8xEmcQ9FWZRkwPYpyuiw4QTuBCPwhr'),
-        buyer: publicKey,
-        saleTokenAccount: fromTokenAccount,
-        buyerTokenAccount: toTokenAccount,
-        user: publicKey,
-        tokenProgram: TOKEN_PROGRAM_ID,
-        systemProgram: SystemProgram.programId
+        sale: saleDetails,
+        buyer: buyerPDA,
+        recipient: new PublicKey('5vUcLGZ96onngcGozSus2ipfU7iMVkAtx4nmtKmXoSUT'),
+        payer: publicKey,
+        systemProgram: SystemProgram.programId,
       }).signers([]).rpc();
 
-      try {
-        let confirmed = await connection.confirmTransaction(ix);
+      console.log(ix);
+      let confirmed = await connection.confirmTransaction(ix);
 
-        if (confirmed) {
-          setLoading(false)
-          setVisible(true);
-          setErrMessage({ type: 'success', message: 'Purchase Successfull' });
-          setTimeout(() => {
-            setVisible(false);
-          }, 2000)
+      // console.log(confirmed);
+      if (confirmed) {
+        setLoading(false)
+        setError(true);
+        setUpdate(Math.random())
+        setErrMessage({ type: 'success', message: 'Purchase Successful' });
+        setTimeout(() => {
+          setError(false);
+        }, 2000)
 
-        } else {
-          setTimeout(() => {
-          }, 2000)
-          setError(true);
-          setLoading(false)
-          setErrMessage({ type: 'success', message: 'Transaction yet to confrim' });
-          setTimeout(() => {
-            setError(false);
-          }, 2000)
-        }
-      } catch (error) {
+      } else {
+        setTimeout(() => {
+        }, 2000)
         setError(true);
         setLoading(false)
-        setErrMessage({ type: 'error', message: 'Transaction  Failed' });
+        setErrMessage({ type: 'success', message: 'Transaction yet to confrim' });
         setTimeout(() => {
           setError(false);
         }, 2000)
       }
+
     } catch (error) {
       setError(true);
       setLoading(false)
@@ -315,9 +318,14 @@ export default function PresaleComp() {
                       alt=""
                     />
                   </div>
-                  <div className="flex flex-col md:flex-row justify-between gap-14 md:items-end">
+                  <div className="md:w-5/12 m-auto">
+                    <TimerCount />
+
+                  </div>
+                  <div className="flex flex-col md:flex-row justify-between gap-14 md:items-stretch">
+                    {/* First Box */}
                     <div className="basis-1/2  order-2 md:order-1 overflow-hidden rounded-2xl  bg-gradient-to-r from-[#89bd34] p-[1px] presaleGradient">
-                      <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-[383px] ">
+                      <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-full ">
                         <div className="flex flex-row items-center justify-between">
                           <p>Presale Progress</p>
                           <p>Raised <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
@@ -331,21 +339,44 @@ export default function PresaleComp() {
                           <div className={`bg-[#A5E314] rounded-full h-[4px]`} style={{ width: `${coinBalPercentage}%` }}>
 
                           </div>
-                          <div className={`bg-[#A5E314] relative top-[-12px] left-[${coinBalPercentage}%] h-[20px] rounded-full border w-[20px]`}>
+                          <div style={{ left: `${Math.floor(coinBalPercentage)}%` }} className={`bg-[#A5E314] relative top-[-12px] h-[20px] rounded-full border w-[20px]`}>
 
                           </div>
                         </div>
 
                         <div className="space-y-2 mb-5">
                           <p>Purchased $PUMP Balance</p>
-                          <p className="font-gameria font-300 text-[48px]">$0.0089</p>
+                          <p className="font-gameria font-300 text-[48px]">
+                            ${!publicKey ? "0.00" : userBalance.toLocaleString()}
+                          </p>
                           <p>One token, Endless possibilities. Purchased token would be available for claim at TGE.</p>
-                          <div className="flex flex-col md:flex-row justify-between gap-x-4 ">
+                          <div className="flex flex-col md:flex-row justify-center gap-x-4 ">
                             <p><span className="text-[#C3EC62]">Starts:</span>  15/05/2024 (12:00 UTC)</p>
                             <p><span className="text-[#C3EC62]">Ends:</span> 16/05/2024 (12:00 UTC)</p>
                           </div>
                         </div>
 
+                        <div className="h-[150px] overflow-scroll">
+                          {unlocking.length > 0 && unlocking.map((item, index) => {
+                            return (
+                              <div key={`${index}-${item}`} className={`bg-gradient-to-r shrink-0 w-full mb-5 from-[#A5E314]/50 to-black  p-0.5 rounded-2xl`}>
+                                <div className=" w-full  flex flex-col md:flex-row items-center justify-between relative p-2 space-y-2 text-start  bg-black/80 rounded-2xl">
+                                  <div className="">
+                                    <div><span className="font-gameria text-[#C3EC62]">Date:</span>{new Date(item.time * 1000).toLocaleDateString()} </div>
+                                    <div className="flex flex-row md:flex-col gap-2 md:gap-0 ">
+                                      <span className=" text-[22px] w-full font-gameria font-[400] text-[#C3EC62]">Amount:</span>
+                                      <span className=" text-[22px] w-full font-gameria font-[400]">{item.amount.toLocaleString()}</span>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <button className="bg-[#A5E314] p-[10px] font-bold  w-[233px] rounded-2xl text-[#303827]">Claim</button>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          })}
+
+                        </div>
                         {/* Social Icons and Total Prices  */}
                         <div className="flex flex-col md:flex-row  justify-between">
                           <div className="flex order-2 md:order-1  flex-row justify-start  space-x-2">
@@ -418,13 +449,10 @@ export default function PresaleComp() {
                         </div>
                       </div>
                     </div>
-                    <div className="basis-1/2 order-1 md:order-2">
-                      <div>
-                        <TimerCount />
-
-                      </div>
+                    {/* Second Box */}
+                    <div className="basis-1/2  order-1 md:order-2">
                       <div className="bg-gradient-to-l from-[#89bd34] rounded-2xl  p-0.5">
-                        <div className="basis-1/2 rounded-2xl p-4 md:h-[330px]  bg-[#282F20E9] presaleGradient">
+                        <div className="basis-1/2 rounded-2xl p-4 md:h-full  bg-[#282F20E9] presaleGradient">
                           <div className="flex flex-row items-center justify-between">
                             <p>Pay with <span className="text-[#C3EC62] text-[24px] font-gameria mx-3">SOL</span> <span className="text-[#757A6F] text-[10px]">  Min buy 0.6</span></p>
                             <p>Receive <span className="text-[#C3EC62] text-[24px] font-gameria">$PUMP</span></p>
@@ -528,10 +556,35 @@ export default function PresaleComp() {
                                 }
                               </button>
                             </div>
-
                             <button className="px-6 py-3 font-gameria border w-full buttonTracker component_btn_transparent border-vivd-lime-green rounded-xl text-vivd-lime-green-10">
                               Whitelist Status
                             </button>
+
+                            <div className="space-y-4">
+                              <span className="italic text-[#ffffff]/50">"if you cannot connect"</span>
+                              <p>Transfer to: <span className="text-[14px] text-vivd-lime-green text-center ">
+                                {`${walletAddress.slice(0, 30)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy sx={{ fontSize: '14px' }} /></span>
+                              </span></p>
+
+                              <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+
+                                <CustomInput
+                                  addOnStart={<Image
+                                    className=""
+                                    src={'/images/presale/pumplogo.png'}
+                                    width={24}
+                                    height={24}
+                                    priority
+                                    alt="" />}
+                                  placeholder="Enter wallet address"
+                                  type="text"
+                                />
+                                <button onClick={startConnection} className="mt-2 bg-vivd-lime-green buttonTracker w-10/12 md:w-6/12 component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
+                                  Check Balance
+
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
