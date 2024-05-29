@@ -363,7 +363,7 @@ export default function PresaleComp() {
                                 <div className=" w-full  flex flex-col md:flex-row items-center justify-between relative p-2 space-y-2 text-start  bg-black/80 rounded-2xl">
                                   <div className="">
                                     <div><span className="font-gameria text-[#C3EC62]">Date:</span>{new Date(item.time * 1000).toLocaleDateString()} </div>
-                                    <div className="flex flex-row md:flex-col gap-2 ">
+                                    <div className="flex flex-row md:flex-col gap-2 md:gap-0 ">
                                       <span className=" text-[22px] w-full font-gameria font-[400] text-[#C3EC62]">Amount:</span>
                                       <span className=" text-[22px] w-full font-gameria font-[400]">{item.amount.toLocaleString()}</span>
                                     </div>
