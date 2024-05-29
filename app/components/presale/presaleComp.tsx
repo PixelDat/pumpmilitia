@@ -26,7 +26,7 @@ import { BN, Program } from "@project-serum/anchor";
 import { IDL, TransferSol, } from "@/lib/idl/pre_sale";
 import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
-import { UnlockingItem, loadBalances } from "./utilities";
+import { UnlockingItem, getUserBalance, loadBalances } from "./utilities";
 
 
 export default function PresaleComp() {
@@ -50,6 +50,18 @@ export default function PresaleComp() {
   const [amount, setAmount] = useState<any>('')
   const { sendTransaction, signTransaction, wallets, wallet } = useWallet();
   const [convertedAmount, setConvertedAmount] = useState(0)
+  const [copied, setCopied] = useState(false);
+  const [coinBalPercentage, setCoinBalPercentage] = useState(0);
+  const [userBalance, setUserBalance] = useState(0);
+  const [updateD, setUpdate] = useState(0);
+  const [userWalletAddress, setUserWalletAddress] = useState("");
+  const [unlocking, setUnlocking] = useState<UnlockingItem[]>([
+    {
+      amount: 0,
+      time: Number(Date.now() * 1000),
+    }
+  ]);
+  const ref = useRef<HTMLUListElement>(null);
   // Wallet button
   const { setVisible: setModalVisible } = useWalletModal();
 
@@ -70,17 +82,7 @@ export default function PresaleComp() {
     }
   }, [anchorWallet, connection])
 
-  const [copied, setCopied] = useState(false);
-  const [coinBalPercentage, setCoinBalPercentage] = useState(0);
-  const [userBalance, setUserBalance] = useState(0);
-  const [updateD, setUpdate] = useState(0);
-  const [unlocking, setUnlocking] = useState<UnlockingItem[]>([
-    {
-      amount: 0,
-      time: Number(Date.now() * 1000),
-    }
-  ]);
-  const ref = useRef<HTMLUListElement>(null);
+
 
   useEffect(() => {
     if (!publicKey) {
@@ -96,12 +98,10 @@ export default function PresaleComp() {
       // let ancProvider = await getProvider();
       const anchorProvider = anchorWallet && new AnchorProvider(connection, anchorWallet, {});
 
-      if (!anchorProvider) {
+      if (!anchorProvider || !publicKey) {
         return;
       }
-      if (!publicKey) {
-        return;
-      }
+
       const { conversionRate, balance, percentage, unlockingTimes } = await loadBalances(anchorProvider, amount, publicKey)
       setConvertedAmount(conversionRate);
       setCoinBalPercentage(percentage)
@@ -281,6 +281,12 @@ export default function PresaleComp() {
     }
   }
 
+  async function checkBalance() {
+    let userPub = new PublicKey(userWalletAddress)
+    let ancProvider = getProvider();
+    let result = await getUserBalance(ancProvider, userPub);
+    console.log(result);
+  }
   async function getRates(value: string) {
 
     setAmount(value);
@@ -578,10 +584,10 @@ export default function PresaleComp() {
                                     alt="" />}
                                   placeholder="Enter wallet address"
                                   type="text"
+                                  onChange={(e) => setUserWalletAddress(e.target.value)}
                                 />
                                 <button onClick={startConnection} className="mt-2 bg-vivd-lime-green buttonTracker w-10/12 md:w-6/12 component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
                                   Check Balance
-
                                 </button>
                               </div>
                             </div>

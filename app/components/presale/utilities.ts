@@ -1,5 +1,5 @@
 import { IDL, TransferSol } from "@/lib/idl/pre_sale";
-import { AnchorProvider, Program } from "@project-serum/anchor";
+import { AnchorProvider, Program, Provider } from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
 
 
@@ -36,6 +36,24 @@ export async function loadBalances(anchorProvider: AnchorProvider, amount: numbe
         unlockingTimes: mapping,
     }
 
+}
+
+export async function getUserBalance(anchorProvider: Provider, walletAddress: PublicKey) {
+    const programId = new PublicKey("H1gw4ZtABwmBhDCcKravEryyNodDGQYP1qVQySTTZqN6");
+    const program = new Program<TransferSol>(IDL, programId, anchorProvider);
+    const buyerAccount = await program.account.buyerAccount.fetch(walletAddress);
+
+    if (buyerAccount) {
+        return {
+            status: true,
+            balance: buyerAccount.amount,
+        }
+    } else {
+        return {
+            status: false,
+            balance: 0
+        }
+    }
 }
 
 export type UnlockingItem = {
