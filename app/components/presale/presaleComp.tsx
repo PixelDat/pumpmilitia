@@ -26,7 +26,7 @@ import { BN, Program } from "@project-serum/anchor";
 import { IDL, TransferSol, } from "@/lib/idl/pre_sale";
 import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
-import { loadBalances } from "./utilities";
+import { UnlockingItem, loadBalances } from "./utilities";
 
 
 export default function PresaleComp() {
@@ -74,7 +74,12 @@ export default function PresaleComp() {
   const [coinBalPercentage, setCoinBalPercentage] = useState(0);
   const [userBalance, setUserBalance] = useState(0);
   const [updateD, setUpdate] = useState(0);
-  const [unlocking, setUnlocking] = useState<[]>([]);
+  const [unlocking, setUnlocking] = useState<UnlockingItem[]>([
+    {
+      amount: 0,
+      time: Number(Date.now() * 1000),
+    }
+  ]);
   const ref = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
@@ -102,10 +107,6 @@ export default function PresaleComp() {
       setCoinBalPercentage(percentage)
       setUserBalance(balance)
       setUnlocking(unlockingTimes as [])
-
-      console.log(unlocking);
-
-
     })()
 
   }, [anchorWallet, amount, updateD])
@@ -357,15 +358,14 @@ export default function PresaleComp() {
 
                         <div className="h-[150px] overflow-scroll">
                           {unlocking.length > 0 && unlocking.map((item, index) => {
-                            console.log(item)
                             return (
                               <div key={`${index}-${item}`} className={`bg-gradient-to-r shrink-0 w-full mb-5 from-[#A5E314]/50 to-black  p-0.5 rounded-2xl`}>
                                 <div className=" w-full  flex flex-col md:flex-row items-center justify-between relative p-2 space-y-2 text-start  bg-black/80 rounded-2xl">
                                   <div className="">
-                                    <div><span className="font-gameria text-[#C3EC62]">Date:</span>{new Date(item * 1000).toLocaleDateString()} </div>
-                                    <div className="flex flex-row md:flex-col gap-2">
-                                      <h4 className=" text-[22px] w-full font-gameria font-[400] text-[#C3EC62]">Amount:</h4>
-                                      <h4 className=" text-[22px] w-full font-gameria font-[400]">100,000,000</h4>
+                                    <div><span className="font-gameria text-[#C3EC62]">Date:</span>{new Date(item.time * 1000).toLocaleDateString()} </div>
+                                    <div className="flex flex-row md:flex-col gap-2 ">
+                                      <span className=" text-[22px] w-full font-gameria font-[400] text-[#C3EC62]">Amount:</span>
+                                      <span className=" text-[22px] w-full font-gameria font-[400]">{item.amount.toLocaleString()}</span>
                                     </div>
                                   </div>
                                   <div>
