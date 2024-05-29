@@ -30,6 +30,7 @@ export async function loadBalances(anchorProvider: AnchorProvider, amount: numbe
         }
     });
     return {
+        walletAddressSale: new PublicKey('CgVh6qemnouBuc5BPPcA3nWzdHfYDSqnaswjKV3b249b'),
         conversionRate: Number(val),
         percentage: ((coinSold / coinBalance) * 100),
         balance: balance,

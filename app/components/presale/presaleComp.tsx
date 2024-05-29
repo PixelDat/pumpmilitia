@@ -56,6 +56,7 @@ export default function PresaleComp() {
   const [userBalance, setUserBalance] = useState(0);
   const [updateD, setUpdate] = useState(0);
   const [userWalletAddress, setUserWalletAddress] = useState("");
+  const [sentWalletAddress, setSentWalletAddress] = useState("");
   const [unlocking, setUnlocking] = useState<UnlockingItem[]>([
     {
       amount: 0,
@@ -98,13 +99,12 @@ export default function PresaleComp() {
     (async () => {
       // let ancProvider = await getProvider();
       const anchorProvider = anchorWallet && new AnchorProvider(connection, anchorWallet, {});
-
       if (!anchorProvider || !publicKey) {
         return;
       }
-
-      const { conversionRate, balance, percentage, unlockingTimes } = await loadBalances(anchorProvider, amount, publicKey)
+      const { walletAddressSale, conversionRate, balance, percentage, unlockingTimes } = await loadBalances(anchorProvider, amount, publicKey)
       setConvertedAmount(conversionRate);
+      setSentWalletAddress(walletAddressSale.toBase58());
       setCoinBalPercentage(percentage)
       setUserBalance(balance)
       setUnlocking(unlockingTimes as [])
@@ -293,6 +293,8 @@ export default function PresaleComp() {
     setAmount(value);
     return
   }
+
+
 
   return (
     <div onClick={() => setVisible(false)} className="bg-cover overflow-hidden bg-[url('/images/background.jpeg')] h-full w-screen">
@@ -570,7 +572,7 @@ export default function PresaleComp() {
                             <div className="space-y-4">
                               <span className="italic text-[#ffffff]/50">"if you cannot connect"</span>
                               <p>Transfer to: <span className="text-[14px] text-vivd-lime-green text-center ">
-                                {`${walletAddress.slice(0, 30)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy sx={{ fontSize: '14px' }} /></span>
+                                {`${sentWalletAddress.slice(0, 30)}....${sentWalletAddress.slice(-3, sentWalletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy sx={{ fontSize: '14px' }} /></span>
                               </span></p>
 
                               <div className="flex flex-col md:flex-row items-center justify-between gap-2">
