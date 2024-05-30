@@ -26,7 +26,7 @@ import { BN, Program } from "@project-serum/anchor";
 import { IDL, TransferSol, } from "@/lib/idl/pre_sale";
 import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
-import { UnlockingItem, loadBalances } from "./utilities";
+import { UnlockingItem, getUserBalance, loadBalances } from "./utilities";
 
 
 export default function PresaleComp() {
@@ -39,6 +39,7 @@ export default function PresaleComp() {
   const [visibleMod, setVisibleMod] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+
   const [errMessage, setErrMessage] = useState({
     type: '',
     message: '',
@@ -50,6 +51,23 @@ export default function PresaleComp() {
   const [amount, setAmount] = useState<any>('')
   const { sendTransaction, signTransaction, wallets, wallet } = useWallet();
   const [convertedAmount, setConvertedAmount] = useState(0)
+  const [copied, setCopied] = useState(false);
+  const [coinBalPercentage, setCoinBalPercentage] = useState(0);
+  const [userBalance, setUserBalance] = useState(0);
+  const [updateD, setUpdate] = useState(0);
+  const [userWalletAddress, setUserWalletAddress] = useState("");
+  const [sentWalletAddress, setSentWalletAddress] = useState("");
+  const [showBalance, setShowBalance] = useState({
+    status: false,
+    balance: 0,
+  })
+  const [unlocking, setUnlocking] = useState<UnlockingItem[]>([
+    {
+      amount: 0,
+      time: Number(Date.now() * 1000),
+    }
+  ]);
+  const ref = useRef<HTMLUListElement>(null);
   // Wallet button
   const { setVisible: setModalVisible } = useWalletModal();
 
@@ -70,17 +88,7 @@ export default function PresaleComp() {
     }
   }, [anchorWallet, connection])
 
-  const [copied, setCopied] = useState(false);
-  const [coinBalPercentage, setCoinBalPercentage] = useState(0);
-  const [userBalance, setUserBalance] = useState(0);
-  const [updateD, setUpdate] = useState(0);
-  const [unlocking, setUnlocking] = useState<UnlockingItem[]>([
-    {
-      amount: 0,
-      time: Number(Date.now() * 1000),
-    }
-  ]);
-  const ref = useRef<HTMLUListElement>(null);
+
 
   useEffect(() => {
     if (!publicKey) {
@@ -95,15 +103,12 @@ export default function PresaleComp() {
     (async () => {
       // let ancProvider = await getProvider();
       const anchorProvider = anchorWallet && new AnchorProvider(connection, anchorWallet, {});
-
-      if (!anchorProvider) {
+      if (!anchorProvider || !publicKey) {
         return;
       }
-      if (!publicKey) {
-        return;
-      }
-      const { conversionRate, balance, percentage, unlockingTimes } = await loadBalances(anchorProvider, amount, publicKey)
+      const { walletAddressSale, conversionRate, balance, percentage, unlockingTimes } = await loadBalances(anchorProvider, amount, publicKey)
       setConvertedAmount(conversionRate);
+      setSentWalletAddress(walletAddressSale.toBase58());
       setCoinBalPercentage(percentage)
       setUserBalance(balance)
       setUnlocking(unlockingTimes as [])
@@ -281,11 +286,38 @@ export default function PresaleComp() {
     }
   }
 
+  async function checkBalance() {
+    if (userWalletAddress == "") {
+      setError(true);
+      setLoading(false)
+      setErrMessage({ type: 'error', message: 'Enter a valid address' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return false
+    }
+    let userPub = new PublicKey(userWalletAddress)
+    let ancProvider = getProvider();
+    let result = await getUserBalance(ancProvider, userPub);
+    if (result.status != false) {
+      setShowBalance({ status: true, balance: result.balance })
+    } else {
+      setError(true);
+      setLoading(false)
+      setErrMessage({ type: 'error', message: 'Account Not Found' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return false
+    }
+  }
   async function getRates(value: string) {
 
     setAmount(value);
     return
   }
+
+
 
   return (
     <div onClick={() => setVisible(false)} className="bg-cover overflow-hidden bg-[url('/images/background.jpeg')] h-full w-screen">
@@ -299,7 +331,7 @@ export default function PresaleComp() {
             <NavBar />
             {!checkWl ?
 
-              <div className="w-full md:w-10/12 m-auto pt-36">
+              <div className="w-full md:w-10/12 m-auto pt-36 relative">
                 <Image
                   className="max-w-full"
                   src={'/images/presale/horizontal.png'}
@@ -307,10 +339,11 @@ export default function PresaleComp() {
                   height={80}
                   priority
                   alt="" />
+
                 <div className="pt-20 px-5 pb-10 relative bg-[#10130DB2] font-kanit text-[#EDF9D0] rounded-2xl ">
                   <div className="flex flex-row absolute items-center top-[-40px] md:top-[-65px]  w-full justify-center">
                     <Image
-                      className="inline-flex max-w-[209px] md:max-w-[299px] max-h-[81px] md:max-h-[112px]"
+                      className="inline-flex max-w-[209px] md:max-w-[299px] z-50 max-h-[81px] md:max-h-[112px]"
                       src={"/images/presale/pumppresale.png"}
                       width={299}
                       height={112}
@@ -318,6 +351,20 @@ export default function PresaleComp() {
                       alt=""
                     />
                   </div>
+                  {/* Pop Up Balance Image */}
+                  {showBalance.status &&
+                    <div className="absolute h-full w-full top-0 right-0 rounded-3xl flex flex-row justify-center items-center m-auto bg-black/50 z-40">
+                      <div className={`bg-gradient-to-r shrink-0 w-4/12 mb-5 from-[#A5E314]/50 to-black  p-0.5 rounded-2xl`}>
+                        <div className="py-10 p-2 space-y-2 text-start  bg-black/80 rounded-2xl">
+                          <div className="text-center" onClick={() => { setShowBalance({ status: false, balance: 0 }) }}>
+                            <div><span className="text-[#C3EC62]"></span>$PUMP Balance</div>
+                            <span className=" text-[64px] text-center w-full font-gameria font-[400] text-[#C3EC62]">${showBalance.balance <= 0 ? "000.000" : showBalance.balance.toLocaleString()}</span>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  }
                   <div className="md:w-5/12 m-auto">
                     <TimerCount />
 
@@ -563,7 +610,7 @@ export default function PresaleComp() {
                             <div className="space-y-4">
                               <span className="italic text-[#ffffff]/50">"if you cannot connect"</span>
                               <p>Transfer to: <span className="text-[14px] text-vivd-lime-green text-center ">
-                                {`${walletAddress.slice(0, 30)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy sx={{ fontSize: '14px' }} /></span>
+                                {`${sentWalletAddress.slice(0, 30)}....${sentWalletAddress.slice(-3, sentWalletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy sx={{ fontSize: '14px' }} /></span>
                               </span></p>
 
                               <div className="flex flex-col md:flex-row items-center justify-between gap-2">
@@ -578,10 +625,10 @@ export default function PresaleComp() {
                                     alt="" />}
                                   placeholder="Enter wallet address"
                                   type="text"
+                                  onChange={(e) => setUserWalletAddress(e.target.value)}
                                 />
-                                <button onClick={startConnection} className="mt-2 bg-vivd-lime-green buttonTracker w-10/12 md:w-6/12 component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
+                                <button onClick={checkBalance} className="mt-2 bg-vivd-lime-green buttonTracker w-10/12 md:w-6/12 component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
                                   Check Balance
-
                                 </button>
                               </div>
                             </div>
@@ -621,6 +668,7 @@ export default function PresaleComp() {
                     />
                   </div>
                   <div className="flex flex-col md:flex-row justify-center items-center ">
+
                     <div className="basis-1/2 order-1 md:order-2">
 
                       <div className="bg-gradient-to-t from-[#89bd34] rounded-2xl overflow-hidden p-0.5">
