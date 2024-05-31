@@ -12,7 +12,7 @@ import axios from "axios";
 import { useWalletMultiButton } from '@solana/wallet-adapter-base-ui';
 
 import { ToastComponent } from "../../components/toastComponent/toastComponent";
-import { ArrowDownward, ArrowUpward, CancelOutlined, CheckCircle, ContentPasteSearchOutlined, FolderCopy } from "@mui/icons-material";
+import { ArrowDownward, ArrowUpward, CancelOutlined, CheckCircle, ContentPasteSearchOutlined, ExpandCircleDown, ExpandLessRounded, ExpandMoreRounded, FolderCopy } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import { useAnchorWallet, useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
@@ -406,8 +406,12 @@ export default function PresaleComp() {
                         </div>
 
                         <div style={expandsClaims ? { height: "100%", } : { height: "150px", overflow: "hidden" }} className="relative">
-                          <div onClick={() => setExpandsClaims(!expandsClaims)} className={`rounded-full scaleAnimation absolute right-[50%] ${expandsClaims ? "top-0" : "bottom-0"} bg-[#A5E314] shadow font-bold text-white z-50 p-3`}>
-                            {!expandsClaims ? <ArrowDownward /> : <ArrowUpward />}
+                          <div className="absolute h-[50px] bottom-0 rounded-t-2xl bottom-0 w-full bg-gradient-to-t from-[#2b331f] to-[#2b331f]/20 z-50 flex flex-row justify-center items-center m-auto">
+                            <div onClick={() => setExpandsClaims(!expandsClaims)} className={`
+                            animate-pulse animate-infinite animate-duration-1000 animate-ease-out
+                            rounded-full scaleAnimation right-[50%] bg-[#A5E314] shadow font-bold `}>
+                              {!expandsClaims ? <ExpandMoreRounded /> : <ExpandLessRounded />}
+                            </div>
                           </div>
 
                           {unlocking.length > 0 && unlocking.map((item, index) => {
