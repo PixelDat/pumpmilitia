@@ -12,7 +12,7 @@ import axios from "axios";
 import { useWalletMultiButton } from '@solana/wallet-adapter-base-ui';
 
 import { ToastComponent } from "../../components/toastComponent/toastComponent";
-import { CancelOutlined, CheckCircle, ContentPasteSearchOutlined, FolderCopy } from "@mui/icons-material";
+import { ArrowDownward, ArrowUpward, CancelOutlined, CheckCircle, ContentPasteSearchOutlined, FolderCopy } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import { useAnchorWallet, useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
@@ -45,6 +45,8 @@ export default function PresaleComp() {
     message: '',
   })
 
+
+  const [expandsClaims, setExpandsClaims] = useState(false);
   //This checks the whitelist
   const [checkWl, setCheckWl] = useState(false)
   const [walletAddress, setWalletAddress] = useState('')
@@ -369,7 +371,7 @@ export default function PresaleComp() {
                     <TimerCount />
 
                   </div>
-                  <div className="flex flex-col md:flex-row justify-between gap-14 md:items-stretch">
+                  <div className="flex flex-col md:flex-row justify-between gap-14 md:items-center">
                     {/* First Box */}
                     <div className="basis-1/2  order-2 md:order-1 overflow-hidden rounded-2xl  bg-gradient-to-r from-[#89bd34] p-[1px] presaleGradient">
                       <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-full ">
@@ -403,10 +405,14 @@ export default function PresaleComp() {
                           </div>
                         </div>
 
-                        <div className="h-[150px] overflow-scroll">
+                        <div style={expandsClaims ? { height: "100%", } : { height: "150px", overflow: "hidden" }} className="relative">
+                          <div onClick={() => setExpandsClaims(!expandsClaims)} className={`rounded-full scaleAnimation absolute right-[50%] ${expandsClaims ? "top-0" : "bottom-0"} bg-[#A5E314] shadow font-bold text-white z-50 p-3`}>
+                            {!expandsClaims ? <ArrowDownward /> : <ArrowUpward />}
+                          </div>
+
                           {unlocking.length > 0 && unlocking.map((item, index) => {
                             return (
-                              <div key={`${index}-${item}`} className={`bg-gradient-to-r shrink-0 w-full mb-5 from-[#A5E314]/50 to-black  p-0.5 rounded-2xl`}>
+                              <div key={`${index}-${item}`} className={`bg-gradient-to-r shrink-0 w-full mb-2 from-[#A5E314]/50 to-black  p-0.5 rounded-2xl`}>
                                 <div className=" w-full  flex flex-col md:flex-row items-center justify-between relative p-2 space-y-2 text-start  bg-black/80 rounded-2xl">
                                   <div className="">
                                     <div><span className="font-gameria text-[#C3EC62]">Date:</span>{new Date(item.time * 1000).toLocaleDateString()} </div>
@@ -425,7 +431,7 @@ export default function PresaleComp() {
 
                         </div>
                         {/* Social Icons and Total Prices  */}
-                        <div className="flex flex-col md:flex-row  justify-between">
+                        <div className="flex flex-col md:flex-row py-2 justify-between">
                           <div className="flex order-2 md:order-1  flex-row justify-start  space-x-2">
                             <a href="https://x.com/PumpMilitia" target="_blank">
                               <Image
@@ -885,6 +891,6 @@ export default function PresaleComp() {
       <Tokenomics />
       <Faqs />
       <Footer />
-    </div>
+    </div >
   )
 }
