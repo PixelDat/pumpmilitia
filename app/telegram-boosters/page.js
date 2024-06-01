@@ -2,43 +2,31 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
-import { ArrowForward, ArrowLeft, ArrowRight, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
+import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 
 
 export default function TelegramLeague() {
-    const [currentLeague, setCurrentLeague] = useState(0)
 
-    let leagues = [
+    let boost = [
         {
-            title: 'League 1',
-            image: '/telegram/league/trophy.png',
-            from: '5000',
+            title: "Invite Friends",
+            amount: "300,000",
         },
         {
-            title: 'League 2',
-            image: '/telegram/league/trophy.png',
-            from: '50,000',
-
+            title: "Play Pump Militia",
+            amount: "300,000",
         },
         {
-            title: 'League 3',
-            image: '/telegram/league/trophy.png',
-            from: '100,000',
+            title: "Quests",
+            amount: "300,000",
         }
     ]
-    function handleNext() {
-        if (currentLeague == leagues.length - 1) return;
-        setCurrentLeague(currentLeague + 1)
-    }
-    function handlePrev() {
-        if (currentLeague == 0) return;
-        setCurrentLeague(currentLeague - 1)
-    }
+
     return (
         <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
-            <div className='flex flex-col justify-between space-y-4'>
+            <div className='w-screen space-y-8'>
                 <div className='text-center space-y-4 '>
                     <div className=''>
                         <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Coin Balance</h2></div>
@@ -54,34 +42,59 @@ export default function TelegramLeague() {
                     </div>
                 </div>
 
+                <div className='px-4 space-y-4'>
 
-                <div className='flex flex-row justify-center items-center gap-3 w-full'>
-                    <div className='flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
-                        <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
-                        <h2 className='font-gameria'>Turbo</h2>
-                        <p className='text-[#6E970D]'> 3 /3 Boost</p>
+                    <div>
+                        <Image src='/telegram/boost/free.png' alt='' width={137} height={24} priority />
                     </div>
-                    <div className='flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
-                        <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
-                        <h2 className='font-gameria'>Reload</h2>
-                        <p className='text-[#6E970D]'> 3 /3 Boost</p>
-                    </div>
-                </div>
+                    <div className='flex flex-row items-center gap-3'>
 
-
-
-                <div className='w-full mt-4'>
-                    <div className=' bg-[#374C07] w-10/12 m-auto p-1 rounded-full'>
-                        <div className='h-[14px] w-[50%] bg-gradient-to-b from-[#A5E314] rounded-full'>
+                        <div className='basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
+                            <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
+                            <h2 className='font-gameria'>Turbo</h2>
+                            <p className='text-[#6E970D]'> 3 /3 Boost</p>
+                        </div>
+                        <div className=' basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
+                            <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
+                            <h2 className='font-gameria'>Reload</h2>
+                            <p className='text-[#6E970D]'> 3 /3 Boost</p>
                         </div>
                     </div>
+
                 </div>
 
+                <div className='px-4 space-y-4'>
 
-                <div className=''>
-                    <NavigationComp />
+                    <div>
+                        <Image src='/telegram/boost/moreboost.png' alt='' width={137} height={24} priority />
+                    </div>
+                    <div className='flex flex-col border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
+                        {boost.map((item, inde) => {
+                            return (
+                                <div className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
+                                    <Image className='' src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
+                                    <div className='basis-4/5'>
+
+                                        <h2 className='font-gameria text-[24px]'>{item.title}</h2>
+                                        <div className='flex flex-row justify-start items-center'>
+                                            <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
+                                            <p className='text-[#6E970D]'>{item.amount}</p>
+                                        </div>
+                                    </div>
+                                    <div className='basis-1/5'>
+                                        <ArrowForward className='text-[#20251A] rounded-full p-2 text-[40px] bg-[#A5E314]' />
+                                    </div>
+
+                                </div>
+                            )
+                        })}
+
+
+                    </div>
+
                 </div>
-            </div>
+
+            </div >
 
 
         </div >
