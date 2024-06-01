@@ -37,51 +37,38 @@ export default function TelegramLeague() {
         setCurrentLeague(currentLeague - 1)
     }
     return (
-        <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
-            <div className='flex flex-col justify-between'>
-                <div className='text-center '>
+        <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
+            <div className='flex flex-col justify-between space-y-4'>
+                <div className='text-center space-y-4 '>
                     <div className=''>
-                        <div className='flex flex-col justify-center gap-2 items-center'>
-                            <Image src="/telegram/league/goldleague.png" alt='' width={208} height={35} priority />
-
-                            <p className='text-[14px] w-8/12 m-auto text-[#EDF9D0] '>
-                                Your number of shares determines the league you enter
-                            </p>
+                        <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Coin Balance</h2></div>
+                        <div className='flex flex-row justify-center items-center'>
+                            <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={58} height={58} priority />
+                            <p className='font-gameria text-[40px]'>10,000</p>
                         </div>
 
                     </div>
+                    <div className='flex flex-row justify-center bg-[#A5E314] w-[142px] m-auto py-2 rounded-2xl text-[#20251A] gap-2 items-center'>
+                        <p className='text-[16px] font-bold'>How it works</p>
+                        <ArrowForward />
+                    </div>
                 </div>
-                <div className=''>
 
-                    {leagues.map((item, index) => {
-                        if (index !== currentLeague) return null;
-                        return (
-                            <div className='flex h-[400px] flex-col gap-y-2 justify-center items-center'>
 
-                                <div className='flex flex-row justify-between gap-4 items-center m-auto'>
-                                    <div className='border-[#52710A] border bg-[#10130D] flex flex-row items-center justify-center rounded-full h-[150px] w-[44px] '>
-                                        <KeyboardArrowLeft onClick={() => handlePrev()} className='font-bold text-[#52710A]' />
-                                    </div>
-                                    <div className='w-[206px] flex flex-row justify-center'>
-                                        <Image src={item.image} alt='' width={132} height={137} priority />
-                                    </div>
-                                    <div className='border-[#52710A] border bg-[#10130D] flex flex-row items-center justify-center rounded-full h-[150px] w-[44px] '>
-                                        <KeyboardArrowRight onClick={() => handleNext()} className='font-bold text-[#52710A]' />
-                                    </div>
-                                </div>
-                                <div className='flex flex-col items-center justify-center'>
-                                    <p className='text-[36px] font-bold'>{item.title}</p>
-                                    <p className='text-[16px] text-[#E1F6B1]'>From {item.from}</p>
-                                </div>
-                                <div className='border-[#A5E314] border-2 p-1 px-2 flex rounded-3xl flex-row justify-center  gap-2 items-center'>
-                                    <p><Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} /></p>
-                                    <p>0 / <span className='text-[#52710A]'>{item.from}</span></p>
-                                </div>
-                            </div>
-                        )
-                    })}
-
+                <div className='flex flex-row justify-center items-center gap-3 w-full'>
+                    <div className='flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
+                        <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
+                        <h2 className='font-gameria'>Turbo</h2>
+                        <p className='text-[#6E970D]'> 3 /3 Boost</p>
+                    </div>
+                    <div className='flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
+                        <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
+                        <h2 className='font-gameria'>Reload</h2>
+                        <p className='text-[#6E970D]'> 3 /3 Boost</p>
+                    </div>
                 </div>
+
+
 
                 <div className='w-full mt-4'>
                     <div className=' bg-[#374C07] w-10/12 m-auto p-1 rounded-full'>
