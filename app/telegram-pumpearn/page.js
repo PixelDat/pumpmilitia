@@ -25,7 +25,7 @@ export default function TelegramLeague() {
     ]
 
     return (
-        <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
+        <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-10 text-[#EDF9D0] h-screen w-screen" >
             <div className='w-screen space-y-8'>
                 <div className='text-center space-y-4 '>
                     <div className=''>
@@ -45,7 +45,7 @@ export default function TelegramLeague() {
                 <div className='px-4 space-y-3'>
 
                     <div>
-                        <Image src='/telegram/boost/free.png' alt='' width={137} height={24} priority />
+                        <Image src='/telegram/task/campaigns.png' alt='' width={122} height={24} priority />
                     </div>
                     <p>Comfy tasks from PumpMilitia: perform these tasks and earn coins</p>
                     <div className='flex flex-row items-center gap-3'>
@@ -57,11 +57,11 @@ export default function TelegramLeague() {
                                 </div>
                                 <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
                             </div>
-                            <div className='space-y-8'>
+                            <div className='space-y-2'>
                                 <h2 className='font-gameria text-[14px]'>Total Completed</h2>
-                                <span className='p-1  rounded-full text-[#D2F189] bg-[#282F20]'>
+                                <p className='p-1 w-[58px] text-center rounded-full text-[#D2F189] bg-[#282F20]'>
                                     0 / <span className='text-[#D2F189]'>7</span>
-                                </span>
+                                </p>
 
                             </div>
 
@@ -73,7 +73,7 @@ export default function TelegramLeague() {
                 <div className='px-4 space-y-4'>
 
                     <div>
-                        <Image src='/telegram/boost/moreboost.png' alt='' width={137} height={24} priority />
+                        <Image src='/telegram/task/tasks.png' alt='' width={66} height={24} priority />
                     </div>
                     <div className='flex flex-col h-[250px] overflow-scroll border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
                         {boost.map((item, inde) => {
