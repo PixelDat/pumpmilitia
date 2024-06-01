@@ -23,7 +23,7 @@ export default function TelegramBotDash() {
 
     return (
         <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')] flex flex-row justify-center items-center text-[#EDF9D0] h-screen w-screen" >
-            <div>
+            <div className='flex flex-col justify-between'>
                 <div className='text-center '>
                     <div className=''>
                         <div className='flex flex-row justify-center items-center'>
@@ -40,16 +40,13 @@ export default function TelegramBotDash() {
                 </div>
                 <div className='flex flex-row justify-center items-center m-auto'>
 
-                    <div className='flex flex-row justify-center items-center'>
+                    <div className='flex h-[400px] flex-row justify-center items-center'>
                         <Image src='/telegram/dashpage/grinch.png' alt='' width={199} height={209} priority />
                     </div>
-                    {/* <div className='flex flex-row justify-center items-center'>
-                        <Image src='/telegram/dashpage/loadingtxt.png' alt='' width={199} height={209} priority />
-                    </div> */}
 
                 </div>
 
-                <div>
+                <div className='w-10/12 m-auto'>
                     <Tapcomponent />
                 </div>
                 <div className=''>
