@@ -52,14 +52,14 @@ export default function TelegramBotDash() {
                 <div>
                     <Tapcomponent />
                 </div>
-
-                <div className='flex flex-row justify-center gap-3 absolute bottom-0 items-center'>
-                    {coin.map((item, index) => {
-                        console.log(item)
-                        return (
-                            <IconButton key={index} icon={item.icon} text={item.text} />
-                        )
-                    })}
+                <div className=''>
+                    <div className='flex flex-row justify-center gap-3  items-center'>
+                        {coin.map((item, index) => {
+                            return (
+                                <IconButton key={index} icon={item.icon} text={item.text} />
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
 
