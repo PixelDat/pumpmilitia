@@ -58,7 +58,7 @@ export default function PresaleComp() {
   const [userBalance, setUserBalance] = useState(0);
   const [updateD, setUpdate] = useState(0);
   const [userWalletAddress, setUserWalletAddress] = useState("");
-  const [sentWalletAddress, setSentWalletAddress] = useState("");
+  const [sentWalletAddress, setSentWalletAddress] = useState("CgVh6qemnouBuc5BPPcA3nWzdHfYDSqnaswjKV3b249b");
   const [showBalance, setShowBalance] = useState({
     status: false,
     balance: 0,
@@ -110,7 +110,6 @@ export default function PresaleComp() {
       }
       const { walletAddressSale, conversionRate, balance, percentage, unlockingTimes } = await loadBalances(anchorProvider, amount, publicKey)
       setConvertedAmount(conversionRate);
-      setSentWalletAddress(walletAddressSale.toBase58());
       setCoinBalPercentage(percentage)
       setUserBalance(balance)
       setUnlocking(unlockingTimes as [])
@@ -183,13 +182,23 @@ export default function PresaleComp() {
         break;
     }
   }
-  function copyClip() {
-    navigator.clipboard.writeText(walletAddress);
-    setError(true);
-    setErrMessage({ type: 'success', message: 'Address Copied' });
-    setTimeout(() => {
-      setError(false);
-    }, 2000)
+  function copyClip(type: string) {
+    if (type == "yourAddress") {
+      navigator.clipboard.writeText(walletAddress);
+      setError(true);
+      setErrMessage({ type: 'success', message: 'Address Copied' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+    } else {
+      navigator.clipboard.writeText(sentWalletAddress);
+      setError(true);
+      setErrMessage({ type: 'success', message: 'Transfer to Address Copied' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+    }
+
   }
 
 
@@ -549,7 +558,7 @@ export default function PresaleComp() {
                               />
                             </div>
                             {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">
-                              {`${walletAddress.slice(0, 7)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy /></span>
+                              {`${walletAddress.slice(0, 7)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={() => copyClip('yourAddress')} className=''><FolderCopy /></span>
                             </p>}
                             <div className="flex flex-col md:flex-row gap-4 relative">
                               {visible &&
@@ -620,7 +629,7 @@ export default function PresaleComp() {
                             <div className="space-y-4">
                               <span className="italic text-[#ffffff]/50">"if you cannot connect"</span>
                               <p>Transfer to: <span className="text-[14px] text-vivd-lime-green text-center ">
-                                {`${sentWalletAddress.slice(0, 30)}....${sentWalletAddress.slice(-3, sentWalletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy sx={{ fontSize: '14px' }} /></span>
+                                {`${sentWalletAddress.slice(0, 30)}....${sentWalletAddress.slice(-3, sentWalletAddress.length)}`} <span onClick={() => copyClip('transAddress')} className=''><FolderCopy sx={{ fontSize: '14px' }} /></span>
                               </span></p>
 
                               <div className="flex flex-col md:flex-row items-center justify-between gap-2">
