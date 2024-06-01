@@ -42,22 +42,29 @@ export default function TelegramLeague() {
                     </div>
                 </div>
 
-                <div className='px-4 space-y-4'>
+                <div className='px-4 space-y-3'>
 
                     <div>
                         <Image src='/telegram/boost/free.png' alt='' width={137} height={24} priority />
                     </div>
+                    <p>Comfy tasks from PumpMilitia: perform these tasks and earn coins</p>
                     <div className='flex flex-row items-center gap-3'>
+                        <div className='w-full border-[#374C07] border rounded-3xl p-3 justify-center items-center'>
+                            <div className=' flex flex-row items-center justify-between '>
+                                <div>
+                                    <h2 className='font-gameria text-[20px]'>pump militia campaign</h2>
+                                    <p className='text-[#EDF9D0] w-10/12'>We have made coins pool for all users to earn for completing tasks</p>
+                                </div>
+                                <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
+                            </div>
+                            <div className='space-y-8'>
+                                <h2 className='font-gameria text-[14px]'>Total Completed</h2>
+                                <span className='p-1  rounded-full text-[#D2F189] bg-[#282F20]'>
+                                    0 / <span className='text-[#D2F189]'>7</span>
+                                </span>
 
-                        <div className='basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
-                            <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
-                            <h2 className='font-gameria'>Turbo</h2>
-                            <p className='text-[#6E970D]'> 3 /3 Boost</p>
-                        </div>
-                        <div className=' basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
-                            <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
-                            <h2 className='font-gameria'>Reload</h2>
-                            <p className='text-[#6E970D]'> 3 /3 Boost</p>
+                            </div>
+
                         </div>
                     </div>
 
@@ -68,7 +75,7 @@ export default function TelegramLeague() {
                     <div>
                         <Image src='/telegram/boost/moreboost.png' alt='' width={137} height={24} priority />
                     </div>
-                    <div className='flex flex-col border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
+                    <div className='flex flex-col h-[250px] overflow-scroll border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
                         {boost.map((item, inde) => {
                             return (
                                 <div className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
@@ -78,7 +85,7 @@ export default function TelegramLeague() {
                                         <h2 className='font-gameria text-[24px]'>{item.title}</h2>
                                         <div className='flex flex-row justify-start items-center'>
                                             <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
-                                            <p className='text-[#6E970D]'>{item.amount}</p>
+                                            <p className='text-[#D2F189] font-bold'>+{item.amount}</p>
                                         </div>
                                     </div>
                                     <div className='basis-1/5'>
