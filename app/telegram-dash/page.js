@@ -4,21 +4,9 @@ import React, { useEffect, useState } from 'react'
 import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
 import { ArrowForward, ArrowLeft, ArrowRight } from '@mui/icons-material';
 import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
+import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 
-let coin = [
-    {
-        icon: '/telegram/dashpage/yellowcoin.png',
-        text: 'Earn'
-    },
-    {
-        icon: '/telegram/dashpage/boosters.png',
-        text: 'Boosters'
-    },
-    {
-        icon: '/telegram/dashpage/group.png',
-        text: 'Invite'
-    }
-]
+
 export default function TelegramBotDash() {
 
     return (
@@ -50,13 +38,7 @@ export default function TelegramBotDash() {
                     <Tapcomponent />
                 </div>
                 <div className=''>
-                    <div className='flex flex-row justify-center gap-3  items-center'>
-                        {coin.map((item, index) => {
-                            return (
-                                <IconButton key={index} icon={item.icon} text={item.text} />
-                            )
-                        })}
-                    </div>
+                    <NavigationComp />
                 </div>
             </div>
 
