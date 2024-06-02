@@ -121,6 +121,16 @@ export default function TelegramLeague() {
 
                     </div>
 
+                    <div className='flex flex-col justify-center p-4 items-center'>
+                        <Image src='/telegram/frens/frens.png' alt='' width={115} height={24} priority />
+                        <Image src='/telegram/dashpage/grinch.png' alt='' width={199} height={209} priority />
+
+                        <h2 className='text-[#52710A] text-[16px] text-center'>
+                            We haven’t found any users that joined the game
+                            with your invite code. Invite friends to receive bonuses!
+                        </h2>
+
+                    </div>
                 </div >
 
             </div >
