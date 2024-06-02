@@ -12,7 +12,7 @@ import axios from "axios";
 import { useWalletMultiButton } from '@solana/wallet-adapter-base-ui';
 
 import { ToastComponent } from "../../components/toastComponent/toastComponent";
-import { CancelOutlined, CheckCircle, ContentPasteSearchOutlined, FolderCopy } from "@mui/icons-material";
+import { ArrowDownward, ArrowUpward, CancelOutlined, CheckCircle, ContentPasteSearchOutlined, ExpandCircleDown, ExpandLessRounded, ExpandMoreRounded, FolderCopy } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import { useAnchorWallet, useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
@@ -26,7 +26,7 @@ import { BN, Program } from "@project-serum/anchor";
 import { IDL, TransferSol, } from "@/lib/idl/pre_sale";
 import { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
-import { UnlockingItem, loadBalances } from "./utilities";
+import { UnlockingItem, getUserBalance, loadBalances } from "./utilities";
 
 
 export default function PresaleComp() {
@@ -39,17 +39,37 @@ export default function PresaleComp() {
   const [visibleMod, setVisibleMod] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+
   const [errMessage, setErrMessage] = useState({
     type: '',
     message: '',
   })
 
+
+  const [expandsClaims, setExpandsClaims] = useState(false);
   //This checks the whitelist
   const [checkWl, setCheckWl] = useState(false)
   const [walletAddress, setWalletAddress] = useState('')
   const [amount, setAmount] = useState<any>('')
   const { sendTransaction, signTransaction, wallets, wallet } = useWallet();
   const [convertedAmount, setConvertedAmount] = useState(0)
+  const [copied, setCopied] = useState(false);
+  const [coinBalPercentage, setCoinBalPercentage] = useState(0);
+  const [userBalance, setUserBalance] = useState(0);
+  const [updateD, setUpdate] = useState(0);
+  const [userWalletAddress, setUserWalletAddress] = useState("");
+  const [sentWalletAddress, setSentWalletAddress] = useState("CgVh6qemnouBuc5BPPcA3nWzdHfYDSqnaswjKV3b249b");
+  const [showBalance, setShowBalance] = useState({
+    status: false,
+    balance: 0,
+  })
+  const [unlocking, setUnlocking] = useState<UnlockingItem[]>([
+    {
+      amount: 0,
+      time: Number(Date.now() * 1000),
+    }
+  ]);
+  const ref = useRef<HTMLUListElement>(null);
   // Wallet button
   const { setVisible: setModalVisible } = useWalletModal();
 
@@ -70,17 +90,7 @@ export default function PresaleComp() {
     }
   }, [anchorWallet, connection])
 
-  const [copied, setCopied] = useState(false);
-  const [coinBalPercentage, setCoinBalPercentage] = useState(0);
-  const [userBalance, setUserBalance] = useState(0);
-  const [updateD, setUpdate] = useState(0);
-  const [unlocking, setUnlocking] = useState<UnlockingItem[]>([
-    {
-      amount: 0,
-      time: Number(Date.now() * 1000),
-    }
-  ]);
-  const ref = useRef<HTMLUListElement>(null);
+
 
   useEffect(() => {
     if (!publicKey) {
@@ -95,14 +105,10 @@ export default function PresaleComp() {
     (async () => {
       // let ancProvider = await getProvider();
       const anchorProvider = anchorWallet && new AnchorProvider(connection, anchorWallet, {});
-
-      if (!anchorProvider) {
+      if (!anchorProvider || !publicKey) {
         return;
       }
-      if (!publicKey) {
-        return;
-      }
-      const { conversionRate, balance, percentage, unlockingTimes } = await loadBalances(anchorProvider, amount, publicKey)
+      const { walletAddressSale, conversionRate, balance, percentage, unlockingTimes } = await loadBalances(anchorProvider, amount, publicKey)
       setConvertedAmount(conversionRate);
       setCoinBalPercentage(percentage)
       setUserBalance(balance)
@@ -176,13 +182,23 @@ export default function PresaleComp() {
         break;
     }
   }
-  function copyClip() {
-    navigator.clipboard.writeText(walletAddress);
-    setError(true);
-    setErrMessage({ type: 'success', message: 'Address Copied' });
-    setTimeout(() => {
-      setError(false);
-    }, 2000)
+  function copyClip(type: string) {
+    if (type == "yourAddress") {
+      navigator.clipboard.writeText(walletAddress);
+      setError(true);
+      setErrMessage({ type: 'success', message: 'Address Copied' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+    } else {
+      navigator.clipboard.writeText(sentWalletAddress);
+      setError(true);
+      setErrMessage({ type: 'success', message: 'Transfer to Address Copied' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+    }
+
   }
 
 
@@ -281,11 +297,38 @@ export default function PresaleComp() {
     }
   }
 
+  async function checkBalance() {
+    if (userWalletAddress == "") {
+      setError(true);
+      setLoading(false)
+      setErrMessage({ type: 'error', message: 'Enter a valid address' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return false
+    }
+    let userPub = new PublicKey(userWalletAddress)
+    let ancProvider = getProvider();
+    let result = await getUserBalance(ancProvider, userPub);
+    if (result.status != false) {
+      setShowBalance({ status: true, balance: result.balance })
+    } else {
+      setError(true);
+      setLoading(false)
+      setErrMessage({ type: 'error', message: 'Account Not Found' });
+      setTimeout(() => {
+        setError(false);
+      }, 2000)
+      return false
+    }
+  }
   async function getRates(value: string) {
 
     setAmount(value);
     return
   }
+
+
 
   return (
     <div onClick={() => setVisible(false)} className="bg-cover overflow-hidden bg-[url('/images/background.jpeg')] h-full w-screen">
@@ -299,7 +342,7 @@ export default function PresaleComp() {
             <NavBar />
             {!checkWl ?
 
-              <div className="w-full md:w-10/12 m-auto pt-36">
+              <div className="w-full md:w-10/12 m-auto pt-36 relative">
                 <Image
                   className="max-w-full"
                   src={'/images/presale/horizontal.png'}
@@ -307,10 +350,11 @@ export default function PresaleComp() {
                   height={80}
                   priority
                   alt="" />
+
                 <div className="pt-20 px-5 pb-10 relative bg-[#10130DB2] font-kanit text-[#EDF9D0] rounded-2xl ">
                   <div className="flex flex-row absolute items-center top-[-40px] md:top-[-65px]  w-full justify-center">
                     <Image
-                      className="inline-flex max-w-[209px] md:max-w-[299px] max-h-[81px] md:max-h-[112px]"
+                      className="inline-flex max-w-[209px] md:max-w-[299px] z-50 max-h-[81px] md:max-h-[112px]"
                       src={"/images/presale/pumppresale.png"}
                       width={299}
                       height={112}
@@ -318,11 +362,25 @@ export default function PresaleComp() {
                       alt=""
                     />
                   </div>
+                  {/* Pop Up Balance Image */}
+                  {showBalance.status &&
+                    <div className="absolute h-full w-full top-0 right-0 rounded-3xl flex flex-row justify-center items-center m-auto bg-black/50 z-40">
+                      <div className={`bg-gradient-to-r shrink-0 w-4/12 mb-5 from-[#A5E314]/50 to-black  p-0.5 rounded-2xl`}>
+                        <div className="py-10 p-2 space-y-2 text-start  bg-black/80 rounded-2xl">
+                          <div className="text-center" onClick={() => { setShowBalance({ status: false, balance: 0 }) }}>
+                            <div><span className="text-[#C3EC62]"></span>$PUMP Balance</div>
+                            <span className=" text-[64px] text-center w-full font-gameria font-[400] text-[#C3EC62]">${showBalance.balance <= 0 ? "000.000" : showBalance.balance.toLocaleString()}</span>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  }
                   <div className="md:w-5/12 m-auto">
                     <TimerCount />
 
                   </div>
-                  <div className="flex flex-col md:flex-row justify-between gap-14 md:items-stretch">
+                  <div className="flex flex-col md:flex-row justify-between gap-14 md:items-center">
                     {/* First Box */}
                     <div className="basis-1/2  order-2 md:order-1 overflow-hidden rounded-2xl  bg-gradient-to-r from-[#89bd34] p-[1px] presaleGradient">
                       <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-full ">
@@ -356,10 +414,18 @@ export default function PresaleComp() {
                           </div>
                         </div>
 
-                        <div className="h-[150px] overflow-scroll">
+                        <div style={expandsClaims ? { height: "100%", } : { height: "150px", overflow: "hidden" }} className="relative">
+                          <div className="absolute h-[50px] bottom-0 rounded-t-2xl bottom-0 w-full bg-gradient-to-t from-[#2b331f] to-[#2b331f]/20 z-50 flex flex-row justify-center items-center m-auto">
+                            <div onClick={() => setExpandsClaims(!expandsClaims)} className={`
+                            animate-pulse animate-infinite animate-duration-1000 animate-ease-out
+                            rounded-full scaleAnimation right-[50%] bg-[#A5E314] shadow font-bold `}>
+                              {!expandsClaims ? <ExpandMoreRounded /> : <ExpandLessRounded />}
+                            </div>
+                          </div>
+
                           {unlocking.length > 0 && unlocking.map((item, index) => {
                             return (
-                              <div key={`${index}-${item}`} className={`bg-gradient-to-r shrink-0 w-full mb-5 from-[#A5E314]/50 to-black  p-0.5 rounded-2xl`}>
+                              <div key={`${index}-${item}`} className={`bg-gradient-to-r shrink-0 w-full mb-2 from-[#A5E314]/50 to-black  p-0.5 rounded-2xl`}>
                                 <div className=" w-full  flex flex-col md:flex-row items-center justify-between relative p-2 space-y-2 text-start  bg-black/80 rounded-2xl">
                                   <div className="">
                                     <div><span className="font-gameria text-[#C3EC62]">Date:</span>{new Date(item.time * 1000).toLocaleDateString()} </div>
@@ -378,7 +444,7 @@ export default function PresaleComp() {
 
                         </div>
                         {/* Social Icons and Total Prices  */}
-                        <div className="flex flex-col md:flex-row  justify-between">
+                        <div className="flex flex-col md:flex-row py-2 justify-between">
                           <div className="flex order-2 md:order-1  flex-row justify-start  space-x-2">
                             <a href="https://x.com/PumpMilitia" target="_blank">
                               <Image
@@ -492,7 +558,7 @@ export default function PresaleComp() {
                               />
                             </div>
                             {buttonState == 'connected' && <p className="text-[14px] text-vivd-lime-green text-center ">
-                              {`${walletAddress.slice(0, 7)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy /></span>
+                              {`${walletAddress.slice(0, 7)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={() => copyClip('yourAddress')} className=''><FolderCopy /></span>
                             </p>}
                             <div className="flex flex-col md:flex-row gap-4 relative">
                               {visible &&
@@ -563,7 +629,7 @@ export default function PresaleComp() {
                             <div className="space-y-4">
                               <span className="italic text-[#ffffff]/50">"if you cannot connect"</span>
                               <p>Transfer to: <span className="text-[14px] text-vivd-lime-green text-center ">
-                                {`${walletAddress.slice(0, 30)}....${walletAddress.slice(-3, walletAddress.length)}`} <span onClick={copyClip} className=''><FolderCopy sx={{ fontSize: '14px' }} /></span>
+                                {`${sentWalletAddress.slice(0, 30)}....${sentWalletAddress.slice(-3, sentWalletAddress.length)}`} <span onClick={() => copyClip('transAddress')} className=''><FolderCopy sx={{ fontSize: '14px' }} /></span>
                               </span></p>
 
                               <div className="flex flex-col md:flex-row items-center justify-between gap-2">
@@ -578,10 +644,10 @@ export default function PresaleComp() {
                                     alt="" />}
                                   placeholder="Enter wallet address"
                                   type="text"
+                                  onChange={(e) => setUserWalletAddress(e.target.value)}
                                 />
-                                <button onClick={startConnection} className="mt-2 bg-vivd-lime-green buttonTracker w-10/12 md:w-6/12 component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
+                                <button onClick={checkBalance} className="mt-2 bg-vivd-lime-green buttonTracker w-10/12 md:w-6/12 component_btn px-6 py-3 shadow-sm rounded-xl shadow-white">
                                   Check Balance
-
                                 </button>
                               </div>
                             </div>
@@ -621,6 +687,7 @@ export default function PresaleComp() {
                     />
                   </div>
                   <div className="flex flex-col md:flex-row justify-center items-center ">
+
                     <div className="basis-1/2 order-1 md:order-2">
 
                       <div className="bg-gradient-to-t from-[#89bd34] rounded-2xl overflow-hidden p-0.5">
@@ -837,6 +904,6 @@ export default function PresaleComp() {
       <Tokenomics />
       <Faqs />
       <Footer />
-    </div>
+    </div >
   )
 }
