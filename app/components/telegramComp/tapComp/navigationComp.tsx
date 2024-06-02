@@ -5,15 +5,18 @@ import IconButton from './iconbuttonComp';
 let coin = [
     {
         icon: '/telegram/dashpage/yellowcoin.png',
-        text: 'Earn'
+        text: 'Earn',
+        url: '/telegram-pumpearn'
     },
     {
         icon: '/telegram/dashpage/boosters.png',
-        text: 'Boosters'
+        text: 'Boosters',
+        url: '/telegram-boosters'
     },
     {
         icon: '/telegram/dashpage/group.png',
-        text: 'Invite'
+        text: 'Invite',
+        url: '/telegram-invite'
     }
 ]
 const NavigationComp = () => {
@@ -27,7 +30,7 @@ const NavigationComp = () => {
             <div className='bottom-10  flex flex-row justify-center gap-3  items-center'>
                 {coin.map((item, index) => {
                     return (
-                        <IconButton key={index.toString()} icon={item.icon} text={item.text} />
+                        <IconButton url={item.url} key={index.toString()} icon={item.icon} text={item.text} />
                     )
                 })}
             </div>

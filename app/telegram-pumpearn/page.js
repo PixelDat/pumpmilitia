@@ -9,6 +9,7 @@ import CustomModal from '../components/telegramComp/modalComp/modalComp';
 
 
 export default function TelegramLeague() {
+    const [opened, setOpened] = React.useState(true);
 
     let boost = [
         {
@@ -105,7 +106,7 @@ export default function TelegramLeague() {
                 </div >
 
             </div >
-            <CustomModal type='taskModal' />
+            <CustomModal type='taskModal' setOpened={setOpened} opened={opened} />
 
         </>
 

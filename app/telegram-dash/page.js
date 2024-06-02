@@ -5,13 +5,18 @@ import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
 import { ArrowForward, ArrowLeft, ArrowRight } from '@mui/icons-material';
 import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
+import CustomModal from '../components/telegramComp/modalComp/modalComp';
 
 
 export default function TelegramBotDash() {
+    const [opened, setOpened] = React.useState(false);
+
+
+
 
     return (
-        <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')] flex flex-row justify-center items-center text-[#EDF9D0] h-screen w-screen" >
-            <div className='flex flex-col justify-between'>
+        <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')]  text-[#EDF9D0] h-screen w-screen" >
+            <div className='flex flex-col justify-between pt-10'>
                 <div className='text-center '>
                     <div className=''>
                         <div className='flex flex-row justify-center items-center'>
@@ -35,12 +40,15 @@ export default function TelegramBotDash() {
                 </div>
 
                 <div className='w-10/12 m-auto'>
-                    <Tapcomponent />
+                    <Tapcomponent opened={opened} />
                 </div>
                 <div className=''>
                     <NavigationComp />
                 </div>
             </div>
+
+            <CustomModal type='dashModal' setOpened={setOpened} opened={opened} />
+
 
 
         </div >
