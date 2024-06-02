@@ -16,7 +16,7 @@ let coin = [
     {
         icon: '/telegram/dashpage/group.png',
         text: 'Invite',
-        url: '/telegram-invite'
+        url: '/telegram-frens'
     }
 ]
 const NavigationComp = () => {

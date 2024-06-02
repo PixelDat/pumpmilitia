@@ -8,7 +8,7 @@ import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
 
 
-export default function TelegramLeague() {
+export default function TelegramPumpEarn() {
     const [opened, setOpened] = React.useState(true);
 
     let boost = [
@@ -28,7 +28,7 @@ export default function TelegramLeague() {
 
     return (
         <>
-            <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-10 text-[#EDF9D0] h-screen w-screen" >
+            <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-10 text-[#EDF9D0] w-screen" >
                 <div className='w-screen space-y-8'>
                     <div className='text-center space-y-4 '>
                         <div className=''>
@@ -73,14 +73,14 @@ export default function TelegramLeague() {
 
                     </div>
 
-                    <div className='px-4 space-y-4'>
+                    <div className='px-4 space-y-4 pb-8'>
                         <div>
                             <Image src='/telegram/task/tasks.png' alt='' width={66} height={24} priority />
                         </div>
-                        <div className='flex flex-col h-[250px] overflow-scroll border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
-                            {boost.map((item, inde) => {
+                        <div className='flex flex-col  border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
+                            {boost.map((item, index) => {
                                 return (
-                                    <div className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
+                                    <div key={index} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
                                         <Image className='' src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
                                         <div className='basis-4/5'>
 
