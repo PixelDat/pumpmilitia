@@ -10,12 +10,16 @@ const Tapcomponent: React.FC<Taptypes> = ({ opened }) => {
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
     const [showers, setShowers] = useState<number[]>([]);
+    const [gradeAmount, setGradeAmount] = useState(1000)
+    const [calAmount, setCalAmount] = useState(1000)
+
 
     useEffect(() => {
         let timeout: NodeJS.Timeout;
         if (!tapping && percent < 100) {
             timeout = setTimeout(() => {
                 setPercent(100);
+                setCalAmount(gradeAmount)
             }, 1000);
         }
         return () => clearTimeout(timeout);
@@ -32,6 +36,7 @@ const Tapcomponent: React.FC<Taptypes> = ({ opened }) => {
 
     const updatePercentage = () => {
         setPercent((prev) => Math.max(prev - 10, 0));
+        setCalAmount(calAmount - (gradeAmount * 0.1))
         setTapping(true);
         setShowers((prev) => [...prev, Date.now()]);
     };
@@ -59,7 +64,7 @@ const Tapcomponent: React.FC<Taptypes> = ({ opened }) => {
                         <div style={{ zIndex: 1 }} className='bg-[#10130D] flex flex-row items-center justify-between gap-2 border-[#A5E314] border-2 p-2 rounded-3xl'>
                             <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
                             <div className='flex flex-col w-[80px] leading-tight'>
-                                <span className='text-[16px]'>1,000</span>
+                                <span className='text-[16px]'>{calAmount.toLocaleString()}</span>
                                 <span className='text-[16px]'>/1,000</span>
                             </div>
                         </div>
