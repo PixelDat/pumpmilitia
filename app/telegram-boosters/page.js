@@ -5,9 +5,11 @@ import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
 import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
+import TurboModal from '../components/telegramComp/modalComp/modalCompTurbo';
 
 
-export default function TelegramLeague() {
+export default function TelegramBoosters() {
+    const [opened, setOpened] = React.useState(true);
 
     let boost = [
         {
@@ -94,6 +96,8 @@ export default function TelegramLeague() {
 
                 </div>
 
+
+                <TurboModal setOpened={setOpened} opened={opened} />
             </div >
 
 

@@ -8,7 +8,7 @@ import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
 
 
-export default function TelegramLeague() {
+export default function TelegramFrens() {
     const [opened, setOpened] = React.useState(false);
 
     let boost = [
