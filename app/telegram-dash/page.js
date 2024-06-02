@@ -6,13 +6,11 @@ import { ArrowForward, ArrowLeft, ArrowRight } from '@mui/icons-material';
 import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
+import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 
 
 export default function TelegramBotDash() {
     const [opened, setOpened] = React.useState(false);
-
-
-
 
     return (
         <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')]  text-[#EDF9D0] h-screen w-screen" >
@@ -47,7 +45,7 @@ export default function TelegramBotDash() {
                 </div>
             </div>
 
-            <CustomModal type='dashModal' setOpened={setOpened} opened={opened} />
+            <DashBoardModal setOpened={setOpened} opened={opened} />
 
 
 
