@@ -39,6 +39,8 @@ const TurboModal: React.FC<ModalComponent> = ({ text, title, key, setOpened, ope
                                         <p className='font-gameria text-[40px]'>FREE</p>
                                     </div>
 
+
+
                                     <div className='rounded-3xl flex bg-[#A5E314] hover:border-t-4 hover:border-b-0   text-black flex-row justify-center items-center gap-3 w-full border-b-4 border-[#52710A] p-3'>
                                         <Rocket className='rotate-45 text-black' />
                                         <p className='text-center font-bold text-[14px]'>Claim Boost </p>
