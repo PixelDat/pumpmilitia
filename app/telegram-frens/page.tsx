@@ -130,7 +130,7 @@ export default function TelegramFrens() {
                 </div >
 
             </div >
-            <CustomModal setOpened={setOpened} opened={opened} />
+            {/* <CustomModal setOpened={setOpened} opened={opened} /> */}
 
         </>
 
