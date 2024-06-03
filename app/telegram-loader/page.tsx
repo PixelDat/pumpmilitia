@@ -1,11 +1,29 @@
 "use client";
 import Image from 'next/image'
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
+import { authUser } from './utils';
 
 export default function TelegramBot() {
     const [loadingPage, setLoadingPage] = useState(true)
+    const params = useSearchParams();
+    let tg_username = params.get('tg_username');
+    let uniqueId = params.get('uniqueID');
+
+
     useEffect(() => {
-        location.href = '/telegram-dash';
+        async function AuthUser() {
+            if (tg_username && uniqueId) {
+
+                const result = await authUser(tg_username, uniqueId)
+                console.log(result);
+            }
+            // setTimeout(() => {
+            //     location.href = '/telegram-dash';
+            // }, 1000)
+        }
+        AuthUser();
+
     }, [])
     return (
         <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')] h-screen w-screen" >
