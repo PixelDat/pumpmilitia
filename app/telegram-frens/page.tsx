@@ -2,46 +2,42 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
-import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, CopyAll, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
+import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle, CopyAll, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
+import { ToastComponent } from '../components/toastComponent/toastComponent';
+import { boost } from './utils';
 
 
 export default function TelegramFrens() {
     const [opened, setOpened] = React.useState(false);
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
 
-    let boost = [
-        {
-            title: "Refer 1 Fren",
-            amount: "3,000",
-        },
-        {
-            title: "Play Pump Militia",
-            amount: "300,000",
-        },
-        {
-            title: "Quests",
-            amount: "300,000",
-        }
-        ,
-        {
-            title: "Quests",
-            amount: "300,000",
-        },
-        {
-            title: "Quests",
-            amount: "300,000",
-        },
-        {
-            title: "Quests",
-            amount: "300,000",
-        }
-    ]
+    const [errMessage, setErrMessage] = useState({
+        type: '',
+        message: '',
+    })
+
+    function copyClip(text: string) {
+
+        navigator.clipboard.writeText(text);
+        setError(true);
+        setErrMessage({ type: 'success', message: 'Text Copied to Clipboard' });
+        setTimeout(() => {
+            setError(false);
+        }, 2000)
+
+
+    }
 
     return (
         <>
-            <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-10 text-[#EDF9D0] h-full w-screen" >
+            <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-col justify-center items-start pt-10 text-[#EDF9D0] h-full w-screen" >
+                {error &&
+                    <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
+                }
                 <div className='w-screen space-y-8'>
                     <div className='text-center space-y-4 '>
                         <div className=''>
@@ -67,7 +63,7 @@ export default function TelegramFrens() {
                                     <p className='text-[#EDF9D0] w-10/12'>Invite your frens and get bonuses!</p>
                                     <div className='flex flex-row justify-between items-center border-[#A5E314] border p-1 rounded-lg '>
                                         <span>https://t.me/pumpmilitia_c...0998884848</span>
-                                        <CopyAll className='text-[14px]' />
+                                        <CopyAll onClick={() => copyClip('https://t.me/pumpmilitia_c...0998884848')} className='text-[18px]' />
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +103,7 @@ export default function TelegramFrens() {
                                             </div>
                                             <div className='w-full'>
                                                 <div className=' bg-[#374C07] w-full m-auto p-1 rounded-full'>
-                                                    <div className='h-[14px] w-[50%] bg-gradient-to-b from-[#A5E314] rounded-full'>
+                                                    <div className='h-[14px] w-[100%] bg-gradient-to-b from-[#A5E314] rounded-full'>
                                                     </div>
                                                 </div>
                                             </div>

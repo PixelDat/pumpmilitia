@@ -10,7 +10,7 @@ import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 
 
 export default function TelegramBotDash() {
-    const [opened, setOpened] = React.useState(false);
+    const [opened, setOpened] = React.useState(true);
 
     return (
         <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')]  text-[#EDF9D0] h-screen w-screen" >
