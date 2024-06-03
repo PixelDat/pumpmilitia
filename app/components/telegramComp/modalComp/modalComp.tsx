@@ -33,7 +33,11 @@ const CustomModal: React.FC<ModalComponent> = ({ taskIndex, text, key, setOpened
                             {confirmComplete ?
                                 <div className='w-full flex flex-col justify-center text-[#EDF9D0] items-center '>
                                     <div className='w-[30px]  bg-[#C3EC62] h-[3px] rounded-full'></div>
-                                    <div onClick={() => setOpened(!opened)} className='justify-end w-full flex flex-row'>
+                                    <div onClick={() => {
+                                        setComfirmComplete(false)
+                                        setTaskClicked(false)
+                                        setOpened(!opened)
+                                    }} className='justify-end w-full flex flex-row'>
                                         <Close />
                                     </div>
                                     <div className='flex flex-col justify-center items-center space-y-4 '>

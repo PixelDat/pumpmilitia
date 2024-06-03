@@ -81,8 +81,8 @@ export default function TelegramFrens() {
 
                                 {boost.map((item, index) => {
                                     return (
-                                        <div className=' border bg-[#10130d]  border-[#476116]/50 p-2 rounded-2xl'>
-                                            <div key={index} className='flex  flex-row justify-between items-center w-full gap-2   p-2'>
+                                        <div key={`${index} ${item.title}`} className=' border bg-[#10130d]  border-[#476116]/50 p-2 rounded-2xl'>
+                                            <div className='flex  flex-row justify-between items-center w-full gap-2   p-2'>
                                                 <div className=''>
                                                     <div className='flex flex-row gap-2 items-center'>
                                                         <Image src='/telegram/dashpage/greencoin.png' alt='' width={20} height={20} priority />
