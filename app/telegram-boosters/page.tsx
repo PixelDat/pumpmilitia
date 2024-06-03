@@ -15,14 +15,19 @@ export default function TelegramBoosters() {
         {
             title: "Invite Friends",
             amount: "300,000",
+            target: '/telegram-frens'
         },
         {
             title: "Play Pump Militia",
             amount: "300,000",
+            target: '/telegram-dash'
+
         },
         {
             title: "Quests",
             amount: "300,000",
+            target: '/telegram-pumpearn'
+
         }
     ]
 
@@ -71,9 +76,9 @@ export default function TelegramBoosters() {
                         <Image src='/telegram/boost/moreboost.png' alt='' width={137} height={24} priority />
                     </div>
                     <div className='flex flex-col border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
-                        {boost.map((item, inde) => {
+                        {boost.map((item, index) => {
                             return (
-                                <div className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
+                                <div key={index} onClick={() => { location.href = `${item.target}` }} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
                                     <Image className='' src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
                                     <div className='basis-4/5'>
 
