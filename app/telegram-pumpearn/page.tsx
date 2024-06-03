@@ -6,25 +6,13 @@ import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, KeyboardArrowLeft
 import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
+import { tasks } from './utils';
 
 
 export default function TelegramPumpEarn() {
-    const [opened, setOpened] = React.useState(true);
+    const [opened, setOpened] = React.useState(false);
+    const [selectedTask, setSelectedTask] = React.useState(0)
 
-    let boost = [
-        {
-            title: "Invite Friends",
-            amount: "300,000",
-        },
-        {
-            title: "Play Pump Militia",
-            amount: "300,000",
-        },
-        {
-            title: "Quests",
-            amount: "300,000",
-        }
-    ]
 
     return (
         <>
@@ -78,7 +66,7 @@ export default function TelegramPumpEarn() {
                             <Image src='/telegram/task/tasks.png' alt='' width={66} height={24} priority />
                         </div>
                         <div className='flex flex-col  border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
-                            {boost.map((item, index) => {
+                            {tasks.map((item, index) => {
                                 return (
                                     <div key={index} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
                                         <Image className='' src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
@@ -91,7 +79,10 @@ export default function TelegramPumpEarn() {
                                             </div>
                                         </div>
                                         <div className='basis-1/5'>
-                                            <ArrowForward className='text-[#20251A] rounded-full p-2 text-[40px] bg-[#A5E314]' />
+                                            <ArrowForward onClick={() => {
+                                                setSelectedTask(index);
+                                                setOpened(true);
+                                            }} className='text-[#20251A] rounded-full p-2 text-[40px] bg-[#A5E314]' />
                                         </div>
 
                                     </div>
@@ -106,7 +97,7 @@ export default function TelegramPumpEarn() {
                 </div >
 
             </div >
-            <CustomModal type='taskModal' setOpened={setOpened} opened={opened} />
+            <CustomModal taskIndex={selectedTask} setOpened={setOpened} opened={opened} />
 
         </>
 
