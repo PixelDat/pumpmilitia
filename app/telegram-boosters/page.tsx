@@ -26,7 +26,7 @@ export default function TelegramBoosters() {
         {
             title: "Quests",
             amount: "300,000",
-            target: '/'
+            target: '/telegram-pumpearn'
 
         }
     ]
