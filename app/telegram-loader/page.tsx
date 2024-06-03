@@ -17,10 +17,10 @@ export default function TelegramBot() {
 
                 const result = await authUser(tg_username, uniqueId)
                 console.log(result);
+                if (result?.status) {
+                    location.href = '/telegram-dash';
+                }
             }
-            // setTimeout(() => {
-            //     location.href = '/telegram-dash';
-            // }, 1000)
         }
         AuthUser();
 
