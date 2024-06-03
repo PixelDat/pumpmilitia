@@ -4,14 +4,25 @@ import CircleGauge from './circleguage';
 
 interface Taptypes {
     opened: boolean;
+    gradeAmount: number;
+    setGradeAmount: Function;
+    percent: number;
+    setPercent: Function;
+    tapping: boolean;
+    setTapping: Function;
+    showers: number[];
+    setShowers: Function;
+    updatePercentage: Function;
+    calAmount: number;
+    setCalAmount: Function;
 }
 
-const Tapcomponent: React.FC<Taptypes> = ({ opened }) => {
-    const [percent, setPercent] = useState(100);
-    const [tapping, setTapping] = useState(false);
-    const [showers, setShowers] = useState<number[]>([]);
-    const [gradeAmount, setGradeAmount] = useState(1000)
-    const [calAmount, setCalAmount] = useState(1000)
+
+const Tapcomponent: React.FC<Taptypes> = ({
+    gradeAmount, setGradeAmount, percent, setPercent, tapping, setTapping,
+    showers, setShowers, updatePercentage, calAmount, setCalAmount,
+    opened }) => {
+
 
 
     useEffect(() => {
@@ -28,18 +39,13 @@ const Tapcomponent: React.FC<Taptypes> = ({ opened }) => {
     useEffect(() => {
         const interval = setInterval(() => {
             if (percent < 100) {
-                setPercent((prev) => Math.min(prev + 10, 100));
+                setPercent((prev: number) => Math.min(prev + 10, 100));
             }
         }, 2000);
         return () => clearInterval(interval);
     }, [percent]);
 
-    const updatePercentage = () => {
-        setPercent((prev) => Math.max(prev - 10, 0));
-        setCalAmount(calAmount - (gradeAmount * 0.1))
-        setTapping(true);
-        setShowers((prev) => [...prev, Date.now()]);
-    };
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -50,7 +56,7 @@ const Tapcomponent: React.FC<Taptypes> = ({ opened }) => {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            setShowers((prev) => prev.slice(1));
+            setShowers((prev: number[]) => prev.slice(1));
         }, 2000);
 
         return () => clearTimeout(timeout);
