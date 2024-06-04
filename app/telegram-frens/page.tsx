@@ -39,7 +39,7 @@ export default function TelegramFrens() {
                     <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
                 }
                 <div className='w-screen space-y-8'>
-                    <div className='text-center space-y-4 '>
+                    <div className='text-center flex flex-col justify-center items-center space-y-4 '>
                         <div className=''>
                             <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Your Frens</h2></div>
                             <div className='flex flex-row justify-center items-center'>
@@ -48,10 +48,8 @@ export default function TelegramFrens() {
                             </div>
 
                         </div>
-                        <div className='flex flex-row justify-center bg-[#A5E314] w-[142px] m-auto py-2 rounded-2xl text-[#20251A] gap-2 items-center'>
-                            <p className='text-[16px] font-bold'>How it works</p>
-                            <ArrowForward />
-                        </div>
+                        <Image src='/telegram/dashpage/howbtn.png' alt='' width={130} height={58} priority />
+
                     </div>
 
                     <div className='px-4 space-y-3'>
