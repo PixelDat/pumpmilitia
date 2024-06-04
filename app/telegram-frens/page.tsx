@@ -8,29 +8,57 @@ import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import { boost } from './utils';
+import axios from 'axios';
+const Cookies = require("js-cookie");
 
 
 export default function TelegramFrens() {
     const [opened, setOpened] = React.useState(false);
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
+    const [refLink, setRefLink] = useState('')
+    const [referrals, setReferrals] = useState(0);
 
+    let encrypt = Cookies.get('encrypt_id');
     const [errMessage, setErrMessage] = useState({
         type: '',
         message: '',
     })
 
     function copyClip(text: string) {
-
         navigator.clipboard.writeText(text);
         setError(true);
         setErrMessage({ type: 'success', message: 'Text Copied to Clipboard' });
         setTimeout(() => {
             setError(false);
         }, 2000)
-
-
     }
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/get-refLink", {
+                    headers: { Authorization: `${encrypt}` }
+                });
+                setRefLink(response.data.refLink)
+            }
+            catch (e) {
+                console.log(e)
+            }
+        })();
+
+        (async () => {
+            try {
+                const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/get-number-of-referees", {
+                    headers: { Authorization: `${encrypt}` }
+                });
+                setReferrals(response.data.totalReferees)
+            }
+            catch (e) {
+                console.log(e)
+            }
+        })()
+    }, [])
 
     return (
         <>
@@ -42,9 +70,9 @@ export default function TelegramFrens() {
                     <div className='text-center flex flex-col justify-center items-center space-y-4 '>
                         <div className=''>
                             <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Your Frens</h2></div>
-                            <div className='flex flex-row justify-center items-center'>
+                            <div className='flex flex-row justify-center items-center gap-2'>
                                 <Image src='/telegram/dashpage/greencoin.png' alt='' width={58} height={58} priority />
-                                <p className='font-gameria text-[40px]'>0 FRENS</p>
+                                <p className='font-gameria text-[40px]'>{referrals} FRENS</p>
                             </div>
 
                         </div>
@@ -60,8 +88,8 @@ export default function TelegramFrens() {
                                     <h2 className='font-gameria text-[24px]'>Referral Link</h2>
                                     <p className='text-[#EDF9D0] w-10/12'>Invite your frens and get bonuses!</p>
                                     <div className='flex flex-row justify-between items-center border-[#A5E314] border p-1 rounded-lg '>
-                                        <span>https://t.me/pumpmilitia_c...0998884848</span>
-                                        <CopyAll onClick={() => copyClip('https://t.me/pumpmilitia_c...0998884848')} className='text-[18px]' />
+                                        <span>{`${refLink.slice(0, 20)}...${refLink.slice(30, refLink.length)}`}</span>
+                                        <CopyAll onClick={() => copyClip(refLink)} className='text-[18px]' />
                                     </div>
                                 </div>
                             </div>
@@ -78,30 +106,31 @@ export default function TelegramFrens() {
                             <div className='space-y-4 w-full p-2'>
 
                                 {boost.map((item, index) => {
+                                    let percent = (500 / parseInt(item.amount)) * 100;
                                     return (
-                                        <div key={`${index} ${item.title}`} className=' border bg-[#10130d]  border-[#476116]/50 p-2 rounded-2xl'>
+                                        <div key={`${index} ${item.challenge_title}`} className=' border bg-[#10130d]  border-[#476116]/50 p-2 rounded-2xl'>
                                             <div className='flex  flex-row justify-between items-center w-full gap-2   p-2'>
                                                 <div className=''>
                                                     <div className='flex flex-row gap-2 items-center'>
                                                         <Image src='/telegram/dashpage/greencoin.png' alt='' width={20} height={20} priority />
-                                                        <h2 className='text-[16px] font-bold'>{item.title}</h2>
+                                                        <h2 className='text-[16px] font-bold'>{item.challenge_title}</h2>
                                                     </div>
                                                     <div className='left-[15px] relative'>
                                                         <div className='flex flex-row justify-start items-center'>
                                                             <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
-                                                            <p className='text-white text-[24px] font-gameria font-bold'>+{item.amount}</p>
+                                                            <p className='text-white text-[24px] font-gameria font-bold'>+{Number(item.amount).toLocaleString()}</p>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div className='rounded-full p-2  text-[#20251A] text-[12px] bg-[#A5E314]'>
+                                                <div className={`rounded-full p-2   text-[#20251A] text-[12px] ${item.status == "UNCLAIMED" ? "bg-[#A5E314]" : "blur-[1px] bg-[#A5E314]/30 "} `}>
                                                     Claim <ArrowForward className='text-[12px]' />
                                                 </div>
 
                                             </div>
                                             <div className='w-full'>
                                                 <div className=' bg-[#374C07] w-full m-auto p-1 rounded-full'>
-                                                    <div className='h-[14px] w-[100%] bg-gradient-to-b from-[#A5E314] rounded-full'>
+                                                    <div style={{ width: `${100 - percent}%` }} className='h-[14px]  bg-gradient-to-b from-[#A5E314] rounded-full'>
                                                     </div>
                                                 </div>
                                             </div>
