@@ -23,7 +23,7 @@ export default function TelegramPumpEarn() {
     })
     const [opened, setOpened] = React.useState(false);
     const [selectedTask, setSelectedTask] = React.useState(0)
-
+    const [update, setUpdate] = useState(0);
     const [userBalance, setUserBalance] = useState(0);
     const [signedIn, setSignedIn] = useState(false);
 
@@ -36,16 +36,19 @@ export default function TelegramPumpEarn() {
             }
         })()
 
-    }, [])
+    }, [update])
 
     async function createMiningAccount(id: number) {
         let title = tasks[id].title;
         let url = title.includes('X') ? "https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : title.includes('Telegram') ? "https://evp-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : title.includes('Discord') ? "https://evp-discord-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : ""
 
         let response = await createAccount(url, encrypt)
-        setSelectedTask(id);
-        setOpened(true);
-        console.log(response)
+        if (response.status == true) {
+            setSelectedTask(id);
+            setOpened(true);
+            console.log(response)
+        }
+
     }
 
 
@@ -105,7 +108,20 @@ export default function TelegramPumpEarn() {
                             {tasks.map((item, index) => {
                                 return (
                                     <div key={index} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
-                                        <Image className='' src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
+                                        {item.title.includes('Telegram') ?
+
+                                            <Image src='/telegram/social/telegram.png' alt='' width={32} height={32} priority />
+                                            : item.title.includes('X') ?
+                                                <Image src='/telegram/social/xicon.png' alt='' width={32} height={32} priority />
+                                                : item.title.toLowerCase().includes('tiktok') ?
+                                                    <Image src='/telegram/social/tiktok.jpeg' alt='' width={32} height={32} priority />
+                                                    : item.title.includes('Instagram') ?
+                                                        < Image src='/telegram/social/instagram.png' alt='' width={32} height={32} priority />
+                                                        :
+                                                        <Image src='/telegram/social/youtube.png' alt='' width={32} height={32} priority />
+
+                                        }
+
                                         <div className='basis-4/5'>
 
                                             <h2 className='font-gameria text-[20px]'>{item.title}</h2>
@@ -133,7 +149,7 @@ export default function TelegramPumpEarn() {
                 </div >
 
             </div >
-            <CustomModal encrypt={encrypt} taskIndex={selectedTask} setOpened={setOpened} opened={opened} />
+            <CustomModal setUpdate={setUpdate} encrypt={encrypt} taskIndex={selectedTask} setOpened={setOpened} opened={opened} />
 
         </>
 
