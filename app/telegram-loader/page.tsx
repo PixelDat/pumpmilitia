@@ -16,6 +16,7 @@ export default function TelegramBot() {
     useEffect(() => {
         if (tg_username && uniqueId) {
             Cookies.set("encrypt_id", uniqueId);
+            location.href = '/telegram-dash'
         }
     }, [tg_username, uniqueId])
     return (
@@ -25,10 +26,10 @@ export default function TelegramBot() {
             <div className='flex flex-row justify-center items-center h-screen m-auto'>
                 <div className='space-y-4'>
                     <div className='flex flex-row justify-center items-center'>
-                        <Image src='/telegram/dashpage/grinch.png' alt='' width={199} height={209} />
+                        <Image src='/telegram/dashpage/loader.png' alt='' width={355} height={272} />
                     </div>
                     <div className='flex flex-row justify-center items-center'>
-                        <Image src='/telegram/dashpage/loadingtxt.png' alt='' width={199} height={209} />
+                        <Image src='/telegram/dashpage/loadingtxt.png' alt='' width={147} height={31} />
                     </div>
                     <div className='flex flex-row justify-center items-center'>
                         <span className='text-white'>Downloading Pumps,please wait a bit</span><span>
