@@ -38,38 +38,42 @@ export default function TelegramBotDash() {
     }, [showImage])
 
     return (
-        <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')]  text-[#EDF9D0] h-screen w-screen" >
+        <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')]  text-[#EDF9D0] h-screen w-screen" >
             <div className='flex flex-col justify-between pt-10'>
-                <div className='text-center '>
+                <div className='text-center flex flex-col justify-center items-center space-y-2 '>
                     <div className=''>
-                        <div className='flex flex-row justify-center items-center'>
-                            <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={58} height={58} priority />
+                        <div className='flex flex-row justify-center items-center '>
+                            <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
                             <p className='font-gameria text-[40px]'>10,000</p>
                         </div>
 
                     </div>
+                    <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
+
                     <div className='flex flex-row justify-center gap-2 items-center'>
                         <Image src='/telegram/dashpage/trophy.png' alt='' width={24} height={24} priority />
                         <p className='text-[24px] font-bolder'>Corporal</p>
                         <ArrowForward />
                     </div>
                 </div>
-                <div className='flex flex-row justify-center items-center m-auto'>
+                <div className='flex flex-row justify-center items-center m-auto '>
 
-                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex h-[350px] flex-row justify-center items-center'>
+                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex relative flex-col justify-center items-center'>
 
                         {showImage ? (
-                            <Image style={{ cursor: 'pointer' }} src='/telegram/league/trophy.png' alt='' width={199} height={209} priority />
+                            <Image style={{ cursor: 'pointer' }} src='/telegram/dashpage/active.png' alt='' width={418} height={209} priority />
                         ) : (
-                            <Image style={{ cursor: 'pointer' }} src='/telegram/dashpage/grinch.png' alt='' width={199} height={209} priority />
+                            <Image style={{ cursor: 'pointer' }} src='/telegram/dashpage/still.png' alt='' width={418} height={209} priority />
                         )
                         }
+
+                        <div className='w-10/12 m-auto absolute bottom-0'>
+                            <TimerTapCount />
+                        </div>
                     </div>
 
                 </div>
-                <div className='w-10/12 m-auto'>
-                    <TimerTapCount />
-                </div>
+
 
                 <div className='w-10/12 m-auto'>
                     <Tapcomponent

@@ -88,7 +88,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
             {showers.map((shower) => (
                 <div
                     key={shower}
-                    className='absolute font-gameria text-[#A5E314] text-[32px]'
+                    className='absolute font-gameria text-[#A5E314] font-bold text-[40px]'
                     style={{
                         top: '50%',
                         left: '50%',
