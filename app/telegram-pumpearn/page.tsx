@@ -13,7 +13,10 @@ export default function TelegramPumpEarn() {
     const [opened, setOpened] = React.useState(false);
     const [selectedTask, setSelectedTask] = React.useState(0)
 
+    useEffect(() => {
+        // Checkk the balance
 
+    }, [])
     return (
         <>
             <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-10 text-[#EDF9D0] w-screen" >

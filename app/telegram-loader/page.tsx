@@ -23,7 +23,6 @@ export default function TelegramBot() {
             }
         }
         AuthUser();
-
     }, [])
     return (
         <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')] h-screen w-screen" >
