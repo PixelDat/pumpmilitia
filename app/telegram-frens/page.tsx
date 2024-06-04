@@ -144,14 +144,22 @@ export default function TelegramFrens() {
 
                     </div>
 
-                    <div className='flex flex-col justify-center p-4 items-center'>
+                    <div className='flex flex-col justify-center p-4 gap-3 items-center'>
                         <Image src='/telegram/frens/frens.png' alt='' width={115} height={24} priority />
-                        <Image src='/telegram/dashpage/grinch.png' alt='' width={199} height={209} priority />
+                        <Image
+                            src={'/images/emptystate.png'}
+                            width={571}
+                            height={363}
+                            priority
+                            alt="" />
 
                         <h2 className='text-[#52710A] text-[16px] text-center'>
                             We haven’t found any users that joined the game
                             with your invite code. Invite friends to receive bonuses!
                         </h2>
+                        <div className={`flex bg-[#A5E314] gap-2  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center `}>
+                            <Image src='/telegram/social/telegram.png' alt='' width={24} height={24} priority /> Invite Frens
+                        </div>
 
                     </div>
                 </div >
