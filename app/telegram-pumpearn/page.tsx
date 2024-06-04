@@ -7,14 +7,35 @@ import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
 import { tasks } from './utils';
+import { getUserDetails } from '@/lib/utils/request';
+const Cookies = require("js-cookie");
 
 
 export default function TelegramPumpEarn() {
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+
+    const [errMessage, setErrMessage] = useState({
+        type: '',
+        message: '',
+    })
     const [opened, setOpened] = React.useState(false);
     const [selectedTask, setSelectedTask] = React.useState(0)
 
+    const [userBalance, setUserBalance] = useState(0);
+    const [signedIn, setSignedIn] = useState(false);
+
     useEffect(() => {
-        // Checkk the balance
+
+        let encrypt = Cookies.get('encrypt_id');
+        (async () => {
+
+            let response = await getUserDetails(encrypt);
+            if (response.status) {
+                setUserBalance(response.data.points)
+                setSignedIn(true);
+            }
+        })()
 
     }, [])
     return (
@@ -26,7 +47,7 @@ export default function TelegramPumpEarn() {
                             <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Coin Balance</h2></div>
                             <div className='flex flex-row justify-center items-center'>
                                 <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={58} height={58} priority />
-                                <p className='font-gameria text-[40px]'>10,000</p>
+                                <p className='font-gameria text-[40px]'>{userBalance.toLocaleString()}</p>
                             </div>
 
                         </div>
