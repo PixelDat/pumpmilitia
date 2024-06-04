@@ -7,9 +7,10 @@ interface ModalComponent {
     text?: string;
     key?: string;
     setOpened: Function;
+    signedIn: boolean;
     opened: boolean;
 }
-const DashBoardModal: React.FC<ModalComponent> = ({ text, key, setOpened, opened }) => {
+const DashBoardModal: React.FC<ModalComponent> = ({ signedIn, text, key, setOpened, opened }) => {
     const checkIfSignedIn = () => {
         setOpened(false);
     }
@@ -45,9 +46,11 @@ const DashBoardModal: React.FC<ModalComponent> = ({ text, key, setOpened, opened
                                             addOnEnd={<CopyAll color='inherit' />}
                                         />
                                     </div>
-                                    <div className='flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center '>
+
+                                    <div className={`${signedIn && "blur-[2px]"} flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center `}>
                                         Download <ArrowForward />
                                     </div>
+
                                     <div onClick={() => { checkIfSignedIn() }} className='flex bg-[#52710A] border-[#A5E314] border-b-4 hover:border-b-0 hover:border-t-4 w-full p-3 rounded-2xl flex-row justify-center items-center '>
                                         Continue
                                     </div>
