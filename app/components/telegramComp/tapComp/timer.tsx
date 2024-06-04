@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react'
 
-export default function TimerCount() {
+export default function TimerTapCount() {
 
     const [time, setTimeVar] = useState({
         days: 0,
@@ -44,21 +44,21 @@ export default function TimerCount() {
     // Start the countdown when the page loads
     startCountdown();
     return (
-        <div id="timerDiv" className='flex relative flex-row  border border-[#A5E314] bg-[#10130DBF] h-[65px] md:h-[89px] py-4 rounded-3xl  mb-10  items-center justify-center timerDiv'>
+        <div id="timerDiv" className='flex relative flex-row  border border-[#A5E314] bg-[#10130DBF] h-[65px] md:h-[89px] py-4 rounded-3xl   items-center justify-center timerDiv'>
             <div className='flex items-center'>
                 <div className='absolute -left-0 md:left-[-10px] bottom-0'>
                     <Image
                         src={'/images/deposit/military.png'}
-                        width={129}
-                        height={137}
+                        width={113}
+                        height={113}
                         priority
                         alt="" />
                 </div>
                 <div className='absolute bottom-2 -right-5 md:-top-5'>
                     <Image
                         src={'/images/coins.png'}
-                        width={140}
-                        height={140}
+                        width={80}
+                        height={80}
                         alt="" />
                 </div>
 
