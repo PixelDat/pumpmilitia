@@ -75,10 +75,10 @@ export default function TelegramPumpEarn() {
                                         <Image className='' src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
                                         <div className='basis-4/5'>
 
-                                            <h2 className='font-gameria text-[24px]'>{item.title}</h2>
+                                            <h2 className='font-gameria text-[20px]'>{item.title}</h2>
                                             <div className='flex flex-row justify-start items-center'>
-                                                <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
-                                                <p className='text-[#D2F189] font-bold'>+{item.amount}</p>
+                                                <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={24} height={24} priority />
+                                                <p className='text-[#D2F189] text-[16px] font-bold'>+{item.amount}</p>
                                             </div>
                                         </div>
                                         <div className='basis-1/5'>

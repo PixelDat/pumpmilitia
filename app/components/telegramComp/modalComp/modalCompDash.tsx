@@ -34,7 +34,7 @@ const DashBoardModal: React.FC<ModalComponent> = ({ text, key, setOpened, opened
                                     </p>
                                     <div className='flex flex-col justify-center items-center'>
                                         <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
-                                        <p className='font-gameria text-[40px]'> +10,000</p>
+                                        <p className='font-gameria text-[32px]'> +10,000</p>
                                         <p className='font-gameria text-[16px]'> (+100,000 in-game bonus)</p>
                                     </div>
 

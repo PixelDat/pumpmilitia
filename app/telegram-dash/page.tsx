@@ -56,7 +56,7 @@ export default function TelegramBotDash() {
                 </div>
                 <div className='flex flex-row justify-center items-center m-auto'>
 
-                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex h-[400px] flex-row justify-center items-center'>
+                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex h-[350px] flex-row justify-center items-center'>
 
                         {showImage ? (
                             <Image style={{ cursor: 'pointer' }} src='/telegram/league/trophy.png' alt='' width={199} height={209} priority />
