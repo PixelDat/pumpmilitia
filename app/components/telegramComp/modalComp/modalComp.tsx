@@ -4,23 +4,41 @@ import React, { useEffect, useState } from 'react'
 import CustomInput from '../../customInput/customInput';
 import { tasks } from '@/app/telegram-pumpearn/utils';
 import { taskCompleted } from '@reduxjs/toolkit/dist/listenerMiddleware/exceptions';
+import { createAccount } from '@/lib/utils/request';
 
 interface ModalComponent {
     taskIndex: number;
     text?: string;
+    encrypt: string;
     key?: string;
     setOpened: Function;
     opened: boolean;
 }
-const CustomModal: React.FC<ModalComponent> = ({ taskIndex, text, key, setOpened, opened }) => {
+const CustomModal: React.FC<ModalComponent> = ({ taskIndex, encrypt, text, key, setOpened, opened }) => {
     const [taskDetails, setTaskDetails] = useState(tasks[taskIndex]);
     const [taskClicked, setTaskClicked] = useState(false)
     const [taskCompleted, setTaskCompleted] = useState(false);
-    const [confirmComplete, setComfirmComplete] = useState(true)
+    const [confirmComplete, setComfirmComplete] = useState(false)
     useEffect(() => {
         setTaskDetails(tasks[taskIndex]);
         setTaskClicked(false)
+
     }, [taskIndex])
+
+    // evp-follow-task-token-minner-service/create-mining-account 8. evp-follow-task-token-minner-service/claim-mining-balance 9. evp-follow-task-token-minner-service/get-mining-balance 
+
+    //  evp-join-task-token-minner-service/create-mining-account 11. evp-join-task-token-minner-service/claim-mining-balance 12. evp-join-task-token-minner-service/get-mining-balance 13.
+
+    function claimBalance() {
+
+    }
+
+    function checkMiningBalance() {
+
+    }
+    //create Account,
+    //Check for the mining balance 
+    //cclaim balance and points
 
 
     return (

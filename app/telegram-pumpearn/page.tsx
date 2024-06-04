@@ -7,13 +7,15 @@ import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
 import { tasks } from './utils';
-import { getUserDetails } from '@/lib/utils/request';
+import { createAccount, getUserDetails } from '@/lib/utils/request';
 const Cookies = require("js-cookie");
 
 
 export default function TelegramPumpEarn() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
+    let encrypt = Cookies.get('encrypt_id');
+
 
     const [errMessage, setErrMessage] = useState({
         type: '',
@@ -26,10 +28,7 @@ export default function TelegramPumpEarn() {
     const [signedIn, setSignedIn] = useState(false);
 
     useEffect(() => {
-
-        let encrypt = Cookies.get('encrypt_id');
         (async () => {
-
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
@@ -38,6 +37,19 @@ export default function TelegramPumpEarn() {
         })()
 
     }, [])
+
+    async function createMiningAccount(id: number) {
+        let title = tasks[id].title;
+        let url = title.includes('X') ? "https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : title.includes('Telegram') ? "https://evp-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : title.includes('Discord') ? "https://evp-discord-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : ""
+
+        let response = await createAccount(url, encrypt)
+        setSelectedTask(id);
+        setOpened(true);
+        console.log(response)
+    }
+
+
+
     return (
         <>
             <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-10 text-[#EDF9D0] w-screen" >
@@ -104,8 +116,8 @@ export default function TelegramPumpEarn() {
                                         </div>
                                         <div className='basis-1/5'>
                                             <ArrowForward onClick={() => {
-                                                setSelectedTask(index);
-                                                setOpened(true);
+                                                createMiningAccount(index)
+
                                             }} className='text-[#20251A] rounded-full p-2 text-[40px] bg-[#A5E314]' />
                                         </div>
 
@@ -121,7 +133,7 @@ export default function TelegramPumpEarn() {
                 </div >
 
             </div >
-            <CustomModal taskIndex={selectedTask} setOpened={setOpened} opened={opened} />
+            <CustomModal encrypt={encrypt} taskIndex={selectedTask} setOpened={setOpened} opened={opened} />
 
         </>
 
