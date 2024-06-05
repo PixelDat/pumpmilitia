@@ -17,8 +17,8 @@ const DashBoardModal: React.FC<ModalComponent> = ({ signedIn, text, key, setOpen
     return (
         <>
             {opened &&
-                <div className='' style={{ zIndex: 20, }}>
-                    <div className='fixed top-0 h-screen w-screen bg-black/50 flex flex-col items-center justify-center'>
+                <div className='' >
+                    <div className='fixed top-0 h-screen w-screen z-50 bg-black/50 flex flex-col items-center justify-center'>
                         {/* <Image src={icon} alt='' width={58} height={58} priority /> */}
 
                         <div className='bg-[#20251A] h-content py-5 w-full bottom-0 absolute rounded-t-3xl p-3'>

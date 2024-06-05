@@ -92,7 +92,7 @@ export default function TelegramBotDash() {
 
                     <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex w-[362px] h-[400px]  relative flex-col justify-center items-center'>
 
-                        <div className='relative -right-5'>
+                        <div className='relative -right-5 z-20'>
 
                             {showImage ? (
                                 <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/shooting2.gif' alt='' />
@@ -102,8 +102,11 @@ export default function TelegramBotDash() {
                             )
                             }
                         </div>
+                        <div className='absolute w-full z-0'>
+                            <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
+                        </div>
 
-                        <div className='w-10/12 m-auto absolute bottom-0'>
+                        <div className='w-10/12 z-20 m-auto absolute bottom-0'>
                             <TimerTapCount />
                         </div>
                     </div>
