@@ -9,8 +9,9 @@ interface ModalComponent {
     key?: string;
     setOpened: Function;
     opened: boolean;
+    selectedBoost?: string;
 }
-const TurboModal: React.FC<ModalComponent> = ({ text, title, key, setOpened, opened }) => {
+const TurboModal: React.FC<ModalComponent> = ({ selectedBoost, text, title, key, setOpened, opened }) => {
     return (
         <>
             {opened &&
@@ -25,25 +26,32 @@ const TurboModal: React.FC<ModalComponent> = ({ text, title, key, setOpened, ope
                                     <Close />
                                 </div>
                                 <div className='flex flex-col justify-center items-center space-y-4 pt-5'>
+                                    {selectedBoost == "Blast" ?
+                                        <Image src='/telegram/boost/turbo.png' alt='' width={230} height={230} priority />
+                                        : selectedBoost == "Reload" ?
+                                            <Image src='/telegram/boost/reload.png' alt='' width={230} height={230} priority />
+                                            :
+                                            <Image src='/telegram/boost/play.png' alt='' width={230} height={230} priority />
 
-                                    <Image src='/telegram/dashpage/grinch.png' alt='' width={123} height={130} priority />
+                                    }
+                                    <h2 className='font-gameria text-[24px]'>
+                                        {selectedBoost == "Blast" ? "Blast Attack" : selectedBoost == "Reload" ? "Reload Boost" : "Play Pump Militia"}
 
-
-                                    <h2 className='font-gameria text-[24px]'>Turbo Attack</h2>
+                                    </h2>
 
                                     <p className='text-center'>
                                         Enter Turbo Mode and Fight with ten times the damage! You can only enable the Turbo Mode for 10 seconds
                                     </p>
                                     <div className='flex flex-row justify-center items-center'>
                                         <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
-                                        <p className='font-gameria text-[40px]'>FREE</p>
+                                        <p className='font-gameria text-[24px]'>FREE</p>
                                     </div>
 
 
 
                                     <div className='rounded-3xl flex bg-[#A5E314] hover:border-t-4 hover:border-b-0   text-black flex-row justify-center items-center gap-3 w-full border-b-4 border-[#52710A] p-3'>
                                         <Rocket className='rotate-45 text-black' />
-                                        <p className='text-center font-bold text-[14px]'>Claim Boost </p>
+                                        <p className='text-center font-bold text-[14px]'>Claim {selectedBoost !== "Play" && selectedBoost} Boost </p>
                                     </div>
                                 </div>
 

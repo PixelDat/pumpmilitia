@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { authUser } from './utils';
+const Cookies = require("js-cookie");
+
 
 export default function TelegramBot() {
     const [loadingPage, setLoadingPage] = useState(true)
@@ -12,19 +14,11 @@ export default function TelegramBot() {
 
 
     useEffect(() => {
-        async function AuthUser() {
-            if (tg_username && uniqueId) {
-
-                const result = await authUser(tg_username, uniqueId)
-                console.log(result);
-                if (result?.status) {
-                    location.href = '/telegram-dash';
-                }
-            }
+        if (tg_username && uniqueId) {
+            Cookies.set("encrypt_id", uniqueId);
+            location.href = '/telegram-dash'
         }
-        AuthUser();
-
-    }, [])
+    }, [tg_username, uniqueId])
     return (
         <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')] h-screen w-screen" >
 
@@ -32,10 +26,10 @@ export default function TelegramBot() {
             <div className='flex flex-row justify-center items-center h-screen m-auto'>
                 <div className='space-y-4'>
                     <div className='flex flex-row justify-center items-center'>
-                        <Image src='/telegram/dashpage/grinch.png' alt='' width={199} height={209} />
+                        <Image src='/telegram/dashpage/loader.png' alt='' width={355} height={272} />
                     </div>
                     <div className='flex flex-row justify-center items-center'>
-                        <Image src='/telegram/dashpage/loadingtxt.png' alt='' width={199} height={209} />
+                        <Image src='/telegram/dashpage/loadingtxt.png' alt='' width={147} height={31} />
                     </div>
                     <div className='flex flex-row justify-center items-center'>
                         <span className='text-white'>Downloading Pumps,please wait a bit</span><span>

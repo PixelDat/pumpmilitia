@@ -13,12 +13,12 @@ export default function TelegramLeague() {
     let leagues = [
         {
             title: 'League 1',
-            image: '/telegram/league/trophy.png',
+            image: '/telegram/league/coporal.png',
             from: '5000',
         },
         {
             title: 'League 2',
-            image: '/telegram/league/trophy.png',
+            image: '/telegram/league/sergent.png',
             from: '50,000',
 
         },
@@ -63,7 +63,7 @@ export default function TelegramLeague() {
                                         <KeyboardArrowLeft onClick={() => handlePrev()} className='font-bold text-[#52710A]' />
                                     </div>
                                     <div className='w-[206px] flex flex-row justify-center'>
-                                        <Image src={item.image} alt='' width={132} height={137} priority />
+                                        <Image src={item.image} alt='' width={230} height={230} priority />
                                     </div>
                                     <div className='border-[#52710A] border bg-[#10130D] flex flex-row items-center justify-center rounded-full h-[150px] w-[44px] '>
                                         <KeyboardArrowRight onClick={() => handleNext()} className='font-bold text-[#52710A]' />

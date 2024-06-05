@@ -7,30 +7,67 @@ import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
 import { tasks } from './utils';
+import { createAccount, getUserDetails } from '@/lib/utils/request';
+const Cookies = require("js-cookie");
 
 
 export default function TelegramPumpEarn() {
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+    let encrypt = Cookies.get('encrypt_id');
+
+
+    const [errMessage, setErrMessage] = useState({
+        type: '',
+        message: '',
+    })
     const [opened, setOpened] = React.useState(false);
     const [selectedTask, setSelectedTask] = React.useState(0)
+    const [update, setUpdate] = useState(0);
+    const [userBalance, setUserBalance] = useState(0);
+    const [signedIn, setSignedIn] = useState(false);
+
+    useEffect(() => {
+        (async () => {
+            let response = await getUserDetails(encrypt);
+            if (response.status) {
+                setUserBalance(response.data.points)
+                setSignedIn(true);
+            }
+        })()
+
+    }, [update])
+
+    async function createMiningAccount(id: number) {
+        let title = tasks[id].title;
+        let url = title.includes('X') ? "https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : title.includes('Telegram') ? "https://evp-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : title.includes('Discord') ? "https://evp-discord-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : ""
+
+        let response = await createAccount(url, encrypt)
+        if (response.status == true) {
+            setSelectedTask(id);
+            setOpened(true);
+            console.log(response)
+        }
+
+    }
+
 
 
     return (
         <>
             <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-10 text-[#EDF9D0] w-screen" >
                 <div className='w-screen space-y-8'>
-                    <div className='text-center space-y-4 '>
+                    <div className='text-center space-y-4 flex flex-col justify-center items-center'>
                         <div className=''>
                             <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Coin Balance</h2></div>
                             <div className='flex flex-row justify-center items-center'>
                                 <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={58} height={58} priority />
-                                <p className='font-gameria text-[40px]'>10,000</p>
+                                <p className='font-gameria text-[40px]'>{userBalance.toLocaleString()}</p>
                             </div>
 
                         </div>
-                        <div className='flex flex-row justify-center bg-[#A5E314] w-[142px] m-auto py-2 rounded-2xl text-[#20251A] gap-2 items-center'>
-                            <p className='text-[16px] font-bold'>How it works</p>
-                            <ArrowForward />
-                        </div>
+                        <Image src='/telegram/dashpage/howbtn.png' alt='' width={130} height={58} priority />
+
                     </div>
 
                     <div className='px-4 space-y-3'>
@@ -69,19 +106,32 @@ export default function TelegramPumpEarn() {
                             {tasks.map((item, index) => {
                                 return (
                                     <div key={index} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
-                                        <Image className='' src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
+                                        {item.title.includes('Telegram') ?
+
+                                            <Image src='/telegram/social/telegram.png' alt='' width={32} height={32} priority />
+                                            : item.title.includes('X') ?
+                                                <Image src='/telegram/social/xicon.png' alt='' width={32} height={32} priority />
+                                                : item.title.toLowerCase().includes('tiktok') ?
+                                                    <Image src='/telegram/social/tiktok.jpeg' alt='' width={32} height={32} priority />
+                                                    : item.title.includes('Instagram') ?
+                                                        < Image src='/telegram/social/instagram.png' alt='' width={32} height={32} priority />
+                                                        :
+                                                        <Image src='/telegram/social/youtube.png' alt='' width={32} height={32} priority />
+
+                                        }
+
                                         <div className='basis-4/5'>
 
-                                            <h2 className='font-gameria text-[24px]'>{item.title}</h2>
+                                            <h2 className='font-gameria text-[20px]'>{item.title}</h2>
                                             <div className='flex flex-row justify-start items-center'>
-                                                <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
-                                                <p className='text-[#D2F189] font-bold'>+{item.amount}</p>
+                                                <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={24} height={24} priority />
+                                                <p className='text-[#D2F189] text-[16px] font-bold'>+{item.amount}</p>
                                             </div>
                                         </div>
                                         <div className='basis-1/5'>
                                             <ArrowForward onClick={() => {
-                                                setSelectedTask(index);
-                                                setOpened(true);
+                                                createMiningAccount(index)
+
                                             }} className='text-[#20251A] rounded-full p-2 text-[40px] bg-[#A5E314]' />
                                         </div>
 
@@ -97,7 +147,7 @@ export default function TelegramPumpEarn() {
                 </div >
 
             </div >
-            <CustomModal taskIndex={selectedTask} setOpened={setOpened} opened={opened} />
+            <CustomModal setUpdate={setUpdate} encrypt={encrypt} taskIndex={selectedTask} setOpened={setOpened} opened={opened} />
 
         </>
 
