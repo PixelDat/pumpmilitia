@@ -7,7 +7,7 @@ import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { checkClaimBalance, getUserDetails } from '@/lib/utils/request';
+import { checkClaimBalance, getTurboReward, getUserDetails } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 const Cookies = require("js-cookie");
 
@@ -44,6 +44,11 @@ export default function TelegramBotDash() {
                 //     setSignedIn(true);
 
                 // }
+
+                let turboReward = await getTurboReward(encrypt);
+                if (turboReward.status) {
+                    console.log(turboReward.data)
+                }
             }
         })()
 
@@ -60,6 +65,7 @@ export default function TelegramBotDash() {
         setTapping(true)
         setShowers((prev) => [...prev, Date.now()]);
     };
+
 
     useEffect(() => {
         if (percent < 100) {
@@ -105,6 +111,8 @@ export default function TelegramBotDash() {
                             )
                             }
                         </div>
+
+
                         {/* <div className='absolute w-full z-0'>
                             <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
                         </div> */}
