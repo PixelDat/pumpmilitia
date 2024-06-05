@@ -38,7 +38,7 @@ const DashBoardModal: React.FC<ModalComponent> = ({ signedIn, text, key, setOpen
                                         <p className='font-gameria text-[32px]'> +10,000</p>
                                         <p className='font-gameria text-[16px]'> (+100,000 in-game bonus)</p>
                                     </div>
-
+                                    <p className='text-center'>USE THE REFERRAL CODE TO LOGIN TO THE PUMPMILITIA GAME</p>
                                     <div className='w-full'>
                                         <CustomInput
                                             type='text'
@@ -47,7 +47,7 @@ const DashBoardModal: React.FC<ModalComponent> = ({ signedIn, text, key, setOpen
                                         />
                                     </div>
 
-                                    <div className={`${signedIn && "blur-[2px]"} flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center `}>
+                                    <div className={`flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center `}>
                                         Download <ArrowForward />
                                     </div>
 

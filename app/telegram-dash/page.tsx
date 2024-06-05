@@ -7,7 +7,7 @@ import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { getUserDetails } from '@/lib/utils/request';
+import { checkClaimBalance, getUserDetails } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 const Cookies = require("js-cookie");
 
@@ -29,7 +29,7 @@ export default function TelegramBotDash() {
     const [showImage, setShowImage] = useState(false);
     const [calAmount, setCalAmount] = useState(1000)
     const [userBalance, setUserBalance] = useState(0);
-    const [signedIn, setSignedIn] = useState(false);
+    const [signedIn, setSignedIn] = useState(true);
 
     useEffect(() => {
 
@@ -39,16 +39,19 @@ export default function TelegramBotDash() {
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
-                setSignedIn(true);
-                setError(true);
-                setErrMessage({ type: 'success', message: 'You are Logged in to Pump Militia game. Continue to Telegram or go back to game' });
-                setTimeout(() => {
-                    setError(false);
-                }, 2000)
+                // let claimResponse = await checkClaimBalance(encrypt)
+                // if (claimResponse.status) {
+                //     setSignedIn(true);
+
+                // }
             }
         })()
 
     }, [])
+
+    const claimBalance = async () => {
+
+    }
 
     const updatePercentage = () => {
         setPercent((prev: number) => Math.max(prev - 10, 0));
@@ -92,19 +95,19 @@ export default function TelegramBotDash() {
 
                     <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex w-[362px] h-[400px]  relative flex-col justify-center items-center'>
 
-                        <div className='relative -right-5 z-20'>
+                        <div className='relative -right-5 z-0'>
 
                             {showImage ? (
-                                <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/shooting2.gif' alt='' />
+                                <img style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
                             ) : (
-                                <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
+                                <img style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
 
                             )
                             }
                         </div>
-                        <div className='absolute w-full z-0'>
+                        {/* <div className='absolute w-full z-0'>
                             <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
-                        </div>
+                        </div> */}
 
                         <div className='w-10/12 z-20 m-auto absolute bottom-0'>
                             <TimerTapCount />

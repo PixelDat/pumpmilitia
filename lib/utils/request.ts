@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 export const getUserDetails = async (encrypt_id: string) => {
 
@@ -47,7 +47,8 @@ export const createAccount = async (url: string, encrypt_id: string) => {
 
 }
 
-export const claimBalance = async (url: string, encrypt_id: string) => {
+export const checkClaimBalance = async (encrypt_id: string) => {
+    let url = "https://evp-user-service-cea2e4kz5q-uc.a.run.app/check-claimed-game-install-reward";
 
     try {
         const response = await axios.post(url, {}, {
@@ -66,8 +67,8 @@ export const claimBalance = async (url: string, encrypt_id: string) => {
             data: []
         }
     }
-
-
 }
+
+
 
 

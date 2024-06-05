@@ -2,45 +2,73 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
-import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
+import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import TurboModal from '../components/telegramComp/modalComp/modalCompTurbo';
+import { ToastComponent } from '../components/toastComponent/toastComponent';
+import { getUserDetails } from '@/lib/utils/request';
+const Cookies = require("js-cookie");
+
+let boost = [
+    {
+        title: "Invite Friends",
+        amount: "300,000",
+        target: '/telegram-frens'
+    },
+    {
+        title: "Play Pump Militia",
+        amount: "300,000",
+        target: '/telegram-dash'
+
+    },
+    {
+        title: "Quests",
+        amount: "300,000",
+        target: '/telegram-pumpearn'
+
+    }
+]
 
 
 export default function TelegramBoosters() {
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+    let encrypt = Cookies.get('encrypt_id');
+
+
+    const [errMessage, setErrMessage] = useState({
+        type: '',
+        message: '',
+    })
     const [opened, setOpened] = React.useState(false);
     const [selectedBoost, setSelectedBoost] = useState("")
+    const [update, setUpdate] = useState(0);
+    const [userBalance, setUserBalance] = useState(0);
 
-    let boost = [
-        {
-            title: "Invite Friends",
-            amount: "300,000",
-            target: '/telegram-frens'
-        },
-        {
-            title: "Play Pump Militia",
-            amount: "300,000",
-            target: '/telegram-dash'
+    useEffect(() => {
+        (async () => {
+            let response = await getUserDetails(encrypt);
+            if (response.status) {
+                setUserBalance(response.data.points)
+                // setSignedIn(true);
+            }
+        })()
 
-        },
-        {
-            title: "Quests",
-            amount: "300,000",
-            target: '/telegram-pumpearn'
-
-        }
-    ]
+    }, [update])
 
     return (
         <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
+            {error &&
+                <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
+            }
             <div className='w-screen space-y-8'>
                 <div className='text-center space-y-4  flex flex-col justify-center items-center m-auto'>
                     <div className=''>
                         <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Coin Balance</h2></div>
                         <div className='flex flex-row justify-center items-center'>
-                            <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={58} height={58} priority />
-                            <p className='font-gameria text-[40px]'>10,000</p>
+                            <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={48} height={48} priority />
+                            <p className='font-gameria text-[40px]'>{userBalance.toLocaleString()}</p>
                         </div>
 
                     </div>
