@@ -34,7 +34,7 @@ export default function TelegramBoosters() {
     return (
         <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
             <div className='w-screen space-y-8'>
-                <div className='text-center space-y-4 '>
+                <div className='text-center space-y-4  flex flex-col justify-center items-center m-auto'>
                     <div className=''>
                         <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Coin Balance</h2></div>
                         <div className='flex flex-row justify-center items-center'>
@@ -43,10 +43,8 @@ export default function TelegramBoosters() {
                         </div>
 
                     </div>
-                    <div className='flex flex-row justify-center bg-[#A5E314] w-[142px] m-auto py-2 rounded-2xl text-[#20251A] gap-2 items-center'>
-                        <p className='text-[16px] font-bold'>How it works</p>
-                        <ArrowForward />
-                    </div>
+                    <Image src='/telegram/dashpage/howbtn.png' alt='' width={130} height={58} priority />
+
                 </div>
 
                 <div className='px-4 space-y-4'>
@@ -59,12 +57,12 @@ export default function TelegramBoosters() {
                         <div className='basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
                             <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
                             <h2 className='font-gameria'>Turbo</h2>
-                            <p className='text-[#6E970D]'> 3 /3 Boost</p>
+                            <p className='text-[#6E970D]'> 2 /2 Boost</p>
                         </div>
                         <div className=' basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
                             <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
                             <h2 className='font-gameria'>Reload</h2>
-                            <p className='text-[#6E970D]'> 3 /3 Boost</p>
+                            <p className='text-[#6E970D]'> 2 /2 Boost</p>
                         </div>
                     </div>
 
