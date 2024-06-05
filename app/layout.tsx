@@ -43,6 +43,8 @@ export default function RootLayout({ children }: Props) {
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
 
+    handleAudio();
+
     logEvent(analytics, 'page-viewed', { name: window.location.pathname });
 
     const buttons = document.querySelectorAll('button');
@@ -59,7 +61,9 @@ export default function RootLayout({ children }: Props) {
     };
   }, []);
 
-
+  const handleAudio = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  }
 
   return (
 
@@ -80,6 +84,10 @@ export default function RootLayout({ children }: Props) {
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></link>
       </head>
       <body className={`${kanit.className} ${digital.variable} ${gameria.variable}`}>
+        <audio id="tapaudio" src="/audio/tap.wav" style={{ visibility: "hidden", }} ></audio>
+        <audio id="gunaudio" src="/audio/gunshot.wav" style={{ visibility: "hidden", }} ></audio>
+
+
         {children}
       </body>
     </html>

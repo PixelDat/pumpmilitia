@@ -39,11 +39,11 @@ export default function TelegramBotDash() {
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
-                // let claimResponse = await checkClaimBalance(encrypt)
-                // if (claimResponse.status) {
-                //     setSignedIn(true);
+                let claimResponse = await checkClaimBalance(encrypt)
+                if (claimResponse.status) {
+                    setSignedIn(true);
 
-                // }
+                }
 
                 let turboReward = await getTurboReward(encrypt);
                 if (turboReward.status) {
@@ -59,6 +59,10 @@ export default function TelegramBotDash() {
     }
 
     const updatePercentage = () => {
+        let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
+        let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
+        gunshot.play();
+        tapping.play();
         setPercent((prev: number) => Math.max(prev - 10, 0));
         setCalAmount(calAmount - (gradeAmount * 0.1))
         setShowImage(true)
@@ -69,8 +73,14 @@ export default function TelegramBotDash() {
 
     useEffect(() => {
         if (percent < 100) {
+            let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
+            let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
             setTimeout(() => {
                 setShowImage(false);
+                tapping.pause();
+                tapping.currentTime = 0;
+                gunshot.pause();
+                gunshot.currentTime = 0;
             }, 2000)
         }
     }, [showImage])
@@ -117,9 +127,9 @@ export default function TelegramBotDash() {
                             <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
                         </div> */}
 
-                        <div className='w-10/12 z-20 m-auto absolute bottom-0'>
+                        {/* <div className='w-10/12 z-20 m-auto absolute bottom-0'>
                             <TimerTapCount />
-                        </div>
+                        </div> */}
                     </div>
 
                 </div>

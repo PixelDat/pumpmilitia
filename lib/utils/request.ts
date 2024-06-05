@@ -47,6 +47,26 @@ export const createAccount = async (url: string, encrypt_id: string) => {
 
 }
 
+export const claimBalance = async (url: string, encrypt_id: string) => {
+    try {
+        const response = await axios.post(url, {}, {
+            headers: { Authorization: `${encrypt_id}` }
+        });
+        return {
+            status: true,
+            data: response.data
+        }
+
+    }
+    catch (e) {
+        console.log(e)
+        return {
+            status: false,
+            data: []
+        }
+    }
+}
+
 export const checkClaimBalance = async (encrypt_id: string) => {
     let url = "https://evp-user-service-cea2e4kz5q-uc.a.run.app/check-claimed-game-install-reward";
 
