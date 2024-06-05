@@ -88,16 +88,20 @@ export default function TelegramBotDash() {
                         <ArrowForward />
                     </div>
                 </div>
-                <div className='flex flex-row justify-center items-center m-auto '>
+                <div className='flex flex-row h-[380px] justify-center items-center m-auto '>
 
-                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex relative flex-col justify-center items-center'>
+                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex w-[362px] h-[400px]  relative flex-col justify-center items-center'>
 
-                        {showImage ? (
-                            <Image style={{ cursor: 'pointer' }} src='/telegram/dashpage/active.png' alt='' width={418} height={209} priority />
-                        ) : (
-                            <Image style={{ cursor: 'pointer' }} src='/telegram/dashpage/still.png' alt='' width={418} height={209} priority />
-                        )
-                        }
+                        <div className='relative -right-5'>
+
+                            {showImage ? (
+                                <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/shooting2.gif' alt='' />
+                            ) : (
+                                <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
+
+                            )
+                            }
+                        </div>
 
                         <div className='w-10/12 m-auto absolute bottom-0'>
                             <TimerTapCount />
