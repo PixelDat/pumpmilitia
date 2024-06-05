@@ -9,7 +9,8 @@ import TurboModal from '../components/telegramComp/modalComp/modalCompTurbo';
 
 
 export default function TelegramBoosters() {
-    const [opened, setOpened] = React.useState(true);
+    const [opened, setOpened] = React.useState(false);
+    const [selectedBoost, setSelectedBoost] = useState("")
 
     let boost = [
         {
@@ -54,13 +55,20 @@ export default function TelegramBoosters() {
                     </div>
                     <div className='flex flex-row items-center gap-3'>
 
-                        <div className='basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
-                            <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
-                            <h2 className='font-gameria'>Turbo</h2>
+                        <div onClick={() => {
+                            setSelectedBoost("Blast")
+                            setOpened(true)
+                        }} className='basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
+                            <Image src='/telegram/boost/turbo.png' alt='' width={48} height={48} priority />
+                            <h2 className='font-gameria'>Blast</h2>
                             <p className='text-[#6E970D]'> 2 /2 Boost</p>
                         </div>
-                        <div className=' basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
-                            <Image src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
+                        <div onClick={() => {
+                            setSelectedBoost("Reload")
+                            setOpened(true)
+                        }}
+                            className=' basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
+                            <Image src='/telegram/boost/reload.png' alt='' width={48} height={48} priority />
                             <h2 className='font-gameria'>Reload</h2>
                             <p className='text-[#6E970D]'> 2 /2 Boost</p>
                         </div>
@@ -76,7 +84,14 @@ export default function TelegramBoosters() {
                     <div className='flex flex-col border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
                         {boost.map((item, index) => {
                             return (
-                                <div key={index} onClick={() => { location.href = `${item.target}` }} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
+                                <div key={index} onClick={() => {
+                                    if (item.title.includes('Play')) {
+                                        setSelectedBoost("Play")
+                                        setOpened(true)
+                                    } else {
+                                        location.href = `${item.target}`
+                                    }
+                                }} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
                                     <Image className='' src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
                                     <div className='basis-4/5'>
 
@@ -100,7 +115,7 @@ export default function TelegramBoosters() {
                 </div>
 
 
-                <TurboModal setOpened={setOpened} opened={opened} />
+                <TurboModal selectedBoost={selectedBoost} setOpened={setOpened} opened={opened} />
             </div >
 
 
