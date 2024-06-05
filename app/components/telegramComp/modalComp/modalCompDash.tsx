@@ -7,17 +7,18 @@ interface ModalComponent {
     text?: string;
     key?: string;
     setOpened: Function;
+    signedIn: boolean;
     opened: boolean;
 }
-const DashBoardModal: React.FC<ModalComponent> = ({ text, key, setOpened, opened }) => {
+const DashBoardModal: React.FC<ModalComponent> = ({ signedIn, text, key, setOpened, opened }) => {
     const checkIfSignedIn = () => {
         setOpened(false);
     }
     return (
         <>
             {opened &&
-                <div className='' style={{ zIndex: 20, }}>
-                    <div className='fixed top-0 h-screen w-screen bg-black/50 flex flex-col items-center justify-center'>
+                <div className='' >
+                    <div className='fixed top-0 h-screen w-screen z-50 bg-black/50 flex flex-col items-center justify-center'>
                         {/* <Image src={icon} alt='' width={58} height={58} priority /> */}
 
                         <div className='bg-[#20251A] h-content py-5 w-full bottom-0 absolute rounded-t-3xl p-3'>
@@ -34,10 +35,10 @@ const DashBoardModal: React.FC<ModalComponent> = ({ text, key, setOpened, opened
                                     </p>
                                     <div className='flex flex-col justify-center items-center'>
                                         <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
-                                        <p className='font-gameria text-[40px]'> +10,000</p>
+                                        <p className='font-gameria text-[32px]'> +10,000</p>
                                         <p className='font-gameria text-[16px]'> (+100,000 in-game bonus)</p>
                                     </div>
-
+                                    <p className='text-center'>USE THE REFERRAL CODE TO LOGIN TO THE PUMPMILITIA GAME</p>
                                     <div className='w-full'>
                                         <CustomInput
                                             type='text'
@@ -45,9 +46,11 @@ const DashBoardModal: React.FC<ModalComponent> = ({ text, key, setOpened, opened
                                             addOnEnd={<CopyAll color='inherit' />}
                                         />
                                     </div>
-                                    <div className='flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center '>
+
+                                    <div className={`flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center `}>
                                         Download <ArrowForward />
                                     </div>
+
                                     <div onClick={() => { checkIfSignedIn() }} className='flex bg-[#52710A] border-[#A5E314] border-b-4 hover:border-b-0 hover:border-t-4 w-full p-3 rounded-2xl flex-row justify-center items-center '>
                                         Continue
                                     </div>

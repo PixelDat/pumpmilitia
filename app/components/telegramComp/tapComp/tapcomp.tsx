@@ -65,17 +65,17 @@ const Tapcomponent: React.FC<Taptypes> = ({
     return (
         <div className='text-[#A5E314] py-4' >
             <div className='flex flex-row justify-center items-center'>
-                <div className='flex flex-row items-center'>
+                <div className='flex flex-row justify-center items-center'>
                     {!opened &&
-                        <div style={{ zIndex: 1 }} className='bg-[#10130D] flex flex-row items-center justify-between gap-2 border-[#A5E314] border-2 p-2 rounded-3xl'>
+                        <div style={{ zIndex: 1 }} className='bg-[#10130D] flex flex-row items-center justify-center items-center m-auto gap-2 border-[#A5E314] border-2 p-2 rounded-3xl'>
                             <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
                             <div className='flex flex-col w-[80px] leading-tight'>
-                                <span className='text-[16px]'>{calAmount.toLocaleString()}</span>
-                                <span className='text-[16px]'>/1,000</span>
+                                <span className='text-[14px]'>{calAmount.toLocaleString()}</span>
+                                <span className='text-[14px] text-[#52710A]'>/1,000</span>
                             </div>
                         </div>
                     }
-                    <div className='bg-[#374C07] -left-[10px] relative -z-0 w-[150px] p-1 rounded-r-full'>
+                    <div className='bg-[#374C07] -left-[10px] relative -z-0 w-[150px] p-[2px] rounded-r-full'>
                         <div style={{ width: `${percent}%` }} className='h-[16px] bg-gradient-to-b from-[#A5E314] rounded-r-full'>
                         </div>
                     </div>
@@ -88,7 +88,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
             {showers.map((shower) => (
                 <div
                     key={shower}
-                    className='absolute font-gameria text-[#A5E314] text-[32px]'
+                    className='absolute font-gameria text-[#A5E314] font-bold text-[40px]'
                     style={{
                         top: '50%',
                         left: '50%',
