@@ -7,7 +7,7 @@ import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { checkClaimBalance, getTurboReward, getUserDetails } from '@/lib/utils/request';
+import { checkClaimBalance, getTurboReward, getUserDetails, playAudio, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 const Cookies = require("js-cookie");
 
@@ -61,8 +61,12 @@ export default function TelegramBotDash() {
     const updatePercentage = () => {
         let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
-        gunshot.play();
-        tapping.play();
+        stopAudio(tapping)
+        stopAudio(gunshot)
+
+        playAudio(tapping);
+        playAudio(gunshot);
+
         setPercent((prev: number) => Math.max(prev - 10, 0));
         setCalAmount(calAmount - (gradeAmount * 0.1))
         setShowImage(true)
@@ -77,10 +81,8 @@ export default function TelegramBotDash() {
             let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
             setTimeout(() => {
                 setShowImage(false);
-                tapping.pause();
-                tapping.currentTime = 0;
-                gunshot.pause();
-                gunshot.currentTime = 0;
+                stopAudio(tapping)
+                stopAudio(gunshot)
             }, 2000)
         }
     }, [showImage])
