@@ -24,10 +24,10 @@ export default function TelegramBotDash() {
     const [opened, setOpened] = React.useState(true);
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
-    const [gradeAmount, setGradeAmount] = useState(1000)
+    const [gradeAmount, setGradeAmount] = useState(5000)
     const [showers, setShowers] = useState<number[]>([]);
     const [showImage, setShowImage] = useState(false);
-    const [calAmount, setCalAmount] = useState(1000)
+    const [calAmount, setCalAmount] = useState(5000)
     const [userBalance, setUserBalance] = useState(0);
     const [signedIn, setSignedIn] = useState(true);
 
@@ -69,7 +69,7 @@ export default function TelegramBotDash() {
         playAudio(gunshot);
 
         setPercent((prev: number) => Math.max(prev - 10, 0));
-        setCalAmount(calAmount - (gradeAmount * 0.1))
+        setCalAmount(calAmount - 50)
         setShowImage(true)
         setTapping(true)
         setShowers((prev) => [...prev, Date.now()]);

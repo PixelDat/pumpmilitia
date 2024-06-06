@@ -23,8 +23,9 @@ const Tapcomponent: React.FC<Taptypes> = ({
     showers, setShowers, updatePercentage, calAmount, setCalAmount,
     opened }) => {
 
+    const time = 15000;
 
-    // upgrade tapping
+    // this returns to default value tapping
     useEffect(() => {
         let timeout: NodeJS.Timeout;
         if (!tapping && percent < 100) {
@@ -71,24 +72,24 @@ const Tapcomponent: React.FC<Taptypes> = ({
                             <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
                             <div className='flex flex-col w-[80px] leading-tight'>
                                 <span className='text-[14px]'>{calAmount.toLocaleString()}</span>
-                                <span className='text-[14px] text-[#52710A]'>/1,000</span>
+                                <span className='text-[14px] text-[#52710A]'>/{gradeAmount.toLocaleString()}</span>
                             </div>
                         </div>
                     }
                     <div className='bg-[#374C07] -left-[10px] relative -z-0 w-[150px] p-[2px] rounded-r-full'>
-                        <div style={{ width: `${percent}%` }} className='h-[16px] bg-gradient-to-b from-[#A5E314] rounded-r-full'>
+                        <div style={{ width: `${(calAmount / gradeAmount) * 100}%` }} className='h-[16px] bg-gradient-to-b from-[#A5E314] rounded-r-full'>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <CircleGauge onClick={() => updatePercentage()} percent={percent} />
+                    <CircleGauge updatePercent={updatePercentage} percent={percent} />
                 </div>
             </div>
 
             {showers.map((shower) => (
                 <div
                     key={shower}
-                    className='absolute font-gameria text-[#A5E314] font-bold text-[40px]'
+                    className='absolute z-50 font-gameria text-[#A5E314] font-bold text-[40px]'
                     style={{
                         top: '50%',
                         left: '50%',
