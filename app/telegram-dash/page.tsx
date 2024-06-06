@@ -145,9 +145,8 @@ export default function TelegramBotDash() {
                     </div>
 
                 </div>
-                <div>
-                    <GrenadeComponent percent={100} setShowExplosion={setShowExplosion} />
-                </div>
+                <GrenadeComponent percent={100} setShowExplosion={setShowExplosion} />
+
 
                 <div className='w-10/12 m-auto'>
                     <Tapcomponent

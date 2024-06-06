@@ -37,9 +37,9 @@ const GrenadeComponent: React.FC<GrenadeComponentProps> = ({ percent, setShowExp
     };
 
     return (
-        <div className="flex items-center justify-center absolute left-10" onClick={handleClick}>
+        <div className="flex flex-row items-center justify-center absolute  bottom-[260px] z-50 -left-[120px] m-auto  w-full" onClick={handleClick}>
             <svg
-                className="relative"
+                className="absolute"
                 width="66"
                 height="66"
                 viewBox="0 0 120 120"
