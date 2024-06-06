@@ -21,6 +21,7 @@ export default function TelegramBotDash() {
         message: '',
     })
 
+    const [showExplosion, setShowExplosion] = useState(false)
     const [opened, setOpened] = React.useState(true);
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
@@ -30,6 +31,14 @@ export default function TelegramBotDash() {
     const [calAmount, setCalAmount] = useState(5000)
     const [userBalance, setUserBalance] = useState(0);
     const [signedIn, setSignedIn] = useState(true);
+
+    useEffect(() => {
+        if (showExplosion) {
+            let explosion = document.getElementById('explosionaudio') as HTMLAudioElement;
+            playAudio(explosion);
+        }
+
+    }, [])
 
     useEffect(() => {
 
@@ -82,7 +91,6 @@ export default function TelegramBotDash() {
             let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
             setTimeout(() => {
                 setShowImage(false);
-                // stopAudio(tapping)
                 stopAudio(gunshot)
             }, 2000)
         }
@@ -110,7 +118,7 @@ export default function TelegramBotDash() {
                         <ArrowForward />
                     </div>
                 </div>
-                <div className='flex flex-row h-[350px] border justify-center items-center m-auto '>
+                <div className='flex flex-row h-[350px]  justify-center items-center m-auto '>
 
                     <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex w-[362px] h-[400px]  relative flex-col justify-center items-center'>
 
