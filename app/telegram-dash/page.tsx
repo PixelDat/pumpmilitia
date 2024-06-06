@@ -9,6 +9,7 @@ import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
 import { checkClaimBalance, getTurboReward, getUserDetails, playAudio, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
+import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 const Cookies = require("js-cookie");
 
 
@@ -22,7 +23,7 @@ export default function TelegramBotDash() {
     })
 
     const [showExplosion, setShowExplosion] = useState(false)
-    const [opened, setOpened] = React.useState(true);
+    const [opened, setOpened] = React.useState(false);
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
     const [gradeAmount, setGradeAmount] = useState(5000)
@@ -41,7 +42,6 @@ export default function TelegramBotDash() {
     }, [])
 
     useEffect(() => {
-
         let encrypt = Cookies.get('encrypt_id');
         (async () => {
 
@@ -133,10 +133,11 @@ export default function TelegramBotDash() {
                             }
                         </div>
 
-
-                        {/* <div className='absolute w-full z-0'>
-                            <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
-                        </div> */}
+                        {showExplosion &&
+                            <div className='absolute w-full z-0'>
+                                <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
+                            </div>
+                        }
 
                         {/* <div className='w-10/12 z-20 m-auto absolute bottom-0'>
                             <TimerTapCount />
@@ -144,7 +145,9 @@ export default function TelegramBotDash() {
                     </div>
 
                 </div>
-
+                <div>
+                    <GrenadeComponent percent={100} setShowExplosion={setShowExplosion} />
+                </div>
 
                 <div className='w-10/12 m-auto'>
                     <Tapcomponent
