@@ -33,13 +33,16 @@ export default function TelegramBotDash() {
     const [userBalance, setUserBalance] = useState(0);
     const [signedIn, setSignedIn] = useState(true);
 
-    useEffect(() => {
-        if (showExplosion) {
-            let explosion = document.getElementById('explosionaudio') as HTMLAudioElement;
-            playAudio(explosion);
-        }
 
-    }, [])
+    const startExplosion = () => {
+        setShowExplosion(true)
+        let explosion = document.getElementById('explosionaudio') as HTMLAudioElement;
+        playAudio(explosion);
+        setTimeout(() => {
+            stopAudio(explosion)
+            setShowExplosion(false);
+        }, 2000)
+    }
 
     useEffect(() => {
         let encrypt = Cookies.get('encrypt_id');
@@ -145,7 +148,7 @@ export default function TelegramBotDash() {
                     </div>
 
                 </div>
-                <GrenadeComponent percent={100} setShowExplosion={setShowExplosion} />
+                <GrenadeComponent percent={100} startExplosion={startExplosion} />
 
 
                 <div className='w-10/12 m-auto'>

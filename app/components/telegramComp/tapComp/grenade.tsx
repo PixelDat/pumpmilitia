@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react';
 interface GrenadeComponentProps {
     percent: number;
     updatePercent?: Function;
-    setShowExplosion: Function;
+    startExplosion: Function;
 
 }
-const GrenadeComponent: React.FC<GrenadeComponentProps> = ({ percent, setShowExplosion, updatePercent }) => {
+const GrenadeComponent: React.FC<GrenadeComponentProps> = ({ percent, startExplosion, updatePercent }) => {
     const radius = 50;
     const circumference = 2 * Math.PI * radius;
     const [stroke, setStroke] = useState(0);
@@ -33,7 +33,7 @@ const GrenadeComponent: React.FC<GrenadeComponentProps> = ({ percent, setShowExp
         if (!isRunning) {
             setIsRunning(true);
         }
-        setShowExplosion(true);
+        startExplosion();
     };
 
     return (
