@@ -24,7 +24,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
     opened }) => {
 
 
-
+    // upgrade tapping
     useEffect(() => {
         let timeout: NodeJS.Timeout;
         if (!tapping && percent < 100) {

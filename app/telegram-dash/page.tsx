@@ -59,12 +59,13 @@ export default function TelegramBotDash() {
     }
 
     const updatePercentage = () => {
+
         let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
-        stopAudio(tapping)
+        // stopAudio(tapping)
         stopAudio(gunshot)
 
-        playAudio(tapping);
+        // playAudio(tapping);
         playAudio(gunshot);
 
         setPercent((prev: number) => Math.max(prev - 10, 0));
@@ -81,7 +82,7 @@ export default function TelegramBotDash() {
             let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
             setTimeout(() => {
                 setShowImage(false);
-                stopAudio(tapping)
+                // stopAudio(tapping)
                 stopAudio(gunshot)
             }, 2000)
         }
@@ -92,7 +93,7 @@ export default function TelegramBotDash() {
             {error &&
                 <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
             }
-            <div className='flex flex-col justify-between pt-10'>
+            <div className='flex flex-col justify-between items-center space-y-8 pt-10'>
                 <div className='text-center flex flex-col justify-center items-center space-y-2 '>
                     <div className=''>
                         <div className='flex flex-row justify-center items-center '>
@@ -103,17 +104,17 @@ export default function TelegramBotDash() {
                     </div>
                     <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
 
-                    <div className='flex flex-row justify-center gap-2 items-center'>
+                    <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-2 items-center'>
                         <Image src='/telegram/dashpage/trophy.png' alt='' width={24} height={24} priority />
                         <p className='text-[24px] font-bolder'>Corporal</p>
                         <ArrowForward />
                     </div>
                 </div>
-                <div className='flex flex-row h-[380px] justify-center items-center m-auto '>
+                <div className='flex flex-row h-[350px] border justify-center items-center m-auto '>
 
                     <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex w-[362px] h-[400px]  relative flex-col justify-center items-center'>
 
-                        <div className='relative -right-5 z-0'>
+                        <div className='relative -right-5 z-10'>
 
                             {showImage ? (
                                 <img style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
