@@ -72,6 +72,7 @@ export default function TelegramBotDash() {
 
     const updatePercentage = () => {
 
+        if (percent <= 0) return;
         let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
         // stopAudio(tapping)
