@@ -37,7 +37,7 @@ const Hero = () => {
                   priority
                   alt=""
                 />
-                <a href="https://x.com/PumpMilitia" target="_blank">
+                <a href="https://x.com/Pump_Militia" target="_blank">
                   <Image
                     className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
                     src={"/svg/twitter.svg"}
@@ -153,7 +153,7 @@ const Hero = () => {
 
           {/* Social Icons on small screens */}
           <div className="flex-row bg-stone-900 bg-opacity-70 py-2 md:hidden justify-center items-center gap-4 flex ">
-            <a href="https://x.com/PumpMilitia" target="_blank">
+            <a href="https://x.com/Pump_Militia" target="_blank">
               <Image
                 className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
                 src={"/svg/twitter.svg"}
@@ -240,7 +240,7 @@ const Hero = () => {
                     AIRDROP - MINE $PUMP
                   </div>
                   <div className="w-[160px] md:w-[318px] text-lime-100 text-[10px] md:text-xs font-normal font-sans leading-none">
-                  You can start mining $PUMP tokens on your mobile phones right away by accumulating $PUMP. We're opening the doors wide for every crypto enthusiast to join in on the fun and rewards.
+                    You can start mining $PUMP tokens on your mobile phones right away by accumulating $PUMP. We're opening the doors wide for every crypto enthusiast to join in on the fun and rewards.
                   </div>
                 </div>
 

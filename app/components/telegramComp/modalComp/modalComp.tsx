@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import CustomInput from '../../customInput/customInput';
 import { tasks } from '@/app/telegram-pumpearn/utils';
 import { taskCompleted } from '@reduxjs/toolkit/dist/listenerMiddleware/exceptions';
-import { claimBalance, createAccount } from '@/lib/utils/request';
+import { claimBalance, createAccount, playAudio } from '@/lib/utils/request';
 
 interface ModalComponent {
     taskIndex: number;
@@ -29,6 +29,21 @@ const CustomModal: React.FC<ModalComponent> = ({ taskIndex, encrypt, setUpdate, 
     // evp-follow-task-token-minner-service/claim-mining-balance 8. evp-follow-task-token-minner-service/claim-mining-balance 9. evp-follow-task-token-minner-service/get-mining-balance 
 
     //  evp-join-task-token-minner-service/create-mining-account 11. evp-join-task-token-minner-service/claim-mining-balance 12. evp-join-task-token-minner-service/get-mining-balance 13.
+
+
+    function handleCompletion() {
+        setTaskClicked(true)
+        let coingif = document.getElementById('coingif') as HTMLElement;
+        let coin = document.getElementById('coinaudio') as HTMLAudioElement;
+        setOpened(false)
+        playAudio(coin)
+        coingif.style.display = 'block';
+        claimMiningBalance();
+
+        setTimeout(() => {
+            coingif.style.display = 'none';
+        }, 4000)
+    }
 
 
     async function claimMiningBalance() {
@@ -86,10 +101,7 @@ const CustomModal: React.FC<ModalComponent> = ({ taskIndex, encrypt, setUpdate, 
                                         </div>
 
                                         <>
-                                            <button onClick={() => {
-                                                claimMiningBalance();
-                                                setTaskClicked(true)
-                                            }} className='w-full rounded-full bg-[#A5E314] p-4 font-gameria text-[#374C07]'>Yes Completed</button>
+                                            <button onClick={() => handleCompletion()} className='w-full rounded-full bg-[#A5E314] p-4 font-gameria text-[#374C07]'>Yes Completed</button>
                                             <div onClick={() => {
                                                 setComfirmComplete(false)
                                                 setTaskClicked(false)

@@ -42,12 +42,12 @@ export default function TelegramPumpEarn() {
         let title = tasks[id].title;
         let url = title.includes('X') ? "https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : title.includes('Telegram') ? "https://evp-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : title.includes('Discord') ? "https://evp-discord-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : ""
 
-        let response = await createAccount(url, encrypt)
-        if (response.status == true) {
-            setSelectedTask(id);
-            setOpened(true);
-            console.log(response)
-        }
+        // let response = await createAccount(url, encrypt)
+        // if (response.status == true) {
+        setSelectedTask(id);
+        setOpened(true);
+        // console.log(response)
+        // }
 
     }
 
