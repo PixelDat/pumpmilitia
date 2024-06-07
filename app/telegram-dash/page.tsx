@@ -32,6 +32,7 @@ export default function TelegramBotDash() {
     const [calAmount, setCalAmount] = useState(5000)
     const [userBalance, setUserBalance] = useState(0);
     const [signedIn, setSignedIn] = useState(true);
+    const [isRunning, setIsRunning] = useState(false);
 
 
     const startExplosion = () => {
@@ -77,7 +78,7 @@ export default function TelegramBotDash() {
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
         // stopAudio(tapping)
         stopAudio(gunshot)
-
+        setIsRunning(true)
         // playAudio(tapping);
         playAudio(gunshot);
 
@@ -154,6 +155,8 @@ export default function TelegramBotDash() {
 
                 <div className='w-10/12 m-auto'>
                     <Tapcomponent
+                        isRunning={isRunning}
+                        setIsRunning={setIsRunning}
                         calAmount={calAmount}
                         setCalAmount={setCalAmount}
                         updatePercentage={updatePercentage}

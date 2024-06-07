@@ -4,13 +4,14 @@ import React, { useEffect, useState } from 'react';
 interface CircleGaugeProps {
   percent: number;
   updatePercent: Function;
+  isRunning: boolean;
+  setIsRunning: Function;
 
 }
-const CircleGauge: React.FC<CircleGaugeProps> = ({ percent, updatePercent }) => {
+const CircleGauge: React.FC<CircleGaugeProps> = ({ percent, updatePercent, isRunning, setIsRunning }) => {
   const radius = 50;
   const circumference = 2 * Math.PI * radius;
   const [stroke, setStroke] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
   const [timeLeft, setTimeLeft] = useState(15);
 
   useEffect(() => {

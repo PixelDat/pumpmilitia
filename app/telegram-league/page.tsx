@@ -10,15 +10,18 @@ import { leagues } from './utils';
 
 export default function TelegramLeague() {
     const [currentLeague, setCurrentLeague] = useState(0)
+    const [leagueTitle, setLeagueTitle] = useState(leagues[0].rank)
 
 
     function handleNext() {
         if (currentLeague == leagues.length - 1) return;
         setCurrentLeague(currentLeague + 1)
+        setLeagueTitle(leagues[currentLeague + 1].rank)
     }
     function handlePrev() {
         if (currentLeague == 0) return;
         setCurrentLeague(currentLeague - 1)
+        setLeagueTitle(leagues[currentLeague - 1].rank)
     }
     return (
         <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
@@ -26,7 +29,8 @@ export default function TelegramLeague() {
                 <div className='text-center '>
                     <div className=''>
                         <div className='flex flex-col justify-center gap-2 items-center'>
-                            <Image src="/telegram/league/goldleague.png" alt='' width={208} height={35} priority />
+                            {/* <Image src="/telegram/league/goldleague.png" alt='' width={208} height={35} priority /> */}
+                            <h2 className='font-gameria text-[36px]'>{leagueTitle}</h2>
 
                             <p className='text-[14px] w-8/12 m-auto text-[#EDF9D0] '>
                                 Your number of shares determines the league you enter

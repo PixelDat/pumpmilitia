@@ -109,6 +109,8 @@ const Footer = () => {
                             Pump Millitia
                         </div>
 
+
+
                         <div className="flex-flex-col space-y-4">
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
                                 <a href="mailto:contact@pumpmilitia.io"
