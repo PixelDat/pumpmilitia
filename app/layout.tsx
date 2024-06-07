@@ -43,7 +43,7 @@ export default function RootLayout({ children }: Props) {
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
 
-    handleAudio();
+    // handleAudio();
 
     logEvent(analytics, 'page-viewed', { name: window.location.pathname });
 
@@ -61,9 +61,9 @@ export default function RootLayout({ children }: Props) {
     };
   }, []);
 
-  const handleAudio = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  }
+  // const handleAudio = async () => {
+  //   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  // }
 
   return (
 
@@ -86,8 +86,12 @@ export default function RootLayout({ children }: Props) {
       <body className={`${kanit.className} ${digital.variable} ${gameria.variable}`}>
         <audio id="tapaudio" src="/audio/tap.wav" style={{ visibility: "hidden", }} ></audio>
         <audio id="gunaudio" src="/audio/gunshot.wav" style={{ visibility: "hidden", }} ></audio>
-
-
+        <audio id="coinaudio" src="/audio/coin.wav" style={{ visibility: "hidden", }} ></audio>
+        <audio id="confettiaudio" src="/audio/gunshot.wav" style={{ visibility: "hidden", }} ></audio>
+        <audio id="explosionaudio" src="/audio/explosion.mp3" style={{ visibility: "hidden", }} ></audio>
+        <div style={{ display: "none" }} id="coingif" className="fixed z-10 bottom-0 ">
+          <img src="/telegram/dashpage/coinsmove.gif" />
+        </div>
         {children}
       </body>
     </html>

@@ -28,7 +28,7 @@ const Footer = () => {
                     </div>
 
                     <div className="flex mb-4 flex-row md:justify-start justify-center items-start space-x-4">
-                        <a href="https://x.com/PumpMilitia" target="_blank">
+                        <a href="https://x.com/Pump_Militia" target="_blank">
                             <Image
                                 className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
                                 src={"/svg/twitter.svg"}
@@ -111,15 +111,8 @@ const Footer = () => {
 
                         <div className="flex-flex-col space-y-4">
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
-                                <Link
-                                    style={{ cursor: 'pointer' }}
-                                    activeClass="active"
-                                    to="airdrop"
-                                    spy={true}
-                                    smooth={true}
-                                    offset={0}
-                                    duration={500}
-                                >Airdrop</Link>
+                                <a href="mailto:contact@pumpmilitia.io"
+                                >Contact Us</a>
                             </div>
 
                             <div className='font-kanit text-vivd-lime-green-10 text-[16px]'>
