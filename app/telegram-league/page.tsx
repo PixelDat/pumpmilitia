@@ -5,29 +5,13 @@ import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
 import { ArrowForward, ArrowLeft, ArrowRight, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
+import { leagues } from './utils';
 
 
 export default function TelegramLeague() {
     const [currentLeague, setCurrentLeague] = useState(0)
 
-    let leagues = [
-        {
-            title: 'League 1',
-            image: '/telegram/league/coporal.png',
-            from: '5000',
-        },
-        {
-            title: 'League 2',
-            image: '/telegram/league/sergent.png',
-            from: '50,000',
 
-        },
-        {
-            title: 'League 3',
-            image: '/telegram/league/trophy.png',
-            from: '100,000',
-        }
-    ]
     function handleNext() {
         if (currentLeague == leagues.length - 1) return;
         setCurrentLeague(currentLeague + 1)
@@ -62,7 +46,7 @@ export default function TelegramLeague() {
                                     <div className='border-[#52710A] border bg-[#10130D] flex flex-row items-center justify-center rounded-full h-[150px] w-[44px] '>
                                         <KeyboardArrowLeft onClick={() => handlePrev()} className='font-bold text-[#52710A]' />
                                     </div>
-                                    <div className='w-[206px] flex flex-row justify-center'>
+                                    <div className='w-[230px] flex flex-row justify-center'>
                                         <Image src={item.image} alt='' width={230} height={230} priority />
                                     </div>
                                     <div className='border-[#52710A] border bg-[#10130D] flex flex-row items-center justify-center rounded-full h-[150px] w-[44px] '>

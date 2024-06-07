@@ -43,7 +43,7 @@ export default function RootLayout({ children }: Props) {
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
 
-    handleAudio();
+    // handleAudio();
 
     logEvent(analytics, 'page-viewed', { name: window.location.pathname });
 
@@ -61,9 +61,9 @@ export default function RootLayout({ children }: Props) {
     };
   }, []);
 
-  const handleAudio = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  }
+  // const handleAudio = async () => {
+  //   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  // }
 
   return (
 
