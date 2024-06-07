@@ -15,13 +15,15 @@ interface Taptypes {
     updatePercentage: Function;
     calAmount: number;
     setCalAmount: Function;
+    isRunning: boolean;
+    setIsRunning: Function;
 }
 
 
 const Tapcomponent: React.FC<Taptypes> = ({
     gradeAmount, setGradeAmount, percent, setPercent, tapping, setTapping,
     showers, setShowers, updatePercentage, calAmount, setCalAmount,
-    opened }) => {
+    opened, isRunning, setIsRunning }) => {
 
     const time = 15000;
 
@@ -82,7 +84,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
                     </div>
                 </div>
                 <div>
-                    <CircleGauge updatePercent={updatePercentage} percent={percent} />
+                    <CircleGauge isRunning={isRunning} setIsRunning={setIsRunning} updatePercent={updatePercentage} percent={percent} />
                 </div>
             </div>
 
