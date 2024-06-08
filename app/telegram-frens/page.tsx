@@ -9,6 +9,7 @@ import CustomModal from '../components/telegramComp/modalComp/modalComp';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import { boost } from './utils';
 import axios from 'axios';
+import TelegramLayout from '../telegramLayout/layout';
 const Cookies = require("js-cookie");
 
 
@@ -61,7 +62,7 @@ export default function TelegramFrens() {
     }, [])
 
     return (
-        <>
+        <TelegramLayout>
             <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-col justify-center items-start pt-10 text-[#EDF9D0] h-full w-screen" >
                 {error &&
                     <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
@@ -165,9 +166,6 @@ export default function TelegramFrens() {
                 </div >
 
             </div >
-            {/* <CustomModal setOpened={setOpened} opened={opened} /> */}
-
-        </>
-
+        </TelegramLayout>
     )
 }

@@ -72,22 +72,52 @@ export default function TelegramBotDash() {
 
     }
 
-    const updatePercentage = () => {
+    const updatePercentage = async () => {
+        const walking = document.getElementById('walking') as HTMLImageElement;
+        const move = document.getElementById('move') as HTMLImageElement;
+        const shoot = document.getElementById('shoot') as HTMLImageElement;
 
         if (percent <= 0) return;
+
         let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
         // stopAudio(tapping)
-        stopAudio(gunshot)
-        setIsRunning(true)
-        // playAudio(tapping);
+        stopAudio(gunshot);
+        setIsRunning(true);
         playAudio(gunshot);
 
-        setPercent((prev: number) => Math.max(prev - 10, 0));
-        setCalAmount(calAmount - 50)
-        setShowImage(true)
-        setTapping(true)
-        setShowers((prev) => [...prev, Date.now()]);
+        // Hide all GIFs initially
+        hideGif(walking);
+        hideGif(move);
+        hideGif(shoot);
+
+        // Sequence of showing and hiding GIFs
+        showGif(move);
+        setTimeout(() => {
+            hideGif(move);
+            showGif(shoot);
+        }, 200); // Move for 200ms
+
+        setTimeout(() => {
+            hideGif(shoot);
+            showGif(walking);
+        }, 700); // Shoot for 500ms (200ms + 500ms)
+
+        // playAudio(tapping);
+
+        setPercent(prev => Math.max(prev - 10, 0));
+        setCalAmount(calAmount - 50);
+        setShowImage(true);
+        setTapping(true);
+        setShowers(prev => [...prev, Date.now()]);
+    };
+
+    const showGif = (image: HTMLImageElement) => {
+        image.style.display = 'block';
+    };
+
+    const hideGif = (image: HTMLImageElement) => {
+        image.style.display = 'none';
     };
 
 
@@ -103,13 +133,14 @@ export default function TelegramBotDash() {
     }, [showImage])
 
     return (
-        <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')]  text-[#EDF9D0] h-screen w-screen" >
-            {error &&
-                <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
-            }
-            <TelegramLayout>
-                <>
-                    <div className='text-center flex flex-col justify-center items-center space-y-2 '>
+
+        <TelegramLayout>
+            <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] pt-12 text-[#EDF9D0] h-screen w-screen" >
+                {error &&
+                    <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
+                }
+                <div className='flex flex-col  justify-center items-center'>
+                    <div className='text-center  flex flex-col justify-center items-center space-y-2 '>
                         <div className=''>
                             <div className='flex flex-row justify-center items-center '>
                                 <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
@@ -125,35 +156,25 @@ export default function TelegramBotDash() {
                             <ArrowForward />
                         </div>
                     </div>
-                    <div className='flex flex-row h-[350px]  justify-center items-center m-auto '>
 
-                        <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex w-[362px] h-[400px]  relative flex-col justify-center items-center'>
+                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex   relative flex-col justify-center items-center'>
 
-                            <div className='relative -right-5 z-10'>
-
-                                {showImage ? (
-                                    <img style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
-                                ) : (
-                                    <img style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
-
-                                )
-                                }
-                            </div>
-
-                            {showExplosion &&
-                                <div className='absolute w-full z-0'>
-                                    <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
-                                </div>
-                            }
-
-                            {/* <div className='w-10/12 z-20 m-auto absolute bottom-0'>
-                            <TimerTapCount />
-                        </div> */}
+                        <div className='relative -right-5 z-10 '>
+                            <img className='max-h-[408px] max-w-[300px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
+                            <img className='max-h-[408px] max-w-[300px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
+                            <img className='max-h-[408px] max-w-[300px]' id='shoot' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
                         </div>
 
-                    </div>
-                    <GrenadeComponent percent={100} startExplosion={startExplosion} />
+                        {showExplosion &&
+                            <div className='absolute w-full z-0'>
+                                <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
+                            </div>
+                        }
 
+                        {/* <div className='w-10/12 z-20 m-auto absolute bottom-0'>
+                            <TimerTapCount />
+                        </div> */}
+                    </div>
 
                     <div className='w-10/12 m-auto'>
                         <Tapcomponent
@@ -172,14 +193,15 @@ export default function TelegramBotDash() {
                             setTapping={setTapping}
                             opened={opened} />
                     </div>
-                </>
-            </TelegramLayout>
+
+                </div>
+                <DashBoardModal signedIn={signedIn} setOpened={setOpened} opened={opened} />
+                <GrenadeComponent percent={100} startExplosion={startExplosion} />
+
+            </div >
+        </TelegramLayout>
 
 
-            <DashBoardModal signedIn={signedIn} setOpened={setOpened} opened={opened} />
 
-
-
-        </div >
     )
 }

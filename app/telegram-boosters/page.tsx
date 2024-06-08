@@ -8,6 +8,7 @@ import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import TurboModal from '../components/telegramComp/modalComp/modalCompTurbo';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import { getUserDetails } from '@/lib/utils/request';
+import TelegramLayout from '../telegramLayout/layout';
 const Cookies = require("js-cookie");
 
 let boost = [
@@ -58,95 +59,98 @@ export default function TelegramBoosters() {
     }, [update])
 
     return (
-        <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
-            {error &&
-                <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
-            }
-            <div className='w-screen space-y-8'>
-                <div className='text-center space-y-4  flex flex-col justify-center items-center m-auto'>
-                    <div className=''>
-                        <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Coin Balance</h2></div>
-                        <div className='flex flex-row justify-center items-center'>
-                            <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={48} height={48} priority />
-                            <p className='font-gameria text-[40px]'>{userBalance.toLocaleString()}</p>
+        <TelegramLayout>
+            <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
+                {error &&
+                    <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
+                }
+                <div className='w-screen space-y-8'>
+                    <div className='text-center space-y-4  flex flex-col justify-center items-center m-auto'>
+                        <div className=''>
+                            <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Coin Balance</h2></div>
+                            <div className='flex flex-row justify-center items-center'>
+                                <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={48} height={48} priority />
+                                <p className='font-gameria text-[40px]'>{userBalance.toLocaleString()}</p>
+                            </div>
+
+                        </div>
+                        <Image src='/telegram/dashpage/howbtn.png' alt='' width={130} height={58} priority />
+
+                    </div>
+
+                    <div className='px-4 space-y-4'>
+
+                        <div>
+                            <Image src='/telegram/boost/free.png' alt='' width={137} height={24} priority />
+                        </div>
+                        <div className='flex flex-row items-center gap-3'>
+
+                            <div onClick={() => {
+                                setSelectedBoost("Blast")
+                                setOpened(true)
+                            }} className='basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
+                                <Image src='/telegram/boost/turbo.png' alt='' width={48} height={48} priority />
+                                <h2 className='font-gameria'>Blast</h2>
+                                <p className='text-[#6E970D]'> 2 /2 Boost</p>
+                            </div>
+                            <div onClick={() => {
+                                setSelectedBoost("Reload")
+                                setOpened(true)
+                            }}
+                                className=' basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
+                                <Image src='/telegram/boost/reload.png' alt='' width={48} height={48} priority />
+                                <h2 className='font-gameria'>Reload</h2>
+                                <p className='text-[#6E970D]'> 2 /2 Boost</p>
+                            </div>
                         </div>
 
                     </div>
-                    <Image src='/telegram/dashpage/howbtn.png' alt='' width={130} height={58} priority />
 
-                </div>
+                    <div className='px-4 space-y-4'>
 
-                <div className='px-4 space-y-4'>
-
-                    <div>
-                        <Image src='/telegram/boost/free.png' alt='' width={137} height={24} priority />
-                    </div>
-                    <div className='flex flex-row items-center gap-3'>
-
-                        <div onClick={() => {
-                            setSelectedBoost("Blast")
-                            setOpened(true)
-                        }} className='basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
-                            <Image src='/telegram/boost/turbo.png' alt='' width={48} height={48} priority />
-                            <h2 className='font-gameria'>Blast</h2>
-                            <p className='text-[#6E970D]'> 2 /2 Boost</p>
+                        <div>
+                            <Image src='/telegram/boost/moreboost.png' alt='' width={137} height={24} priority />
                         </div>
-                        <div onClick={() => {
-                            setSelectedBoost("Reload")
-                            setOpened(true)
-                        }}
-                            className=' basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
-                            <Image src='/telegram/boost/reload.png' alt='' width={48} height={48} priority />
-                            <h2 className='font-gameria'>Reload</h2>
-                            <p className='text-[#6E970D]'> 2 /2 Boost</p>
-                        </div>
-                    </div>
+                        <div className='flex flex-col border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
+                            {boost.map((item, index) => {
+                                return (
+                                    <div key={index} onClick={() => {
+                                        if (item.title.includes('Play')) {
+                                            setSelectedBoost("Play")
+                                            setOpened(true)
+                                        } else {
+                                            location.href = `${item.target}`
+                                        }
+                                    }} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
+                                        <Image className='' src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
+                                        <div className='basis-4/5'>
 
-                </div>
-
-                <div className='px-4 space-y-4'>
-
-                    <div>
-                        <Image src='/telegram/boost/moreboost.png' alt='' width={137} height={24} priority />
-                    </div>
-                    <div className='flex flex-col border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
-                        {boost.map((item, index) => {
-                            return (
-                                <div key={index} onClick={() => {
-                                    if (item.title.includes('Play')) {
-                                        setSelectedBoost("Play")
-                                        setOpened(true)
-                                    } else {
-                                        location.href = `${item.target}`
-                                    }
-                                }} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
-                                    <Image className='' src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
-                                    <div className='basis-4/5'>
-
-                                        <h2 className='font-gameria text-[24px]'>{item.title}</h2>
-                                        <div className='flex flex-row justify-start items-center'>
-                                            <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
-                                            <p className='text-[#6E970D]'>{item.amount}</p>
+                                            <h2 className='font-gameria text-[24px]'>{item.title}</h2>
+                                            <div className='flex flex-row justify-start items-center'>
+                                                <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
+                                                <p className='text-[#6E970D]'>{item.amount}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className='basis-1/5'>
-                                        <ArrowForward className='text-[#20251A] rounded-full p-2 text-[40px] bg-[#A5E314]' />
-                                    </div>
+                                        <div className='basis-1/5'>
+                                            <ArrowForward className='text-[#20251A] rounded-full p-2 text-[40px] bg-[#A5E314]' />
+                                        </div>
 
-                                </div>
-                            )
-                        })}
+                                    </div>
+                                )
+                            })}
 
+
+                        </div>
 
                     </div>
 
-                </div>
+
+                    <TurboModal selectedBoost={selectedBoost} setOpened={setOpened} opened={opened} />
+                </div >
 
 
-                <TurboModal selectedBoost={selectedBoost} setOpened={setOpened} opened={opened} />
             </div >
+        </TelegramLayout>
 
-
-        </div >
     )
 }
