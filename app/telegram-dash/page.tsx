@@ -103,12 +103,13 @@ export default function TelegramBotDash() {
     }, [showImage])
 
     return (
-        <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')]  text-[#EDF9D0] h-screen w-screen" >
-            {error &&
-                <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
-            }
-            <TelegramLayout>
-                <>
+
+        <TelegramLayout>
+            <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] pt-12 text-[#EDF9D0] h-screen w-screen" >
+                {error &&
+                    <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
+                }
+                <div className='flex flex-col justify-center items-center space-y-8'>
                     <div className='text-center flex flex-col justify-center items-center space-y-2 '>
                         <div className=''>
                             <div className='flex flex-row justify-center items-center '>
@@ -153,8 +154,6 @@ export default function TelegramBotDash() {
 
                     </div>
                     <GrenadeComponent percent={100} startExplosion={startExplosion} />
-
-
                     <div className='w-10/12 m-auto'>
                         <Tapcomponent
                             isRunning={isRunning}
@@ -172,14 +171,13 @@ export default function TelegramBotDash() {
                             setTapping={setTapping}
                             opened={opened} />
                     </div>
-                </>
-            </TelegramLayout>
+
+                </div>
+                <DashBoardModal signedIn={signedIn} setOpened={setOpened} opened={opened} />
+            </div >
+        </TelegramLayout>
 
 
-            <DashBoardModal signedIn={signedIn} setOpened={setOpened} opened={opened} />
 
-
-
-        </div >
     )
 }
