@@ -16,23 +16,26 @@ function TelegramLayout({ children }: Props) {
     return (
         <div className=''>
             <div className='w-full bg-black/50 text-white flex flex-row justify-between items-end fixed px-4 pt-5 '>
-                {
-                    path == "/telegram-dash" ?
-                        <div onClick={() => { closeBot() }}>
-                            <Close sx={{ color: 'white', }} />
-                        </div>
-                        :
-                        <div onClick={() => { history.back() }}>
-                            <ArrowBack sx={{ color: 'white', }} />
-                        </div>
-                }
-                <h2 className='font-bold'>PumpMilitia Coin</h2>
+                <div className='flex flex-row justify-center gap-4'>
+                    {
+                        path == "/telegram-dash" ?
+                            <div onClick={() => { closeBot() }}>
+                                <Close sx={{ color: 'white', }} />
+                            </div>
+                            :
+                            <div onClick={() => { history.back() }}>
+                                <ArrowBack sx={{ color: 'white', }} />
+                            </div>
+                    }
+                    <h2 className='font-bold'>PumpMilitia Coin</h2>
+                </div>
+
                 <div onClick={() => { history.back() }}>
                     <MoreVert />
                 </div>
             </div>
             {children}
-            {path != '/telegram-pumpearn' &&
+            {path !== '/telegram-pumpearn' &&
                 <div className=''>
                     <NavigationComp />
                 </div>
