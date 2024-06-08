@@ -84,17 +84,26 @@ export default function TelegramBotDash() {
         // stopAudio(tapping)
         stopAudio(gunshot)
         setIsRunning(true)
+        playAudio(gunshot);
+
+
 
         showGif(move);
         hideGif(walking);
-        showGif(shoot);
-        hideGif(move);
+        setTimeout(() => {
+            showGif(shoot);
+            hideGif(move);
+        }, 200)
         setTimeout(() => {
             hideGif(shoot);
+            showGif(move);
+        }, 500)
+        setTimeout(() => {
+            hideGif(move);
             showGif(walking);
-        }, 2000)
+        }, 200)
+
         // playAudio(tapping);
-        playAudio(gunshot);
 
         setPercent((prev: number) => Math.max(prev - 10, 0));
         setCalAmount(calAmount - 50)
