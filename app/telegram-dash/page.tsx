@@ -10,6 +10,7 @@ import TimerTapCount from '../components/telegramComp/tapComp/timer';
 import { checkClaimBalance, getTurboReward, getUserDetails, playAudio, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
+import TelegramLayout from '../telegramLayout/layout';
 const Cookies = require("js-cookie");
 
 
@@ -106,74 +107,74 @@ export default function TelegramBotDash() {
             {error &&
                 <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
             }
-            <div className='flex flex-col justify-between items-center space-y-8 pt-10'>
-                <div className='text-center flex flex-col justify-center items-center space-y-2 '>
-                    <div className=''>
-                        <div className='flex flex-row justify-center items-center '>
-                            <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
-                            <p className='font-gameria text-[40px]'>{userBalance.toLocaleString()}</p>
-                        </div>
-
-                    </div>
-                    <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
-
-                    <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-2 items-center'>
-                        <Image src='/telegram/dashpage/trophy.png' alt='' width={24} height={24} priority />
-                        <p className='text-[24px] font-bolder'>Corporal</p>
-                        <ArrowForward />
-                    </div>
-                </div>
-                <div className='flex flex-row h-[350px]  justify-center items-center m-auto '>
-
-                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex w-[362px] h-[400px]  relative flex-col justify-center items-center'>
-
-                        <div className='relative -right-5 z-10'>
-
-                            {showImage ? (
-                                <img style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
-                            ) : (
-                                <img style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
-
-                            )
-                            }
-                        </div>
-
-                        {showExplosion &&
-                            <div className='absolute w-full z-0'>
-                                <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
+            <TelegramLayout>
+                <>
+                    <div className='text-center flex flex-col justify-center items-center space-y-2 '>
+                        <div className=''>
+                            <div className='flex flex-row justify-center items-center '>
+                                <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
+                                <p className='font-gameria text-[40px]'>{userBalance.toLocaleString()}</p>
                             </div>
-                        }
 
-                        {/* <div className='w-10/12 z-20 m-auto absolute bottom-0'>
+                        </div>
+                        <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
+
+                        <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-2 items-center'>
+                            <Image src='/telegram/dashpage/trophy.png' alt='' width={24} height={24} priority />
+                            <p className='text-[24px] font-bolder'>Corporal</p>
+                            <ArrowForward />
+                        </div>
+                    </div>
+                    <div className='flex flex-row h-[350px]  justify-center items-center m-auto '>
+
+                        <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex w-[362px] h-[400px]  relative flex-col justify-center items-center'>
+
+                            <div className='relative -right-5 z-10'>
+
+                                {showImage ? (
+                                    <img style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
+                                ) : (
+                                    <img style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
+
+                                )
+                                }
+                            </div>
+
+                            {showExplosion &&
+                                <div className='absolute w-full z-0'>
+                                    <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
+                                </div>
+                            }
+
+                            {/* <div className='w-10/12 z-20 m-auto absolute bottom-0'>
                             <TimerTapCount />
                         </div> */}
+                        </div>
+
                     </div>
-
-                </div>
-                <GrenadeComponent percent={100} startExplosion={startExplosion} />
+                    <GrenadeComponent percent={100} startExplosion={startExplosion} />
 
 
-                <div className='w-10/12 m-auto'>
-                    <Tapcomponent
-                        isRunning={isRunning}
-                        setIsRunning={setIsRunning}
-                        calAmount={calAmount}
-                        setCalAmount={setCalAmount}
-                        updatePercentage={updatePercentage}
-                        percent={percent}
-                        setPercent={setPercent}
-                        gradeAmount={gradeAmount}
-                        setGradeAmount={setGradeAmount}
-                        tapping={tapping}
-                        showers={showers}
-                        setShowers={setShowers}
-                        setTapping={setTapping}
-                        opened={opened} />
-                </div>
-                <div className=''>
-                    <NavigationComp />
-                </div>
-            </div>
+                    <div className='w-10/12 m-auto'>
+                        <Tapcomponent
+                            isRunning={isRunning}
+                            setIsRunning={setIsRunning}
+                            calAmount={calAmount}
+                            setCalAmount={setCalAmount}
+                            updatePercentage={updatePercentage}
+                            percent={percent}
+                            setPercent={setPercent}
+                            gradeAmount={gradeAmount}
+                            setGradeAmount={setGradeAmount}
+                            tapping={tapping}
+                            showers={showers}
+                            setShowers={setShowers}
+                            setTapping={setTapping}
+                            opened={opened} />
+                    </div>
+                </>
+            </TelegramLayout>
+
 
             <DashBoardModal signedIn={signedIn} setOpened={setOpened} opened={opened} />
 
