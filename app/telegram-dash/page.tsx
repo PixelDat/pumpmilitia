@@ -73,42 +73,52 @@ export default function TelegramBotDash() {
     }
 
     const updatePercentage = async () => {
-
         const walking = document.getElementById('walking') as HTMLImageElement;
         const move = document.getElementById('move') as HTMLImageElement;
         const shoot = document.getElementById('shoot') as HTMLImageElement;
 
         if (percent <= 0) return;
+
         let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
         // stopAudio(tapping)
-        stopAudio(gunshot)
-        setIsRunning(true)
+        stopAudio(gunshot);
+        setIsRunning(true);
+        playAudio(gunshot);
 
-        showGif(move);
+        // Hide all GIFs initially
         hideGif(walking);
-        showGif(shoot);
         hideGif(move);
+        hideGif(shoot);
+
+        // Sequence of showing and hiding GIFs
+        showGif(move);
+        setTimeout(() => {
+            hideGif(move);
+            showGif(shoot);
+        }, 200); // Move for 200ms
+
         setTimeout(() => {
             hideGif(shoot);
             showGif(walking);
-        }, 2000)
-        // playAudio(tapping);
-        playAudio(gunshot);
+        }, 700); // Shoot for 500ms (200ms + 500ms)
 
-        setPercent((prev: number) => Math.max(prev - 10, 0));
-        setCalAmount(calAmount - 50)
-        setShowImage(true)
-        setTapping(true)
-        setShowers((prev) => [...prev, Date.now()]);
+        // playAudio(tapping);
+
+        setPercent(prev => Math.max(prev - 10, 0));
+        setCalAmount(calAmount - 50);
+        setShowImage(true);
+        setTapping(true);
+        setShowers(prev => [...prev, Date.now()]);
     };
 
     const showGif = (image: HTMLImageElement) => {
         image.style.display = 'block';
-    }
+    };
+
     const hideGif = (image: HTMLImageElement) => {
         image.style.display = 'none';
-    }
+    };
 
 
     useEffect(() => {
