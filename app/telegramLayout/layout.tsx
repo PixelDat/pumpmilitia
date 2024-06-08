@@ -35,7 +35,7 @@ function TelegramLayout({ children }: Props) {
                 </div>
             </div>
             {children}
-            {path !== '/telegram-pumpearn' &&
+            {(path !== '/telegram-pumpearn' && path !== '/telegram-boosters' && path !== '/telegram-frens') &&
                 <div className=''>
                     <NavigationComp />
                 </div>
@@ -46,3 +46,22 @@ function TelegramLayout({ children }: Props) {
 }
 
 export default TelegramLayout
+
+
+interface NavComp {
+    path: string;
+}
+
+const NavComp: React.FC<NavComp> = ({ path }) => {
+    return (
+        <>
+            {
+                (path !== '/telegram-pumpearn' && path !== '/telegram-boosters') && (
+                    <div className=''>
+                        <NavigationComp />
+                    </div>
+                )
+            }
+        </>
+    );
+};
