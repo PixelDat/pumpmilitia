@@ -11,11 +11,14 @@ export default function TelegramBot() {
     const params = useSearchParams();
     let tg_username = params.get('tg_username');
     let uniqueId = params.get('uniqueID');
+    let referrerId = params.get('referrerId')
 
 
     useEffect(() => {
-        if (tg_username && uniqueId) {
+        if (tg_username && uniqueId && referrerId) {
             Cookies.set("encrypt_id", uniqueId);
+            Cookies.set("reffererId", referrerId);
+
             location.href = '/telegram-dash'
         }
     }, [tg_username, uniqueId])

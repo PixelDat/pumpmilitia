@@ -11,6 +11,7 @@ import { checkClaimBalance, getTurboReward, getUserDetails, playAudio, stopAudio
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
+import { setRef } from '@mui/material';
 const Cookies = require("js-cookie");
 
 
@@ -18,6 +19,7 @@ export default function TelegramBotDash() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
 
+    const [referralId, setReferralId] = useState('');
     const [errMessage, setErrMessage] = useState({
         type: '',
         message: '',
@@ -48,8 +50,9 @@ export default function TelegramBotDash() {
 
     useEffect(() => {
         let encrypt = Cookies.get('encrypt_id');
+        let referralId = Cookies.get('referrerId');
+        setReferralId(referralId);
         (async () => {
-
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
@@ -193,7 +196,7 @@ export default function TelegramBotDash() {
                     </div>
 
                 </div>
-                <DashBoardModal signedIn={signedIn} setOpened={setOpened} opened={opened} />
+                <DashBoardModal referralId={referralId} signedIn={signedIn} setOpened={setOpened} opened={opened} />
                 <GrenadeComponent percent={100} startExplosion={startExplosion} />
 
             </div >
