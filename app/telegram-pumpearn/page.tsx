@@ -8,6 +8,7 @@ import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
 import { tasks } from './utils';
 import { createAccount, getUserDetails } from '@/lib/utils/request';
+import TelegramLayout from '../telegramLayout/layout';
 const Cookies = require("js-cookie");
 
 
@@ -56,7 +57,8 @@ export default function TelegramPumpEarn() {
     return (
         <>
             <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-10 text-[#EDF9D0] w-screen" >
-                <div className='w-screen space-y-8'>
+                <TelegramLayout>
+
                     <div className='text-center space-y-4 flex flex-col justify-center items-center'>
                         <div className=''>
                             <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Coin Balance</h2></div>
@@ -144,8 +146,7 @@ export default function TelegramPumpEarn() {
 
                     </div>
 
-                </div >
-
+                </TelegramLayout>
             </div >
             <CustomModal setUpdate={setUpdate} encrypt={encrypt} taskIndex={selectedTask} setOpened={setOpened} opened={opened} />
 
