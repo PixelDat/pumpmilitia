@@ -47,7 +47,7 @@ export const createAccount = async (url: string, encrypt_id: string) => {
 
 }
 
-export const claimBalance = async (url: string, encrypt_id: string) => {
+export const claimTapBalance = async (url: string, encrypt_id: string) => {
     try {
         const response = await axios.post(url, {}, {
             headers: { Authorization: `${encrypt_id}` }

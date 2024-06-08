@@ -3,19 +3,19 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
 import { ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle } from '@mui/icons-material';
-import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { checkClaimBalance, getTurboReward, getUserDetails, playAudio, stopAudio } from '@/lib/utils/request';
+import { checkClaimBalance, claimTapBalance, getTurboReward, getUserDetails, playAudio, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
-import { setRef } from '@mui/material';
 const Cookies = require("js-cookie");
 
 
 export default function TelegramBotDash() {
+    let encrypt = Cookies.get('encrypt_id');
+
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
 
@@ -49,7 +49,6 @@ export default function TelegramBotDash() {
     }
 
     useEffect(() => {
-        let encrypt = Cookies.get('encrypt_id');
         let referralId = Cookies.get('referrerId');
         setReferralId(referralId);
         (async () => {
@@ -82,6 +81,9 @@ export default function TelegramBotDash() {
 
         if (percent <= 0) return;
 
+
+        //Claim Tap Balance
+        await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
         let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
         // stopAudio(tapping)
