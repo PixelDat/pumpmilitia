@@ -72,6 +72,8 @@ export default function TelegramBotDash() {
 
     const claimBalance = async () => {
 
+
+
     }
 
     const updatePercentage = async () => {
