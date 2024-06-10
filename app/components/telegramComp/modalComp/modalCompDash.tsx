@@ -9,8 +9,9 @@ interface ModalComponent {
     setOpened: Function;
     signedIn: boolean;
     opened: boolean;
+    referralId?: string;
 }
-const DashBoardModal: React.FC<ModalComponent> = ({ signedIn, text, key, setOpened, opened }) => {
+const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, key, setOpened, opened }) => {
     const checkIfSignedIn = () => {
         setOpened(false);
     }
@@ -41,6 +42,7 @@ const DashBoardModal: React.FC<ModalComponent> = ({ signedIn, text, key, setOpen
                                     <p className='text-center'>USE THE REFERRAL CODE TO LOGIN TO THE PUMPMILITIA GAME</p>
                                     <div className='w-full'>
                                         <CustomInput
+                                            value={referralId || ""}
                                             type='text'
                                             placeholder='Referral Code'
                                             addOnEnd={<CopyAll color='inherit' />}

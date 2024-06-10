@@ -3,11 +3,10 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
 import { ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle } from '@mui/icons-material';
-import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { checkClaimBalance, getTurboReward, getUserDetails, playAudio, stopAudio } from '@/lib/utils/request';
+import { checkClaimBalance, claimTapBalance, getTurboReward, getUserDetails, playAudio, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
@@ -15,9 +14,12 @@ const Cookies = require("js-cookie");
 
 
 export default function TelegramBotDash() {
+    let encrypt = Cookies.get('encrypt_id');
+
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
 
+    const [referralId, setReferralId] = useState('');
     const [errMessage, setErrMessage] = useState({
         type: '',
         message: '',
@@ -47,9 +49,9 @@ export default function TelegramBotDash() {
     }
 
     useEffect(() => {
-        let encrypt = Cookies.get('encrypt_id');
+        let referralId = Cookies.get('referrerId');
+        setReferralId(referralId);
         (async () => {
-
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
@@ -70,6 +72,8 @@ export default function TelegramBotDash() {
 
     const claimBalance = async () => {
 
+
+
     }
 
     const updatePercentage = async () => {
@@ -79,6 +83,10 @@ export default function TelegramBotDash() {
 
         if (percent <= 0) return;
 
+
+        //Claim Tap Balance
+        let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
+        console.log(response);
         let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
         // stopAudio(tapping)
@@ -96,14 +104,13 @@ export default function TelegramBotDash() {
         setTimeout(() => {
             hideGif(move);
             showGif(shoot);
-        }, 200); // Move for 200ms
+        }, 100); // Move for 100ms
 
         setTimeout(() => {
             hideGif(shoot);
             showGif(walking);
         }, 700); // Shoot for 500ms (200ms + 500ms)
 
-        // playAudio(tapping);
 
         setPercent(prev => Math.max(prev - 10, 0));
         setCalAmount(calAmount - 50);
@@ -140,7 +147,7 @@ export default function TelegramBotDash() {
                     <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
                 }
                 <div className='flex flex-col  justify-center items-center'>
-                    <div className='text-center  flex flex-col justify-center items-center space-y-2 '>
+                    <div className='text-center flex flex-col justify-center items-center space-y-2 '>
                         <div className=''>
                             <div className='flex flex-row justify-center items-center '>
                                 <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
@@ -157,12 +164,11 @@ export default function TelegramBotDash() {
                         </div>
                     </div>
 
-                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex   relative flex-col justify-center items-center'>
-
+                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex sm:py-5 md:h-[300px] relative flex-col justify-center items-center'>
                         <div className='relative -right-5 z-10 '>
-                            <img className='max-h-[408px] max-w-[300px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
-                            <img className='max-h-[408px] max-w-[300px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
-                            <img className='max-h-[408px] max-w-[300px]' id='shoot' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
+                            <img className='max-h-[408px] max-w-[260px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
+                            <img className='max-h-[408px] max-w-[260px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
+                            <img className='max-h-[408px] max-w-[260px]' id='shoot' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
                         </div>
 
                         {showExplosion &&
@@ -195,7 +201,7 @@ export default function TelegramBotDash() {
                     </div>
 
                 </div>
-                <DashBoardModal signedIn={signedIn} setOpened={setOpened} opened={opened} />
+                <DashBoardModal referralId={referralId} signedIn={signedIn} setOpened={setOpened} opened={opened} />
                 <GrenadeComponent percent={100} startExplosion={startExplosion} />
 
             </div >
