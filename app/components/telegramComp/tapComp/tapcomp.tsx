@@ -17,10 +17,12 @@ interface Taptypes {
     setCalAmount: Function;
     isRunning: boolean;
     setIsRunning: Function;
+    points: number;
 }
 
 
 const Tapcomponent: React.FC<Taptypes> = ({
+    points,
     gradeAmount, setGradeAmount, percent, setPercent, tapping, setTapping,
     showers, setShowers, updatePercentage, calAmount, setCalAmount,
     opened, isRunning, setIsRunning }) => {
@@ -63,7 +65,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
         }, 2000);
 
         return () => clearTimeout(timeout);
-    }, [showers]);
+    }, [showers, points]);
 
     return (
         <div className='text-[#A5E314] py-4' >
@@ -90,7 +92,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
 
             {showers.map((shower) => (
                 <div
-                    key={shower}
+                    key={`${shower} ${Math.random()}`}
                     className='absolute z-50 font-gameria text-[#A5E314] font-bold text-[40px]'
                     style={{
                         top: '50%',
@@ -99,7 +101,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
                         animation: 'rise 2s forwards'
                     }}
                 >
-                    50+
+                    {points}+
                 </div>
             ))}
 
@@ -111,7 +113,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
                     }
                     100% {
                         opacity: 0;
-                        transform: translate(-50%, -50%) translateY(-200px) translateX(40px);
+                        transform: translate(-50%, -50%) translateY(-380px) translateX(40px);
                     }
                 }
             `}</style>
