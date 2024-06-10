@@ -17,7 +17,7 @@ export default function TelegramBot() {
     useEffect(() => {
         if (tg_username && uniqueId && referrerId) {
             Cookies.set("encrypt_id", uniqueId);
-            Cookies.set("reffererId", referrerId);
+            Cookies.set("referrerId", referrerId);
 
             location.href = '/telegram-dash'
         }

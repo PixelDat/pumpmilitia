@@ -24,9 +24,10 @@ export default function TelegramBotDash() {
         type: '',
         message: '',
     })
-
+    const [points, setPoints] = useState(0);
+    const [update, setUpdate] = useState(0);
     const [showExplosion, setShowExplosion] = useState(false)
-    const [opened, setOpened] = React.useState(false);
+    const [opened, setOpened] = React.useState(true);
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
     const [gradeAmount, setGradeAmount] = useState(5000)
@@ -50,25 +51,25 @@ export default function TelegramBotDash() {
 
     useEffect(() => {
         let referralId = Cookies.get('referrerId');
+        // console.log(referralId)
         setReferralId(referralId);
         (async () => {
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
-                let claimResponse = await checkClaimBalance(encrypt)
-                if (claimResponse.status) {
-                    setSignedIn(true);
+                // let claimResponse = await checkClaimBalance(encrypt)
+                // if (claimResponse.status) {
+                //     setSignedIn(true);
+                // }
 
-                }
-
-                let turboReward = await getTurboReward(encrypt);
-                if (turboReward.status) {
-                    console.log(turboReward.data)
-                }
+                // let turboReward = await getTurboReward(encrypt);
+                // if (turboReward.status) {
+                //     console.log(turboReward.data)
+                // }
             }
         })()
 
-    }, [])
+    }, [update]);
 
     const claimBalance = async () => {
 
@@ -86,7 +87,8 @@ export default function TelegramBotDash() {
 
         //Claim Tap Balance
         let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
-        console.log(response);
+        setPoints(response.data.claimedPoints)
+        setUpdate(Math.random())
         let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
         // stopAudio(tapping)
@@ -184,6 +186,7 @@ export default function TelegramBotDash() {
 
                     <div className='w-10/12 m-auto'>
                         <Tapcomponent
+                            points={points}
                             isRunning={isRunning}
                             setIsRunning={setIsRunning}
                             calAmount={calAmount}

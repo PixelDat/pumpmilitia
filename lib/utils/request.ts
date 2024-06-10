@@ -71,7 +71,7 @@ export const checkClaimBalance = async (encrypt_id: string) => {
     let url = "https://evp-user-service-cea2e4kz5q-uc.a.run.app/check-claimed-game-install-reward";
 
     try {
-        const response = await axios.post(url, {}, {
+        const response = await axios.get(url, {
             headers: { Authorization: `${encrypt_id}` }
         });
         return {
@@ -92,7 +92,7 @@ export const getTurboReward = async (encrypt_id: string) => {
     let url = "https://evp-user-service-cea2e4kz5q-uc.a.run.app/get-turbo-boost-reward";
 
     try {
-        const response = await axios.post(url, {}, {
+        const response = await axios.get(url, {
             headers: { Authorization: `${encrypt_id}` }
         });
         return {
