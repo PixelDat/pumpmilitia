@@ -71,6 +71,7 @@ export default function TelegramFrens() {
             }
             catch (e) {
                 console.log(e)
+
             }
         })()
     }, [])
@@ -86,7 +87,11 @@ export default function TelegramFrens() {
             });
             let res = response.data;
         } catch (error: any) {
-            console.log(`An error occurred: ${error.message}`);
+            setError(true);
+            setErrMessage({ type: 'error', message: error.response.data.message });
+            setTimeout(() => {
+                setError(false);
+            }, 2000)
         }
     }
 
@@ -153,7 +158,7 @@ export default function TelegramFrens() {
                                                     </div>
                                                 </div>
 
-                                                <div onClick={() => claimInviteChallenge(item.challenge_id)} className={`rounded-full p-2   text-[#20251A] text-[12px] ${item.status == "UNCLAIMED" ? "bg-[#A5E314]" : "blur-[1px] bg-[#A5E314]/30 "} `}>
+                                                <div onClick={() => claimInviteChallenge(item.challenge_id)} className={`rounded-full p-2   text-[#20251A] text-[12px] ${item.status == "UNCLAIMED" ? "bg-[#A5E314]" : "bg-[#A5E314]/30 "} `}>
                                                     Claim <ArrowForward className='text-[12px]' />
                                                 </div>
 
