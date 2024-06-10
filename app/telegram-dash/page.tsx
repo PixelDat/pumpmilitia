@@ -6,7 +6,7 @@ import { ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle } from
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { checkClaimBalance, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
+import { checkClaimBalance, checkDownloadReward, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
@@ -28,7 +28,7 @@ export default function TelegramBotDash() {
     const [points, setPoints] = useState(0);
     const [update, setUpdate] = useState(0);
     const [showExplosion, setShowExplosion] = useState(false)
-    const [opened, setOpened] = React.useState(true);
+    const [opened, setOpened] = React.useState(false);
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
     const [gradeAmount, setGradeAmount] = useState(5000)
@@ -58,6 +58,11 @@ export default function TelegramBotDash() {
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
+                let checkedDownloaded = await checkDownloadReward(encrypt);
+                console.log(checkedDownloaded);
+                if (!checkedDownloaded.data.status) {
+                    setOpened(true)
+                }
                 // let claimResponse = await checkClaimBalance(encrypt)
                 // if (claimResponse.status) {
                 //     setSignedIn(true);
