@@ -7,13 +7,14 @@ import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
-import { boost } from './utils';
+import { ReferralItem, boost } from './utils';
 import axios from 'axios';
 import TelegramLayout from '../telegramLayout/layout';
 const Cookies = require("js-cookie");
 
 
 export default function TelegramFrens() {
+    const [referralList, setReferralList] = useState([] as ReferralItem[]);
     const [opened, setOpened] = React.useState(false);
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -36,6 +37,19 @@ export default function TelegramFrens() {
     }
 
     useEffect(() => {
+
+        (async () => {
+            try {
+                const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/list-referral-challenge", {
+                    headers: { Authorization: `${encrypt}` }
+                });
+                setReferralList(response.data);
+            }
+            catch (e) {
+                console.log(e)
+            }
+        })();
+
         (async () => {
             try {
                 const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/get-refLink", {
@@ -106,8 +120,8 @@ export default function TelegramFrens() {
                             </div>
                             <div className='space-y-4 w-full p-2'>
 
-                                {boost.map((item, index) => {
-                                    let percent = (500 / parseInt(item.amount)) * 100;
+                                {referralList.map((item, index) => {
+                                    let percent = (referrals / parseInt(item.referralExpectation)) * 100;
                                     return (
                                         <div key={`${index} ${item.challenge_title}`} className=' border bg-[#10130d]  border-[#476116]/50 p-2 rounded-2xl'>
                                             <div className='flex  flex-row justify-between items-center w-full gap-2   p-2'>
