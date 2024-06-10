@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { authUser } from './utils';
+import axios from 'axios';
 const Cookies = require("js-cookie");
 
 
@@ -17,9 +18,21 @@ export default function TelegramBot() {
     useEffect(() => {
         if (tg_username && uniqueId && referrerId) {
             Cookies.set("encrypt_id", uniqueId);
-            Cookies.set("reffererId", referrerId);
+            Cookies.set("referrerId", referrerId);
+            (async () => {
+                try {
+                    const response = await axios.post("https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/create-mining-account", {}, {
+                        headers: { Authorization: `${uniqueId}` }
+                    });
+                    location.href = '/telegram-dash'
+                }
+                catch (e) {
+                    console.log(e)
+                }
+            })();
+            //
 
-            location.href = '/telegram-dash'
+
         }
     }, [tg_username, uniqueId])
     return (

@@ -2,6 +2,9 @@ import { ArrowForward, CallMade, Check, Close, CopyAll } from '@mui/icons-materi
 import Image from 'next/image'
 import React from 'react'
 import CustomInput from '../../customInput/customInput';
+import { CircularProgress } from '@mui/material';
+import axios from 'axios';
+const Cookies = require("js-cookie");
 
 interface ModalComponent {
     text?: string;
@@ -12,9 +15,28 @@ interface ModalComponent {
     referralId?: string;
 }
 const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, key, setOpened, opened }) => {
-    const checkIfSignedIn = () => {
-        setOpened(false);
+    let encrypt = Cookies.get('encrypt_id');
+
+    const [clickedDownload, setClickedDownload] = React.useState(false);
+
+    const checkIfSignedIn = async () => {
+        if (!clickedDownload) return;
+        setLoading(true);
+        let url = "https://evp-referral-service-cea2e4kz5q-uc.a.run.app/claim-game-download-reward";
+        try {
+            const response = await axios.post(url, {}, {
+                headers: { Authorization: `${encrypt}` }
+            });
+            setLoading(false);
+            console.log(response);
+            setOpened(false);
+
+        } catch (error: any) {
+            setLoading(false);
+            console.log(error.response.data.message)
+        }
     }
+    const [loading, setLoading] = React.useState(false);
     return (
         <>
             {opened &&
@@ -49,12 +71,19 @@ const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, 
                                         />
                                     </div>
 
-                                    <div className={`flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center `}>
+                                    <div onClick={() => {
+                                        setLoading(true)
+                                        setClickedDownload(true)
+
+                                        setTimeout(() => {
+                                            setLoading(false)
+                                        }, 3000)
+                                    }} className={`flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center `}>
                                         Download <ArrowForward />
                                     </div>
 
-                                    <div onClick={() => { checkIfSignedIn() }} className='flex bg-[#52710A] border-[#A5E314] border-b-4 hover:border-b-0 hover:border-t-4 w-full p-3 rounded-2xl flex-row justify-center items-center '>
-                                        Continue
+                                    <div onClick={() => checkIfSignedIn()} className={`${!clickedDownload ? "blur-[2px]" : ""} flex bg-[#52710A] border-[#A5E314] border-b-4 hover:border-b-0 hover:border-t-4 w-full p-3 rounded-2xl flex-row justify-center items-center `}>
+                                        {loading ? <CircularProgress color='inherit' size={14} /> : "Continue"}
                                     </div>
                                 </div>
 

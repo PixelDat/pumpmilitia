@@ -6,10 +6,11 @@ import { ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle } from
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { checkClaimBalance, claimTapBalance, getTurboReward, getUserDetails, playAudio, stopAudio } from '@/lib/utils/request';
+import { checkClaimBalance, checkDownloadReward, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
+
 const Cookies = require("js-cookie");
 
 
@@ -24,7 +25,8 @@ export default function TelegramBotDash() {
         type: '',
         message: '',
     })
-
+    const [points, setPoints] = useState(0);
+    const [update, setUpdate] = useState(0);
     const [showExplosion, setShowExplosion] = useState(false)
     const [opened, setOpened] = React.useState(false);
     const [percent, setPercent] = useState(100);
@@ -50,31 +52,30 @@ export default function TelegramBotDash() {
 
     useEffect(() => {
         let referralId = Cookies.get('referrerId');
+        // console.log(referralId)
         setReferralId(referralId);
         (async () => {
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
-                let claimResponse = await checkClaimBalance(encrypt)
-                if (claimResponse.status) {
-                    setSignedIn(true);
-
+                let checkedDownloaded = await checkDownloadReward(encrypt);
+                console.log(checkedDownloaded);
+                if (!checkedDownloaded.data.status) {
+                    setOpened(true)
                 }
+                // let claimResponse = await checkClaimBalance(encrypt)
+                // if (claimResponse.status) {
+                //     setSignedIn(true);
+                // }
 
-                let turboReward = await getTurboReward(encrypt);
-                if (turboReward.status) {
-                    console.log(turboReward.data)
-                }
+                // let turboReward = await getTurboReward(encrypt);
+                // if (turboReward.status) {
+                //     console.log(turboReward.data)
+                // }
             }
         })()
 
-    }, [])
-
-    const claimBalance = async () => {
-
-
-
-    }
+    }, [update]);
 
     const updatePercentage = async () => {
         const walking = document.getElementById('walking') as HTMLImageElement;
@@ -83,10 +84,10 @@ export default function TelegramBotDash() {
 
         if (percent <= 0) return;
 
-
         //Claim Tap Balance
         let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
-        console.log(response);
+        setPoints(response.data.claimedPoints)
+        setUpdate(Math.random())
         let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
         // stopAudio(tapping)
@@ -98,6 +99,7 @@ export default function TelegramBotDash() {
         hideGif(walking);
         hideGif(move);
         hideGif(shoot);
+
 
         // Sequence of showing and hiding GIFs
         showGif(move);
@@ -119,13 +121,6 @@ export default function TelegramBotDash() {
         setShowers(prev => [...prev, Date.now()]);
     };
 
-    const showGif = (image: HTMLImageElement) => {
-        image.style.display = 'block';
-    };
-
-    const hideGif = (image: HTMLImageElement) => {
-        image.style.display = 'none';
-    };
 
 
     useEffect(() => {
@@ -184,6 +179,7 @@ export default function TelegramBotDash() {
 
                     <div className='w-10/12 m-auto'>
                         <Tapcomponent
+                            points={points}
                             isRunning={isRunning}
                             setIsRunning={setIsRunning}
                             calAmount={calAmount}

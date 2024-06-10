@@ -1,3 +1,13 @@
+export interface ReferralItem {
+
+    challenge_id: string;
+    challenge_title: string;
+    amount: number;
+    status: string;
+    referralExpectation: string;
+
+}
+
 export const boost = [
     {
         challenge_id: 1,
