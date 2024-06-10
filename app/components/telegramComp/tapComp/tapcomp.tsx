@@ -65,7 +65,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
         }, 2000);
 
         return () => clearTimeout(timeout);
-    }, [showers]);
+    }, [showers, points]);
 
     return (
         <div className='text-[#A5E314] py-4' >
