@@ -17,8 +17,6 @@ interface ModalComponent {
 const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, key, setOpened, opened }) => {
     let encrypt = Cookies.get('encrypt_id');
 
-    console.log(encrypt);
-
     const [clickedDownload, setClickedDownload] = React.useState(false);
 
     const checkIfSignedIn = async () => {

@@ -10,6 +10,7 @@ import { ToastComponent } from '../components/toastComponent/toastComponent';
 import { ReferralItem, boost } from './utils';
 import axios from 'axios';
 import TelegramLayout from '../telegramLayout/layout';
+import { playAudio } from '@/lib/utils/request';
 const Cookies = require("js-cookie");
 
 
@@ -77,6 +78,8 @@ export default function TelegramFrens() {
     }, [])
 
     const claimInviteChallenge = async (id: string) => {
+        let coingif = document.getElementById('coingif') as HTMLElement;
+        let coin = document.getElementById('coinaudio') as HTMLAudioElement;
         let params = {
             challenge_id: id,
         };
@@ -86,6 +89,8 @@ export default function TelegramFrens() {
                 headers: { Authorization: `${encrypt}` }
             });
             let res = response.data;
+            playAudio(coin)
+            coingif.style.display = 'block';
             setError(true);
             setErrMessage({ type: 'success', message: response.data.message });
             setTimeout(() => {
