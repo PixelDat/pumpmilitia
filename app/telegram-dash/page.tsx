@@ -49,6 +49,15 @@ export default function TelegramBotDash() {
             setShowExplosion(false);
         }, 2000)
     }
+    useEffect(() => {
+        (async () => {
+            let checkedDownloaded = await checkDownloadReward(encrypt);
+            console.log(checkedDownloaded);
+            if (!checkedDownloaded.data.status) {
+                setOpened(true)
+            }
+        })()
+    }, [])
 
     useEffect(() => {
         let referralId = Cookies.get('referrerId');
@@ -58,11 +67,6 @@ export default function TelegramBotDash() {
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
-                let checkedDownloaded = await checkDownloadReward(encrypt);
-                console.log(checkedDownloaded);
-                if (!checkedDownloaded.data.status) {
-                    setOpened(true)
-                }
                 // let claimResponse = await checkClaimBalance(encrypt)
                 // if (claimResponse.status) {
                 //     setSignedIn(true);
