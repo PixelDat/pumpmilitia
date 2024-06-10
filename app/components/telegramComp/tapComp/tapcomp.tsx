@@ -92,7 +92,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
 
             {showers.map((shower) => (
                 <div
-                    key={shower}
+                    key={`${shower} ${Math.random()}`}
                     className='absolute z-50 font-gameria text-[#A5E314] font-bold text-[40px]'
                     style={{
                         top: '50%',

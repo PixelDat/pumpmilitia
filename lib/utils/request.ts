@@ -122,3 +122,13 @@ export const stopAudio = (audio: HTMLAudioElement) => {
 
 
 
+
+
+
+export const showGif = (image: HTMLImageElement) => {
+    image.style.display = 'block';
+};
+
+export const hideGif = (image: HTMLImageElement) => {
+    image.style.display = 'none';
+};

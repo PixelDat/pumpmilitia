@@ -6,10 +6,11 @@ import { ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle } from
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { checkClaimBalance, claimTapBalance, getTurboReward, getUserDetails, playAudio, stopAudio } from '@/lib/utils/request';
+import { checkClaimBalance, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
+
 const Cookies = require("js-cookie");
 
 
@@ -71,19 +72,12 @@ export default function TelegramBotDash() {
 
     }, [update]);
 
-    const claimBalance = async () => {
-
-
-
-    }
-
     const updatePercentage = async () => {
         const walking = document.getElementById('walking') as HTMLImageElement;
         const move = document.getElementById('move') as HTMLImageElement;
         const shoot = document.getElementById('shoot') as HTMLImageElement;
 
         if (percent <= 0) return;
-
 
         //Claim Tap Balance
         let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
@@ -100,6 +94,7 @@ export default function TelegramBotDash() {
         hideGif(walking);
         hideGif(move);
         hideGif(shoot);
+
 
         // Sequence of showing and hiding GIFs
         showGif(move);
@@ -121,13 +116,6 @@ export default function TelegramBotDash() {
         setShowers(prev => [...prev, Date.now()]);
     };
 
-    const showGif = (image: HTMLImageElement) => {
-        image.style.display = 'block';
-    };
-
-    const hideGif = (image: HTMLImageElement) => {
-        image.style.display = 'none';
-    };
 
 
     useEffect(() => {
