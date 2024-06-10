@@ -85,7 +85,8 @@ export default function TelegramBotDash() {
 
 
         //Claim Tap Balance
-        await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
+        let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
+        console.log(response);
         let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
         // stopAudio(tapping)
