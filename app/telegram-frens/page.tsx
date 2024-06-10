@@ -86,6 +86,11 @@ export default function TelegramFrens() {
                 headers: { Authorization: `${encrypt}` }
             });
             let res = response.data;
+            setError(true);
+            setErrMessage({ type: 'success', message: response.data.message });
+            setTimeout(() => {
+                setError(false);
+            }, 2000)
         } catch (error: any) {
             setError(true);
             setErrMessage({ type: 'error', message: error.response.data.message });
