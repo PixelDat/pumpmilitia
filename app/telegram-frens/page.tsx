@@ -75,6 +75,21 @@ export default function TelegramFrens() {
         })()
     }, [])
 
+    const claimInviteChallenge = async (id: string) => {
+        let params = {
+            challenge_id: id,
+        };
+        let url = "https://evp-referral-service-cea2e4kz5q-uc.a.run.app/claim-challenge";
+        try {
+            const response = await axios.post(url, params, {
+                headers: { Authorization: `${encrypt}` }
+            });
+            let res = response.data;
+        } catch (error: any) {
+            console.log(`An error occurred: ${error.message}`);
+        }
+    }
+
     return (
         <TelegramLayout>
             <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-col justify-center items-start pt-10 text-[#EDF9D0] h-full w-screen" >
@@ -138,7 +153,7 @@ export default function TelegramFrens() {
                                                     </div>
                                                 </div>
 
-                                                <div className={`rounded-full p-2   text-[#20251A] text-[12px] ${item.status == "UNCLAIMED" ? "bg-[#A5E314]" : "blur-[1px] bg-[#A5E314]/30 "} `}>
+                                                <div onClick={() => claimInviteChallenge(item.challenge_id)} className={`rounded-full p-2   text-[#20251A] text-[12px] ${item.status == "UNCLAIMED" ? "bg-[#A5E314]" : "blur-[1px] bg-[#A5E314]/30 "} `}>
                                                     Claim <ArrowForward className='text-[12px]' />
                                                 </div>
 
