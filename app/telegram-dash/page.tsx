@@ -140,7 +140,7 @@ export default function TelegramBotDash() {
 
     return (
 
-        
+
 
         <TelegramLayout>
             <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] pt-12 text-[#EDF9D0] h-screen w-screen" >
