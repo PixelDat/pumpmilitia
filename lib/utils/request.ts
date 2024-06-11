@@ -24,6 +24,22 @@ export const getUserDetails = async (encrypt_id: string) => {
 
 }
 
+export async function checkMiningBalance(item: any, encrypt: string) {
+    let url = item.title.includes('X') ? "https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : item.title.includes('Telegram') ? "https://evp-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : item.title.includes('Discord') ? "https://evp-discord-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : ""
+
+    try {
+        const response = await axios.get(url, {
+            headers: { Authorization: `${encrypt}` }
+        });
+        return response.data.balance
+
+    }
+    catch (e) {
+        return 0;
+
+    }
+}
+
 export const createAccount = async (url: string, encrypt_id: string) => {
 
     try {

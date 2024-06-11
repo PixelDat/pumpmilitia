@@ -28,7 +28,7 @@ export default function TelegramBotDash() {
     const [points, setPoints] = useState(0);
     const [update, setUpdate] = useState(0);
     const [showExplosion, setShowExplosion] = useState(false)
-    const [opened, setOpened] = React.useState(false);
+    const [opened, setOpened] = React.useState(true);
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
     const [gradeAmount, setGradeAmount] = useState(5000)
@@ -125,8 +125,6 @@ export default function TelegramBotDash() {
         setShowers(prev => [...prev, Date.now()]);
     };
 
-
-
     useEffect(() => {
         if (percent < 100) {
             let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
@@ -139,15 +137,12 @@ export default function TelegramBotDash() {
     }, [showImage])
 
     return (
-
-        
-
         <TelegramLayout>
             <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] pt-12 text-[#EDF9D0] h-screen w-screen" >
                 {error &&
                     <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
                 }
-                <div className='flex flex-col  justify-center items-center'>
+                <div className='flex flex-col h-[60%]  justify-center items-center'>
                     <div className='text-center flex flex-col justify-center items-center space-y-2 '>
                         <div className=''>
                             <div className='flex flex-row justify-center items-center '>
@@ -156,7 +151,9 @@ export default function TelegramBotDash() {
                             </div>
 
                         </div>
-                        <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
+                        <div onClick={() => location.href = "/withdraw"}>
+                            <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
+                        </div>
 
                         <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-2 items-center'>
                             <Image src='/telegram/dashpage/trophy.png' alt='' width={24} height={24} priority />
@@ -167,9 +164,9 @@ export default function TelegramBotDash() {
 
                     <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex sm:py-5 h-[250px] md:h-[300px] relative flex-col justify-center items-center'>
                         <div className='relative -right-5 z-10 '>
-                            <img className='h-[250px] w-[200px] sm:max-h-[408px] sm:max-w-[260px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
-                            <img className='h-[250px] w-[200px] sm:max-h-[408px] sm:max-w-[260px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
-                            <img className='h-[250px] w-[200px] sm:max-h-[408px] sm:max-w-[260px]' id='shoot' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
+                            <img className='h-[270px] w-[220px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
+                            <img className='h-[270px] w-[220px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
+                            <img className='h-[270px] w-[220px]' id='shoot' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
                         </div>
 
                         {showExplosion &&
@@ -178,11 +175,14 @@ export default function TelegramBotDash() {
                             </div>
                         }
 
-                        {/* <div className='w-10/12 z-20 m-auto absolute bottom-0'>
-                            <TimerTapCount />
-                        </div> */}
-                    </div>
 
+                    </div>
+                </div>
+                {/* Timer and Tap */}
+                <div className='relative pt-14'>
+                    <div className='w-full flex flex-col justify-center items-center z-20 m-auto absolute  top-0'>
+                        <TimerTapCount />
+                    </div>
                     <div className='w-10/12 m-auto'>
                         <Tapcomponent
                             points={points}
@@ -201,10 +201,10 @@ export default function TelegramBotDash() {
                             setTapping={setTapping}
                             opened={opened} />
                     </div>
-
                 </div>
+
                 <DashBoardModal referralId={referralId} signedIn={signedIn} setOpened={setOpened} opened={opened} />
-                <GrenadeComponent percent={100} startExplosion={startExplosion} />
+                {/* <GrenadeComponent percent={100} startExplosion={startExplosion} /> */}
 
             </div >
         </TelegramLayout>
