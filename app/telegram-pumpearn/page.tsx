@@ -7,7 +7,7 @@ import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
 import { tasks } from './utils';
-import { createAccount, getUserDetails } from '@/lib/utils/request';
+import { checkMiningBalance, createAccount, getUserDetails } from '@/lib/utils/request';
 import TelegramLayout from '../telegramLayout/layout';
 import axios from 'axios';
 import CustomInput from '../components/customInput/customInput';
@@ -89,26 +89,12 @@ export default function TelegramPumpEarn() {
     }
 
     useEffect(() => {
-        async function checkMiningBalance(item: any) {
-            let url = item.title.includes('X') ? "https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : item.title.includes('Telegram') ? "https://evp-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : item.title.includes('Discord') ? "https://evp-discord-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : ""
 
-            try {
-                const response = await axios.get(url, {
-                    headers: { Authorization: `${encrypt}` }
-                });
-                return response.data.balance
-
-            }
-            catch (e) {
-                return 0;
-
-            }
-        }
         (async () => {
 
             let collatedTask = await Promise.all(tasks.map(async (item: any) => {
 
-                let res = await checkMiningBalance(item);
+                let res = await checkMiningBalance(item, encrypt);
                 if (res <= 0) {
                     return {
                         title: item.title,
