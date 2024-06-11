@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
-import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, CheckCircle, KeyboardArrowLeft, KeyboardArrowRight, Person2Rounded } from '@mui/icons-material';
+import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, CheckCircle, CheckCircleOutlineRounded, CheckCircleRounded, KeyboardArrowLeft, KeyboardArrowRight, Person2Rounded } from '@mui/icons-material';
 import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
@@ -62,7 +62,7 @@ export default function TelegramPumpEarn() {
 
     const [selected, setSelected] = useState(0)
 
-    const [checkedTask, setCheckedTask] = useState<String[]>([]);
+    const [checkedTask, setCheckedTask] = useState<{ title: string; amount: number; status: string; }[]>([]);
 
     useEffect(() => {
         (async () => {
@@ -89,33 +89,45 @@ export default function TelegramPumpEarn() {
     }
 
     useEffect(() => {
+        async function checkMiningBalance(item: any) {
+            let url = item.title.includes('X') ? "https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : item.title.includes('Telegram') ? "https://evp-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : item.title.includes('Discord') ? "https://evp-discord-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : ""
+
+            try {
+                const response = await axios.get(url, {
+                    headers: { Authorization: `${encrypt}` }
+                });
+                return response.data.balance
+
+            }
+            catch (e) {
+                return 0;
+
+            }
+        }
         (async () => {
-            let collatedTask = tasks.map(async (item) => {
-                let url = item.title.includes('X') ? "https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : item.title.includes('Telegram') ? "https://evp-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : item.title.includes('Discord') ? "https://evp-discord-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : ""
 
-                try {
-                    const response = await axios.post(url, {}, {
-                        headers: { Authorization: `${encrypt}` }
-                    });
-                    return {
-                        status: true,
-                        data: response.data
-                    }
+            let collatedTask = await Promise.all(tasks.map(async (item: any) => {
 
-                }
-                catch (e) {
-                    console.log(e)
+                let res = await checkMiningBalance(item);
+                if (res <= 0) {
                     return {
                         title: item.title,
                         amount: item.amount,
-                        status: 'claimed'
+                        status: "claimed",
                     }
+                } else {
+                    return {
+                        title: item.title,
+                        amount: item.amount,
+                        status: "unclaimed",
+                    }
+                };
 
-                }
             })
-            console.log(collatedTask);
-
+            )
+            setCheckedTask(collatedTask);
         })()
+
 
 
     }, [tasks])
@@ -364,8 +376,7 @@ export default function TelegramPumpEarn() {
                             <Image src='/telegram/task/tasks.png' alt='' width={66} height={24} priority />
                         </div>
                         <div className='flex flex-col  border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
-                            {tasks.map((item, index) => {
-
+                            {checkedTask.map((item, index) => {
                                 return (
                                     <div key={index} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
                                         {item.title.includes('Telegram') ?
@@ -386,15 +397,27 @@ export default function TelegramPumpEarn() {
 
                                             <h2 className='font-gameria text-[20px]'>{item.title}</h2>
                                             <div className='flex flex-row justify-start items-center'>
-                                                <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={24} height={24} priority />
-                                                <p className='text-[#D2F189] text-[16px] font-bold'>+{item.amount}</p>
+                                                {item.status == "claimed" ?
+                                                    <p className='text-[#D2F189] text-[16px] font-bold'>Completed Task</p> :
+                                                    <>
+                                                        <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={24} height={24} priority />
+                                                        <p className='text-[#D2F189] text-[16px] font-bold'>+{item.amount}</p>
+                                                    </>
+
+                                                }
+
                                             </div>
                                         </div>
                                         <div className='basis-1/5'>
-                                            <ArrowForward onClick={() => {
-                                                createMiningAccount(index)
+                                            {item.status == "claimed" ?
+                                                <CheckCircleOutlineRounded className='text-white rounded-full p-2 text-[40px] bg-[#A5E314]' />
+                                                :
 
-                                            }} className='text-[#20251A] rounded-full p-2 text-[40px] bg-[#A5E314]' />
+                                                <ArrowForward onClick={() => {
+                                                    createMiningAccount(index)
+
+                                                }} className='text-[#20251A] rounded-full p-2 text-[40px] bg-[#A5E314]' />
+                                            }
                                         </div>
 
                                     </div>
