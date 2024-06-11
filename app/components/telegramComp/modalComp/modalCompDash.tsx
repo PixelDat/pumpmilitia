@@ -1,9 +1,10 @@
-import { ArrowForward, CallMade, Check, Close, CopyAll } from '@mui/icons-material';
+import { ArrowForward, CallMade, CancelOutlined, Check, CheckCircle, Close, CopyAll } from '@mui/icons-material';
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import CustomInput from '../../customInput/customInput';
 import { CircularProgress } from '@mui/material';
 import axios from 'axios';
+import { ToastComponent } from '../../toastComponent/toastComponent';
 const Cookies = require("js-cookie");
 
 interface ModalComponent {
@@ -18,6 +19,22 @@ const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, 
     let encrypt = Cookies.get('encrypt_id');
 
     const [clickedDownload, setClickedDownload] = React.useState(false);
+
+    const [error, setError] = useState(false)
+    const [errMessage, setErrMessage] = useState({
+        type: '',
+        message: '',
+    })
+
+    function copyClip(text: string) {
+        navigator.clipboard.writeText(text);
+        setError(true);
+        setErrMessage({ type: 'success', message: 'Text Copied to Clipboard' });
+        setTimeout(() => {
+            setError(false);
+        }, 2000)
+    }
+
 
     const checkIfSignedIn = async () => {
         if (!clickedDownload) return;
@@ -42,7 +59,9 @@ const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, 
             {opened &&
                 <div className='' >
                     <div className='fixed top-0 h-screen w-screen z-50 bg-black/50 flex flex-col items-center justify-center'>
-                        {/* <Image src={icon} alt='' width={58} height={58} priority /> */}
+                        {error &&
+                            <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
+                        }
 
                         <div className='bg-[#20251A] h-content py-5 w-full bottom-0 absolute rounded-t-3xl p-3'>
 
@@ -67,7 +86,11 @@ const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, 
                                             value={referralId || ""}
                                             type='text'
                                             placeholder='Referral Code'
-                                            addOnEnd={<CopyAll color='inherit' />}
+                                            addOnEnd={
+                                                <span onClick={() => copyClip(referralId || "")}>
+                                                    <CopyAll color='inherit' />
+                                                </span>
+                                            }
                                         />
                                     </div>
 
