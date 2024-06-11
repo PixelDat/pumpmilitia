@@ -147,7 +147,7 @@ export default function TelegramBotDash() {
                 {error &&
                     <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
                 }
-                <div className='flex flex-col  justify-center items-center'>
+                <div className='flex flex-col h-[60%]  justify-center items-center'>
                     <div className='text-center flex flex-col justify-center items-center space-y-2 '>
                         <div className=''>
                             <div className='flex flex-row justify-center items-center '>
@@ -178,11 +178,14 @@ export default function TelegramBotDash() {
                             </div>
                         }
 
-                        {/* <div className='w-10/12 z-20 m-auto absolute bottom-0'>
-                            <TimerTapCount />
-                        </div> */}
-                    </div>
 
+                    </div>
+                </div>
+                {/* Timer and Tap */}
+                <div className='relative pt-14'>
+                    <div className='w-full flex flex-col justify-center items-center z-20 m-auto absolute  top-0'>
+                        <TimerTapCount />
+                    </div>
                     <div className='w-10/12 m-auto'>
                         <Tapcomponent
                             points={points}
@@ -201,10 +204,10 @@ export default function TelegramBotDash() {
                             setTapping={setTapping}
                             opened={opened} />
                     </div>
-
                 </div>
+
                 <DashBoardModal referralId={referralId} signedIn={signedIn} setOpened={setOpened} opened={opened} />
-                <GrenadeComponent percent={100} startExplosion={startExplosion} />
+                {/* <GrenadeComponent percent={100} startExplosion={startExplosion} /> */}
 
             </div >
         </TelegramLayout>
