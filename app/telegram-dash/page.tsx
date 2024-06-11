@@ -156,7 +156,9 @@ export default function TelegramBotDash() {
                             </div>
 
                         </div>
-                        <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
+                        <div onClick={() => location.href = "/withdraw"}>
+                            <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
+                        </div>
 
                         <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-2 items-center'>
                             <Image src='/telegram/dashpage/trophy.png' alt='' width={24} height={24} priority />
