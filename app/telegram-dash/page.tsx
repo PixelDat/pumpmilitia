@@ -49,6 +49,15 @@ export default function TelegramBotDash() {
             setShowExplosion(false);
         }, 2000)
     }
+    useEffect(() => {
+        (async () => {
+            let checkedDownloaded = await checkDownloadReward(encrypt);
+            console.log(checkedDownloaded);
+            if (!checkedDownloaded.data.status) {
+                setOpened(true)
+            }
+        })()
+    }, [])
 
     useEffect(() => {
         let referralId = Cookies.get('referrerId');
@@ -58,11 +67,6 @@ export default function TelegramBotDash() {
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
-                let checkedDownloaded = await checkDownloadReward(encrypt);
-                console.log(checkedDownloaded);
-                if (!checkedDownloaded.data.status) {
-                    setOpened(true)
-                }
                 // let claimResponse = await checkClaimBalance(encrypt)
                 // if (claimResponse.status) {
                 //     setSignedIn(true);
@@ -136,6 +140,8 @@ export default function TelegramBotDash() {
 
     return (
 
+        
+
         <TelegramLayout>
             <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] pt-12 text-[#EDF9D0] h-screen w-screen" >
                 {error &&
@@ -159,11 +165,11 @@ export default function TelegramBotDash() {
                         </div>
                     </div>
 
-                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex sm:py-5 md:h-[300px] relative flex-col justify-center items-center'>
+                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex sm:py-5 h-[250px] md:h-[300px] relative flex-col justify-center items-center'>
                         <div className='relative -right-5 z-10 '>
-                            <img className='max-h-[408px] max-w-[260px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
-                            <img className='max-h-[408px] max-w-[260px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
-                            <img className='max-h-[408px] max-w-[260px]' id='shoot' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
+                            <img className='h-[250px] w-[200px] sm:max-h-[408px] sm:max-w-[260px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
+                            <img className='h-[250px] w-[200px] sm:max-h-[408px] sm:max-w-[260px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
+                            <img className='h-[250px] w-[200px] sm:max-h-[408px] sm:max-w-[260px]' id='shoot' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
                         </div>
 
                         {showExplosion &&
