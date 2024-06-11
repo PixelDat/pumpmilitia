@@ -14,6 +14,17 @@ import CustomInput from '../components/customInput/customInput';
 import { CircularProgress } from '@mui/material';
 const Cookies = require("js-cookie");
 
+interface UserType {
+    username: string,
+    email: string,
+    role: string,
+    profilePhoto: string,
+    user_id: string,
+    twitter_id: string,
+    google_id: string,
+    points: number,
+    updated_at: string
+}
 
 export default function TelegramPumpEarn() {
     const [loading, setLoading] = useState(false)
@@ -414,14 +425,6 @@ export default function TelegramPumpEarn() {
                                                                     <div>
                                                                         <div className="flex flex-row gap-8 items-center">
                                                                             <h4 className="text-[14px] md:text-[25px] font-gameria text-center">{task.task_head}</h4>
-                                                                            {/* <div>
-                                    <Image
-                                      src={task.icon}
-                                      width={20}
-                                      height={20}
-                                      priority
-                                      alt="" />
-                                  </div> */}
                                                                         </div>
                                                                         <p className="text-[#C3EC62] font-bold">$PUMP: {task.reward_points}</p>
                                                                     </div>
@@ -434,7 +437,6 @@ export default function TelegramPumpEarn() {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                {/* <hr /> */}
                                                             </div>
                                                         )
                                                     })}
@@ -473,25 +475,10 @@ export default function TelegramPumpEarn() {
                                                                             alt="" />
                                                                     </div>
                                                                     <div className="md:hidden h-[53px] w-[53px] bg-center bg-[url('/images/tasksItem.png')] rounded">
-                                                                        {/* <Image
-                                  className="m-auto"
-                                  style={{ objectFit: 'fill' }}
-                                  src={'/images/tasksItem.png'}
-                                  fill={true}
-                                  priority
-                                  alt="" /> */}
                                                                     </div>
                                                                     <div>
                                                                         <div className="flex flex-row gap-8 items-center">
                                                                             <h4 className="text-[14px] md:text-[25px] w-full font-gameria text-center">{task.task_head}</h4>
-                                                                            {/* <div>
-                                    <Image
-                                      src={task.icon}
-                                      width={20}
-                                      height={20}
-                                      priority
-                                      alt="" />
-                                  </div> */}
                                                                         </div>
                                                                         <p className="text-[#C3EC62] font-bold">$PUMP: {task.reward_points}</p>
                                                                     </div>

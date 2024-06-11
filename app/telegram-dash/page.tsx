@@ -28,7 +28,7 @@ export default function TelegramBotDash() {
     const [points, setPoints] = useState(0);
     const [update, setUpdate] = useState(0);
     const [showExplosion, setShowExplosion] = useState(false)
-    const [opened, setOpened] = React.useState(false);
+    const [opened, setOpened] = React.useState(true);
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
     const [gradeAmount, setGradeAmount] = useState(5000)
