@@ -26,9 +26,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
     gradeAmount, setGradeAmount, percent, setPercent, tapping, setTapping,
     showers, setShowers, updatePercentage, calAmount, setCalAmount,
     opened, isRunning, setIsRunning }) => {
-
     const time = 15000;
-
     // this returns to default value tapping
     useEffect(() => {
         let timeout: NodeJS.Timeout;
@@ -89,7 +87,6 @@ const Tapcomponent: React.FC<Taptypes> = ({
                     <CircleGauge isRunning={isRunning} setIsRunning={setIsRunning} updatePercent={updatePercentage} percent={percent} />
                 </div>
             </div>
-
             {showers.map((shower) => (
                 <div
                     key={`${shower} ${Math.random()}`}
