@@ -7,6 +7,7 @@ import axios from 'axios';
 import { ToastComponent } from '../../toastComponent/toastComponent';
 const Cookies = require("js-cookie");
 
+
 interface ModalComponent {
     text?: string;
     key?: string;
