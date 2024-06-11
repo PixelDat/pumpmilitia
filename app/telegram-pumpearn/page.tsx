@@ -52,6 +52,8 @@ export default function TelegramPumpEarn() {
     })
     const [opened, setOpened] = React.useState(false);
     const [selectedTask, setSelectedTask] = React.useState("")
+    const [selecteMiningTask, setSelectedMiningTask] = React.useState(0)
+
     const [update, setUpdate] = useState(0);
     const [userBalance, setUserBalance] = useState(0);
     const [signedIn, setSignedIn] = useState(false);
@@ -60,6 +62,7 @@ export default function TelegramPumpEarn() {
 
     const [selected, setSelected] = useState(0)
 
+    const [checkedTask, setCheckedTask] = useState<String[]>([]);
 
     useEffect(() => {
         (async () => {
@@ -76,15 +79,46 @@ export default function TelegramPumpEarn() {
         let title = tasks[id].title;
         let url = title.includes('X') ? "https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : title.includes('Telegram') ? "https://evp-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : title.includes('Discord') ? "https://evp-discord-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account" : ""
 
-        // let response = await createAccount(url, encrypt)
-        // if (response.status == true) {
-        setSelectedTask(id);
-        setOpened(true);
-        // console.log(response)
-        // }
+        let response = await createAccount(url, encrypt)
+        if (response.status == true) {
+            setSelectedMiningTask(id);
+            setOpened(true);
+            console.log(response)
+        }
 
     }
 
+    useEffect(() => {
+        (async () => {
+            let collatedTask = tasks.map(async (item) => {
+                let url = item.title.includes('X') ? "https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : item.title.includes('Telegram') ? "https://evp-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : item.title.includes('Discord') ? "https://evp-discord-join-task-token-minner-service-cea2e4kz5q-uc.a.run.app/get-mining-balance" : ""
+
+                try {
+                    const response = await axios.post(url, {}, {
+                        headers: { Authorization: `${encrypt}` }
+                    });
+                    return {
+                        status: true,
+                        data: response.data
+                    }
+
+                }
+                catch (e) {
+                    console.log(e)
+                    return {
+                        title: item.title,
+                        amount: item.amount,
+                        status: 'claimed'
+                    }
+
+                }
+            })
+            console.log(collatedTask);
+
+        })()
+
+
+    }, [tasks])
 
     useEffect(() => {
         if (!encrypt) {
@@ -280,7 +314,6 @@ export default function TelegramPumpEarn() {
         }
     }
     return (
-
         <TelegramLayout>
             <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-12 text-[#EDF9D0] w-screen" >
                 <div className='flex  flex-col justify-between items-center space-y-8'>
@@ -332,6 +365,7 @@ export default function TelegramPumpEarn() {
                         </div>
                         <div className='flex flex-col  border-[#374C07] border rounded-2xl items-center divide-y divide-[#374C07]'>
                             {tasks.map((item, index) => {
+
                                 return (
                                     <div key={index} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
                                         {item.title.includes('Telegram') ?
@@ -537,7 +571,7 @@ export default function TelegramPumpEarn() {
                     </div>
                 </div>
             </div >
-            <CustomModal setUpdate={setUpdate} encrypt={encrypt} taskIndex={Number(selectedTask)} setOpened={setOpened} opened={opened} />
+            <CustomModal setUpdate={setUpdate} encrypt={encrypt} taskIndex={selecteMiningTask} setOpened={setOpened} opened={opened} />
         </TelegramLayout>
     )
 }
