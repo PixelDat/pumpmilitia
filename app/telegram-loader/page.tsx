@@ -42,7 +42,7 @@ export default function TelegramBot() {
             <div className='flex flex-row justify-center items-center h-screen m-auto'>
                 <div className='space-y-4'>
                     <div className='flex flex-row justify-center items-center'>
-                        <Image src='/telegram/dashpage/loader.png' alt='' width={355} height={272} />
+                        <Image src='/telegram/frens/loader.png' alt='' width={355} height={272} />
                     </div>
                     <div className='flex flex-row justify-center items-center'>
                         <Image src='/telegram/dashpage/loadingtxt.png' alt='' width={147} height={31} />

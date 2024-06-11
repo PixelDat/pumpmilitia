@@ -116,7 +116,7 @@ export default function TelegramFrens() {
                         <div className=''>
                             <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Your Frens</h2></div>
                             <div className='flex flex-row justify-center items-center gap-2'>
-                                <Image src='/telegram/dashpage/greencoin.png' alt='' width={58} height={58} priority />
+                                <Image src='/telegram/frens/frensimg.png' alt='' width={58} height={58} priority />
                                 <p className='font-gameria text-[40px]'>{referrals} FRENS</p>
                             </div>
 
