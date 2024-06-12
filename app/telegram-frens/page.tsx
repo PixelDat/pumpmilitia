@@ -21,6 +21,8 @@ export default function TelegramFrens() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [refLink, setRefLink] = useState('')
+    const [refMessage, setRefMessage] = useState('')
+
     const [referrals, setReferrals] = useState(0);
 
     let encrypt = Cookies.get('encrypt_id');
@@ -57,6 +59,7 @@ export default function TelegramFrens() {
                 const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/get-refLink", {
                     headers: { Authorization: `${encrypt}` }
                 });
+                setRefMessage(response.data.inviteFriendsMsgCondtruct)
                 setRefLink(response.data.refLink)
             }
             catch (e) {
@@ -216,9 +219,12 @@ export default function TelegramFrens() {
                             We haven’t found any users that joined the game
                             with your invite code. Invite friends to receive bonuses!
                         </h2>
-                        <div className={`flex bg-[#A5E314] gap-2  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center `}>
+                        <a
+                            target='_blank'
+                            href={`https://t.me/share/url?url=${refLink}&text=${refMessage}`}
+                            className={`flex bg-[#A5E314] gap-2  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center `}>
                             <Image src='/telegram/social/telegram.png' alt='' width={24} height={24} priority /> Invite Frens
-                        </div>
+                        </a>
 
                     </div>
                 </div >
