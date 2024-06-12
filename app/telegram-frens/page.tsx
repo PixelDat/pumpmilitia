@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
-import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle, CopyAll, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
+import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle, CheckCircleOutline, CopyAll, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import IconButton from '../components/telegramComp/tapComp/iconbuttonComp';
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import CustomModal from '../components/telegramComp/modalComp/modalComp';
@@ -169,7 +169,7 @@ export default function TelegramFrens() {
                                                 </div>
 
                                                 <div onClick={() => claimInviteChallenge(item.challenge_id)} className={`rounded-full p-2   text-[#20251A] text-[12px] ${item.status == "UNCLAIMED" ? "bg-[#A5E314]" : "bg-[#A5E314]/30 "} `}>
-                                                    Claim <ArrowForward className='text-[12px]' />
+                                                    Claim {item.status == "UNCLAIMED" < ArrowForward className='text-[12px]' /> : <CheckCircleOutline /> }
                                                 </div>
 
                                             </div>

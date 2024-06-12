@@ -105,7 +105,7 @@ const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, 
                                         setTimeout(() => {
                                             setLoading(false)
                                         }, 3000)
-                                    }} href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US" className={`flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row items-center gap-x-2 justify-center text-black font-bold items-center `}>
+                                    }} target='_blank' href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US" className={`flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row items-center gap-x-2 justify-center text-black font-bold items-center `}>
                                         <Image src="/telegram/frens/icongame.png" height={24} width={24} alt='Iconsss' />   Download <ArrowForward />
                                     </a>
 
