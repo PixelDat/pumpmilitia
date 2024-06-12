@@ -53,7 +53,7 @@ export default function TelegramBotDash() {
     useEffect(() => {
         (async () => {
             let checkedDownloaded = await checkDownloadReward(encrypt);
-            console.log(checkedDownloaded);
+
             if (!checkedDownloaded.data.status) {
                 setOpened(true)
             }
