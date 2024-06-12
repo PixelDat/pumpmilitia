@@ -18,11 +18,13 @@ interface Taptypes {
     isRunning: boolean;
     setIsRunning: Function;
     points: number;
+    fullBalance: boolean;
 }
 
 
 const Tapcomponent: React.FC<Taptypes> = ({
     points,
+    fullBalance,
     gradeAmount, setGradeAmount, percent, setPercent, tapping, setTapping,
     showers, setShowers, updatePercentage, calAmount, setCalAmount,
     opened, isRunning, setIsRunning }) => {
@@ -84,7 +86,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
                     </div>
                 </div>
                 <div>
-                    <CircleGauge isRunning={isRunning} setIsRunning={setIsRunning} updatePercent={updatePercentage} percent={percent} />
+                    <CircleGauge fullBalance={fullBalance} isRunning={isRunning} setIsRunning={setIsRunning} updatePercent={updatePercentage} percent={percent} />
                 </div>
             </div>
             {showers.map((shower) => (

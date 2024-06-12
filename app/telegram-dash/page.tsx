@@ -40,13 +40,8 @@ export default function TelegramBotDash() {
     const [signedIn, setSignedIn] = useState(true);
     const [isRunning, setIsRunning] = useState(false);
     const [fullBalance, setFullBalance] = useState(true);
+    const [claimTime, setClaimTime] = useState("2024-06-12T19:24:02.000Z")
 
-    // const [miningBal, setMiningBal] = useState({
-    //     balance: "1000",
-    //     fullBalanceBox: true,
-    //     fullBalaneAmount: "1000",
-    //     unReadyToClaimMsg: "",
-    // });
 
     const startExplosion = () => {
         setShowExplosion(true)
@@ -110,6 +105,12 @@ export default function TelegramBotDash() {
         const shoot = document.getElementById('shoot') as HTMLImageElement;
 
         if (percent <= 0) return;
+        if (!fullBalance) {
+            setError(true);
+            setErrMessage({ type: 'error', message: "Your balance is not ready to be claimed yet." });
+            setTimeout(() => { setError(false) }, 2000)
+            return;
+        }
 
         //Claim Tap Balance
         let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
@@ -205,7 +206,7 @@ export default function TelegramBotDash() {
                 <div className='relative pt-14'>
                     {!fullBalance &&
                         <div className='w-full flex flex-col justify-center items-center z-20 m-auto absolute  top-0'>
-                            <TimerTapCount />
+                            <TimerTapCount claimTime={claimTime} setUpdate={setUpdate} />
                         </div>
                     }
                     <div className='w-10/12 m-auto'>
@@ -224,7 +225,9 @@ export default function TelegramBotDash() {
                             showers={showers}
                             setShowers={setShowers}
                             setTapping={setTapping}
-                            opened={opened} />
+                            opened={opened}
+                            fullBalance={fullBalance}
+                        />
                     </div>
                 </div>
 
