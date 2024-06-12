@@ -106,6 +106,23 @@ export const checkDownloadReward = async (encrypt_id: string) => {
     }
 }
 
+
+export const checkMiningBalanceDash = async (encrypt_id: string) => {
+    let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/get-mining-balance";
+
+    try {
+        const response = await axios.get(url, {
+            headers: { Authorization: `${encrypt_id}` }
+        });
+        return response;
+
+    }
+    catch (e) {
+        console.log(e)
+        return e;
+    }
+}
+
 export const checkClaimBalance = async (encrypt_id: string) => {
     let url = "https://evp-user-service-cea2e4kz5q-uc.a.run.app/check-claimed-game-install-reward";
 
@@ -149,6 +166,50 @@ export const getTurboReward = async (encrypt_id: string) => {
     }
 }
 
+export const checkTurboBoostOn = async (encrypt_id: string) => {
+    let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-boosts";
+
+    try {
+        const response = await axios.get(url, {
+            headers: { Authorization: `${encrypt_id}` }
+        });
+        return {
+            status: true,
+            data: response.data
+        }
+
+    }
+    catch (e) {
+        console.log(e)
+        return {
+            status: false,
+            data: []
+        }
+    }
+}
+
+export const checkRefill = async (encrypt_id: string) => {
+    let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-refill";
+
+    try {
+        const response = await axios.get(url, {
+            headers: { Authorization: `${encrypt_id}` }
+        });
+        return {
+            status: true,
+            data: response.data
+        }
+
+    }
+    catch (e) {
+        console.log(e)
+        return {
+            status: false,
+            data: []
+        }
+    }
+}
+
 
 export const playAudio = (audio: HTMLAudioElement) => {
     audio.play();
@@ -157,7 +218,6 @@ export const stopAudio = (audio: HTMLAudioElement) => {
     audio.pause();
     audio.currentTime = 0;
 }
-
 
 
 export const claimBalance = async (url: string, encrypt_id: string) => {
@@ -179,8 +239,6 @@ export const claimBalance = async (url: string, encrypt_id: string) => {
         }
     }
 }
-
-
 
 export const showGif = (image: HTMLImageElement) => {
     image.style.display = 'block';
