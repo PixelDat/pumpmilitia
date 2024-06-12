@@ -6,7 +6,7 @@ import { ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle } from
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { checkClaimBalance, checkDownloadReward, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
+import { checkClaimBalance, checkDownloadReward, checkMiningBalanceDash, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
@@ -56,6 +56,11 @@ export default function TelegramBotDash() {
             if (!checkedDownloaded.data.status) {
                 setOpened(true)
             }
+        })();
+
+        (async () => {
+            let checkMBalance = await checkMiningBalanceDash(encrypt);
+            console.log(checkMBalance)
         })()
     }, [])
 
