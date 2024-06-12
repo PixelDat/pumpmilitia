@@ -88,7 +88,6 @@ export default function VerifyEmail() {
                 };
                 try {
                     const response = await axios.request(config);
-                    console.log(response);
                 } catch (error: any) {
                     if (error.response && error.response.status === 400) {
                     } else {

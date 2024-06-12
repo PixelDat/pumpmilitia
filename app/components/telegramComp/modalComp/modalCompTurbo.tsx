@@ -2,6 +2,7 @@ import { ArrowForward, CallMade, Check, Close, CopyAll, Rocket } from '@mui/icon
 import Image from 'next/image'
 import React from 'react'
 import CustomInput from '../../customInput/customInput';
+import axios from 'axios';
 
 interface ModalComponent {
     text?: string;
@@ -10,8 +11,11 @@ interface ModalComponent {
     setOpened: Function;
     opened: boolean;
     selectedBoost?: string;
+    startBoost: Function;
 }
-const TurboModal: React.FC<ModalComponent> = ({ selectedBoost, text, title, key, setOpened, opened }) => {
+const TurboModal: React.FC<ModalComponent> = ({ selectedBoost, startBoost, text, title, key, setOpened, opened }) => {
+
+
     return (
         <>
             {opened &&
@@ -49,7 +53,7 @@ const TurboModal: React.FC<ModalComponent> = ({ selectedBoost, text, title, key,
 
 
 
-                                    <div className='rounded-3xl flex bg-[#A5E314] hover:border-t-4 hover:border-b-0   text-black flex-row justify-center items-center gap-3 w-full border-b-4 border-[#52710A] p-3'>
+                                    <div onClick={() => startBoost()} className='rounded-3xl flex bg-[#A5E314] hover:border-t-4 hover:border-b-0   text-black flex-row justify-center items-center gap-3 w-full border-b-4 border-[#52710A] p-3'>
                                         <Rocket className='rotate-45 text-black' />
                                         <p className='text-center font-bold text-[14px]'>Claim {selectedBoost !== "Play" && selectedBoost} Boost </p>
                                     </div>

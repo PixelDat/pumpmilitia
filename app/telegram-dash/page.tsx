@@ -6,12 +6,13 @@ import { ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle } from
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { checkClaimBalance, checkDownloadReward, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
+import { checkClaimBalance, checkDownloadReward, checkMiningBalanceDash, checkRefill, checkTurboBoostOn, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
 
 const Cookies = require("js-cookie");
+
 
 
 export default function TelegramBotDash() {
@@ -52,11 +53,28 @@ export default function TelegramBotDash() {
     useEffect(() => {
         (async () => {
             let checkedDownloaded = await checkDownloadReward(encrypt);
-            console.log(checkedDownloaded);
+
             if (!checkedDownloaded.data.status) {
                 setOpened(true)
             }
+        })();
+
+        // (async () => {
+        //     let checkMBalance = await checkMiningBalanceDash(encrypt);
+        //     console.log(checkMBalance)
+        // })();
+
+        (async () => {
+            let checkBoost = await checkTurboBoostOn(encrypt);
+            // console.log(checkBoost, 'Booster');
+        })();
+
+        (async () => {
+            let checkRefillBoost = await checkRefill(encrypt);
+            console.log(checkRefillBoost, 'Refill');
         })()
+
+
     }, [])
 
     useEffect(() => {
@@ -67,6 +85,8 @@ export default function TelegramBotDash() {
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
+                // CheckBoost 
+
                 // let claimResponse = await checkClaimBalance(encrypt)
                 // if (claimResponse.status) {
                 //     setSignedIn(true);

@@ -9,24 +9,30 @@ import TurboModal from '../components/telegramComp/modalComp/modalCompTurbo';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import { getUserDetails } from '@/lib/utils/request';
 import TelegramLayout from '../telegramLayout/layout';
+import axios from 'axios';
 const Cookies = require("js-cookie");
 
 let boost = [
     {
         title: "Invite Friends",
-        amount: "300,000",
-        target: '/telegram-frens'
+        amount: "3,000",
+        target: '/telegram-frens',
+        image: '/telegram/frens/frensimg.png'
     },
     {
         title: "Play Pump Militia",
         amount: "300,000",
-        target: '/telegram-dash'
+        target: '/telegram-dash',
+        image: '/telegram/boost/play.png'
+
 
     },
     {
         title: "Quests",
         amount: "300,000",
-        target: '/telegram-pumpearn'
+        target: '/telegram-pumpearn',
+        image: '/telegram/frens/questimg.png'
+
 
     }
 ]
@@ -47,17 +53,75 @@ export default function TelegramBoosters() {
     const [update, setUpdate] = useState(0);
     const [userBalance, setUserBalance] = useState(0);
 
+    const [boostStat, setBoostStat] = useState({
+        remainingTurboBoost: 0,
+        remainingReloadBoost: 0,
+        maxTurboBoost: 0,
+        maxReloadBoost: 0
+    })
+
     useEffect(() => {
         (async () => {
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
-                // setSignedIn(true);
             }
-        })()
+        })();
+        //check Boosts
+        (async () => {
+            let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-boosts"
+            try {
+                const response = await axios.get(url, {
+                    headers: { Authorization: `${encrypt}` }
+                });
+                setBoostStat({
+                    remainingTurboBoost: response.data.remainingTurboBoosts,
+                    remainingReloadBoost: response.data.remainingReloadBoosts,
+                    maxTurboBoost: response.data.maxDailyTurboBoosts,
+                    maxReloadBoost: response.data.maxDailyReloadBoosts
+                })
+                // location.href = '/telegram-dash';
 
+            } catch (error: any) {
+                setError(true);
+                setErrMessage({ type: 'error', message: error.response.data.message });
+                setLoading(false);
+                setTimeout(() => {
+                    setError(false);
+                }, 2000)
+            }
+
+        })();
     }, [update])
 
+    const startBoost = async () => {
+        if (selectedBoost != "Blast" && selectedBoost != "Reload") {
+            return;
+        };
+        let url = selectedBoost == "Blast" ? "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/turbo-boost" : "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/reload-boost";
+        try {
+            const response = await axios.post(url, {}, {
+                headers: { Authorization: `${encrypt}` }
+            });
+            setError(true);
+            setErrMessage({ type: 'success', message: response.data.message });
+            setLoading(false);
+            setTimeout(() => {
+                setError(false);
+            }, 2000)
+            location.href = '/telegram-dash';
+
+        } catch (error: any) {
+            setError(true);
+            setErrMessage({ type: 'error', message: error.response.data.message });
+            setLoading(false);
+            setTimeout(() => {
+                setError(false);
+            }, 2000)
+        }
+
+
+    }
     return (
         <TelegramLayout>
             <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
@@ -91,7 +155,7 @@ export default function TelegramBoosters() {
                             }} className='basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
                                 <Image src='/telegram/boost/turbo.png' alt='' width={48} height={48} priority />
                                 <h2 className='font-gameria'>Blast</h2>
-                                <p className='text-[#6E970D]'> 2 /2 Boost</p>
+                                <p className='text-[#6E970D]'> {boostStat.remainingTurboBoost} /{boostStat.maxTurboBoost} Boost</p>
                             </div>
                             <div onClick={() => {
                                 setSelectedBoost("Reload")
@@ -100,7 +164,7 @@ export default function TelegramBoosters() {
                                 className=' basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
                                 <Image src='/telegram/boost/reload.png' alt='' width={48} height={48} priority />
                                 <h2 className='font-gameria'>Reload</h2>
-                                <p className='text-[#6E970D]'> 2 /2 Boost</p>
+                                <p className='text-[#6E970D]'> {boostStat.remainingReloadBoost} /{boostStat.maxReloadBoost} Boost</p>
                             </div>
                         </div>
 
@@ -122,7 +186,7 @@ export default function TelegramBoosters() {
                                             location.href = `${item.target}`
                                         }
                                     }} className='flex flex-row w-full gap-2   p-3 justify-center items-center'>
-                                        <Image className='' src='/telegram/boost/emojilovee.png' alt='' width={32} height={32} priority />
+                                        <Image className='' src={item.image} alt='' width={35} height={35} priority />
                                         <div className='basis-4/5'>
 
                                             <h2 className='font-gameria text-[24px]'>{item.title}</h2>
@@ -145,7 +209,7 @@ export default function TelegramBoosters() {
                     </div>
 
 
-                    <TurboModal selectedBoost={selectedBoost} setOpened={setOpened} opened={opened} />
+                    <TurboModal selectedBoost={selectedBoost} startBoost={startBoost} setOpened={setOpened} opened={opened} />
                 </div >
 
 

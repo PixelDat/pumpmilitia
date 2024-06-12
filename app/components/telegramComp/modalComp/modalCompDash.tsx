@@ -46,7 +46,6 @@ const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, 
                 headers: { Authorization: `${encrypt}` }
             });
             setLoading(false);
-            console.log(response);
             setError(true);
             setErrMessage({ type: 'success', message: response.data.message });
             setTimeout(() => {
