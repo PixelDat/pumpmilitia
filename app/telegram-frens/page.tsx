@@ -11,6 +11,7 @@ import { ReferralItem, boost } from './utils';
 import axios from 'axios';
 import TelegramLayout from '../telegramLayout/layout';
 import { playAudio } from '@/lib/utils/request';
+import { CircularProgress } from '@mui/material';
 const Cookies = require("js-cookie");
 
 
@@ -38,7 +39,7 @@ export default function TelegramFrens() {
     }
 
     useEffect(() => {
-
+        setLoading(true);
         (async () => {
             try {
                 const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/list-referral-challenge", {
@@ -69,6 +70,8 @@ export default function TelegramFrens() {
                     headers: { Authorization: `${encrypt}` }
                 });
                 setReferrals(response.data.totalReferees)
+                setLoading(false)
+
             }
             catch (e) {
                 console.log(e)
@@ -133,7 +136,12 @@ export default function TelegramFrens() {
                                     <h2 className='font-gameria text-[24px]'>Referral Link</h2>
                                     <p className='text-[#EDF9D0] w-10/12'>Invite your frens and get bonuses!</p>
                                     <div className='flex flex-row justify-between items-center border-[#A5E314] border p-1 rounded-lg '>
-                                        <span>{`${refLink.slice(0, 20)}...${refLink.slice(30, refLink.length)}`}</span>
+                                        <span>
+                                            {loading ? <CircularProgress color="inherit" size={14} /> : <>
+                                                {`${refLink.slice(0, 20)}...${refLink.slice(30, refLink.length)}`}
+                                            </>}
+
+                                        </span>
                                         <CopyAll onClick={() => copyClip(refLink)} className='text-[18px]' />
                                     </div>
                                 </div>
@@ -168,14 +176,20 @@ export default function TelegramFrens() {
                                                     </div>
                                                 </div>
 
-                                                <div onClick={() => claimInviteChallenge(item.challenge_id)} className={`rounded-full p-2   text-[#20251A] text-[12px] ${item.status == "UNCLAIMED" ? "bg-[#A5E314]" : "bg-[#A5E314]/30 "} `}>
-                                                    Claim {item.status == "UNCLAIMED" < ArrowForward className='text-[12px]' /> : <CheckCircleOutline /> }
+                                                <div onClick={() => claimInviteChallenge(item.challenge_id)} className={`rounded-full p-2 font-bold   text-[#20251A] text-[12px] ${item.status == "UNCLAIMED" ? "bg-[#A5E314]" : "bg-[#A5E314]/30 "} `}>
+                                                    {item.status == "UNCLAIMED" ? <>
+
+                                                        Claim < ArrowForward className='text-[12px]' /> </> :
+                                                        <>
+                                                            Claimed <CheckCircleOutline />
+                                                        </>
+                                                    }
                                                 </div>
 
                                             </div>
                                             <div className='w-full'>
                                                 <div className=' bg-[#374C07] w-full m-auto p-1 rounded-full'>
-                                                    <div style={{ width: `${100 - percent}%` }} className='h-[14px]  bg-gradient-to-b from-[#A5E314] rounded-full'>
+                                                    <div style={{ width: `${percent}%` }} className='h-[14px]  bg-gradient-to-b from-[#A5E314] rounded-full'>
                                                     </div>
                                                 </div>
                                             </div>
