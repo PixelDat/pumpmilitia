@@ -28,16 +28,16 @@ const Tapcomponent: React.FC<Taptypes> = ({
     opened, isRunning, setIsRunning }) => {
     const time = 15000;
     // this returns to default value tapping
-    useEffect(() => {
-        let timeout: NodeJS.Timeout;
-        if (!tapping && percent < 100) {
-            timeout = setTimeout(() => {
-                setPercent(100);
-                setCalAmount(gradeAmount)
-            }, 1000);
-        }
-        return () => clearTimeout(timeout);
-    }, [tapping, percent]);
+    // useEffect(() => {
+    //     let timeout: NodeJS.Timeout;
+    //     if (!tapping && percent < 100) {
+    //         timeout = setTimeout(() => {
+    //             setPercent(100);
+    //             setCalAmount(gradeAmount)
+    //         }, 1000);
+    //     }
+    //     return () => clearTimeout(timeout);
+    // }, [tapping, percent]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -73,7 +73,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
                         <div style={{ zIndex: 1 }} className='bg-[#10130D] flex flex-row items-center justify-center items-center m-auto gap-2 border-[#A5E314] border-2 p-2 rounded-3xl'>
                             <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
                             <div className='flex flex-col w-[80px] leading-tight'>
-                                <span className='text-[14px]'>{calAmount.toLocaleString()}</span>
+                                <span className='text-[14px]'>{Number(calAmount).toFixed(2)}</span>
                                 <span className='text-[14px] text-[#52710A]'>/{gradeAmount.toLocaleString()}</span>
                             </div>
                         </div>

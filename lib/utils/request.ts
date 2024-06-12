@@ -114,12 +114,17 @@ export const checkMiningBalanceDash = async (encrypt_id: string) => {
         const response = await axios.get(url, {
             headers: { Authorization: `${encrypt_id}` }
         });
-        return response;
-
+        return {
+            status: true,
+            data: response.data
+        }
     }
     catch (e) {
         console.log(e)
-        return e;
+        return {
+            status: false,
+            data: e
+        }
     }
 }
 
