@@ -69,10 +69,11 @@ export default function TelegramFrens() {
 
         (async () => {
             try {
-                const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/get-number-of-referees", {
+                const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/list-referred-users", {
                     headers: { Authorization: `${encrypt}` }
                 });
-                setReferrals(response.data.totalReferees)
+                console.log(response);
+                // setReferrals(response.data.totalReferees)
                 setLoading(false)
 
             }
@@ -207,18 +208,22 @@ export default function TelegramFrens() {
                     </div>
 
                     <div className='flex flex-col justify-center p-4 gap-3 items-center'>
-                        <Image src='/telegram/frens/frens.png' alt='' width={115} height={24} priority />
-                        <Image
-                            src={'/images/emptystate.png'}
-                            width={571}
-                            height={363}
-                            priority
-                            alt="" />
 
-                        <h2 className='text-[#52710A] text-[16px] text-center'>
-                            We haven’t found any users that joined the game
-                            with your invite code. Invite friends to receive bonuses!
-                        </h2>
+                        <div className='flex flex-col justify-center items-center gap-3'>
+                            <Image src='/telegram/frens/frens.png' alt='' width={115} height={24} priority />
+                            <Image
+                                src={'/images/emptystate.png'}
+                                width={571}
+                                height={363}
+                                priority
+                                alt="" />
+
+                            <h2 className='text-[#52710A] text-[16px] text-center'>
+                                We haven’t found any users that joined the game
+                                with your invite code. Invite friends to receive bonuses!
+                            </h2>
+                        </div>
+
                         <a
                             target='_blank'
                             href={`https://t.me/share/url?url=${refLink}&text=${refMessage}`}
