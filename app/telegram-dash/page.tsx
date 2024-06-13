@@ -93,8 +93,8 @@ export default function TelegramBotDash() {
             let data = checkMBalance.data;
             console.log(data);
             setFullBalance(data.fullBalanceBox);
-            setCalAmount(data.balance);
-            setGradeAmount(data.fullBalaneAmount);
+            setCalAmount(data.balance || 0);
+            setGradeAmount(data.fullBalaneAmount || 0);
         })();
 
     }, [update]);

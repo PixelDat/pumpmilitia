@@ -59,6 +59,7 @@ export default function TelegramFrens() {
                 const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/get-refLink", {
                     headers: { Authorization: `${encrypt}` }
                 });
+                console.log(response);
                 setRefMessage(response.data.inviteFriendsMsgCondtruct)
                 setRefLink(response.data.refLink)
             }

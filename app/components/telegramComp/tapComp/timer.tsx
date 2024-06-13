@@ -30,7 +30,7 @@ const TimerTapCount: React.FC<TimerComp> = ({ claimTime, setUpdate }) => {
                 minutes: 0,
                 seconds: 0,
             });
-            setUpdate(Math.random())
+            // setUpdate(Math.random())
             return;
         }
 
