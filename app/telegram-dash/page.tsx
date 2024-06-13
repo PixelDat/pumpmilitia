@@ -6,7 +6,7 @@ import { ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle } from
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { checkClaimBalance, checkDownloadReward, checkMiningBalanceDash, checkRefill, checkTurboBoostOn, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
+import { animationFlow, checkClaimBalance, checkDownloadReward, checkMiningBalanceDash, checkRefill, checkTurboBoostOn, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
@@ -100,9 +100,7 @@ export default function TelegramBotDash() {
     }, [update]);
 
     const updatePercentage = async () => {
-        const walking = document.getElementById('walking') as HTMLImageElement;
-        const move = document.getElementById('move') as HTMLImageElement;
-        const shoot = document.getElementById('shoot') as HTMLImageElement;
+
 
         if (percent <= 0) return;
         if (!fullBalance) {
@@ -116,31 +114,9 @@ export default function TelegramBotDash() {
         let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
         setPoints(response.data.claimedPoints)
         setUpdate(Math.random())
-        let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
-        let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
-        // stopAudio(tapping)
-        stopAudio(gunshot);
+
+        animationFlow();
         setIsRunning(true);
-        playAudio(gunshot);
-
-        // Hide all GIFs initially
-        hideGif(walking);
-        hideGif(move);
-        hideGif(shoot);
-
-
-        // Sequence of showing and hiding GIFs
-        showGif(move);
-        setTimeout(() => {
-            hideGif(move);
-            showGif(shoot);
-        }, 100); // Move for 100ms
-
-        setTimeout(() => {
-            hideGif(shoot);
-            showGif(walking);
-        }, 700); // Shoot for 500ms (200ms + 500ms)
-
 
         setPercent(prev => Math.max(prev - 10, 0));
         setCalAmount(calAmount - 50);
