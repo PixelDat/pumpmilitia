@@ -29,16 +29,18 @@ export default function TelegramBotDash() {
     const [points, setPoints] = useState(0);
     const [update, setUpdate] = useState(0);
     const [showExplosion, setShowExplosion] = useState(false)
-    const [opened, setOpened] = React.useState(true);
+    const [opened, setOpened] = React.useState(false);
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
-    const [gradeAmount, setGradeAmount] = useState(5000)
+    const [gradeAmount, setGradeAmount] = useState(0)
     const [showers, setShowers] = useState<number[]>([]);
     const [showImage, setShowImage] = useState(false);
-    const [calAmount, setCalAmount] = useState(5000)
+    const [calAmount, setCalAmount] = useState(0)
     const [userBalance, setUserBalance] = useState(0);
     const [signedIn, setSignedIn] = useState(true);
     const [isRunning, setIsRunning] = useState(false);
+    const [fullBalance, setFullBalance] = useState(true);
+    const [claimTime, setClaimTime] = useState("2024-06-12T19:24:02.000Z")
 
 
     const startExplosion = () => {
@@ -59,11 +61,6 @@ export default function TelegramBotDash() {
             }
         })();
 
-        // (async () => {
-        //     let checkMBalance = await checkMiningBalanceDash(encrypt);
-        //     console.log(checkMBalance)
-        // })();
-
         (async () => {
             let checkBoost = await checkTurboBoostOn(encrypt);
             // console.log(checkBoost, 'Booster');
@@ -71,11 +68,11 @@ export default function TelegramBotDash() {
 
         (async () => {
             let checkRefillBoost = await checkRefill(encrypt);
-            console.log(checkRefillBoost, 'Refill');
+            // console.log(checkRefillBoost, 'Refill');
         })()
 
 
-    }, [])
+    }, [update])
 
     useEffect(() => {
         let referralId = Cookies.get('referrerId');
@@ -85,19 +82,20 @@ export default function TelegramBotDash() {
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
-                // CheckBoost 
-
-                // let claimResponse = await checkClaimBalance(encrypt)
-                // if (claimResponse.status) {
-                //     setSignedIn(true);
-                // }
-
                 // let turboReward = await getTurboReward(encrypt);
                 // if (turboReward.status) {
                 //     console.log(turboReward.data)
                 // }
             }
-        })()
+        })();
+        (async () => {
+            let checkMBalance = await checkMiningBalanceDash(encrypt);
+            let data = checkMBalance.data;
+            console.log(data);
+            setFullBalance(data.fullBalanceBox);
+            setCalAmount(data.balance);
+            setGradeAmount(data.fullBalaneAmount);
+        })();
 
     }, [update]);
 
@@ -107,6 +105,12 @@ export default function TelegramBotDash() {
         const shoot = document.getElementById('shoot') as HTMLImageElement;
 
         if (percent <= 0) return;
+        if (!fullBalance) {
+            setError(true);
+            setErrMessage({ type: 'error', message: "Your balance is not ready to be claimed yet." });
+            setTimeout(() => { setError(false) }, 2000)
+            return;
+        }
 
         //Claim Tap Balance
         let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
@@ -200,9 +204,11 @@ export default function TelegramBotDash() {
                 </div>
                 {/* Timer and Tap */}
                 <div className='relative pt-14'>
-                    <div className='w-full flex flex-col justify-center items-center z-20 m-auto absolute  top-0'>
-                        <TimerTapCount />
-                    </div>
+                    {!fullBalance &&
+                        <div className='w-full flex flex-col justify-center items-center z-20 m-auto absolute  top-0'>
+                            <TimerTapCount claimTime={claimTime} setUpdate={setUpdate} />
+                        </div>
+                    }
                     <div className='w-10/12 m-auto'>
                         <Tapcomponent
                             points={points}
@@ -219,7 +225,9 @@ export default function TelegramBotDash() {
                             showers={showers}
                             setShowers={setShowers}
                             setTapping={setTapping}
-                            opened={opened} />
+                            opened={opened}
+                            fullBalance={fullBalance}
+                        />
                     </div>
                 </div>
 
