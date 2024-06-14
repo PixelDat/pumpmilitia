@@ -254,8 +254,3 @@ export const hideGif = (image: HTMLImageElement) => {
 };
 
 
-export const animationFlow = () => {
-    let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
-    stopAudio(gunshot);
-    playAudio(gunshot);
-}

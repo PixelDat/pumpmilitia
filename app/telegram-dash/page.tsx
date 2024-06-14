@@ -6,7 +6,7 @@ import { ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle } from
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { animationFlow, checkClaimBalance, checkDownloadReward, checkMiningBalanceDash, checkRefill, checkTurboBoostOn, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
+import { checkClaimBalance, checkDownloadReward, checkMiningBalanceDash, checkRefill, checkTurboBoostOn, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
@@ -102,6 +102,8 @@ export default function TelegramBotDash() {
 
     const updatePercentage = async () => {
 
+        let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
+        stopAudio(gunshot);
 
         // if (percent <= 0) return;
         // if (!fullBalance) {
@@ -115,12 +117,12 @@ export default function TelegramBotDash() {
         // let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
         // setPoints(response.data.claimedPoints)
         setUpdate(Math.random())
-
-        animationFlow();
+        playAudio(gunshot);
         setAnimationState('shooting');
 
         setTimeout(() => {
             setAnimationState('walking');
+            stopAudio(gunshot);
         }, 700)
         setIsRunning(true);
 

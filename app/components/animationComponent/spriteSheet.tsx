@@ -16,11 +16,11 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
         const spriteSheet = '/telegram/frens/spritesheet.png';
 
 
-        const CANVAS_WIDTH = canvas.width = 380;
-        const CANVAS_HEIGHT = canvas.height = 480;
+        const CANVAS_WIDTH = canvas.width = 19502 / 50;
+        const CANVAS_HEIGHT = canvas.height = 964 / 2;
 
-        const spriteWidth = 608 / 4;
-        const spriteHeight = 410 / 2;
+        const spriteWidth = 19502 / 50;
+        const spriteHeight = 964 / 2;
 
         const shooterImage = new Image();
         shooterImage.src = spriteSheet;
@@ -29,12 +29,12 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
         const spriteAnimation = [] as any;
         const animationStates = [
             {
-                name: 'walking',
-                frames: 4
+                name: 'shooting',
+                frames: 50
             },
             {
-                name: 'shooting',
-                frames: 2,
+                name: 'walking',
+                frames: 40,
             }
         ]
 
@@ -53,13 +53,14 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
 
         let gameFrame = 0;
 
-        const staggerFrame = 12;
+        const staggerFrame = 0.8;
 
         function animate() {
             ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
             let position = Math.floor(gameFrame / staggerFrame) % spriteAnimation[animationState].loc.length;
             let frameX = spriteWidth * position;
             let frameY = spriteAnimation[animationState].loc[position].y;
+
             ctx.drawImage(
                 shooterImage,
                 frameX,
@@ -80,7 +81,7 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
     }, [animationState])
 
     return (
-        <div className="flex border flex-col h-[270px] justify-center items-center">
+        <div className="flex flex-col h-[270px] justify-center items-center">
             <canvas className='w-[220px] h-[270px]' id='canvas1'></canvas>
         </div>
     );
