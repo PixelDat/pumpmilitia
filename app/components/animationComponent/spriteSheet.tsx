@@ -15,7 +15,6 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
 
         const spriteSheet = '/telegram/frens/spritesheet.png';
 
-
         const CANVAS_WIDTH = canvas.width = 19502 / 50;
         const CANVAS_HEIGHT = canvas.height = 964 / 2;
 

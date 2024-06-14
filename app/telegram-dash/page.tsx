@@ -123,13 +123,13 @@ export default function TelegramBotDash() {
 
         setTimeout(() => {
             setAnimationState('shooting');
-        }, 50)
+        }, 200)
 
         setTimeout(() => {
             setAnimationState('moving');
             stopAudio(gunshot);
 
-        }, 300)
+        }, 100)
 
         setTimeout(() => {
             setAnimationState('walking');
