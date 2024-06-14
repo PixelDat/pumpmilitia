@@ -19,7 +19,7 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
         const CANVAS_WIDTH = canvas.width = 19502 / 50;
         const CANVAS_HEIGHT = canvas.height = 964 / 2;
 
-        const spriteWidth = 19502 / 50;
+        const spriteWidth = (19502 / 50) + 2;
         const spriteHeight = 964 / 2;
 
         const shooterImage = new Image();
@@ -31,6 +31,10 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
             {
                 name: 'shooting',
                 frames: 50
+            },
+            {
+                name: 'moving',
+                frames: 15
             },
             {
                 name: 'walking',
@@ -53,7 +57,7 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
 
         let gameFrame = 0;
 
-        const staggerFrame = 0.8;
+        const staggerFrame = 3;
 
         function animate() {
             ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);

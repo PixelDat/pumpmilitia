@@ -117,13 +117,24 @@ export default function TelegramBotDash() {
         // let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
         // setPoints(response.data.claimedPoints)
         setUpdate(Math.random())
-        playAudio(gunshot);
-        setAnimationState('shooting');
+        setAnimationState('moving');
+
+        setTimeout(() => {
+            playAudio(gunshot);
+            setAnimationState('shooting');
+
+        }, 50)
+
+        setTimeout(() => {
+            setAnimationState('moving');
+        }, 300)
 
         setTimeout(() => {
             setAnimationState('walking');
             stopAudio(gunshot);
         }, 700)
+
+
         setIsRunning(true);
 
         setPercent(prev => Math.max(prev - 10, 0));
