@@ -128,7 +128,6 @@ export default function TelegramBotDash() {
         setTimeout(() => {
             setAnimationState('moving');
             stopAudio(gunshot);
-
         }, 100)
 
         setTimeout(() => {

@@ -84,7 +84,7 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
     }, [animationState])
 
     return (
-        <div className="flex flex-col h-[270px] justify-center items-center">
+        <div style={{ filter: "brightness(150%)" }} className="flex flex-col h-[270px] justify-center items-center">
             <canvas className='w-[220px] h-[270px]' id='canvas1'></canvas>
         </div>
     );
