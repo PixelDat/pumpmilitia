@@ -280,7 +280,7 @@ export const animationFlow = () => {
     setTimeout(() => {
         hideGif(move);
         showGif(shoot);
-    }, 100); // Move for 100ms
+    }, 200); // Move for 100ms
 
     setTimeout(() => {
         hideGif(shoot);

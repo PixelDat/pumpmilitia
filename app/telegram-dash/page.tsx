@@ -102,13 +102,13 @@ export default function TelegramBotDash() {
     const updatePercentage = async () => {
 
 
-        if (percent <= 0) return;
-        if (!fullBalance) {
-            setError(true);
-            setErrMessage({ type: 'error', message: "Your balance is not ready to be claimed yet." });
-            setTimeout(() => { setError(false) }, 2000)
-            return;
-        }
+        // if (percent <= 0) return;
+        // if (!fullBalance) {
+        //     setError(true);
+        //     setErrMessage({ type: 'error', message: "Your balance is not ready to be claimed yet." });
+        //     setTimeout(() => { setError(false) }, 2000)
+        //     return;
+        // }
 
         //Claim Tap Balance
         let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)

@@ -62,9 +62,13 @@ export default function TelegramFrens() {
                 console.log(response);
                 setRefMessage(response.data.inviteFriendsMsgCondtruct)
                 setRefLink(response.data.refLink)
+                setLoading(false)
             }
+
             catch (e) {
                 console.log(e)
+                setLoading(false)
+
             }
         })();
 
@@ -75,7 +79,6 @@ export default function TelegramFrens() {
                 });
                 console.log(response);
                 // setReferrals(response.data.totalReferees)
-                setLoading(false)
 
             }
             catch (e) {
