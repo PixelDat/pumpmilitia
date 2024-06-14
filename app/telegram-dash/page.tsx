@@ -10,6 +10,7 @@ import { animationFlow, checkClaimBalance, checkDownloadReward, checkMiningBalan
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
+import SpriteAnimation from '../components/animationComponent/spriteSheet';
 
 const Cookies = require("js-cookie");
 
@@ -164,9 +165,16 @@ export default function TelegramBotDash() {
 
                     <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex sm:py-5 h-[250px] md:h-[300px] relative flex-col justify-center items-center'>
                         <div className='relative -right-5 z-10 '>
-                            <img className='h-[270px] w-[220px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
+                            <SpriteAnimation
+                                spriteSheet={'/telegram/frens/spritesheet.jpeg'}
+                                frameWidth={64}  // Width of each frame
+                                frameHeight={64} // Height of each frame
+                                frameCount={10}  // Total number of frames in the sprite sheet
+                                fps={24}         // Frames per second
+                            />
+                            {/* <img className='h-[270px] w-[220px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
                             <img className='h-[270px] w-[220px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
-                            <img className='h-[270px] w-[220px]' id='shoot' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
+                            <img className='h-[270px] w-[220px]' id='shoot' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' /> */}
                         </div>
 
                         {showExplosion &&

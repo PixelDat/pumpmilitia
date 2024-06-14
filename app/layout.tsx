@@ -6,6 +6,7 @@ import localFont from 'next/font/local'
 import Context from "./context/context";
 import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent } from "@firebase/analytics";
+import Script from "next/script";
 
 
 interface Props {
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: Props) {
           <img src="/telegram/dashpage/coinsmove.gif" />
         </div>
         {children}
+        <Script src="/script.ts" />
       </body>
     </html>
   );
