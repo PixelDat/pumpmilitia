@@ -118,20 +118,21 @@ export default function TelegramBotDash() {
         // setPoints(response.data.claimedPoints)
         setUpdate(Math.random())
         setAnimationState('moving');
+        playAudio(gunshot);
+
 
         setTimeout(() => {
-            playAudio(gunshot);
             setAnimationState('shooting');
-
         }, 50)
 
         setTimeout(() => {
             setAnimationState('moving');
+            stopAudio(gunshot);
+
         }, 300)
 
         setTimeout(() => {
             setAnimationState('walking');
-            stopAudio(gunshot);
         }, 700)
 
 
