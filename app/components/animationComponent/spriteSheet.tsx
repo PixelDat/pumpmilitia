@@ -1,70 +1,90 @@
-import React, { useEffect, useRef } from 'react';
+"use client";
+import React, { useEffect } from 'react';
 
-interface SpriteAnimationProps {
-    spriteSheet: string;
-    frameWidth: number;
-    frameHeight: number;
-    frameCount: number;
-    fps: number;
-}
 
-const SpriteAnimation: React.FC<SpriteAnimationProps> = ({
-    spriteSheet,
-    frameWidth,
-    frameHeight,
-    frameCount,
-    fps
-}) => {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const frameDuration = 1000 / fps;
-
+const SpriteAnim: React.FC = () => {
+    const [animationType, setAnimationType] = React.useState("walking");
     useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+        const canvas = document.getElementById('canvas1') as HTMLCanvasElement;
 
-        const context = canvas.getContext('2d');
-        if (!context) return;
+        const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-        const image = new Image();
-        image.src = spriteSheet;
+        const spriteSheet = '/telegram/frens/spritesheet.png';
 
-        let currentFrame = 0;
-        let lastFrameTime = 0;
-        let animationId: number;
 
-        const updateFrame = (time: number) => {
-            if (!lastFrameTime) lastFrameTime = time;
-            const delta = time - lastFrameTime;
+        const CANVAS_WIDTH = canvas.width = 380;
+        const CANVAS_HEIGHT = canvas.height = 480;
 
-            if (delta >= frameDuration) {
-                currentFrame = (currentFrame + 1) % frameCount;
-                lastFrameTime = time;
+        const spriteWidth = 608 / 4;
+        const spriteHeight = 410 / 2;
+
+        const shooterImage = new Image();
+        shooterImage.src = spriteSheet;
+
+
+        const spriteAnimation = [] as any;
+        const animationStates = [
+            {
+                name: 'walking',
+                frames: 4
+            },
+            {
+                name: 'shooting',
+                frames: 2,
             }
+        ]
 
-            context.clearRect(0, 0, frameWidth, frameHeight);
-            context.drawImage(
-                image,
-                currentFrame * frameWidth,
-                0,
-                frameWidth,
-                frameHeight,
-                0,
-                0,
-                frameWidth,
-                frameHeight
-            );
+        animationStates.forEach((state, index) => {
+            let frames = {
+                loc: [] as { x: number, y: number }[],
+            }
+            for (let j = 0; j < state.frames; j++) {
+                let positionX = j * spriteWidth;
+                let positionY = index * spriteHeight;
+                frames.loc.push({ x: positionX, y: positionY });
+            }
+            spriteAnimation[state.name] = frames;
+        })
 
-            animationId = requestAnimationFrame(updateFrame);
-        };
 
-        image.onload = () => {
-            animationId = requestAnimationFrame(updateFrame);
-        };
+        let gameFrame = 0;
 
-        return () => cancelAnimationFrame(animationId);
-    }, [spriteSheet, frameWidth, frameHeight, frameCount, frameDuration]);
+        const staggerFrame = 12;
 
-    return <canvas ref={canvasRef} width={frameWidth} height={frameHeight} />;
+        function animate() {
+            ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+            let position = Math.floor(gameFrame / staggerFrame) % spriteAnimation[animationType].loc.length;
+            let frameX = spriteWidth * position;
+            let frameY = spriteAnimation[animationType].loc[position].y;
+            ctx.drawImage(
+                shooterImage,
+                frameX,
+                frameY,
+                spriteWidth,
+                spriteHeight,
+                0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+            // x++
+            if (gameFrame % staggerFrame == 0) {
+                if (frameX < 3) frameX++;
+                else frameX = 0;
+            }
+            gameFrame++;
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    }, [animationType])
+
+    return (
+        <div className="App flex flex-col h-screen justify-center items-center">
+            <select className='' onChange={(e) => setAnimationType(e.target.value)}>
+                <option value="walking">Walking</option>
+                <option value="shooting">Shooting</option>
+
+            </select>
+            <canvas className='border-4 border-black w-[380px] h-[480px] ' id='canvas1'></canvas>
+        </div>
+    );
 };
 
-export default SpriteAnimation;
+export default SpriteAnim;
