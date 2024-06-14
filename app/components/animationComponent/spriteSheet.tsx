@@ -1,12 +1,16 @@
 "use client";
 import React, { useEffect } from 'react';
 
+interface SpriteProps {
+    animationState: string;
+}
 
-const SpriteAnim: React.FC = () => {
-    const [animationType, setAnimationType] = React.useState("walking");
+const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
+
     useEffect(() => {
         const canvas = document.getElementById('canvas1') as HTMLCanvasElement;
 
+        console.log(animationState);
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
         const spriteSheet = '/telegram/frens/spritesheet.png';
@@ -53,9 +57,9 @@ const SpriteAnim: React.FC = () => {
 
         function animate() {
             ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-            let position = Math.floor(gameFrame / staggerFrame) % spriteAnimation[animationType].loc.length;
+            let position = Math.floor(gameFrame / staggerFrame) % spriteAnimation[animationState].loc.length;
             let frameX = spriteWidth * position;
-            let frameY = spriteAnimation[animationType].loc[position].y;
+            let frameY = spriteAnimation[animationState].loc[position].y;
             ctx.drawImage(
                 shooterImage,
                 frameX,
@@ -73,16 +77,11 @@ const SpriteAnim: React.FC = () => {
         }
 
         animate();
-    }, [animationType])
+    }, [animationState])
 
     return (
-        <div className="App flex flex-col h-screen justify-center items-center">
-            <select className='' onChange={(e) => setAnimationType(e.target.value)}>
-                <option value="walking">Walking</option>
-                <option value="shooting">Shooting</option>
-
-            </select>
-            <canvas className='border-4 border-black w-[380px] h-[480px] ' id='canvas1'></canvas>
+        <div className="flex border flex-col h-[270px] justify-center items-center">
+            <canvas className='w-[220px] h-[270px]' id='canvas1'></canvas>
         </div>
     );
 };

@@ -255,37 +255,7 @@ export const hideGif = (image: HTMLImageElement) => {
 
 
 export const animationFlow = () => {
-    let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
     let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
-
-    const walking = document.getElementById('walking') as HTMLImageElement;
-    const move = document.getElementById('move') as HTMLImageElement;
-    const shoot = document.getElementById('shoot') as HTMLImageElement;
-
-
-
-    // stopAudio(tapping)
     stopAudio(gunshot);
-
     playAudio(gunshot);
-
-    // Hide all GIFs initially
-    hideGif(walking);
-    hideGif(move);
-    hideGif(shoot);
-
-
-    // Sequence of showing and hiding GIFs
-    showGif(move);
-    setTimeout(() => {
-        hideGif(move);
-        showGif(shoot);
-    }, 200); // Move for 100ms
-
-    setTimeout(() => {
-        hideGif(shoot);
-        showGif(walking);
-    }, 700); // Shoot for 500ms (200ms + 500ms)
-
-
 }
