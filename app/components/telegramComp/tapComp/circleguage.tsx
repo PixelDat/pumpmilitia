@@ -6,12 +6,13 @@ interface CircleGaugeProps {
   updatePercent: Function;
   isRunning: boolean;
   setIsRunning: Function;
+  fullBalance: boolean;
 
 }
-const CircleGauge: React.FC<CircleGaugeProps> = ({ percent, updatePercent, isRunning, setIsRunning }) => {
+const CircleGauge: React.FC<CircleGaugeProps> = ({ percent, updatePercent, isRunning, setIsRunning, fullBalance }) => {
   const radius = 50;
   const circumference = 2 * Math.PI * radius;
-  const [stroke, setStroke] = useState(0);
+  const [stroke, setStroke] = useState(circumference);
   const [timeLeft, setTimeLeft] = useState(15);
 
   useEffect(() => {
@@ -30,10 +31,17 @@ const CircleGauge: React.FC<CircleGaugeProps> = ({ percent, updatePercent, isRun
   }, [isRunning, timeLeft]);
 
   const handleClick = () => {
-    if (!isRunning) {
-      setIsRunning(true);
+    if (!fullBalance) {
+      updatePercent();
+      return;
+    } else {
+      if (!isRunning) {
+        setIsRunning(true);
+      }
+      updatePercent();
     }
-    updatePercent();
+
+
   };
 
   return (

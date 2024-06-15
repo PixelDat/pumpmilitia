@@ -1,23 +1,40 @@
 import Image from 'next/image';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default function TimerTapCount() {
+
+interface TimerComp {
+    claimTime: string;
+    setUpdate: Function;
+}
+const TimerTapCount: React.FC<TimerComp> = ({ claimTime, setUpdate }) => {
 
     const [time, setTimeVar] = useState({
         days: 0,
         hours: 0,
         minutes: 0,
         seconds: 0,
-    })
-    //Function to update countdown timer
+    });
+
+    // Function to update countdown timer
     function updateCountdownTimer(targetDate: any) {
-        //Get the current time
+        // Get the current time
         var now = new Date().getTime();
 
         // Calculate the remaining time
         var distance = targetDate - now;
 
-        // Calculate hours, minutes, and seconds
+        if (distance <= 0) {
+            setTimeVar({
+                days: 0,
+                hours: 0,
+                minutes: 0,
+                seconds: 0,
+            });
+            // setUpdate(Math.random())
+            return;
+        }
+
+        // Calculate days, hours, minutes, and seconds
         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -26,23 +43,27 @@ export default function TimerTapCount() {
         setTimeVar({
             days: days,
             hours: hours,
-            seconds: seconds,
             minutes: minutes,
-        })
+            seconds: seconds,
+        });
     }
+
     // Function to start countdown
     function startCountdown() {
-        // Get the launch date string (example format: "March 17, 2024 12:00:00")
-        var launchDateString = "June 17, 2024 12:00:00";
-        var targetDate = new Date(launchDateString).getTime();
+        // Use the ISO 8601 format for the date string
+        var claimTimeString = claimTime;
+        var targetDate = new Date(claimTimeString).getTime();
 
         // Update the countdown timer every second
         var countdownInterval = setInterval(function () {
             updateCountdownTimer(targetDate);
         }, 1000);
     }
-    // Start the countdown when the page loads
-    startCountdown();
+
+    // Start the countdown when the component mounts
+    useEffect(() => {
+        startCountdown();
+    }, []);
     return (
         <div id="timerDiv" className='flex relative w-10/12 flex-row  border border-[#A5E314] bg-[#10130DBF] h-[65px] md:h-[89px] py-4 rounded-3xl   items-center justify-center timerDiv'>
             <div className='flex items-center'>
@@ -82,3 +103,6 @@ export default function TimerTapCount() {
         </div>
     )
 }
+
+
+export default TimerTapCount;
