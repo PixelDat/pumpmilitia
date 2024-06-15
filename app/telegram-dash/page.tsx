@@ -116,6 +116,7 @@ export default function TelegramBotDash() {
         //Claim Tap Balance
         // let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
         // setPoints(response.data.claimedPoints)
+
         setUpdate(Math.random())
         setAnimationState('moving');
         playAudio(gunshot);
@@ -184,7 +185,7 @@ export default function TelegramBotDash() {
                     </div>
 
                     <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex sm:py-5 h-[250px] md:h-[300px] relative flex-col justify-center items-center'>
-                        <div className='relative  z-10 '>
+                        <div className='relative -right-[4px]  z-10 '>
                             <SpriteAnim animationState={animationState} />
                             {/* <img className='h-[270px] w-[220px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
                             <img className='h-[270px] w-[220px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
