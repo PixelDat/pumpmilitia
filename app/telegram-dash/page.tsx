@@ -160,7 +160,7 @@ export default function TelegramBotDash() {
 
     return (
         <TelegramLayout>
-            <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] pt-12 text-[#EDF9D0] h-screen w-screen" >
+            <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] text-[#EDF9D0] h-screen w-screen" >
                 {error &&
                     <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
                 }
