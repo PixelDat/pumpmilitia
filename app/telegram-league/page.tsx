@@ -27,12 +27,11 @@ export default function TelegramLeague() {
     return (
         <TelegramLayout>
 
-            <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
+            <div className="bg-cover overflow-hidden bg-[url('/telegram/homepage.png')] flex flex-row justify-center items-start pt-5 text-[#EDF9D0] h-screen w-screen" >
                 <div className='flex flex-col justify-between'>
                     <div className='text-center '>
                         <div className=''>
                             <div className='flex flex-col justify-center gap-2 items-center'>
-                                {/* <Image src="/telegram/league/goldleague.png" alt='' width={208} height={35} priority /> */}
                                 <h2 className='font-gameria text-[36px]'>{leagueTitle}</h2>
 
                                 <p className='text-[14px] w-8/12 m-auto text-[#EDF9D0] '>
@@ -47,7 +46,7 @@ export default function TelegramLeague() {
                         {leagues.map((item, index) => {
                             if (index !== currentLeague) return null;
                             return (
-                                <div className='flex h-[400px] flex-col gap-y-2 justify-center items-center'>
+                                <div className='flex h-full flex-col gap-y-2 justify-center items-center'>
 
                                     <div className='flex flex-row justify-between gap-4 items-center m-auto'>
                                         <div className='border-[#52710A] border bg-[#10130D] flex flex-row items-center justify-center rounded-full h-[150px] w-[44px] '>
