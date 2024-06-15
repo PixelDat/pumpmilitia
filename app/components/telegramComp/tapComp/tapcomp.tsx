@@ -67,6 +67,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
         return () => clearTimeout(timeout);
     }, [showers, points]);
 
+
     return (
         <div className='text-[#A5E314] py-4' >
             <div className='flex flex-row justify-center items-center'>

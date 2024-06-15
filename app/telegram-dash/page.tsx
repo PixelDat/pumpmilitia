@@ -10,6 +10,7 @@ import { checkClaimBalance, checkDownloadReward, checkMiningBalanceDash, checkRe
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
+import SpriteAnim from '../components/animationComponent/spriteSheet';
 
 const Cookies = require("js-cookie");
 
@@ -41,7 +42,7 @@ export default function TelegramBotDash() {
     const [isRunning, setIsRunning] = useState(false);
     const [fullBalance, setFullBalance] = useState(true);
     const [claimTime, setClaimTime] = useState("2024-06-12T19:24:02.000Z")
-
+    const [animationState, setAnimationState] = useState('walking');
 
     const startExplosion = () => {
         setShowExplosion(true)
@@ -93,54 +94,50 @@ export default function TelegramBotDash() {
             let data = checkMBalance.data;
             console.log(data);
             setFullBalance(data.fullBalanceBox);
-            setCalAmount(data.balance);
-            setGradeAmount(data.fullBalaneAmount);
+            setCalAmount(data.balance || 0);
+            setGradeAmount(data.fullBalaneAmount || 0);
         })();
 
     }, [update]);
 
     const updatePercentage = async () => {
-        const walking = document.getElementById('walking') as HTMLImageElement;
-        const move = document.getElementById('move') as HTMLImageElement;
-        const shoot = document.getElementById('shoot') as HTMLImageElement;
 
-        if (percent <= 0) return;
-        if (!fullBalance) {
-            setError(true);
-            setErrMessage({ type: 'error', message: "Your balance is not ready to be claimed yet." });
-            setTimeout(() => { setError(false) }, 2000)
-            return;
-        }
+        let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
+        stopAudio(gunshot);
+
+        // if (percent <= 0) return;
+        // if (!fullBalance) {
+        //     setError(true);
+        //     setErrMessage({ type: 'error', message: "Your balance is not ready to be claimed yet." });
+        //     setTimeout(() => { setError(false) }, 2000)
+        //     return;
+        // }
 
         //Claim Tap Balance
-        let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
-        setPoints(response.data.claimedPoints)
+        // let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
+        // setPoints(response.data.claimedPoints)
         setUpdate(Math.random())
-        let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
-        let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
-        // stopAudio(tapping)
-        stopAudio(gunshot);
-        setIsRunning(true);
+        setAnimationState('moving');
         playAudio(gunshot);
 
-        // Hide all GIFs initially
-        hideGif(walking);
-        hideGif(move);
-        hideGif(shoot);
-
-
-        // Sequence of showing and hiding GIFs
-        showGif(move);
-        setTimeout(() => {
-            hideGif(move);
-            showGif(shoot);
-        }, 100); // Move for 100ms
 
         setTimeout(() => {
-            hideGif(shoot);
-            showGif(walking);
-        }, 700); // Shoot for 500ms (200ms + 500ms)
+            setAnimationState('shooting');
+        }, 200)
 
+        setTimeout(() => {
+            setAnimationState('moving');
+            stopAudio(gunshot);
+        }, 100)
+
+
+
+        setTimeout(() => {
+            setAnimationState('walking');
+        }, 700)
+
+
+        setIsRunning(true);
 
         setPercent(prev => Math.max(prev - 10, 0));
         setCalAmount(calAmount - 50);
@@ -187,10 +184,11 @@ export default function TelegramBotDash() {
                     </div>
 
                     <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex sm:py-5 h-[250px] md:h-[300px] relative flex-col justify-center items-center'>
-                        <div className='relative -right-5 z-10 '>
-                            <img className='h-[270px] w-[220px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
+                        <div className='relative  z-10 '>
+                            <SpriteAnim animationState={animationState} />
+                            {/* <img className='h-[270px] w-[220px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
                             <img className='h-[270px] w-[220px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
-                            <img className='h-[270px] w-[220px]' id='shoot' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' />
+                            <img className='h-[270px] w-[220px]' id='shoot' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/gunbaza.gif' alt='' /> */}
                         </div>
 
                         {showExplosion &&

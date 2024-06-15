@@ -11,7 +11,7 @@ import { ReferralItem, boost } from './utils';
 import axios from 'axios';
 import TelegramLayout from '../telegramLayout/layout';
 import { playAudio } from '@/lib/utils/request';
-import { CircularProgress } from '@mui/material';
+import { Avatar, CircularProgress } from '@mui/material';
 const Cookies = require("js-cookie");
 
 
@@ -23,7 +23,7 @@ export default function TelegramFrens() {
     const [refLink, setRefLink] = useState('')
     const [refMessage, setRefMessage] = useState('')
 
-    const [referrals, setReferrals] = useState(0);
+    const [referrals, setReferrals] = useState(['Moses Erhinyodavwe', 'James Abiyi'] as any);
 
     let encrypt = Cookies.get('encrypt_id');
     const [errMessage, setErrMessage] = useState({
@@ -59,11 +59,16 @@ export default function TelegramFrens() {
                 const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/get-refLink", {
                     headers: { Authorization: `${encrypt}` }
                 });
+                console.log(response);
                 setRefMessage(response.data.inviteFriendsMsgCondtruct)
                 setRefLink(response.data.refLink)
+                setLoading(false)
             }
+
             catch (e) {
                 console.log(e)
+                setLoading(false)
+
             }
         })();
 
@@ -74,7 +79,6 @@ export default function TelegramFrens() {
                 });
                 console.log(response);
                 // setReferrals(response.data.totalReferees)
-                setLoading(false)
 
             }
             catch (e) {
@@ -124,7 +128,7 @@ export default function TelegramFrens() {
                             <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Your Frens</h2></div>
                             <div className='flex flex-row justify-center items-center gap-2'>
                                 <Image src='/telegram/frens/frensimg.png' alt='' width={58} height={58} priority />
-                                <p className='font-gameria text-[40px]'>{referrals} FRENS</p>
+                                <p className='font-gameria text-[40px]'>{referrals.length} FRENS</p>
                             </div>
 
                         </div>
@@ -163,7 +167,7 @@ export default function TelegramFrens() {
                             <div className='space-y-4 w-full p-2'>
 
                                 {referralList.map((item, index) => {
-                                    let percent = (referrals / parseInt(item.referralExpectation)) * 100;
+                                    let percent = Math.min((referrals.length / parseInt(item.referralExpectation)) * 100, 100);
                                     return (
                                         <div key={`${index} ${item.challenge_title}`} className=' border bg-[#10130d]  border-[#476116]/50 p-2 rounded-2xl'>
                                             <div className='flex  flex-row justify-between items-center w-full gap-2   p-2'>
@@ -208,21 +212,36 @@ export default function TelegramFrens() {
                     </div>
 
                     <div className='flex flex-col justify-center p-4 gap-3 items-center'>
+                        {referrals.length <= 0 ?
+                            <div className='flex flex-col justify-center items-center gap-3'>
+                                <Image src='/telegram/frens/frens.png' alt='' width={115} height={24} priority />
+                                <Image
+                                    src={'/images/emptystate.png'}
+                                    width={571}
+                                    height={363}
+                                    priority
+                                    alt="" />
 
-                        <div className='flex flex-col justify-center items-center gap-3'>
-                            <Image src='/telegram/frens/frens.png' alt='' width={115} height={24} priority />
-                            <Image
-                                src={'/images/emptystate.png'}
-                                width={571}
-                                height={363}
-                                priority
-                                alt="" />
+                                <h2 className='text-[#52710A] text-[16px] text-center'>
+                                    We haven’t found any users that joined the game
+                                    with your invite code. Invite friends to receive bonuses!
+                                </h2>
+                            </div>
+                            :
+                            <div className='border  border-[#52710A]/50 p-3 rounded-xl w-full '>
+                                <h2 className='text-center font-gameria text-[24px]'>{referrals.length} Frens Invited</h2>
+                                <div className='space-y-4'>
+                                    {referrals.map((referral: string, index: number) => {
+                                        return (
+                                            <div key={index} className='flex flex-row justify-start items-center gap-3'>
+                                                <Avatar src={'/telegram/frens/defaultdp.png'} className='border border-[#52710A] p-2' sx={{ width: 56, height: 56 }} />
+                                                <h2 className='text-[20px] font-bold '>{referral}</h2>
+                                            </div>)
+                                    })}
 
-                            <h2 className='text-[#52710A] text-[16px] text-center'>
-                                We haven’t found any users that joined the game
-                                with your invite code. Invite friends to receive bonuses!
-                            </h2>
-                        </div>
+                                </div>
+
+                            </div>}
 
                         <a
                             target='_blank'

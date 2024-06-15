@@ -252,3 +252,5 @@ export const showGif = (image: HTMLImageElement) => {
 export const hideGif = (image: HTMLImageElement) => {
     image.style.display = 'none';
 };
+
+
