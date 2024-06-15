@@ -313,7 +313,7 @@ export default function TelegramPumpEarn() {
     }
     return (
         <TelegramLayout>
-            <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-12 text-[#EDF9D0] w-screen" >
+            <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-5 text-[#EDF9D0] w-screen" >
                 <div className='flex  flex-col justify-between items-center space-y-8'>
 
                     <div className='text-center space-y-4 flex flex-col justify-center items-center'>

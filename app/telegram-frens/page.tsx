@@ -243,15 +243,18 @@ export default function TelegramFrens() {
 
                             </div>}
 
-                        <a
-                            target='_blank'
-                            href={`https://t.me/share/url?url=${refLink}&text=${refMessage}`}
-                            className={`flex bg-[#A5E314] gap-2  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row justify-center text-black font-bold items-center `}>
-                            <Image src='/telegram/social/telegram.png' alt='' width={24} height={24} priority /> Invite Frens
-                        </a>
+
 
                     </div>
                 </div >
+                <div className='fixed bottom-5  w-full  m-auto'>
+                    <a
+                        target='_blank'
+                        href={`https://t.me/share/url?url=${refLink}&text=${refMessage}`}
+                        className={`flex bg-[#A5E314] gap-2  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-10/12 m-auto p-3 rounded-2xl flex-row justify-center text-black font-bold items-center `}>
+                        <Image src='/telegram/social/telegram.png' alt='' width={24} height={24} priority /> Invite Frens
+                    </a>
+                </div>
 
             </div >
         </TelegramLayout>
