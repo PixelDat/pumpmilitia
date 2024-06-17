@@ -43,6 +43,7 @@ export default function TelegramBotDash() {
     const [fullBalance, setFullBalance] = useState(true);
     const [claimTime, setClaimTime] = useState("2024-06-12T19:24:02.000Z")
     const [animationState, setAnimationState] = useState('walking');
+    const [countDownActive, setIsCountDownActive] = useState(false)
 
     const startExplosion = () => {
         setShowExplosion(true)
@@ -95,6 +96,7 @@ export default function TelegramBotDash() {
             console.log(data);
             setClaimTime(data.nextClaimTime);
             setFullBalance(data.fullBalanceBox);
+            setIsCountDownActive(data.isCountDownActive);
             setCalAmount(data.balance || 0);
             setGradeAmount(data.fullBalanceAmount || 0);
         })();
@@ -106,17 +108,20 @@ export default function TelegramBotDash() {
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
         stopAudio(gunshot);
 
-        // if (percent <= 0) return;
-        // if (!fullBalance) {
-        //     setError(true);
-        //     setErrMessage({ type: 'error', message: "Your balance is not ready to be claimed yet." });
-        //     setTimeout(() => { setError(false) }, 2000)
-        //     return;
-        // }
+        if (percent <= 0) return;
+
+        if (countDownActive) {
+            setError(true);
+            setErrMessage({ type: 'error', message: "Your balance is not ready to be claimed yet." });
+            setTimeout(() => { setError(false) }, 2000)
+            return;
+        }
 
         //Claim Tap Balance
-        // let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
-        // setPoints(response.data.claimedPoints)
+        // let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
+        let tapurl = "http://localhost:8080/register-tap";
+        let response = await claimTapBalance(tapurl, encrypt)
+        setPoints(response.data.claimedPoints)
 
         setUpdate(Math.random())
         setAnimationState('moving');
@@ -204,7 +209,7 @@ export default function TelegramBotDash() {
                 </div>
                 {/* Timer and Tap */}
                 <div className='relative pt-14'>
-                    {!fullBalance &&
+                    {countDownActive &&
                         <div className='w-full flex flex-col justify-center items-center z-20 m-auto absolute  top-0'>
                             <TimerTapCount claimTime={claimTime} setUpdate={setUpdate} />
                         </div>
