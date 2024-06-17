@@ -30,7 +30,10 @@ require("@solana/wallet-adapter-react-ui/styles.css");
 
 export default function WithdrawPage() {
   const path = usePathname();
-  let referrer = document.referrer;
+
+
+
+
   let encrypt = Cookies.get('encrypt_id');
   const { connection } = useConnection();
   const [walletAddress, setWalletAddress] = useState('')
@@ -38,7 +41,7 @@ export default function WithdrawPage() {
   const [connected, setConnected] = useState(false)
   const [visible, setVisible] = useState(false)
   const [visibleMod, setVisibleMod] = useState(false)
-
+  const [refererPage, setRefererPage] = useState('');
   const [openSmall, setOpenSmall] = React.useState(false);
 
 
@@ -73,6 +76,12 @@ export default function WithdrawPage() {
     }
 
   }, [publicKey])
+
+  useEffect(() => {
+    let referrer = document.referrer;
+    setRefererPage(referrer);
+
+  }, [])
 
   useEffect(() => {
     if (!encrypt) {
@@ -246,7 +255,7 @@ export default function WithdrawPage() {
       {error &&
         <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
       }
-      {referrer == "http://localhost:3000/telegram-dash" ?
+      {refererPage == "http://localhost:3000/telegram-dash" ?
         <div className='w-full bg-transparent text-white flex flex-row justify-between items-end fixed px-4 pt-5 '>
           <div className='flex flex-row justify-center gap-4'>
             {
