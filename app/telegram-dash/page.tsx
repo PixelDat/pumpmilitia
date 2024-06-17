@@ -93,9 +93,10 @@ export default function TelegramBotDash() {
             let checkMBalance = await checkMiningBalanceDash(encrypt);
             let data = checkMBalance.data;
             console.log(data);
+            setClaimTime(data.nextClaimTime);
             setFullBalance(data.fullBalanceBox);
             setCalAmount(data.balance || 0);
-            setGradeAmount(data.fullBalaneAmount || 0);
+            setGradeAmount(data.fullBalanceAmount || 0);
         })();
 
     }, [update]);
