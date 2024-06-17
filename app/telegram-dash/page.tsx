@@ -47,10 +47,10 @@ export default function TelegramBotDash() {
 
     const startExplosion = () => {
         setShowExplosion(true)
-        let explosion = document.getElementById('explosionaudio') as HTMLAudioElement;
-        playAudio(explosion);
+        // let explosion = document.getElementById('explosionaudio') as HTMLAudioElement;
+        // playAudio(explosion);
         setTimeout(() => {
-            stopAudio(explosion)
+            // stopAudio(explosion)
             setShowExplosion(false);
         }, 2000)
     }
@@ -65,7 +65,9 @@ export default function TelegramBotDash() {
 
         (async () => {
             let checkBoost = await checkTurboBoostOn(encrypt);
-            // console.log(checkBoost, 'Booster');
+            if (checkBoost.data.turboBoostOn) {
+                startExplosion();
+            }
         })();
 
         (async () => {
@@ -237,7 +239,7 @@ export default function TelegramBotDash() {
                 </div>
 
                 <DashBoardModal referralId={referralId} signedIn={signedIn} setOpened={setOpened} opened={opened} />
-                {/* <GrenadeComponent percent={100} startExplosion={startExplosion} /> */}
+                <GrenadeComponent percent={100} startExplosion={startExplosion} />
 
             </div >
         </TelegramLayout>
