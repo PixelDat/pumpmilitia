@@ -68,7 +68,15 @@ export default function TelegramBotDash() {
                 setBoostActive(checkBoost.data.turboBoostOn);
             }
 
-            let checkRefillBoost = await checkRefill(encrypt);
+            let checkMBalance = await checkMiningBalanceDash(encrypt);
+            let data = checkMBalance.data;
+            console.log(data);
+            setClaimTime(data.nextClaimTime);
+            setFullBalance(data.fullBalanceBox);
+            setIsCountDownActive(data.isCountDownActive);
+            setCalAmount(data.balance || 0);
+            setGradeAmount(data.fullBalanceAmount || 0);
+            // let checkRefillBoost = await checkRefill(encrypt);
             // console.log(checkRefillBoost, 'Refill');
         }, 3000);
 
@@ -89,23 +97,13 @@ export default function TelegramBotDash() {
                 // }
             }
         })();
-        (async () => {
-            let checkMBalance = await checkMiningBalanceDash(encrypt);
-            let data = checkMBalance.data;
-            console.log(data);
-            setClaimTime(data.nextClaimTime);
-            setFullBalance(data.fullBalanceBox);
-            setIsCountDownActive(data.isCountDownActive);
-            setCalAmount(data.balance || 0);
-            setGradeAmount(data.fullBalanceAmount || 0);
-        })();
 
     }, [update]);
 
     const updatePercentage = async () => {
 
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
-        stopAudio(gunshot);
+
 
         if (percent <= 0) return;
 
@@ -133,20 +131,22 @@ export default function TelegramBotDash() {
 
         setTimeout(() => {
             setAnimationState('moving');
-            stopAudio(gunshot);
         }, 100)
 
 
 
         setTimeout(() => {
             setAnimationState('walking');
+            stopAudio(gunshot);
+
         }, 700)
 
 
         setIsRunning(true);
 
         setPercent(prev => Math.max(prev - 10, 0));
-        setCalAmount(calAmount - 50);
+        let bal = calAmount - 50
+        setCalAmount(bal <= 0 ? 0 : bal);
         setShowImage(true);
         setTapping(true);
         setShowers(prev => [...prev, Date.now()]);

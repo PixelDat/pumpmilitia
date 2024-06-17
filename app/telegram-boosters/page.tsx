@@ -69,8 +69,8 @@ export default function TelegramBoosters() {
         })();
         //check Boosts
         (async () => {
-            // let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-boosts"
-            let url = "http://localhost:8080/check-boosts";
+            let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-boosts"
+            // let url = "http://localhost:8080/check-boosts";
             try {
                 const response = await axios.get(url, {
                     headers: { Authorization: `${encrypt}` }
