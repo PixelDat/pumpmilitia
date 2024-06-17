@@ -44,6 +44,7 @@ export default function TelegramBotDash() {
     const [claimTime, setClaimTime] = useState("2024-06-12T19:24:02.000Z")
     const [animationState, setAnimationState] = useState('walking');
     const [countDownActive, setIsCountDownActive] = useState(false)
+    const [boostActive, setBoostActive] = useState(false);
 
     const startExplosion = () => {
         setShowExplosion(true)
@@ -67,6 +68,7 @@ export default function TelegramBotDash() {
             let checkBoost = await checkTurboBoostOn(encrypt);
             if (checkBoost.data.turboBoostOn) {
                 startExplosion();
+                setBoostActive(checkBoost.data.turboBoostOn);
             }
         })();
 
@@ -239,7 +241,9 @@ export default function TelegramBotDash() {
                 </div>
 
                 <DashBoardModal referralId={referralId} signedIn={signedIn} setOpened={setOpened} opened={opened} />
-                <GrenadeComponent percent={100} startExplosion={startExplosion} />
+                {boostActive &&
+                    <GrenadeComponent percent={100} startExplosion={startExplosion} />
+                }
 
             </div >
         </TelegramLayout>
