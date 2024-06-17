@@ -50,35 +50,30 @@ export default function TelegramBotDash() {
         setShowExplosion(true)
         // let explosion = document.getElementById('explosionaudio') as HTMLAudioElement;
         // playAudio(explosion);
-        setTimeout(() => {
-            // stopAudio(explosion)
-            setShowExplosion(false);
-        }, 2000)
+        // setTimeout(() => {
+        //     // stopAudio(explosion)
+        //     setShowExplosion(false);
+        // }, 2000)
     }
     useEffect(() => {
-        (async () => {
+        const intervalId = setInterval(async () => {
             let checkedDownloaded = await checkDownloadReward(encrypt);
-
             if (!checkedDownloaded.data.status) {
-                setOpened(true)
+                setOpened(true);
             }
-        })();
 
-        (async () => {
             let checkBoost = await checkTurboBoostOn(encrypt);
             if (checkBoost.data.turboBoostOn) {
                 startExplosion();
                 setBoostActive(checkBoost.data.turboBoostOn);
             }
-        })();
 
-        (async () => {
             let checkRefillBoost = await checkRefill(encrypt);
             // console.log(checkRefillBoost, 'Refill');
-        })()
+        }, 3000);
 
-
-    }, [update])
+        return () => clearInterval(intervalId);
+    }, [encrypt, update]);
 
     useEffect(() => {
         let referralId = Cookies.get('referrerId');
