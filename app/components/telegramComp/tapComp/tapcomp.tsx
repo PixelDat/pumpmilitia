@@ -28,7 +28,6 @@ const Tapcomponent: React.FC<Taptypes> = ({
     gradeAmount, setGradeAmount, percent, setPercent, tapping, setTapping,
     showers, setShowers, updatePercentage, calAmount, setCalAmount,
     opened, isRunning, setIsRunning }) => {
-    const time = 15000;
     // this returns to default value tapping
     // useEffect(() => {
     //     let timeout: NodeJS.Timeout;
@@ -59,13 +58,15 @@ const Tapcomponent: React.FC<Taptypes> = ({
         return () => clearInterval(interval);
     }, []);
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setShowers((prev: number[]) => prev.slice(1));
-        }, 2000);
+    // useEffect(() => {
+    //     console.log(showers);
 
-        return () => clearTimeout(timeout);
-    }, [showers, points]);
+    //     const timeout = setTimeout(() => {
+    //         setShowers((prev: number[]) => prev.slice(1));
+    //     }, 500);
+
+    //     return () => clearTimeout(timeout);
+    // }, [showers]);
 
 
     return (
