@@ -115,8 +115,7 @@ export default function TelegramBotDash() {
         }
 
         //Claim Tap Balance
-        // let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
-        let tapurl = "http://localhost:8080/register-tap";
+        let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
         let response = await claimTapBalance(tapurl, encrypt)
         setPoints(response.data.claimedPoints)
 
