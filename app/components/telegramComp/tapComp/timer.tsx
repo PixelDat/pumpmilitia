@@ -65,7 +65,7 @@ const TimerTapCount: React.FC<TimerComp> = ({ claimTime, setUpdate }) => {
         startCountdown();
     }, []);
     return (
-        <div id="timerDiv" className='flex relative w-10/12 flex-row  border border-[#A5E314] bg-[#10130DBF] h-[65px] md:h-[89px] py-4 rounded-3xl   items-center justify-center timerDiv'>
+        <div id="timerDiv" className='flex w-10/12 relative flex-row  border border-[#A5E314] bg-[#10130DBF] h-[65px] md:h-[89px] py-4 rounded-3xl   items-center justify-center timerDiv'>
             <div className='flex items-center'>
                 <div className='absolute -left-0 md:left-[-10px] bottom-0'>
                     <Image
