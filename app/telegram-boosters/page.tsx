@@ -69,7 +69,8 @@ export default function TelegramBoosters() {
         })();
         //check Boosts
         (async () => {
-            let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-boosts"
+            // let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-boosts"
+            let url = "http://localhost:8080/check-boosts";
             try {
                 const response = await axios.get(url, {
                     headers: { Authorization: `${encrypt}` }
@@ -98,8 +99,8 @@ export default function TelegramBoosters() {
         if (selectedBoost != "Blast" && selectedBoost != "Reload") {
             return;
         };
-        let url = selectedBoost == "Blast" ? "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/turbo-boost" : "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/reload-boost";
-
+        // let url = selectedBoost == "Blast" ? "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/turbo-boost" : "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/reload-boost";
+        let url = selectedBoost == "Blast" ? "http://localhost:8080/turbo-boost" : "http://localhost:8080/reload-boost";
         try {
             const response = await axios.post(url, {}, {
                 headers: { Authorization: `${encrypt}` }
@@ -110,7 +111,7 @@ export default function TelegramBoosters() {
             setTimeout(() => {
                 setError(false);
             }, 2000)
-            // location.href = '/telegram-dash';
+            location.href = '/telegram-dash';
 
         } catch (error: any) {
             setError(true);

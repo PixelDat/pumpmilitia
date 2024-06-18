@@ -126,7 +126,8 @@ export default function TelegramBotDash() {
         setTimeout(async () => {
             setAnimationState('shooting');
             playAudio(gunshot);
-            let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
+            // let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
+            let tapurl = "http://localhost:8080/register-tap";
             let response = await claimTapBalance(tapurl, encrypt)
             response.status == true ? setPoints(response.data.claimedPoints) : setPoints(10);
         }, 200)
