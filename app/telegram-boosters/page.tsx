@@ -70,6 +70,7 @@ export default function TelegramBoosters() {
         //check Boosts
         (async () => {
             let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-boosts"
+            // let url = "http://localhost:8080/check-boosts";
             try {
                 const response = await axios.get(url, {
                     headers: { Authorization: `${encrypt}` }
@@ -98,7 +99,9 @@ export default function TelegramBoosters() {
         if (selectedBoost != "Blast" && selectedBoost != "Reload") {
             return;
         };
-        let url = selectedBoost == "Blast" ? "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/turbo-boost" : "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/reload-boost";
+        // let url = selectedBoost == "Blast" ? "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/turbo-boost" : "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/reload-boost";
+
+        let url = selectedBoost == "Blast" ? "http://localhost:8080/turbo-boost" : "http://localhost:8080/reload-boost";
         try {
             const response = await axios.post(url, {}, {
                 headers: { Authorization: `${encrypt}` }
@@ -124,7 +127,7 @@ export default function TelegramBoosters() {
     }
     return (
         <TelegramLayout>
-            <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-20 text-[#EDF9D0] h-screen w-screen" >
+            <div className="bg-cover overflow-hidden bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-5 text-[#EDF9D0] h-screen w-screen" >
                 {error &&
                     <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
                 }

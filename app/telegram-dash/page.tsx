@@ -43,37 +43,45 @@ export default function TelegramBotDash() {
     const [fullBalance, setFullBalance] = useState(true);
     const [claimTime, setClaimTime] = useState("2024-06-12T19:24:02.000Z")
     const [animationState, setAnimationState] = useState('walking');
+    const [countDownActive, setIsCountDownActive] = useState(false)
+    const [boostActive, setBoostActive] = useState(false);
 
     const startExplosion = () => {
         setShowExplosion(true)
-        let explosion = document.getElementById('explosionaudio') as HTMLAudioElement;
-        playAudio(explosion);
-        setTimeout(() => {
-            stopAudio(explosion)
-            setShowExplosion(false);
-        }, 2000)
+        // let explosion = document.getElementById('explosionaudio') as HTMLAudioElement;
+        // playAudio(explosion);
+        // setTimeout(() => {
+        //     // stopAudio(explosion)
+        //     setShowExplosion(false);
+        // }, 2000)
     }
     useEffect(() => {
-        (async () => {
+        const intervalId = setInterval(async () => {
             let checkedDownloaded = await checkDownloadReward(encrypt);
-
             if (!checkedDownloaded.data.status) {
-                setOpened(true)
+                setOpened(true);
             }
-        })();
 
-        (async () => {
             let checkBoost = await checkTurboBoostOn(encrypt);
-            // console.log(checkBoost, 'Booster');
-        })();
+            if (checkBoost.data.turboBoostOn) {
+                startExplosion();
+                setBoostActive(checkBoost.data.turboBoostOn);
+            }
 
-        (async () => {
-            let checkRefillBoost = await checkRefill(encrypt);
+            let checkMBalance = await checkMiningBalanceDash(encrypt);
+            let data = checkMBalance.data;
+            console.log(data);
+            setClaimTime(data.nextClaimTime);
+            setFullBalance(data.fullBalanceBox);
+            setIsCountDownActive(data.isCountDownActive);
+            setCalAmount(data.balance || 0);
+            setGradeAmount(data.fullBalanceAmount || 0);
+            // let checkRefillBoost = await checkRefill(encrypt);
             // console.log(checkRefillBoost, 'Refill');
-        })()
+        }, 3000);
 
-
-    }, [update])
+        return () => clearInterval(intervalId);
+    }, [encrypt, update]);
 
     useEffect(() => {
         let referralId = Cookies.get('referrerId');
@@ -89,33 +97,29 @@ export default function TelegramBotDash() {
                 // }
             }
         })();
-        (async () => {
-            let checkMBalance = await checkMiningBalanceDash(encrypt);
-            let data = checkMBalance.data;
-            console.log(data);
-            setFullBalance(data.fullBalanceBox);
-            setCalAmount(data.balance || 0);
-            setGradeAmount(data.fullBalaneAmount || 0);
-        })();
 
     }, [update]);
 
     const updatePercentage = async () => {
 
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
-        stopAudio(gunshot);
 
-        // if (percent <= 0) return;
-        // if (!fullBalance) {
-        //     setError(true);
-        //     setErrMessage({ type: 'error', message: "Your balance is not ready to be claimed yet." });
-        //     setTimeout(() => { setError(false) }, 2000)
-        //     return;
-        // }
+
+        if (percent <= 0) return;
+
+        if (countDownActive) {
+            setError(true);
+            setErrMessage({ type: 'error', message: "Your balance is not ready to be claimed yet." });
+            setTimeout(() => { setError(false) }, 2000)
+            return;
+        }
 
         //Claim Tap Balance
-        // let response = await claimTapBalance('https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap', encrypt)
-        // setPoints(response.data.claimedPoints)
+        // let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
+        let tapurl = "http://localhost:8080/register-tap";
+        let response = await claimTapBalance(tapurl, encrypt)
+        setPoints(response.data.claimedPoints)
+
         setUpdate(Math.random())
         setAnimationState('moving');
         playAudio(gunshot);
@@ -127,20 +131,22 @@ export default function TelegramBotDash() {
 
         setTimeout(() => {
             setAnimationState('moving');
-            stopAudio(gunshot);
         }, 100)
 
 
 
         setTimeout(() => {
             setAnimationState('walking');
+            stopAudio(gunshot);
+
         }, 700)
 
 
         setIsRunning(true);
 
         setPercent(prev => Math.max(prev - 10, 0));
-        setCalAmount(calAmount - 50);
+        let bal = calAmount - 50
+        setCalAmount(bal <= 0 ? 0 : bal);
         setShowImage(true);
         setTapping(true);
         setShowers(prev => [...prev, Date.now()]);
@@ -159,7 +165,7 @@ export default function TelegramBotDash() {
 
     return (
         <TelegramLayout>
-            <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] pt-12 text-[#EDF9D0] h-screen w-screen" >
+            <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] text-[#EDF9D0] h-screen w-screen" >
                 {error &&
                     <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
                 }
@@ -184,7 +190,7 @@ export default function TelegramBotDash() {
                     </div>
 
                     <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex sm:py-5 h-[250px] md:h-[300px] relative flex-col justify-center items-center'>
-                        <div className='relative  z-10 '>
+                        <div className='relative -right-[4px]  z-10 '>
                             <SpriteAnim animationState={animationState} />
                             {/* <img className='h-[270px] w-[220px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
                             <img className='h-[270px] w-[220px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
@@ -202,7 +208,7 @@ export default function TelegramBotDash() {
                 </div>
                 {/* Timer and Tap */}
                 <div className='relative pt-14'>
-                    {!fullBalance &&
+                    {countDownActive &&
                         <div className='w-full flex flex-col justify-center items-center z-20 m-auto absolute  top-0'>
                             <TimerTapCount claimTime={claimTime} setUpdate={setUpdate} />
                         </div>
@@ -230,7 +236,9 @@ export default function TelegramBotDash() {
                 </div>
 
                 <DashBoardModal referralId={referralId} signedIn={signedIn} setOpened={setOpened} opened={opened} />
-                {/* <GrenadeComponent percent={100} startExplosion={startExplosion} /> */}
+                {boostActive &&
+                    <GrenadeComponent percent={100} startExplosion={startExplosion} />
+                }
 
             </div >
         </TelegramLayout>

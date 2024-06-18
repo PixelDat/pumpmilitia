@@ -10,8 +10,9 @@ import { WalletMultiButton, useWalletModal } from "@solana/wallet-adapter-react-
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { CircularProgress } from "@mui/material";
 import { ToastComponent } from "../toastComponent/toastComponent";
-import { CancelOutlined, CheckCircle, FolderCopy } from "@mui/icons-material";
+import { ArrowBack, CancelOutlined, CheckCircle, FolderCopy } from "@mui/icons-material";
 import { labels } from "@/lib/constants/app_images";
+import { usePathname } from "next/navigation";
 const Cookies = require('js-cookie');
 interface UserType {
   username: string,
@@ -28,6 +29,10 @@ require("@solana/wallet-adapter-react-ui/styles.css");
 
 
 export default function WithdrawPage() {
+  const path = usePathname();
+
+
+
 
   let encrypt = Cookies.get('encrypt_id');
   const { connection } = useConnection();
@@ -36,7 +41,7 @@ export default function WithdrawPage() {
   const [connected, setConnected] = useState(false)
   const [visible, setVisible] = useState(false)
   const [visibleMod, setVisibleMod] = useState(false)
-
+  const [refererPage, setRefererPage] = useState('');
   const [openSmall, setOpenSmall] = React.useState(false);
 
 
@@ -73,10 +78,17 @@ export default function WithdrawPage() {
   }, [publicKey])
 
   useEffect(() => {
+    let referrer = document.referrer;
+    setRefererPage(referrer);
+
+  }, [])
+
+  useEffect(() => {
     if (!encrypt) {
       location.href = '/pumpmilitiaAuth/type=login;data='
       return
     }
+
     let userDetails = async () => {
       let config = {
         method: 'get',
@@ -243,7 +255,20 @@ export default function WithdrawPage() {
       {error &&
         <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
       }
-      <NavBar />
+      {refererPage == "http://localhost:3000/telegram-dash" ?
+        <div className='w-full bg-transparent text-white flex flex-row justify-between items-end fixed px-4 pt-5 '>
+          <div className='flex flex-row justify-center gap-4'>
+            {
+              path == "/telegram-dash" ?
+                <></>
+                :
+                <div onClick={() => { history.back() }}>
+                  <ArrowBack sx={{ color: 'white', }} />
+                </div>
+            }
+          </div>
+        </div>
+        : <NavBar />}
       <div className="pt-[50px] mb-10 w-11/12 m-auto text-[#EDF9D0] font-kanit">
         <div className="flex flex-col md:flex-row gap-10 items-end">
           <div className="basis-1/2 order-2 md:order-1 space-y-4">
