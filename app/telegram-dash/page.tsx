@@ -50,7 +50,7 @@ export default function TelegramBotDash() {
 
     }
     useEffect(() => {
-        const intervalId = setInterval(async () => {
+        const loadItems = async () => {
             let checkedDownloaded = await checkDownloadReward(encrypt);
             if (!checkedDownloaded.data.status) {
                 setOpened(true);
@@ -77,7 +77,10 @@ export default function TelegramBotDash() {
             setGradeAmount(data.fullBalanceAmount || 0);
             // let checkRefillBoost = await checkRefill(encrypt);
             // console.log(checkRefillBoost, 'Refill');
-        }, 3000);
+        }
+
+        loadItems();
+        const intervalId = setInterval(loadItems, 4000);
 
         return () => clearInterval(intervalId);
     }, [encrypt, update]);
@@ -126,7 +129,7 @@ export default function TelegramBotDash() {
             playAudio(gunshot);
             let tapurl = "http://localhost:8080/register-tap";
             let response = await claimTapBalance(tapurl, encrypt)
-            setPoints(response.data.claimedPoints)
+            response.status == true ? setPoints(response.data.claimedPoints) : setPoints(10);
         }, 200)
 
         setTimeout(() => {

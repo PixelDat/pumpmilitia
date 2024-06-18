@@ -1,3 +1,4 @@
+import { AccessAlarm, PunchClock, Watch } from '@mui/icons-material';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
@@ -76,9 +77,9 @@ const CircleGauge: React.FC<CircleGaugeProps> = ({ percent, updatePercent, isRun
         />
       </svg>
       <div className="absolute text-[14px] font-semibold text-[#A5E314] flex flex-row items-center justify-center">
-        <div className='leading-tight text-center'>
+        <div className='leading-tight flex flex-col justify-center text-center'>
           15s
-          <Image src='/telegram/dashpage/palm.png' alt='' width={32} height={32} priority />
+          <AccessAlarm className='text-[#fad250]' />
         </div>
 
       </div>
