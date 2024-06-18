@@ -108,9 +108,7 @@ export const checkDownloadReward = async (encrypt_id: string) => {
 
 
 export const checkMiningBalanceDash = async (encrypt_id: string) => {
-    // let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/get-mining-balance";
-    let url = "http://localhost:8080/get-mining-balance";
-
+    let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/get-mining-balance";
     try {
         const response = await axios.get(url, {
             headers: { Authorization: `${encrypt_id}` }
@@ -173,8 +171,7 @@ export const getTurboReward = async (encrypt_id: string) => {
 }
 
 export const checkTurboBoostOn = async (encrypt_id: string) => {
-    let url = "http://localhost:8080/check-turbo-boost-on";
-    // let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-boosts";
+    let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-boosts";
 
     try {
         const response = await axios.get(url, {
