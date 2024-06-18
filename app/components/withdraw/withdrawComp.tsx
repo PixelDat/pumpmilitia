@@ -255,11 +255,7 @@ export default function WithdrawPage() {
       {error &&
         <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
       }
-<<<<<<< HEAD
-      {referrer == "https://www.pumpmilitia.io/telegram-dash" ?
-=======
-      {refererPage == "http://localhost:3000/telegram-dash" ?
->>>>>>> 92150d62b89977f38cb7f032fff769ed63676d54
+      {refererPage == "https://www.pumpmilitia.io/telegram-dash" ?
         <div className='w-full bg-transparent text-white flex flex-row justify-between items-end fixed px-4 pt-5 '>
           <div className='flex flex-row justify-center gap-4'>
             {
