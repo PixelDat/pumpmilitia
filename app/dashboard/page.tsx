@@ -322,10 +322,10 @@ export default function Dashboard() {
                   priority
                   alt="" />
                 <div>
-                  <a href="/withdraw" className="navbar-auth-btn">Withdraw</a>
+                  <a href="/withdraw" className="navbar-auth-btn">Claim</a>
                 </div>
 
-                <p className="text-[15px] font-[300]">Claim or stake tokens at TGE</p>
+                <p className="text-[15px] font-[300]">Claim or stake your airdrop from the 23rd of June 2024</p>
 
               </div>
             </div>

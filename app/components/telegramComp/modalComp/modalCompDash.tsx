@@ -100,18 +100,17 @@ const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, 
                                     </div>
 
                                     <a onClick={() => {
-                                        setLoading(true)
-                                        setClickedDownload(true)
-                                        setTimeout(() => {
-                                            setLoading(false)
-                                        }, 3000)
-                                    }} target='_blank'
-                                        href="market://details?id=com.everpumpstudio.pumpmilitia"
-                                        // href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US" 
-
-                                        className={`flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row items-center gap-x-2 justify-center text-black font-bold items-center `}>
-                                        <Image src="/telegram/frens/icongame.png" height={24} width={24} alt='Iconsss' />   Download <ArrowForward />
-                                    </a>
+    setLoading(true)
+    setClickedDownload(true)
+    setTimeout(() => {
+        setLoading(false)
+    }, 3000)
+}} 
+target='_blank' rel="noopener noreferrer"
+href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"
+className={`flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row items-center gap-x-2 justify-center text-black font-bold items-center `}>
+    <Image src="/telegram/frens/icongame.png" height={24} width={24} alt='Iconsss' />   Download <ArrowForward />
+</a>
 
                                     <div onClick={() => checkIfSignedIn()} className={`${!clickedDownload ? "blur-[2px]" : ""} flex bg-[#52710A] border-[#A5E314] border-b-4 hover:border-b-0 hover:border-t-4 w-full p-3 rounded-2xl flex-row justify-center items-center `}>
                                         {loading ? <CircularProgress color='inherit' size={14} /> : "Continue"}
