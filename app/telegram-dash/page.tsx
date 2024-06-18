@@ -78,7 +78,7 @@ export default function TelegramBotDash() {
             setGradeAmount(data.fullBalanceAmount || 0);
             // let checkRefillBoost = await checkRefill(encrypt);
             // console.log(checkRefillBoost, 'Refill');
-        }, 3000);
+        }, 5000);
 
         return () => clearInterval(intervalId);
     }, [encrypt, update]);
@@ -115,8 +115,8 @@ export default function TelegramBotDash() {
         }
 
         //Claim Tap Balance
-        let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
-        // let tapurl = "http://localhost:8080/register-tap";
+        // let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
+        let tapurl = "http://localhost:8080/register-tap";
         let response = await claimTapBalance(tapurl, encrypt)
         setPoints(response.data.claimedPoints)
 
@@ -163,13 +163,14 @@ export default function TelegramBotDash() {
         }
     }, [showImage])
 
+    let brightness = countDownActive ? 'brightness(50%)' : 'brightness(100%)';
     return (
         <TelegramLayout>
             <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] text-[#EDF9D0] h-screen w-screen" >
                 {error &&
                     <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
                 }
-                <div className='flex flex-col h-[60%]  justify-center items-center'>
+                <div className='flex flex-col h-[67%] relative  pt-2  justify-center items-center'>
                     <div className='text-center flex flex-col justify-center items-center space-y-2 '>
                         <div className=''>
                             <div className='flex flex-row justify-center items-center '>
@@ -189,8 +190,8 @@ export default function TelegramBotDash() {
                         </div>
                     </div>
 
-                    <div style={{ cursor: 'pointer' }} onClick={() => updatePercentage()} className='flex sm:py-5 h-[250px] md:h-[300px] relative flex-col justify-center items-center'>
-                        <div className='relative -right-[4px]  z-10 '>
+                    <div style={{ cursor: 'pointer', filter: brightness }} onTouchStart={() => updatePercentage()} className='flex sm:py-2 relative flex-col justify-center items-center'>
+                        <div className='relative -right-[20px]  z-10 '>
                             <SpriteAnim animationState={animationState} />
                             {/* <img className='h-[270px] w-[220px]' id='walking' style={{ cursor: 'pointer', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/walking2.gif' alt='' />
                             <img className='h-[270px] w-[220px]' id='move' style={{ cursor: 'pointer', display: 'none', objectFit: "cover", filter: 'brightness(150%)' }} height={408} src='/telegram/dashpage/shooting.gif' alt='' />
@@ -203,16 +204,15 @@ export default function TelegramBotDash() {
                             </div>
                         }
 
-
                     </div>
-                </div>
-                {/* Timer and Tap */}
-                <div className='relative pt-14'>
                     {countDownActive &&
-                        <div className='w-full flex flex-col justify-center items-center z-20 m-auto absolute  top-0'>
+                        <div className='w-full absolute   flex flex-col justify-end items-center z-20 m-auto   bottom-0'>
                             <TimerTapCount claimTime={claimTime} setUpdate={setUpdate} />
                         </div>
                     }
+                </div>
+                {/* Timer and Tap */}
+                <div className='relative'>
                     <div className='w-10/12 m-auto'>
                         <Tapcomponent
                             points={points}
