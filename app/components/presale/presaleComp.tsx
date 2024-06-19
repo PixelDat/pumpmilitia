@@ -386,12 +386,12 @@ export default function PresaleComp() {
                       <div className="bg-[#282F20E9] p-4 rounded-2xl md:h-full ">
                         <div className="flex flex-row items-center justify-between">
                           <p>Presale Progress</p>
-                          <p>Raised <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
+                          <p>Raised <span className="text-[#C3EC62] text-[24px] font-gameria">$0</span></p>
                         </div>
-                        <div className="flex flex-row items-center justify-between">
+                        {/* <div className="flex flex-row items-center justify-between">
                           <p className="text-[#C3EC62]">Private Round</p>
                           <p>Hard Cap <span className="text-[#C3EC62] text-[24px] font-gameria">$100M</span></p>
-                        </div>
+                        </div> */}
                         {/* Rectangle */}
                         <div className="bg-[#374C07] my-4 h-[4px] rounded-full w-full">
                           <div className={`bg-[#A5E314] rounded-full h-[4px]`} style={{ width: `${coinBalPercentage}%` }}>
