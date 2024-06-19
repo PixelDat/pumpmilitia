@@ -35,7 +35,7 @@ export const leagues = [
         rank: "Colonel",
         title: 'League 6',
         image: '/telegram/league/colonel.png',
-        from: '2,00,000',
+        from: '2,000,000',
     },
     {
         rank: "General",
@@ -44,3 +44,4 @@ export const leagues = [
         from: '5,000,000',
     }
 ]
+

@@ -11,6 +11,7 @@ import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
 import SpriteAnim from '../components/animationComponent/spriteSheet';
+import { leagues } from '../telegram-league/utils';
 
 const Cookies = require("js-cookie");
 
@@ -45,11 +46,16 @@ export default function TelegramBotDash() {
     const [animationState, setAnimationState] = useState('walking');
     const [countDownActive, setIsCountDownActive] = useState(false)
     const [boostActive, setBoostActive] = useState(false);
+    const [rank, setRank] = useState({
+        rank: 'Corporal',
+        image: '/telegram/league/coporal.png',
+    });
 
     function startExplosion() {
 
     }
     useEffect(() => {
+
         const loadItems = async () => {
             let checkedDownloaded = await checkDownloadReward(encrypt);
             if (!checkedDownloaded.data.status) {
@@ -57,7 +63,6 @@ export default function TelegramBotDash() {
             }
 
             let checkBoost = await checkTurboBoostOn(encrypt);
-            console.log(checkBoost.data);
             if (checkBoost.data.turboBoostOn) {
                 setShowExplosion(true)
                 setBoostActive(checkBoost.data.turboBoostOn);
@@ -69,14 +74,18 @@ export default function TelegramBotDash() {
 
             let checkMBalance = await checkMiningBalanceDash(encrypt);
             let data = checkMBalance.data;
-            console.log(data);
             setClaimTime(data.nextClaimTime);
             setFullBalance(data.fullBalanceBox);
             setIsCountDownActive(data.isCountDownActive);
             setCalAmount(data.balance || 0);
             setGradeAmount(data.fullBalanceAmount || 0);
             // let checkRefillBoost = await checkRefill(encrypt);
-            // console.log(checkRefillBoost, 'Refill');
+
+
+
+
+
+
         }
 
         loadItems();
@@ -87,16 +96,31 @@ export default function TelegramBotDash() {
 
     useEffect(() => {
         let referralId = Cookies.get('referrerId');
-        // console.log(referralId)
+
         setReferralId(referralId);
         (async () => {
             let response = await getUserDetails(encrypt);
             if (response.status) {
                 setUserBalance(response.data.points)
-                // let turboReward = await getTurboReward(encrypt);
-                // if (turboReward.status) {
-                //     console.log(turboReward.data)
-                // }
+
+                const balance = response.data.points;
+                const parseNumber = (item: string) => Number(item.replace(',', ''));
+                if (balance >= parseNumber(leagues[6].from)) {
+                    setRank({ rank: leagues[6].rank, image: leagues[6].image });
+                } else if (balance >= parseNumber(leagues[5].from)) {
+                    setRank({ rank: leagues[5].rank, image: leagues[5].image });
+                } else if (balance >= parseNumber(leagues[4].from)) {
+                    setRank({ rank: leagues[4].rank, image: leagues[4].image });
+                } else if (balance >= parseNumber(leagues[3].from)) {
+                    setRank({ rank: leagues[3].rank, image: leagues[3].image });
+                } else if (balance >= parseNumber(leagues[2].from)) {
+                    setRank({ rank: leagues[2].rank, image: leagues[2].image });
+                } else if (balance >= parseNumber(leagues[1].from)) {
+                    setRank({ rank: leagues[1].rank, image: leagues[1].image });
+                } else {
+                    setRank({ rank: 'Corporal', image: leagues[0].image });
+                }
+
             }
         })();
 
@@ -159,7 +183,6 @@ export default function TelegramBotDash() {
     };
 
     useEffect(() => {
-        console.log(showers);
     }, [showers])
     useEffect(() => {
         if (percent < 100) {
@@ -192,9 +215,9 @@ export default function TelegramBotDash() {
                             <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
                         </div>
 
-                        <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-2 items-center'>
-                            <Image src='/telegram/dashpage/trophy.png' alt='' width={24} height={24} priority />
-                            <p className='text-[24px] font-bolder'>Corporal</p>
+                        <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-1 items-center'>
+                            <Image src={rank.image} alt='' width={24} height={24} priority />
+                            <p className='text-[24px] font-bolder'>{rank.rank}</p>
                             <ArrowForward />
                         </div>
                     </div>
