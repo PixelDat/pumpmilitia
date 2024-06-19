@@ -99,9 +99,9 @@ export default function TelegramBoosters() {
         if (selectedBoost != "Blast" && selectedBoost != "Reload") {
             return;
         };
-        // let url = selectedBoost == "Blast" ? "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/turbo-boost" : "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/reload-boost";
+        let url = selectedBoost == "Blast" ? "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/turbo-boost" : "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/reload-boost";
 
-        let url = selectedBoost == "Blast" ? "http://localhost:8080/turbo-boost" : "http://localhost:8080/reload-boost";
+        // let url = selectedBoost == "Blast" ? "http://localhost:8080/turbo-boost" : "http://localhost:8080/reload-boost";
         try {
             const response = await axios.post(url, {}, {
                 headers: { Authorization: `${encrypt}` }
