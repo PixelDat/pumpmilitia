@@ -104,7 +104,8 @@ export default function TelegramBotDash() {
                 setUserBalance(response.data.points)
 
                 const balance = response.data.points;
-                const parseNumber = (item: string) => Number(item.replace(',', ''));
+                const parseNumber = (item: string) => Number(item.replace(/,/g, ''));
+
                 if (balance >= parseNumber(leagues[6].from)) {
                     setRank({ rank: leagues[6].rank, image: leagues[6].image });
                 } else if (balance >= parseNumber(leagues[5].from)) {

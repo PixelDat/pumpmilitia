@@ -21,19 +21,19 @@ export default function TelegramLeague() {
     const [leagueTitle, setLeagueTitle] = useState(leagues[0].rank)
     const [percentage, setPercentage] = useState(0)
 
-    const parseNumber = (item: string) => Number(item.replace(',', ''));
+    const parseNumber = (item: string) => Number(item.replace(/,/g, ''));
 
     function handleNext() {
         if (currentLeague == leagues.length - 1) return;
         setCurrentLeague(currentLeague + 1)
         setLeagueTitle(leagues[currentLeague + 1].rank)
-        setPercentage((userBalance / parseNumber(leagues[currentLeague + 1].from)) * 100)
+        setPercentage(Math.min((userBalance / parseNumber(leagues[currentLeague + 1].from)) * 100, 100));
     }
     function handlePrev() {
         if (currentLeague == 0) return;
         setCurrentLeague(currentLeague - 1)
         setLeagueTitle(leagues[currentLeague - 1].rank)
-        setPercentage((userBalance / parseNumber(leagues[currentLeague - 1].from)) * 100)
+        setPercentage(Math.min((userBalance / parseNumber(leagues[currentLeague - 1].from)) * 100, 100))
     }
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function TelegramLeague() {
             setRank({ rank: leagues[leagueIndex].rank, image: leagues[leagueIndex].image });
             setCurrentLeague(leagueIndex)
             setLeagueTitle(leagues[leagueIndex].rank)
-            setPercentage((balance / parseNumber(leagues[leagueIndex].from)) * 100)
+            setPercentage(Math.min((balance / parseNumber(leagues[leagueIndex].from)) * 100, 100));
         }
 
         (async () => {
@@ -51,6 +51,8 @@ export default function TelegramLeague() {
                 setUserBalance(response.data.points)
 
                 const balance = response.data.points;
+                // const balance = 206065;
+
 
                 if (balance >= parseNumber(leagues[6].from)) {
                     updateRanks(6, balance)
