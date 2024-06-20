@@ -56,7 +56,7 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
 
         let gameFrame = 0;
         // To adjust the speed of the tapping 
-        const staggerFrame = 0.9;
+        const staggerFrame = 1;
 
         function animate() {
             ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
