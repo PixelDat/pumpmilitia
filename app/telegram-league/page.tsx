@@ -27,13 +27,13 @@ export default function TelegramLeague() {
         if (currentLeague == leagues.length - 1) return;
         setCurrentLeague(currentLeague + 1)
         setLeagueTitle(leagues[currentLeague + 1].rank)
-        setPercentage(Math.min((userBalance / parseNumber(leagues[currentLeague + 1].from)) * 100, 100));
+        setPercentage(Math.min((userBalance / parseNumber(leagues[currentLeague + 1].to)) * 100, 100));
     }
     function handlePrev() {
         if (currentLeague == 0) return;
         setCurrentLeague(currentLeague - 1)
         setLeagueTitle(leagues[currentLeague - 1].rank)
-        setPercentage(Math.min((userBalance / parseNumber(leagues[currentLeague - 1].from)) * 100, 100))
+        setPercentage(Math.min((userBalance / parseNumber(leagues[currentLeague - 1].to)) * 100, 100))
     }
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function TelegramLeague() {
             setRank({ rank: leagues[leagueIndex].rank, image: leagues[leagueIndex].image });
             setCurrentLeague(leagueIndex)
             setLeagueTitle(leagues[leagueIndex].rank)
-            setPercentage(Math.min((balance / parseNumber(leagues[leagueIndex].from)) * 100, 100));
+            setPercentage(Math.min((balance / parseNumber(leagues[leagueIndex].to)) * 100, 100));
         }
 
         (async () => {
@@ -51,7 +51,7 @@ export default function TelegramLeague() {
                 setUserBalance(response.data.points)
 
                 const balance = response.data.points;
-                // const balance = 206065;
+
 
 
                 if (balance >= parseNumber(leagues[6].from)) {
@@ -112,11 +112,11 @@ export default function TelegramLeague() {
                                     </div>
                                     <div className='flex flex-col items-center justify-center'>
                                         {/* <p className='text-[36px] font-bold'>{item.title}</p> */}
-                                        <p className='text-[16px] text-[#E1F6B1]'>From {item.from}</p>
+                                        <p className='text-[16px] text-[#E1F6B1]'>From {item.to}</p>
                                     </div>
                                     <div className='border-[#A5E314] border-2 p-1 px-2 flex rounded-3xl flex-row justify-center  gap-2 items-center'>
                                         <p><Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} /></p>
-                                        <p>{userBalance.toLocaleString()} / <span className='text-[#52710A]'>{item.from}</span></p>
+                                        <p>{userBalance.toLocaleString()} / <span className='text-[#52710A]'>{item.to}</span></p>
                                     </div>
                                 </div>
                             )
