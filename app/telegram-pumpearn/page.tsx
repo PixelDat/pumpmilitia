@@ -311,6 +311,7 @@ export default function TelegramPumpEarn() {
             }
         }
     }
+    createAccount("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/create-referral-account", encrypt);
     return (
         <TelegramLayout>
             <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-5 text-[#EDF9D0] w-screen" >
