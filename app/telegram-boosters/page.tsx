@@ -139,7 +139,9 @@ export default function TelegramBoosters() {
                             </div>
 
                         </div>
-                        <Image src='/telegram/dashpage/howbtn.png' alt='' width={130} height={58} priority />
+                        <a href='pump://pumpmilitia.app' target='_blank'>
+                            <Image src='/telegram/dashpage/playbtn.png' alt='' width={130} height={50} priority />
+                        </a>
 
                     </div>
 
