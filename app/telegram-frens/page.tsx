@@ -23,6 +23,7 @@ export default function TelegramFrens() {
     const [refLink, setRefLink] = useState('')
     const [refMessage, setRefMessage] = useState('')
 
+    // remove dummy data
     const [referrals, setReferrals] = useState(['Moses Erhinyodavwe', 'James Abiyi'] as any);
 
     let encrypt = Cookies.get('encrypt_id');

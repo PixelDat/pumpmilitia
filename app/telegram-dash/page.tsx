@@ -6,7 +6,7 @@ import { ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle } from
 import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
 import TimerCount from '../components/timerComponent/timer';
 import TimerTapCount from '../components/telegramComp/tapComp/timer';
-import { checkClaimBalance, checkDownloadReward, checkMiningBalanceDash, checkRefill, checkTurboBoostOn, claimTapBalance, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
+import { checkClaimBalance, checkDownloadReward, checkMiningBalanceDash, checkRefill, checkTurboBoostOn, claimTapBalance, createAccount, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
 import { ToastComponent } from '../components/toastComponent/toastComponent';
 import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
@@ -173,6 +173,7 @@ export default function TelegramBotDash() {
     }, [showImage])
 
     let brightness = countDownActive ? 'brightness(50%)' : 'brightness(100%)';
+    createAccount("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/create-referral-account", encrypt);
     return (
         <TelegramLayout>
             <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] text-[#EDF9D0] h-screen w-screen" >
