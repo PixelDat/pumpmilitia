@@ -14,7 +14,7 @@ export const getUserDetails = async (encrypt_id: string) => {
 
     }
     catch (e) {
-        console.error(e)
+        console.log(e)
         return {
             status: false,
             data: []
@@ -53,7 +53,7 @@ export const createAccount = async (url: string, encrypt_id: string) => {
 
     }
     catch (e) {
-        console.error(e)
+        console.log(e)
         return {
             status: false,
             data: []
@@ -75,7 +75,7 @@ export const claimTapBalance = async (url: string, encrypt_id: string) => {
 
     }
     catch (e) {
-        console.error(e)
+        console.log(e)
         return {
             status: false,
             data: []
@@ -98,7 +98,7 @@ export const checkDownloadReward = async (encrypt_id: string) => {
 
     }
     catch (e) {
-        console.error(e)
+        console.log(e)
         return {
             status: false,
             data: []
@@ -109,6 +109,8 @@ export const checkDownloadReward = async (encrypt_id: string) => {
 
 export const checkMiningBalanceDash = async (encrypt_id: string) => {
     let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/get-mining-balance";
+    // let url = "http://localhost:8080/get-mining-balance";
+
     try {
         const response = await axios.get(url, {
             headers: { Authorization: `${encrypt_id}` }
@@ -119,7 +121,7 @@ export const checkMiningBalanceDash = async (encrypt_id: string) => {
         }
     }
     catch (e) {
-        console.error(e)
+        console.log(e)
         return {
             status: false,
             data: e
@@ -141,7 +143,7 @@ export const checkClaimBalance = async (encrypt_id: string) => {
 
     }
     catch (e) {
-        console.error(e)
+        console.log(e)
         return {
             status: false,
             data: []
@@ -162,7 +164,7 @@ export const getTurboReward = async (encrypt_id: string) => {
 
     }
     catch (e) {
-        console.error(e)
+        console.log(e)
         return {
             status: false,
             data: []
@@ -171,7 +173,8 @@ export const getTurboReward = async (encrypt_id: string) => {
 }
 
 export const checkTurboBoostOn = async (encrypt_id: string) => {
-    let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-turbo-boost-on";
+    // let url = "http://localhost:8080/check-turbo-boost-on";
+    let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-boosts";
 
     try {
         const response = await axios.get(url, {
@@ -184,6 +187,7 @@ export const checkTurboBoostOn = async (encrypt_id: string) => {
 
     }
     catch (e) {
+        console.log(e)
         return {
             status: false,
             data: []
@@ -205,7 +209,7 @@ export const checkRefill = async (encrypt_id: string) => {
 
     }
     catch (e) {
-        console.error(e)
+        console.log(e)
         return {
             status: false,
             data: []
@@ -235,7 +239,7 @@ export const claimBalance = async (url: string, encrypt_id: string) => {
 
     }
     catch (e) {
-        console.error(e)
+        console.log(e)
         return {
             status: false,
             data: []
