@@ -10,10 +10,14 @@ import { ToastComponent } from '../components/toastComponent/toastComponent';
 import { ReferralItem, boost } from './utils';
 import axios from 'axios';
 import TelegramLayout from '../telegramLayout/layout';
-import { playAudio } from '@/lib/utils/request';
+import { playAudio, stopAudio } from '@/lib/utils/request';
 import { Avatar, CircularProgress } from '@mui/material';
 const Cookies = require("js-cookie");
 
+type Referral = {
+    created_at: string;
+    email: string;
+};
 
 export default function TelegramFrens() {
     const [referralList, setReferralList] = useState([] as ReferralItem[]);
@@ -22,8 +26,8 @@ export default function TelegramFrens() {
     const [error, setError] = useState(false)
     const [refLink, setRefLink] = useState('')
     const [refMessage, setRefMessage] = useState('')
-
-    const [referrals, setReferrals] = useState(['Moses Erhinyodavwe', 'James Abiyi'] as any);
+    const [update, setUpdate] = useState(0);
+    const [referrals, setReferrals] = useState<Referral[]>([]);
 
     let encrypt = Cookies.get('encrypt_id');
     const [errMessage, setErrMessage] = useState({
@@ -50,7 +54,7 @@ export default function TelegramFrens() {
                 setReferralList(response.data);
             }
             catch (e) {
-                console.log(e)
+                console.error(e)
             }
         })();
 
@@ -59,14 +63,13 @@ export default function TelegramFrens() {
                 const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/get-refLink", {
                     headers: { Authorization: `${encrypt}` }
                 });
-                console.log(response);
                 setRefMessage(response.data.inviteFriendsMsgCondtruct)
                 setRefLink(response.data.refLink)
                 setLoading(false)
             }
 
             catch (e) {
-                console.log(e)
+                console.error(e)
                 setLoading(false)
 
             }
@@ -77,16 +80,16 @@ export default function TelegramFrens() {
                 const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/list-referred-users", {
                     headers: { Authorization: `${encrypt}` }
                 });
-                console.log(response);
-                // setReferrals(response.data.totalReferees)
+                console.log(response.data);
+                setReferrals(response.data);
 
             }
             catch (e) {
-                console.log(e)
+                console.error(e)
 
             }
         })()
-    }, [])
+    }, [update])
 
     const claimInviteChallenge = async (id: string) => {
         let coingif = document.getElementById('coingif') as HTMLElement;
@@ -106,7 +109,10 @@ export default function TelegramFrens() {
             setErrMessage({ type: 'success', message: response.data.message });
             setTimeout(() => {
                 setError(false);
-            }, 2000)
+                coingif.style.display = 'none';
+                stopAudio(coin)
+            }, 3000)
+            setUpdate(Math.random())
         } catch (error: any) {
             setError(true);
             setErrMessage({ type: 'error', message: error.response.data.message });
@@ -228,14 +234,14 @@ export default function TelegramFrens() {
                                 </h2>
                             </div>
                             :
-                            <div className='border  border-[#52710A]/50 p-3 rounded-xl w-full '>
+                            <div className='border  border-[#52710A]/50 p-3 rounded-xl mb-14 w-full '>
                                 <h2 className='text-center font-gameria text-[24px]'>{referrals.length} Frens Invited</h2>
-                                <div className='space-y-4'>
-                                    {referrals.map((referral: string, index: number) => {
+                                <div className='space-y-4 '>
+                                    {referrals.map((referral, index) => {
                                         return (
                                             <div key={index} className='flex flex-row justify-start items-center gap-3'>
                                                 <Avatar src={'/telegram/frens/defaultdp.png'} className='border border-[#52710A] p-2' sx={{ width: 56, height: 56 }} />
-                                                <h2 className='text-[20px] font-bold '>{referral}</h2>
+                                                <h2 className='text-[20px] font-bold '>{referral?.email}</h2>
                                             </div>)
                                     })}
 
