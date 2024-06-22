@@ -9,14 +9,14 @@ const Sprite: React.FC = () => {
 
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-        const spriteSheet = '/telegram/frens/spritesheet3.png';
+        const spriteSheet = '/telegram/frens/snew.png';
 
 
-        const CANVAS_WIDTH = canvas.width = 2151 / 6;
-        const CANVAS_HEIGHT = canvas.height = 567;
+        const CANVAS_WIDTH = canvas.width = 2151 / 5;
+        const CANVAS_HEIGHT = canvas.height = 1135 * 2;
 
-        const spriteWidth = 400;
-        const spriteHeight = 520;
+        const spriteWidth = 136.5;
+        const spriteHeight = 181;
 
 
         const shooterImage = new Image();
@@ -65,7 +65,6 @@ const Sprite: React.FC = () => {
                 spriteWidth,
                 spriteHeight,
                 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-            // x++
             if (gameFrame % staggerFrame == 0) {
                 if (frameX < 3) frameX++;
                 else frameX = 0;
