@@ -10,16 +10,17 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
     useEffect(() => {
         const canvas = document.getElementById('canvas1') as HTMLCanvasElement;
 
-        console.log(animationState);
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-        const spriteSheet = '/telegram/frens/spritesheet.png';
+        const spriteSheet = '/telegram/frens/snew.png';
 
-        const CANVAS_WIDTH = canvas.width = 19502 / 50;
-        const CANVAS_HEIGHT = canvas.height = 964 / 2;
 
-        const spriteWidth = (19502 / 50) + 2;
-        const spriteHeight = 964 / 2;
+        const CANVAS_WIDTH = canvas.width = 2151 / 5;
+        const CANVAS_HEIGHT = canvas.height = 1135 * 2;
+
+        const spriteWidth = 136.3;
+        const spriteHeight = 181;
+
 
         const shooterImage = new Image();
         shooterImage.src = spriteSheet;
@@ -29,15 +30,11 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
         const animationStates = [
             {
                 name: 'shooting',
-                frames: 50
-            },
-            {
-                name: 'moving',
-                frames: 15
+                frames: 2,
             },
             {
                 name: 'walking',
-                frames: 40,
+                frames: 4
             }
         ]
 
@@ -47,6 +44,7 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
             }
             for (let j = 0; j < state.frames; j++) {
                 let positionX = j * spriteWidth;
+
                 let positionY = index * spriteHeight;
                 frames.loc.push({ x: positionX, y: positionY });
             }
@@ -55,15 +53,14 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
 
 
         let gameFrame = 0;
-        // To adjust the speed of the tapping 
-        const staggerFrame = 1;
+
+        const staggerFrame = 12;
 
         function animate() {
             ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
             let position = Math.floor(gameFrame / staggerFrame) % spriteAnimation[animationState].loc.length;
             let frameX = spriteWidth * position;
             let frameY = spriteAnimation[animationState].loc[position].y;
-
             ctx.drawImage(
                 shooterImage,
                 frameX,
@@ -71,7 +68,6 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
                 spriteWidth,
                 spriteHeight,
                 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-            // x++
             if (gameFrame % staggerFrame == 0) {
                 if (frameX < 3) frameX++;
                 else frameX = 0;
@@ -82,7 +78,6 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
 
         animate();
     }, [animationState])
-
     return (
         <div style={{ filter: "brightness(150%)" }} className="flex  flex-col justify-center items-center">
             <canvas className='w-[240px] h-[300px]' id='canvas1'></canvas>

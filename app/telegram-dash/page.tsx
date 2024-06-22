@@ -145,7 +145,7 @@ export default function TelegramBotDash() {
 
 
         setUpdate(Math.random())
-        setAnimationState('moving');
+        // setAnimationState('moving');
 
 
         setTimeout(async () => {
@@ -156,9 +156,9 @@ export default function TelegramBotDash() {
             response.status == true ? setPoints(response.data.claimedPoints) : setPoints(10);
         }, 200)
 
-        setTimeout(() => {
-            setAnimationState('moving');
-        }, 100)
+        // setTimeout(() => {
+        //     setAnimationState('moving');
+        // }, 100)
 
         setTimeout(() => {
             setAnimationState('walking');
@@ -197,8 +197,8 @@ export default function TelegramBotDash() {
     }, [showImage])
 
     let brightness = countDownActive ? 'brightness(50%)' : 'brightness(100%)';
-    
-    
+
+
     useEffect(() => {
         async function createMiningAccount() {
             await createAccount("https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account", encrypt);
@@ -207,9 +207,9 @@ export default function TelegramBotDash() {
         }
         createAccount("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/create-referral-account", encrypt);
         createMiningAccount();
-    }, []); 
+    }, []);
 
-    
+
     return (
         <TelegramLayout>
             <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] text-[#EDF9D0] h-screen w-screen" >
@@ -225,9 +225,9 @@ export default function TelegramBotDash() {
                             </div>
 
                         </div>
-                        <div onClick={() => location.href = "/withdraw"}>
+                        <a href='pump://pumpmilitia.app' target='_blank'>
                             <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
-                        </div>
+                        </a>
 
                         <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-1 items-center'>
                             <Image src={rank.image} alt='' width={24} height={24} priority />

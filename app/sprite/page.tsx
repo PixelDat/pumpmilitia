@@ -9,14 +9,15 @@ const Sprite: React.FC = () => {
 
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-        const spriteSheet = '/telegram/frens/spritesheet.png';
+        const spriteSheet = '/telegram/frens/snew.png';
 
 
-        const CANVAS_WIDTH = canvas.width = 380;
-        const CANVAS_HEIGHT = canvas.height = 480;
+        const CANVAS_WIDTH = canvas.width = 2151 / 5;
+        const CANVAS_HEIGHT = canvas.height = 1135 * 2;
 
-        const spriteWidth = 608 / 4;
-        const spriteHeight = 410 / 2;
+        const spriteWidth = 136.5;
+        const spriteHeight = 181;
+
 
         const shooterImage = new Image();
         shooterImage.src = spriteSheet;
@@ -25,12 +26,12 @@ const Sprite: React.FC = () => {
         const spriteAnimation = [] as any;
         const animationStates = [
             {
-                name: 'walking',
-                frames: 4
-            },
-            {
                 name: 'shooting',
                 frames: 2,
+            },
+            {
+                name: 'walking',
+                frames: 4
             }
         ]
 
@@ -40,6 +41,7 @@ const Sprite: React.FC = () => {
             }
             for (let j = 0; j < state.frames; j++) {
                 let positionX = j * spriteWidth;
+
                 let positionY = index * spriteHeight;
                 frames.loc.push({ x: positionX, y: positionY });
             }
@@ -63,7 +65,6 @@ const Sprite: React.FC = () => {
                 spriteWidth,
                 spriteHeight,
                 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-            // x++
             if (gameFrame % staggerFrame == 0) {
                 if (frameX < 3) frameX++;
                 else frameX = 0;
