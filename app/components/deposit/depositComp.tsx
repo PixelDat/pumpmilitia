@@ -152,7 +152,7 @@ export default function DepositCompPage() {
     }
     if (1 == 1) {
       setError(true);
-      setErrMessage({ type: 'success', message: "Deposits would begin on the 23rd of June 2024" });
+      setErrMessage({ type: 'success', message: "Deposits would begin at listing" });
       setLoading(false);
       setTimeout(() => {
         setError(false);
@@ -507,7 +507,7 @@ export default function DepositCompPage() {
 
                 </div>
                 <div>
-                  <p className="text-center text-[#898989]">Deposits would begin on the 23rd of June 2024</p>
+                  <p className="text-center text-[#898989]">Deposits would begin at listing</p>
                 </div>
                 <div className="relative">
                   <button onClick={() => {
@@ -521,7 +521,7 @@ export default function DepositCompPage() {
                   {
                     showPopup &&
                     <span className="bg-[#EDF9D0] absolute top-[-20px] left-0 p-2 text-[#181C13] text-[12px] rounded-2xl">
-                      Would be available  on 23rd June, 2024
+                      Would be available at listing
                     </span>
                   }
 

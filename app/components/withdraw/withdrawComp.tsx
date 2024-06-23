@@ -507,7 +507,7 @@ export default function WithdrawPage() {
                   {
                     showPopup &&
                     <span className="bg-[#EDF9D0] absolute top-[-20px] left-0 p-2 text-[#181C13] text-[12px] rounded-2xl">
-                      Would be available on 23rd June, 2024
+                      Would be available at listing
                     </span>
                   }
 
