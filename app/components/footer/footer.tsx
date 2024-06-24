@@ -28,7 +28,7 @@ const Footer = () => {
                     </div>
 
                     <div className="flex mb-4 flex-row md:justify-start justify-center items-start space-x-4">
-                        <a href="https://x.com/Pump_Militia" target="_blank">
+                        <a href="https://x.com/PumpMilitia" target="_blank">
                             <Image
                                 className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
                                 src={"/svg/twitter.svg"}

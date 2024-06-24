@@ -446,7 +446,7 @@ export default function PresaleComp() {
                         {/* Social Icons and Total Prices  */}
                         <div className="flex flex-col md:flex-row py-2 justify-between">
                           <div className="flex order-2 md:order-1  flex-row justify-start  space-x-2">
-                            <a href="https://x.com/Pump_Militia" target="_blank">
+                            <a href="https://x.com/PumpMilitia" target="_blank">
                               <Image
                                 className="justify-start items-start inline-flex max-w-[32px] max-h-[32px]"
                                 src={"/svg/twitter.svg"}
