@@ -110,7 +110,7 @@ export default function TelegramBoosters() {
             setTimeout(() => {
                 setError(false);
             }, 2000)
-            // location.href = '/telegram-dash';
+            location.href = '/telegram-dash';
 
         } catch (error: any) {
             setError(true);
