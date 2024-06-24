@@ -174,7 +174,7 @@ export default function WithdrawPage() {
     }
 
     setError(true);
-    setErrMessage({ type: 'success', message: "Withdraw your $PUMP on the 23rd of June 2024" });
+    setErrMessage({ type: 'success', message: "Withdraw your $PUMP at listing" });
     setLoading(false);
     setTimeout(() => {
       setError(false);
@@ -493,7 +493,7 @@ export default function WithdrawPage() {
                   </button>
                 </div>
                 <div>
-                  <p className="text-center text-[#898989]">Withdraw your $PUMP on the 23rd of June 2024</p>
+                  <p className="text-center text-[#898989]">Withdraw your $PUMP at listing</p>
                 </div>
                 <div className="relative">
                   <button onClick={() => {
@@ -507,7 +507,7 @@ export default function WithdrawPage() {
                   {
                     showPopup &&
                     <span className="bg-[#EDF9D0] absolute top-[-20px] left-0 p-2 text-[#181C13] text-[12px] rounded-2xl">
-                      Would be available on 23rd June, 2024
+                      Would be available at listing
                     </span>
                   }
 
