@@ -91,33 +91,6 @@ const Tapcomponent: React.FC<Taptypes> = ({
                     <CircleGauge fullBalance={fullBalance} isRunning={isRunning} setIsRunning={setIsRunning} updatePercent={updatePercentage} percent={percent} />
                 </div>
             </div>
-            {showers.map((shower) => (
-                <div
-                    key={`${shower} ${Math.random()}`}
-                    className='absolute z-50 font-gameria text-[#A5E314] font-bold text-[40px]'
-                    style={{
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        animation: 'rise 2s forwards'
-                    }}
-                >
-                    {points}+
-                </div>
-            ))}
-
-            <style jsx>{`
-                @keyframes rise {
-                    0% {
-                        opacity: 1;
-                        transform: translate(-50%, -50%) translateY(0);
-                    }
-                    100% {
-                        opacity: 0;
-                        transform: translate(-50%, -50%) translateY(-380px) translateX(40px);
-                    }
-                }
-            `}</style>
         </div>
     );
 };

@@ -135,8 +135,6 @@ export default function TelegramBotDash() {
         }
 
         // //Claim Tap Balance
-
-
         setUpdate(Math.random())
         // setAnimationState('moving');
 
@@ -169,11 +167,7 @@ export default function TelegramBotDash() {
             const timeout = setTimeout(() => {
                 setShowers((prev: number[]) => prev.slice(1));
             }, 500);
-
-
         }, 700)
-
-
     };
 
     useEffect(() => {
@@ -190,7 +184,6 @@ export default function TelegramBotDash() {
     }, [showImage])
 
     let brightness = countDownActive ? 'brightness(50%)' : 'brightness(100%)';
-
 
     useEffect(() => {
         async function createMiningAccount() {
@@ -233,6 +226,33 @@ export default function TelegramBotDash() {
                     <div style={{ cursor: 'pointer', filter: brightness }} onClick={() => updatePercentage()} className='flex sm:py-2 relative flex-col justify-center items-center'>
                         <div className='relative  z-10 '>
                             <SpriteAnim animationState={animationState} />
+                            {showers.map((shower) => (
+                                <div
+                                    key={`${shower} ${Math.random()}`}
+                                    className='absolute z-50 font-gameria text-[#A5E314] font-bold text-[40px]'
+                                    style={{
+                                        top: '50%',
+                                        left: '50%',
+                                        transform: 'translate(-50%, -50%)',
+                                        animation: 'rise 2s forwards'
+                                    }}
+                                >
+                                    {points}+
+                                </div>
+                            ))}
+
+                            <style jsx>{`
+                @keyframes rise {
+                    0% {
+                        opacity: 1;
+                        transform: translate(-50%, -50%) translateY(0);
+                    }
+                    100% {
+                        opacity: 0;
+                        transform: translate(-50%, -50%) translateY(-380px) translateX(40px);
+                    }
+                }
+            `}</style>
                         </div>
 
                         {showExplosion && !countDownActive &&
