@@ -164,7 +164,7 @@ export const getTurboReward = async (encrypt_id: string) => {
 
     }
     catch (e) {
-        console.log(e)
+        console.error(e)
         return {
             status: false,
             data: []
@@ -187,7 +187,7 @@ export const checkTurboBoostOn = async (encrypt_id: string) => {
 
     }
     catch (e) {
-        console.log(e)
+        console.error(e)
         return {
             status: false,
             data: []
