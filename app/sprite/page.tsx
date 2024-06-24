@@ -9,14 +9,14 @@ const Sprite: React.FC = () => {
 
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-        const spriteSheet = '/telegram/frens/snew.png';
+        const spriteSheet = '/telegram/frens/newsprite.png';
 
 
-        const CANVAS_WIDTH = canvas.width = 2151 / 5;
-        const CANVAS_HEIGHT = canvas.height = 1135 * 2;
+        const CANVAS_WIDTH = canvas.width = 1868 / 4;
+        const CANVAS_HEIGHT = canvas.height = 997 / 2;
 
-        const spriteWidth = 136.5;
-        const spriteHeight = 181;
+        const spriteWidth = 470;
+        const spriteHeight = 500;
 
 
         const shooterImage = new Image();
