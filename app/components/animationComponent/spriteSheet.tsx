@@ -14,17 +14,14 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
 
         const spriteSheet = '/telegram/frens/snew.png';
 
-
         const CANVAS_WIDTH = canvas.width = 2151 / 5;
         const CANVAS_HEIGHT = canvas.height = 1135 * 2;
 
         const spriteWidth = 136.3;
         const spriteHeight = 181;
 
-
         const shooterImage = new Image();
         shooterImage.src = spriteSheet;
-
 
         const spriteAnimation = [] as any;
         const animationStates = [
