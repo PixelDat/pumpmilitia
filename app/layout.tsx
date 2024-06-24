@@ -94,7 +94,7 @@ export default function RootLayout({ children }: Props) {
           <img src="/telegram/dashpage/coinsmove.gif" />
         </div>
         {children}
-        <Script src="/script.ts" />
+        {/* <Script src="/script.ts" /> */}
       </body>
     </html>
   );

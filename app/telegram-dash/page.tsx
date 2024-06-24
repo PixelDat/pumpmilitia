@@ -15,6 +15,14 @@ import { leagues } from '../telegram-league/utils';
 
 const Cookies = require("js-cookie");
 
+interface ShowerItem {
+    id: number;
+    points: number;
+}
+
+interface ShowerComponentProps {
+    points: number;
+}
 
 
 export default function TelegramBotDash() {
@@ -35,7 +43,7 @@ export default function TelegramBotDash() {
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
     const [gradeAmount, setGradeAmount] = useState(0)
-    const [showers, setShowers] = useState<number[]>([]);
+    const [showers, setShowers] = useState<ShowerItem[]>([]);
     const [showImage, setShowImage] = useState(false);
     const [calAmount, setCalAmount] = useState(0)
     const [userBalance, setUserBalance] = useState(0);
@@ -69,7 +77,6 @@ export default function TelegramBotDash() {
             } else {
                 setBoostActive(false);
                 setShowExplosion(false)
-
             }
 
             let checkMBalance = await checkMiningBalanceDash(encrypt);
@@ -80,12 +87,6 @@ export default function TelegramBotDash() {
             setCalAmount(data.balance || 0);
             setGradeAmount(data.fullBalanceAmount || 0);
             // let checkRefillBoost = await checkRefill(encrypt);
-
-
-
-
-
-
         }
 
         loadItems();
@@ -142,10 +143,8 @@ export default function TelegramBotDash() {
         }
 
         // //Claim Tap Balance
-
-
         setUpdate(Math.random())
-        setAnimationState('moving');
+        // setAnimationState('moving');
 
 
         setTimeout(async () => {
@@ -153,12 +152,12 @@ export default function TelegramBotDash() {
             playAudio(gunshot);
             let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
             let response = await claimTapBalance(tapurl, encrypt)
-            response.status == true ? setPoints(response.data.claimedPoints) : setPoints(10);
+            response.status == true ? setPoints(response.data.claimedPoints) : setPoints(2000);
         }, 200)
 
-        setTimeout(() => {
-            setAnimationState('moving');
-        }, 100)
+        // setTimeout(() => {
+        //     setAnimationState('moving');
+        // }, 100)
 
         setTimeout(() => {
             setAnimationState('walking');
@@ -171,20 +170,21 @@ export default function TelegramBotDash() {
             setCalAmount(bal <= 0 ? 0 : bal);
             setShowImage(true);
             setTapping(true);
-            setShowers(prev => [...prev, Date.now()]);
-
-            const timeout = setTimeout(() => {
-                setShowers((prev: number[]) => prev.slice(1));
-            }, 500);
-
-
+            const newShower: ShowerItem = { id: Math.random(), points };
+            setShowers([...showers, newShower]);
         }, 700)
-
-
     };
 
     useEffect(() => {
-    }, [showers])
+        if (showers.length > 0) {
+
+            const timer = setTimeout(() => {
+                setShowers((prevShowers) => prevShowers.slice(1));
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [showers]);
     useEffect(() => {
         if (percent < 100) {
             let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
@@ -197,8 +197,7 @@ export default function TelegramBotDash() {
     }, [showImage])
 
     let brightness = countDownActive ? 'brightness(50%)' : 'brightness(100%)';
-    
-    
+
     useEffect(() => {
         async function createMiningAccount() {
             await createAccount("https://evp-follow-task-token-minner-service-cea2e4kz5q-uc.a.run.app/create-mining-account", encrypt);
@@ -207,9 +206,9 @@ export default function TelegramBotDash() {
         }
         createAccount("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/create-referral-account", encrypt);
         createMiningAccount();
-    }, []); 
+    }, []);
 
-    
+
     return (
         <TelegramLayout>
             <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] text-[#EDF9D0] h-screen w-screen" >
@@ -221,13 +220,13 @@ export default function TelegramBotDash() {
                         <div className=''>
                             <div className='flex flex-row justify-center items-center '>
                                 <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
-                                <p className='font-gameria text-[40px]'>{userBalance.toLocaleString()}</p>
+                                <p className='font-gameria text-[40px]'>{Number(userBalance.toFixed(0)).toLocaleString()}</p>
                             </div>
 
                         </div>
-                        <div onClick={() => location.href = "/withdraw"}>
+                        <a href='pump://pumpmilitia.app' target='_blank'>
                             <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
-                        </div>
+                        </a>
 
                         <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-1 items-center'>
                             <Image src={rank.image} alt='' width={24} height={24} priority />
@@ -236,9 +235,37 @@ export default function TelegramBotDash() {
                         </div>
                     </div>
 
+
                     <div style={{ cursor: 'pointer', filter: brightness }} onClick={() => updatePercentage()} className='flex sm:py-2 relative flex-col justify-center items-center'>
-                        <div className='relative -right-[20px]  z-10 '>
+                        <div className='relative  z-10 '>
                             <SpriteAnim animationState={animationState} />
+                            {showers.map((shower) => (
+                                <div
+                                    key={`${shower} ${Math.random()}`}
+                                    className='absolute z-50 font-gameria text-[#A5E314] font-bold text-[40px]'
+                                    style={{
+                                        top: '50%',
+                                        left: '50%',
+                                        transform: 'translate(-50%, -50%)',
+                                        animation: 'rise 2s forwards'
+                                    }}
+                                >
+                                    {points}+
+                                </div>
+                            ))}
+
+                            <style jsx>{`
+                @keyframes rise {
+                    0% {
+                        opacity: 1;
+                        transform: translate(-50%, -50%) translateY(0);
+                    }
+                    100% {
+                        opacity: 0;
+                        transform: translate(-50%, -50%) translateY(-380px) translateX(40px);
+                    }
+                }
+            `}</style>
                         </div>
 
                         {showExplosion && !countDownActive &&
@@ -269,8 +296,6 @@ export default function TelegramBotDash() {
                             gradeAmount={gradeAmount}
                             setGradeAmount={setGradeAmount}
                             tapping={tapping}
-                            showers={showers}
-                            setShowers={setShowers}
                             setTapping={setTapping}
                             opened={opened}
                             fullBalance={fullBalance}

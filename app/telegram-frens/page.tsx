@@ -138,7 +138,9 @@ export default function TelegramFrens() {
                             </div>
 
                         </div>
-                        <Image src='/telegram/dashpage/howbtn.png' alt='' width={130} height={58} priority />
+                        <a href='pump://pumpmilitia.app' target='_blank'>
+                            <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
+                        </a>
 
                     </div>
 
