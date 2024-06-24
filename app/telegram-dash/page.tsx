@@ -63,13 +63,13 @@ export default function TelegramBotDash() {
             }
 
             let checkBoost = await checkTurboBoostOn(encrypt);
+            console.log(checkBoost.data);
             if (checkBoost.data.turboBoostOn) {
                 setShowExplosion(true)
                 setBoostActive(checkBoost.data.turboBoostOn);
             } else {
                 setBoostActive(false);
                 setShowExplosion(false)
-
             }
 
             let checkMBalance = await checkMiningBalanceDash(encrypt);
@@ -80,12 +80,6 @@ export default function TelegramBotDash() {
             setCalAmount(data.balance || 0);
             setGradeAmount(data.fullBalanceAmount || 0);
             // let checkRefillBoost = await checkRefill(encrypt);
-
-
-
-
-
-
         }
 
         loadItems();
