@@ -20,6 +20,9 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
         const spriteWidth = 470;
         const spriteHeight = 500;
 
+        // const spriteWidth = 141;
+        // const spriteHeight = 184;
+
         const shooterImage = new Image();
         shooterImage.src = spriteSheet;
 

@@ -10,8 +10,7 @@ interface Taptypes {
     setPercent: Function;
     tapping: boolean;
     setTapping: Function;
-    showers: number[];
-    setShowers: Function;
+
     updatePercentage: Function;
     calAmount: number;
     setCalAmount: Function;
@@ -25,8 +24,7 @@ interface Taptypes {
 const Tapcomponent: React.FC<Taptypes> = ({
     points,
     fullBalance,
-    gradeAmount, setGradeAmount, percent, setPercent, tapping, setTapping,
-    showers, setShowers, updatePercentage, calAmount, setCalAmount,
+    gradeAmount, setGradeAmount, percent, setPercent, tapping, setTapping, updatePercentage, calAmount, setCalAmount,
     opened, isRunning, setIsRunning }) => {
     // this returns to default value tapping
     // useEffect(() => {
@@ -77,7 +75,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
                         <div style={{ zIndex: 1 }} className='bg-[#10130D] flex flex-row items-center justify-center items-center m-auto gap-2 border-[#A5E314] border-2 p-2 rounded-3xl'>
                             <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={32} height={32} priority />
                             <div className='flex flex-col w-[80px] leading-tight'>
-                                <span className='text-[14px]'>{Number(calAmount).toFixed(2)}</span>
+                                <span className='text-[14px]'>{Number(calAmount).toFixed(0)}</span>
                                 <span className='text-[14px] text-[#52710A]'>/{gradeAmount.toLocaleString()}</span>
                             </div>
                         </div>

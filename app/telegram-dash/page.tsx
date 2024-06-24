@@ -15,6 +15,14 @@ import { leagues } from '../telegram-league/utils';
 
 const Cookies = require("js-cookie");
 
+interface ShowerItem {
+    id: number;
+    points: number;
+}
+
+interface ShowerComponentProps {
+    points: number;
+}
 
 
 export default function TelegramBotDash() {
@@ -35,7 +43,7 @@ export default function TelegramBotDash() {
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
     const [gradeAmount, setGradeAmount] = useState(0)
-    const [showers, setShowers] = useState<number[]>([]);
+    const [showers, setShowers] = useState<ShowerItem[]>([]);
     const [showImage, setShowImage] = useState(false);
     const [calAmount, setCalAmount] = useState(0)
     const [userBalance, setUserBalance] = useState(0);
@@ -144,7 +152,7 @@ export default function TelegramBotDash() {
             playAudio(gunshot);
             let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
             let response = await claimTapBalance(tapurl, encrypt)
-            response.status == true ? setPoints(response.data.claimedPoints) : setPoints(10);
+            response.status == true ? setPoints(response.data.claimedPoints) : setPoints(2000);
         }, 200)
 
         // setTimeout(() => {
@@ -162,16 +170,21 @@ export default function TelegramBotDash() {
             setCalAmount(bal <= 0 ? 0 : bal);
             setShowImage(true);
             setTapping(true);
-            setShowers(prev => [...prev, Date.now()]);
-
-            const timeout = setTimeout(() => {
-                setShowers((prev: number[]) => prev.slice(1));
-            }, 500);
+            const newShower: ShowerItem = { id: Math.random(), points };
+            setShowers([...showers, newShower]);
         }, 700)
     };
 
     useEffect(() => {
-    }, [showers])
+        if (showers.length > 0) {
+
+            const timer = setTimeout(() => {
+                setShowers((prevShowers) => prevShowers.slice(1));
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [showers]);
     useEffect(() => {
         if (percent < 100) {
             let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
@@ -207,7 +220,7 @@ export default function TelegramBotDash() {
                         <div className=''>
                             <div className='flex flex-row justify-center items-center '>
                                 <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
-                                <p className='font-gameria text-[40px]'>{userBalance.toLocaleString()}</p>
+                                <p className='font-gameria text-[40px]'>{Number(userBalance.toFixed(0)).toLocaleString()}</p>
                             </div>
 
                         </div>
@@ -283,8 +296,6 @@ export default function TelegramBotDash() {
                             gradeAmount={gradeAmount}
                             setGradeAmount={setGradeAmount}
                             tapping={tapping}
-                            showers={showers}
-                            setShowers={setShowers}
                             setTapping={setTapping}
                             opened={opened}
                             fullBalance={fullBalance}
