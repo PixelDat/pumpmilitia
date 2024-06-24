@@ -229,8 +229,9 @@ export default function TelegramBotDash() {
                         </div>
                     </div>
 
+
                     <div style={{ cursor: 'pointer', filter: brightness }} onClick={() => updatePercentage()} className='flex sm:py-2 relative flex-col justify-center items-center'>
-                        <div className='relative -right-[20px]  z-10 '>
+                        <div className='relative  z-10 '>
                             <SpriteAnim animationState={animationState} />
                         </div>
 
