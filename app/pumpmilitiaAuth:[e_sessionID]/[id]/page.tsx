@@ -184,7 +184,7 @@ export default function gameAuthPage() {
 
 
             } else if (error.response && error.response.status === 405) {
-                // If the email exsists but is not verified   ..
+                // If the email exsists but is not verified
                 setError(false);
                 // setloading(false);
                 Cookies.set("emailForSignIn", email);
