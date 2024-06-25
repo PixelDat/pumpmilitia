@@ -54,7 +54,7 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
 
         let gameFrame = 0;
 
-        const staggerFrame = 12;
+        const staggerFrame = 15;
 
         function animate() {
             ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
