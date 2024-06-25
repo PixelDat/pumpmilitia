@@ -169,14 +169,15 @@ export default function TelegramBotDash() {
         }, 700)
     };
 
-    // useEffect(() => {
-    //     if (showers.length > 0) {
-    //         const timer = setTimeout(() => {
-    //             setShowers((prevShowers) => prevShowers.slice(1));
-    //         }, 500);
-    //         return () => clearTimeout(timer);
-    //     }
-    // }, [showers]);
+    useEffect(() => {
+        console.log(showers);
+        // if (showers.length > 0) {
+        //     const timer = setTimeout(() => {
+        //         setShowers((prevShowers) => prevShowers.slice(1));
+        //     }, 500);
+        //     return () => clearTimeout(timer);
+        // }
+    }, [showers]);
 
     let brightness = countDownActive ? 'brightness(50%)' : 'brightness(100%)';
 
