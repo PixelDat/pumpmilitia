@@ -12,13 +12,13 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
 
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-        const spriteSheet = '/telegram/frens/sprite2v.png';
+        const spriteSheet = '/telegram/frens/spritesheetmain.png';
 
         const CANVAS_WIDTH = canvas.width = 1868 / 6;
-        const CANVAS_HEIGHT = canvas.height = 970;
+        const CANVAS_HEIGHT = canvas.height = 383;
 
-        const spriteWidth = 470;
-        const spriteHeight = 303;
+        const spriteWidth = CANVAS_WIDTH;
+        const spriteHeight = 383;
 
         const shooterImage = new Image();
         shooterImage.src = spriteSheet;
@@ -31,7 +31,7 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
             },
             {
                 name: 'walking',
-                frames: 4
+                frames: 4,
             }
         ]
 
@@ -51,8 +51,8 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
 
         let gameFrame = 0;
 
-        const staggerFrame = 15;
-
+        const staggerFrame = 12;
+        let frameInc = 0
         function animate() {
             ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
             let position = Math.floor(gameFrame / staggerFrame) % spriteAnimation[animationState].loc.length;
@@ -62,8 +62,8 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
                 shooterImage,
                 frameX,
                 frameY,
-                spriteWidth,
-                spriteHeight,
+                CANVAS_WIDTH,
+                CANVAS_HEIGHT,
                 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
             if (gameFrame % staggerFrame == 0) {
                 if (frameX < 3) frameX++;
@@ -76,7 +76,7 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
         animate();
     }, [animationState])
     return (
-        <div style={{ filter: "brightness(150%)" }} className="flex  flex-col justify-center items-center">
+        <div style={{ filter: "brightness(150%)" }} className="flex -right-[20px] relative flex-col justify-center items-center">
             <canvas className='w-[240px] h-[300px]' id='canvas1'></canvas>
         </div>
     );
