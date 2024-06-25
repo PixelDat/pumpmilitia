@@ -34,6 +34,7 @@ import {
     signInWithEmailLink,
 } from "firebase/auth";
 import { useParams } from 'next/navigation';
+import { set } from "@coral-xyz/anchor/dist/cjs/utils/features";
 const firebaseConfig = {
     apiKey: "AIzaSyDWSQ-H8urokgoUcpbImbtnMpqMgL_jirc",
     authDomain: "everpump-6e275.firebaseapp.com",
@@ -61,6 +62,8 @@ export default function gameAuthPage() {
     const [signedInText, setSignedInText] = useState("You are signed in! Go Back to Pump Militia");
     const [tempSessionId, setTempSessionId] = useState("");
     const [failedExternalAuth, setFailedExternalAuth] = useState(false);
+    const [AuthGenID, setAuthGenID] = useState("");
+    const [save_connection_key_url_TG, set_save_connection_key_url_TG] = useState("https://t.me/Pumpmilitia_Auth_bot?start=");
 
     let cross_authkey = "";
     let refID = "";
@@ -233,7 +236,35 @@ export default function gameAuthPage() {
             let user;
             if (type == "google") {
                 user = await signInWithPopup(auth, googleProvider);
-            } else {
+            } else if(type == "telegram"){
+                try{
+                    const id = uuidv4();
+                setAuthGenID(id);
+                const url = `${save_connection_key_url_TG}${id}`;
+                window.open(url, '_blank');
+                setTimeout(async () => {
+                const res = await axios.post(
+                    "https://evp-cross-auth-handler-service-cea2e4kz5q-uc.a.run.app/get-conn-key-auth",
+                    { connectionKey: id }
+                );
+                if (res.status === 200) {
+                    setloading(false)
+                    Cookies.set('encrypt_id', `${res.data.encypted_session_id}`)
+                    successfullAuth();
+                    setcanViewGoBackMsg(true);
+                }
+            }, 10000);
+                }catch(error: any){
+                    if (error.response) {
+                        setError(true);
+                        setErrMessage(error.response.data.message);
+                        setloading(false);
+                        setFailedExternalAuth(true);
+                    } else {
+                        setloading(false);
+                    }
+                }
+            }else {
                 user = await signInWithPopup(auth, twitterProvider);
             }
             const authToken = user.user.uid.trim();
@@ -498,6 +529,15 @@ export default function gameAuthPage() {
                                     width={60}
                                     height={60}
                                     alt="X(formerly twitter) icon"
+                                    priority />
+                                    <Image
+                                    onClick={() => { handleExternalLogin('telegram') }}
+
+                                    className="object-center"
+                                    src={'/images/TelegramLogomark.png'}
+                                    width={60}
+                                    height={60}
+                                    alt="TelegramLogomark icon"
                                     priority />
 
                             </div>
