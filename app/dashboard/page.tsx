@@ -325,7 +325,7 @@ export default function Dashboard() {
                   <a href="/withdraw" className="navbar-auth-btn">Claim</a>
                 </div>
 
-                <p className="text-[15px] font-[300]">Claim or stake your airdrop from the 23rd of June 2024</p>
+                <p className="text-[15px] font-[300]">Claim or stake your airdrop at listing</p>
 
               </div>
             </div>
