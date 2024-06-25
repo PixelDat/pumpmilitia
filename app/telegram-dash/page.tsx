@@ -144,8 +144,6 @@ export default function TelegramBotDash() {
 
         // //Claim Tap Balance
         setUpdate(Math.random())
-        // setAnimationState('moving');
-
 
         setTimeout(async () => {
             setAnimationState('shooting');
@@ -153,22 +151,17 @@ export default function TelegramBotDash() {
             let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
             let response = await claimTapBalance(tapurl, encrypt)
             response.status == true ? setPoints(response.data.claimedPoints) : setPoints(2000);
-        }, 200)
+        }, 500)
 
-        // setTimeout(() => {
-        //     setAnimationState('moving');
-        // }, 100)
 
         setTimeout(() => {
             setAnimationState('walking');
             stopAudio(gunshot);
-
             setIsRunning(true);
-
             setPercent(prev => Math.max(prev - 10, 0));
             let bal = calAmount - points;
             setCalAmount(bal <= 0 ? 0 : bal);
-            setShowImage(true);
+            // setShowImage(true);
             setTapping(true);
             const newShower: ShowerItem = { id: Math.random(), points };
             setShowers([...showers, newShower]);
@@ -177,24 +170,12 @@ export default function TelegramBotDash() {
 
     useEffect(() => {
         if (showers.length > 0) {
-
             const timer = setTimeout(() => {
                 setShowers((prevShowers) => prevShowers.slice(1));
-            }, 2000);
-
+            }, 500);
             return () => clearTimeout(timer);
         }
     }, [showers]);
-    useEffect(() => {
-        if (percent < 100) {
-            let tapping = document.getElementById('tapaudio') as HTMLAudioElement;
-            let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
-            setTimeout(() => {
-                setShowImage(false);
-                stopAudio(gunshot)
-            }, 2000)
-        }
-    }, [showImage])
 
     let brightness = countDownActive ? 'brightness(50%)' : 'brightness(100%)';
 
@@ -242,6 +223,7 @@ export default function TelegramBotDash() {
                             {showers.map((shower) => (
                                 <div
                                     key={`${shower} ${Math.random()}`}
+                                    id={shower.id.toString()}
                                     className='absolute z-50 font-gameria text-[#A5E314] font-bold text-[40px]'
                                     style={{
                                         top: '50%',
