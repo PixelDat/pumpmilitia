@@ -12,6 +12,7 @@ import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
 import TelegramLayout from '../telegramLayout/layout';
 import SpriteAnim from '../components/animationComponent/spriteSheet';
 import { leagues } from '../telegram-league/utils';
+import PointsShower from '../components/telegramComp/tapComp/showerComp';
 
 const Cookies = require("js-cookie");
 
@@ -59,9 +60,6 @@ export default function TelegramBotDash() {
         image: '/telegram/league/coporal.png',
     });
 
-    function startExplosion() {
-
-    }
     useEffect(() => {
 
         const loadItems = async () => {
@@ -171,20 +169,22 @@ export default function TelegramBotDash() {
             let bal = calAmount - points;
             setCalAmount(bal <= 0 ? 0 : bal);
             // setShowImage(true);
-            setTapping(true);
             const newShower: ShowerItem = { id: Math.random(), points };
             setShowers([...showers, newShower]);
+            setTapping(true);
+
         }, 700)
     };
 
-    useEffect(() => {
-        if (showers.length > 0) {
-            const timer = setTimeout(() => {
-                setShowers((prevShowers) => prevShowers.slice(1));
-            }, 500);
-            return () => clearTimeout(timer);
-        }
-    }, [showers]);
+    // useEffect(() => {
+    //     console.log(showers);
+    //     if (showers.length > 0) {
+    //         const timer = setTimeout(() => {
+    //             setShowers((prevShowers) => prevShowers.slice(1));
+    //         }, 500);
+    //         return () => clearTimeout(timer);
+    //     }
+    // }, [showers]);
 
     let brightness = countDownActive ? 'brightness(50%)' : 'brightness(100%)';
 
@@ -226,37 +226,12 @@ export default function TelegramBotDash() {
                     </div>
 
 
-                    <div style={{ cursor: 'pointer', filter: brightness }} onClick={() => updatePercentage()} className='flex sm:py-2 relative flex-col justify-center items-center'>
+                    <div style={{ cursor: 'pointer', filter: brightness }} onMouseDown={() => updatePercentage()} className='flex sm:py-2 relative flex-col justify-center items-center'>
                         <div className='relative  z-10 '>
                             <SpriteAnim animationState={animationState} />
-                            {showers.map((shower) => (
-                                <div
-                                    key={`${shower} ${Math.random()}`}
-                                    id={shower.id.toString()}
-                                    className='absolute z-50 font-gameria text-[#A5E314] font-bold text-[40px]'
-                                    style={{
-                                        top: '50%',
-                                        left: '50%',
-                                        transform: 'translate(-50%, -50%)',
-                                        animation: 'rise 2s forwards'
-                                    }}
-                                >
-                                    {points}+
-                                </div>
+                            {showers.map(shower => (
+                                <PointsShower key={shower.id} {...shower} />
                             ))}
-
-                            <style jsx>{`
-                @keyframes rise {
-                    0% {
-                        opacity: 1;
-                        transform: translate(-50%, -50%) translateY(0);
-                    }
-                    100% {
-                        opacity: 0;
-                        transform: translate(-50%, -50%) translateY(-380px) translateX(40px);
-                    }
-                }
-            `}</style>
                         </div>
 
                         {showExplosion && !countDownActive &&
@@ -296,7 +271,7 @@ export default function TelegramBotDash() {
 
                 <DashBoardModal referralId={referralId} signedIn={signedIn} setOpened={setOpened} opened={opened} />
                 {boostActive && !countDownActive &&
-                    <GrenadeComponent percent={100} startExplosion={startExplosion} />
+                    <GrenadeComponent percent={100} />
                 }
 
             </div >

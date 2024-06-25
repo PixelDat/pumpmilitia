@@ -19,7 +19,8 @@ interface ModalComponent {
 const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, key, setOpened, opened }) => {
     let encrypt = Cookies.get('encrypt_id');
 
-    const [clickedDownload, setClickedDownload] = React.useState(true);
+    const [clickedDownload, setClickedDownload] = React.useState(false);
+    const [showShake, setShowShake] = React.useState(false);
 
     const [error, setError] = useState(false)
     const [errMessage, setErrMessage] = useState({
@@ -38,7 +39,13 @@ const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, 
 
 
     const checkIfSignedIn = async () => {
-        if (!clickedDownload) return;
+        if (!clickedDownload) {
+            setShowShake(true)
+            setTimeout(() => {
+                setShowShake(false)
+            }, 2000)
+            return;
+        }
         setLoading(true);
         let url = "https://evp-referral-service-cea2e4kz5q-uc.a.run.app/claim-game-download-reward";
         try {
@@ -71,7 +78,7 @@ const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, 
                         <div className='bg-[#20251A] h-content py-5 w-full bottom-0 absolute rounded-t-3xl p-3'>
 
                             <div className='w-full z-50 flex flex-col justify-center text-[#EDF9D0] items-center '>
-                                <div className='flex flex-col justify-center items-center space-y-4 '>
+                                <div className='flex flex-col relative justify-center items-center space-y-4 '>
 
                                     <Image src='/telegram/bgphon.png' alt='' width={228} height={133} priority />
 
@@ -100,19 +107,22 @@ const DashBoardModal: React.FC<ModalComponent> = ({ referralId, signedIn, text, 
                                     </div>
 
                                     <a onClick={() => {
-    setLoading(true)
-    setClickedDownload(true)
-    setTimeout(() => {
-        setLoading(false)
-    }, 3000)
-}} 
-target='_blank' rel="noopener noreferrer"
-href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"
-className={`flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row items-center gap-x-2 justify-center text-black font-bold items-center `}>
-    <Image src="/telegram/frens/icongame.png" height={24} width={24} alt='Iconsss' />   Download <ArrowForward />
-</a>
+                                        setLoading(true)
+                                        setClickedDownload(true)
+                                        setTimeout(() => {
+                                            setLoading(false)
+                                        }, 3000)
+                                    }}
+                                        target='_blank' rel="noopener noreferrer"
+                                        href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US"
+                                        className={`flex bg-[#A5E314]  border-[#52710A] border-t-4 hover:border-t-0 hover:border-b-4 w-full p-3 rounded-2xl flex-row items-center gap-x-2 justify-center text-black font-bold items-center `}>
+                                        <Image src="/telegram/frens/icongame.png" height={24} width={24} alt='Iconsss' />   Download <ArrowForward />
+                                    </a>
+                                    {showShake &&
+                                        <p className='text-center absolute bottom-14 shaker border-red-400 text-red-400 p-2 w-full  rounded-2xl border  border backdrop-blur-[5px] bg-black/50 font-bold'>Download Game to Continue</p>
+                                    }
 
-                                    <div onClick={() => checkIfSignedIn()} className={`${!clickedDownload ? "blur-[2px]" : ""} flex bg-[#52710A] border-[#A5E314] border-b-4 hover:border-b-0 hover:border-t-4 w-full p-3 rounded-2xl flex-row justify-center items-center `}>
+                                    <div onClick={() => checkIfSignedIn()} className={`flex bg-[#52710A] border-[#A5E314] border-b-4 hover:border-b-0 hover:border-t-4 w-full p-3 rounded-2xl flex-row justify-center items-center `}>
                                         {loading ? <CircularProgress color='inherit' size={14} /> : "Continue"}
                                     </div>
                                 </div>
