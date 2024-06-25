@@ -16,37 +16,37 @@ const CircleGauge: React.FC<CircleGaugeProps> = ({ percent, updatePercent, isRun
   const [stroke, setStroke] = useState(circumference);
   const [timeLeft, setTimeLeft] = useState(15);
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (isRunning && timeLeft > 0) {
-      timer = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-        setStroke((prev) => (circumference / 15) * (timeLeft - 1));
-      }, 1000);
-    } else if (timeLeft <= 0) {
-      setIsRunning(false);
-      setTimeLeft(15);
-      setStroke(circumference);
-    }
-    return () => clearInterval(timer);
-  }, [isRunning, timeLeft]);
+  // useEffect(() => {
+  //   let timer: NodeJS.Timeout;
+  //   if (isRunning && timeLeft > 0) {
+  //     timer = setInterval(() => {
+  //       setTimeLeft((prev) => prev - 1);
+  //       setStroke((prev) => (circumference / 15) * (timeLeft - 1));
+  //     }, 1000);
+  //   } else if (timeLeft <= 0) {
+  //     setIsRunning(false);
+  //     setTimeLeft(15);
+  //     setStroke(circumference);
+  //   }
+  //   return () => clearInterval(timer);
+  // }, [isRunning, timeLeft]);
 
-  const handleClick = () => {
-    if (!fullBalance) {
-      updatePercent();
-      return;
-    } else {
-      if (!isRunning) {
-        setIsRunning(true);
-      }
-      updatePercent();
-    }
+  // const handleClick = () => {
+  //   if (!fullBalance) {
+  //     updatePercent();
+  //     return;
+  //   } else {
+  //     if (!isRunning) {
+  //       setIsRunning(true);
+  //     }
+  //     updatePercent();
+  //   }
 
 
-  };
+  // };
 
   return (
-    <div className="flex items-center justify-center" onClick={handleClick}>
+    <a href='pump://pumpmilitia.app' className="flex items-center justify-center">
       <svg
         className="relative"
         width="66"
@@ -64,7 +64,7 @@ const CircleGauge: React.FC<CircleGaugeProps> = ({ percent, updatePercent, isRun
         />
         <circle
           className="text-[#A5E314]"
-          strokeWidth="10"
+          strokeWidth="5"
           strokeDasharray={circumference}
           strokeDashoffset={circumference - stroke}
           strokeLinecap="round"
@@ -78,12 +78,10 @@ const CircleGauge: React.FC<CircleGaugeProps> = ({ percent, updatePercent, isRun
       </svg>
       <div className="absolute text-[14px] font-semibold text-[#A5E314] flex flex-row items-center justify-center">
         <div className='leading-tight flex flex-col justify-center text-center'>
-          15s
-          <AccessAlarm className='text-[#fad250]' />
+          <Image src='/telegram/boost/play.png' alt='' width={40} height={40} priority />
         </div>
-
       </div>
-    </div>
+    </a>
   );
 };
 
