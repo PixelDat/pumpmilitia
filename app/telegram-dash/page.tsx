@@ -148,9 +148,10 @@ export default function TelegramBotDash() {
         setTimeout(async () => {
             setAnimationState('shooting');
             playAudio(gunshot);
-            let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
-            let response = await claimTapBalance(tapurl, encrypt)
-            response.status == true ? setPoints(response.data.claimedPoints) : setPoints(2000);
+            // let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
+            // let response = await claimTapBalance(tapurl, encrypt)
+            // response.status == true ? setPoints(response.data.claimedPoints) : setPoints(2000);
+            setPoints(2000);
         }, 500)
 
 
@@ -168,14 +169,14 @@ export default function TelegramBotDash() {
         }, 700)
     };
 
-    useEffect(() => {
-        if (showers.length > 0) {
-            const timer = setTimeout(() => {
-                setShowers((prevShowers) => prevShowers.slice(1));
-            }, 500);
-            return () => clearTimeout(timer);
-        }
-    }, [showers]);
+    // useEffect(() => {
+    //     if (showers.length > 0) {
+    //         const timer = setTimeout(() => {
+    //             setShowers((prevShowers) => prevShowers.slice(1));
+    //         }, 500);
+    //         return () => clearTimeout(timer);
+    //     }
+    // }, [showers]);
 
     let brightness = countDownActive ? 'brightness(50%)' : 'brightness(100%)';
 

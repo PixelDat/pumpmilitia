@@ -46,7 +46,7 @@ const CircleGauge: React.FC<CircleGaugeProps> = ({ percent, updatePercent, isRun
   // };
 
   return (
-    <a href='pump://pumpmilitia.app' className="flex items-center justify-center">
+    <a href='pump://pumpmilitia.app' target='_blank' className="flex items-center justify-center">
       <svg
         className="relative"
         width="66"
