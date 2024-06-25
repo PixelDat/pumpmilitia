@@ -66,7 +66,16 @@ export default function TelegramBotDash() {
 
         const loadItems = async () => {
             let checkedDownloaded = await checkDownloadReward(encrypt);
-            if (!checkedDownloaded.data.status) {
+            if (checkedDownloaded.status === 'server_error') {
+                // Handle server error
+                console.log('Server error occurred');
+            } else if (checkedDownloaded.status === 'connection_error') {
+                // Handle connection error
+                console.log('Connection error occurred');
+            } else if (checkedDownloaded.status === 'unknown_error') {
+                // Handle unknown error
+                console.log('Unknown error occurred');
+            } else if (checkedDownloaded.status === true && !checkedDownloaded.data.status) {
                 setOpened(true);
             }
 
