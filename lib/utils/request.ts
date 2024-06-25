@@ -99,13 +99,28 @@ export const checkDownloadReward = async (encrypt_id: string) => {
     }
     catch (e) {
         console.log(e)
-        return {
-            status: false,
-            data: []
+        if (e.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            return {
+                status: 'server_error',
+                data: []
+            }
+        } else if (e.request) {
+            // The request was made but no response was received
+            return {
+                status: 'connection_error',
+                data: []
+            }
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            return {
+                status: 'unknown_error',
+                data: []
+            }
         }
     }
 }
-
 
 export const checkMiningBalanceDash = async (encrypt_id: string) => {
     let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/get-mining-balance";

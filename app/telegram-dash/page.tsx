@@ -25,7 +25,6 @@ interface ShowerComponentProps {
     points: number;
 }
 
-
 export default function TelegramBotDash() {
     let encrypt = Cookies.get('encrypt_id');
 
@@ -61,10 +60,18 @@ export default function TelegramBotDash() {
     });
 
     useEffect(() => {
-
         const loadItems = async () => {
             let checkedDownloaded = await checkDownloadReward(encrypt);
-            if (!checkedDownloaded.data.status) {
+            if (checkedDownloaded.status === 'server_error') {
+                // Handle server error
+                console.log('Server error occurred');
+            } else if (checkedDownloaded.status === 'connection_error') {
+                // Handle connection error
+                console.log('Connection error occurred');
+            } else if (checkedDownloaded.status === 'unknown_error') {
+                // Handle unknown error
+                console.log('Unknown error occurred');
+            } else if (checkedDownloaded.status === true && !checkedDownloaded.data.status) {
                 setOpened(true);
             }
 
@@ -127,9 +134,7 @@ export default function TelegramBotDash() {
     }, [update]);
 
     const updatePercentage = async () => {
-
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
-
 
         if (percent <= 0) return;
 
@@ -140,7 +145,6 @@ export default function TelegramBotDash() {
             return;
         }
 
-        // //Claim Tap Balance
         setUpdate(Math.random())
 
         setTimeout(async () => {
@@ -151,7 +155,6 @@ export default function TelegramBotDash() {
             response.status == true ? setPoints(response.data.claimedPoints) : setPoints(2000);
         }, 500)
 
-
         setTimeout(() => {
             setAnimationState('walking');
             stopAudio(gunshot);
@@ -159,25 +162,11 @@ export default function TelegramBotDash() {
             setPercent(prev => Math.max(prev - 10, 0));
             let bal = calAmount - points;
             setCalAmount(bal <= 0 ? 0 : bal);
-            // setShowImage(true);
             const newShower: ShowerItem = { id: Math.random(), points };
             setShowers([...showers, newShower]);
             setTapping(true);
-
         }, 700)
     };
-
-    // useEffect(() => {
-    //     console.log(showers);
-    //     if (showers.length > 0) {
-    //         const timer = setTimeout(() => {
-    //             setShowers((prevShowers) => prevShowers.slice(1));
-    //         }, 500);
-    //         return () => clearTimeout(timer);
-    //     }
-    // }, [showers]);
-
-    let brightness = countDownActive ? 'brightness(50%)' : 'brightness(100%)';
 
     useEffect(() => {
         async function createMiningAccount() {
@@ -188,7 +177,6 @@ export default function TelegramBotDash() {
         createAccount("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/create-referral-account", encrypt);
         createMiningAccount();
     }, []);
-
 
     return (
         <TelegramLayout>
@@ -203,7 +191,6 @@ export default function TelegramBotDash() {
                                 <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
                                 <p className='font-gameria text-[40px]'>{Number(userBalance.toFixed(0)).toLocaleString()}</p>
                             </div>
-
                         </div>
                         <a href='pump://pumpmilitia.app' target='_blank'>
                             <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
@@ -216,9 +203,16 @@ export default function TelegramBotDash() {
                         </div>
                     </div>
 
-
-                    <div style={{ cursor: 'pointer', filter: brightness }} onMouseDown={() => updatePercentage()} className='flex sm:py-2 relative flex-col justify-center items-center'>
-                        <div className='relative  z-10 '>
+                    <div
+                        style={{ cursor: 'pointer', filter: 'brightness(100%)' }}
+                        onPointerDown={() => updatePercentage()}
+                        onTouchStart={(e) => {
+                            e.preventDefault();
+                            updatePercentage();
+                        }}
+                        className='flex sm:py-2 relative flex-col justify-center items-center'
+                    >
+                        <div className='relative z-10'>
                             <SpriteAnim animationState={animationState} />
                             {showers.map(shower => (
                                 <PointsShower key={shower.id} {...shower} />
@@ -230,8 +224,8 @@ export default function TelegramBotDash() {
                                 <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
                             </div>
                         }
-
                     </div>
+
                     {countDownActive &&
                         <div className='w-full absolute   flex flex-col justify-end items-center z-20 m-auto   bottom-0'>
                             <TimerTapCount claimTime={claimTime} setUpdate={setUpdate} />
@@ -264,11 +258,7 @@ export default function TelegramBotDash() {
                 {boostActive && !countDownActive &&
                     <GrenadeComponent percent={100} />
                 }
-
             </div >
         </TelegramLayout>
-
-
-
     )
 }
