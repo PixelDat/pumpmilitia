@@ -232,8 +232,9 @@ export default function gameAuthPage() {
     };
     const handleExternalLogin = async (type: string) => {
         setloading(true);
+        let user;
         try {
-            let user;
+            
             if (type == "google") {
                 user = await signInWithPopup(auth, googleProvider);
             } else if(type == "telegram"){
@@ -267,7 +268,7 @@ export default function gameAuthPage() {
             }else {
                 user = await signInWithPopup(auth, twitterProvider);
             }
-            const authToken = user.user.uid.trim();
+            const authToken = user?.user?.uid?.trim();
             try {
                 setTimeout(async () => {
                     const res = await axios.get(
