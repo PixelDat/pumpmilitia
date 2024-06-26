@@ -81,7 +81,7 @@ const Tapcomponent: React.FC<Taptypes> = ({
                         </div>
                     }
                     <div className='bg-[#374C07] -left-[10px] relative -z-0 w-[150px] p-[2px] rounded-r-full'>
-                        <div style={{ width: `${(calAmount / gradeAmount) * 100}%` }} className='h-[16px] bg-gradient-to-b from-[#A5E314] rounded-r-full'>
+                        <div style={{ width: `${Math.min((calAmount / gradeAmount) * 100, 100)}%` }} className='h-[16px] bg-gradient-to-b from-[#A5E314] rounded-r-full'>
                         </div>
                     </div>
                 </div>

@@ -54,8 +54,12 @@ const TurboModal: React.FC<ModalComponent> = ({ selectedBoost, startBoost, text,
 
 
                                     <div onClick={() => startBoost()} className='rounded-3xl flex bg-[#A5E314] hover:border-t-4 hover:border-b-0   text-black flex-row justify-center items-center gap-3 w-full border-b-4 border-[#52710A] p-3'>
-                                        <Rocket className='rotate-45 text-black' />
-                                        <p className='text-center font-bold text-[14px]'>Claim {selectedBoost !== "Play" && selectedBoost} Boost </p>
+                                        {selectedBoost !== 'Play' ?
+                                            <Rocket className='rotate-45 text-black' />
+                                            :
+                                            <Image src='/telegram/boost/play.png' alt='' width={30} height={30} priority />
+                                        }
+                                        <p className='text-center font-bold text-[14px]'>{selectedBoost !== "Play" ? <>Claim {selectedBoost} Boost</> : <> Play</>}  </p>
                                     </div>
                                 </div>
 
