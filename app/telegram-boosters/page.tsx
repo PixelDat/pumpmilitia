@@ -17,7 +17,8 @@ let boost = [
         title: "Invite Friends",
         amount: "10,000",
         target: '/telegram-frens',
-        image: '/telegram/frens/frensimg.png'
+        image: '/telegram/frens/frensimg.png',
+
     },
     {
         title: "Play Pump Militia",
@@ -95,6 +96,10 @@ export default function TelegramBoosters() {
     }, [update])
 
     const startBoost = async () => {
+        if (selectedBoost == "Play") {
+            window.open('pump://pumpmilitia.app', '_blank')
+            return;
+        }
         if (selectedBoost != "Blast" && selectedBoost != "Reload") {
             return;
         };
