@@ -97,7 +97,7 @@ export const checkDownloadReward = async (encrypt_id: string) => {
         }
 
     }
-    catch (e) {
+    catch (e: any) {
         console.log(e)
         if (e.response) {
             // The request was made and the server responded with a status code
