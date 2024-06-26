@@ -169,8 +169,8 @@ export default function TelegramFrens() {
                     <div className='px-4 space-y-4'>
                         <div className='flex flex-col  border-[#374C07] border rounded-2xl items-center'>
                             <div className='p-4 border-b-[#374C07]' >
-                                <h2 className='font-gameria text-[24px]'>3000 Coins for Invite</h2>
-                                <p>You will get 3000 coins for every invite. Reach thresholds and claim bonuses</p>
+                                <h2 className='font-gameria text-[24px]'>10,000 Coins for Invite</h2>
+                                <p>You will get 10,000 coins for every invite. Reach thresholds and claim bonuses</p>
                             </div>
                             <div className='space-y-4 w-full p-2'>
 
