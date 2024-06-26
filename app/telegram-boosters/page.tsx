@@ -15,13 +15,13 @@ const Cookies = require("js-cookie");
 let boost = [
     {
         title: "Invite Friends",
-        amount: "3,000",
+        amount: "10,000",
         target: '/telegram-frens',
         image: '/telegram/frens/frensimg.png'
     },
     {
         title: "Play Pump Militia",
-        amount: "300,000",
+        amount: "10,000",
         target: '/telegram-dash',
         image: '/telegram/boost/play.png'
 
@@ -29,7 +29,7 @@ let boost = [
     },
     {
         title: "Quests",
-        amount: "300,000",
+        amount: "5,000",
         target: '/telegram-pumpearn',
         image: '/telegram/frens/questimg.png'
 
@@ -153,12 +153,21 @@ export default function TelegramBoosters() {
                         <div className='flex flex-row items-center gap-3'>
 
                             <div onClick={() => {
-                                setSelectedBoost("Blast")
-                                setOpened(true)
+
+
+                                // setSelectedBoost("Blast")
+                                // setOpened(true)
+
+                                setError(true);
+                                setErrMessage({ type: 'error', message: "coming soon" });
+                                setTimeout(() => { setError(false) }, 2000)
+                                return;
+
                             }} className='basis-1/2 flex flex-col border-[#374C07] border rounded-2xl p-3 justify-center items-center'>
                                 <Image src='/telegram/boost/turbo.png' alt='' width={48} height={48} priority />
                                 <h2 className='font-gameria'>Blast</h2>
-                                <p className='text-[#6E970D]'> {boostStat.remainingTurboBoost} /{boostStat.maxTurboBoost} Boost</p>
+                                {/* <p className='text-[#6E970D]'> {boostStat.remainingTurboBoost} /{boostStat.maxTurboBoost} Boost</p> */}
+                                <p className='text-[#6E970D]'>Comming Soon</p>
                             </div>
                             <div onClick={() => {
                                 setSelectedBoost("Reload")

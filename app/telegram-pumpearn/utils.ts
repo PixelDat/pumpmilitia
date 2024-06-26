@@ -5,15 +5,15 @@ const Cookies = require("js-cookie");
 export const tasks = [
     {
         title: "Follow Telegram Channel",
-        amount: "20,000",
+        amount: "5000",
     },
     {
         title: "Follow X",
-        amount: "20,000",
+        amount: "5000",
     },
     {
         title: "Join Discord",
-        amount: "20,000",
+        amount: "5000",
     },
     // {
     //     title: "Retweet X",

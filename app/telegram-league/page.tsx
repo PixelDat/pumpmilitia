@@ -86,7 +86,7 @@ export default function TelegramLeague() {
                                 <h2 className='font-gameria text-[36px]'>{leagueTitle}</h2>
 
                                 <p className='text-[14px] w-8/12 m-auto text-[#EDF9D0] '>
-                                    Your number of shares determines the league you enter
+                                Your number of coins determines your rank
                                 </p>
                             </div>
 

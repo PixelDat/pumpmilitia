@@ -140,7 +140,7 @@ export default function TelegramBotDash() {
 
         if (countDownActive) {
             setError(true);
-            setErrMessage({ type: 'error', message: "Your balance is not ready to be claimed yet." });
+            setErrMessage({ type: 'error', message: "Your reward is not ready for claim" });
             setTimeout(() => { setError(false) }, 2000)
             return;
         }
