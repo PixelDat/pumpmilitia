@@ -6,14 +6,17 @@ export const tasks = [
     {
         title: "Follow Telegram Channel",
         amount: "5000",
+        url:"https://t.me/PumpMilitia"
     },
     {
         title: "Follow X",
         amount: "5000",
+        url:"https://x.com/PumpMilitia"
     },
     {
         title: "Join Discord",
         amount: "5000",
+        url:"https://discord.com/invite/tvZGAP4Qt8"
     },
     // {
     //     title: "Retweet X",
