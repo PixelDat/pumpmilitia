@@ -153,7 +153,7 @@ const CustomModal: React.FC<ModalComponent> = ({ taskIndex, encrypt, setUpdate, 
                                                     <p>Once you complete the task, return to the app
                                                         and confirm with the button below</p>
                                                 </div>
-                                                <button onClick={() => { setTaskClicked(true) }} className='w-full rounded-full bg-[#A5E314] p-4 font-gameria text-[#374C07]'>{taskDetails.title}</button>
+                                                <button onClick={() => { setTaskClicked(true);  window.open(taskDetails.url, '_blank'); }} className='w-full rounded-full bg-[#A5E314] p-4 font-gameria text-[#374C07]'>{taskDetails.title}</button>
                                             </>
                                         }
                                         {
