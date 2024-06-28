@@ -144,7 +144,7 @@ const Hero = () => {
                   duration={500}
                 >Airdrop</Link>
 
-                <a href="https://play.google.com/store/apps/details?id=com.everpumpstudio.pumpmilitia&hl=en_US&gl=US" target="_blank" className="px-6 py-2 border component_btn_transparent border-vivd-lime-green rounded-lg text-vivd-lime-green-10">
+                <a href="https://t.me/pumpmilitia_bot" target="_blank" className="px-6 py-2 border component_btn_transparent border-vivd-lime-green rounded-lg text-vivd-lime-green-10">
                   MINE $PUMP
                 </a>
               </div>
