@@ -85,7 +85,8 @@ export default function TelegramBoosters() {
 
             } catch (error: any) {
                 setError(true);
-                setErrMessage({ type: 'error', message: error.response.data.message });
+                console.log(error)
+                setErrMessage({ type: 'error', message: error?.response?.data.message });
                 setLoading(false);
                 setTimeout(() => {
                     setError(false);
