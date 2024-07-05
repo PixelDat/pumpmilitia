@@ -43,6 +43,7 @@ const CustomModal: React.FC<ModalComponent> = ({ taskIndex, encrypt, setUpdate, 
         setTimeout(() => {
             coingif.style.display = 'none';
         }, 4000)
+        setUpdate(Math.random());
     }
 
 
@@ -54,7 +55,6 @@ const CustomModal: React.FC<ModalComponent> = ({ taskIndex, encrypt, setUpdate, 
         if (response.status == true) {
             setOpened(false);
             setUpdate(Math.random())
-            console.log(response)
         }
     }
     //create Account,
