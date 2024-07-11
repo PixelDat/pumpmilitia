@@ -43,6 +43,7 @@ const CustomModal: React.FC<ModalComponent> = ({ taskIndex, encrypt, setUpdate, 
         setTimeout(() => {
             coingif.style.display = 'none';
         }, 4000)
+        setUpdate(Math.random());
     }
 
 
@@ -54,7 +55,6 @@ const CustomModal: React.FC<ModalComponent> = ({ taskIndex, encrypt, setUpdate, 
         if (response.status == true) {
             setOpened(false);
             setUpdate(Math.random())
-            console.log(response)
         }
     }
     //create Account,
@@ -153,7 +153,7 @@ const CustomModal: React.FC<ModalComponent> = ({ taskIndex, encrypt, setUpdate, 
                                                     <p>Once you complete the task, return to the app
                                                         and confirm with the button below</p>
                                                 </div>
-                                                <button onClick={() => { setTaskClicked(true);  window.open(taskDetails.url, '_blank'); }} className='w-full rounded-full bg-[#A5E314] p-4 font-gameria text-[#374C07]'>{taskDetails.title}</button>
+                                                <button onClick={() => { setTaskClicked(true); window.open(taskDetails.url, '_blank'); }} className='w-full rounded-full bg-[#A5E314] p-4 font-gameria text-[#374C07]'>{taskDetails.title}</button>
                                             </>
                                         }
                                         {

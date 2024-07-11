@@ -116,7 +116,7 @@ export default function TelegramPumpEarn() {
 
 
 
-    }, [tasks])
+    }, [tasks, update])
 
     useEffect(() => {
         if (!encrypt) {
@@ -249,7 +249,7 @@ export default function TelegramPumpEarn() {
         userDetails();
         getCompleteTask()
         getUncompleteTask();
-    }, [completedATask])
+    }, [completedATask, update])
 
 
     const markTaskCompleted = async (taskId: string, tweet_link: string, index: any) => {
@@ -311,7 +311,7 @@ export default function TelegramPumpEarn() {
             }
         }
     }
-    
+
     return (
         <TelegramLayout>
             <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-5 text-[#EDF9D0] w-screen" >
