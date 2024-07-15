@@ -12,7 +12,9 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
 
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-        const spriteSheet = '/telegram/frens/spritesheetmain.png';
+        // const spriteSheet = '/telegram/frens/spritesheetmain.png';
+        const spriteSheet = '/telegram/frens/spriteMain.png';
+
 
         const CANVAS_WIDTH = canvas.width = 1868 / 6;
         const CANVAS_HEIGHT = canvas.height = 383;
