@@ -27,7 +27,7 @@ const nextConfig = {
               },
             },
             {
-              urlPattern: /\.(?:html|json|txt)$/,
+              urlPattern: /\.(?:html|json|txt|png|jpeg|webp)$/,
               handler: 'StaleWhileRevalidate',
               options: {
                 cacheName: 'static-texts',
