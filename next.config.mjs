@@ -9,6 +9,7 @@ const nextConfig = {
           swDest: 'service-worker.js',
           clientsClaim: true,
           skipWaiting: true,
+          maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10 MB
           runtimeCaching: [
             {
               urlPattern: /^https?.*/,

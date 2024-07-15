@@ -13,14 +13,14 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
         // const spriteSheet = '/telegram/frens/spritesheetmain.png';
-        const spriteSheet = '/telegram/frens/spriteMain.png';
+        const spriteSheet = '/telegram/spriteMain.png';
 
 
-        const CANVAS_WIDTH = canvas.width = 1868 / 6;
-        const CANVAS_HEIGHT = canvas.height = 383;
+        const CANVAS_WIDTH = canvas.width = 11892 / 12;
+        const CANVAS_HEIGHT = canvas.height = 2442 / 2;
 
-        const spriteWidth = CANVAS_WIDTH;
-        const spriteHeight = 383;
+        const spriteWidth = 980;
+        const spriteHeight = 1221;
 
         const shooterImage = new Image();
         shooterImage.src = spriteSheet;
@@ -33,7 +33,7 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
             },
             {
                 name: 'walking',
-                frames: 4,
+                frames: 12,
             }
         ]
 
@@ -79,7 +79,7 @@ const SpriteAnim: React.FC<SpriteProps> = ({ animationState }) => {
     }, [animationState])
     return (
         <div style={{ filter: "brightness(150%)" }} className="flex -right-[20px] relative flex-col justify-center items-center">
-            <canvas className='w-[240px] h-[300px]' id='canvas1'></canvas>
+            <canvas className='w-[240px] h-[300px] ' id='canvas1'></canvas>
         </div>
     );
 };
