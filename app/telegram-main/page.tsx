@@ -12,6 +12,7 @@ export default function TelegramBotMain() {
     const [selectedPage, setSelectedPage] = useState('dashboard');
     const [pagesArray, setPagesArray] = useState<any>([]);
 
+
     useEffect(() => {
         setSelectedPage(pagesArray[pagesArray.length - 1] || 'dashboard');
     }, [])
@@ -26,11 +27,8 @@ export default function TelegramBotMain() {
             newPagesArray.pop(); // Remove the current page
             return newPagesArray;
         };
-
         let items = newpages(pagesArray);
         setSelectedPage(items[items.length - 1]);
-
-
     };
     return (
         <>

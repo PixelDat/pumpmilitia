@@ -86,7 +86,6 @@ const TelegramFrens: React.FC<NavProps> = (props) => {
                 const response = await axios.get("https://evp-referral-service-cea2e4kz5q-uc.a.run.app/list-referred-users", {
                     headers: { Authorization: `${encrypt}` }
                 });
-                console.log(response.data);
                 setReferrals(response.data);
 
             }
