@@ -24,7 +24,7 @@ export default function TelegramBot() {
                     const response = await axios.post("https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/create-mining-account", {}, {
                         headers: { Authorization: `${uniqueId}` }
                     });
-                    location.href = '/telegram-dash'
+                    location.href = '/telegram-main'
                 }
                 catch (e) {
                     console.log(e)

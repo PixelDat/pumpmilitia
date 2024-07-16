@@ -1,18 +1,19 @@
 "use client";
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import Tapcomponent from '../components/telegramComp/tapComp/tapcomp';
+
+import Tapcomponent from '../telegramComp/tapComp/tapcomp';
 import { ArrowForward, ArrowLeft, ArrowRight, CancelOutlined, CheckCircle } from '@mui/icons-material';
-import DashBoardModal from '../components/telegramComp/modalComp/modalCompDash';
-import TimerCount from '../components/timerComponent/timer';
-import TimerTapCount from '../components/telegramComp/tapComp/timer';
+import DashBoardModal from '../telegramComp/modalComp/modalCompDash';
+import TimerCount from '../timerComponent/timer';
+import TimerTapCount from '../telegramComp/tapComp/timer';
 import { checkClaimBalance, checkDownloadReward, checkMiningBalanceDash, checkRefill, checkTurboBoostOn, claimTapBalance, createAccount, getTurboReward, getUserDetails, hideGif, playAudio, showGif, stopAudio } from '@/lib/utils/request';
-import { ToastComponent } from '../components/toastComponent/toastComponent';
-import GrenadeComponent from '../components/telegramComp/tapComp/grenade';
-import TelegramLayout from '../telegramLayout/layout';
-import SpriteAnim from '../components/animationComponent/spriteSheet';
-import { leagues } from '../telegram-league/utils';
-import PointsShower from '../components/telegramComp/tapComp/showerComp';
+import { ToastComponent } from '../toastComponent/toastComponent';
+import GrenadeComponent from '../telegramComp/tapComp/grenade';
+import SpriteAnim from '../animationComponent/spriteSheet';
+import PointsShower from '../telegramComp/tapComp/showerComp';
+import { leagues } from '@/app/telegram-league/utils';
+import TelegramLayout from '@/app/telegramLayout/layout';
 
 const Cookies = require("js-cookie");
 
@@ -25,7 +26,13 @@ interface ShowerComponentProps {
     points: number;
 }
 
-export default function TelegramBotDash() {
+interface NavProps {
+    selectedPage: string;
+    setSelectedPage: (selectedPage: string) => void;
+}
+
+const TelegramBotDash: React.FC<NavProps> = (props) => {
+    const { setSelectedPage } = props;
     let encrypt = Cookies.get('encrypt_id');
 
     const [loading, setLoading] = useState(false)
@@ -179,86 +186,87 @@ export default function TelegramBotDash() {
     }, []);
 
     return (
-        <TelegramLayout>
-            <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] text-[#EDF9D0] h-screen w-screen" >
-                {error &&
-                    <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
-                }
-                <div className='flex flex-col h-[67%] relative  pt-2  justify-center items-center'>
-                    <div className='text-center flex flex-col justify-center items-center space-y-2 '>
-                        <div className=''>
-                            <div className='flex flex-row justify-center items-center '>
-                                <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
-                                <p className='font-gameria text-[40px]'>{Number(userBalance.toFixed(0)).toLocaleString()}</p>
-                            </div>
-                        </div>
-                        <a href='pump://pumpmilitia.app' target='_blank'>
-                            <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
-                        </a>
-
-                        <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-1 items-center'>
-                            <Image src={rank.image} alt='' width={24} height={24} priority />
-                            <p className='text-[24px] font-bolder'>{rank.rank}</p>
-                            <ArrowForward />
+        <div className="bg-cover overflow-hidden bg-[url('/telegram/dashpage/bacg.png')] text-[#EDF9D0] h-screen w-screen" >
+            {error &&
+                <ToastComponent addOnStart={errMessage.type == 'success' ? <CheckCircle color="inherit" /> : <CancelOutlined color='inherit' />} content={errMessage.message} type={errMessage.type} />
+            }
+            <div className='flex flex-col h-[67%] relative  pt-2  justify-center items-center'>
+                <div className='text-center flex flex-col justify-center items-center space-y-2 '>
+                    <div className=''>
+                        <div className='flex flex-row justify-center items-center '>
+                            <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
+                            <p className='font-gameria text-[40px]'>{Number(userBalance.toFixed(0)).toLocaleString()}</p>
                         </div>
                     </div>
+                    <a href='pump://pumpmilitia.app' target='_blank'>
+                        <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
+                    </a>
 
-                    <div
-                        style={{ cursor: 'pointer', filter: 'brightness(100%)' }}
-                        onPointerDown={() => updatePercentage()}
-                        onTouchStart={(e) => {
-                            e.preventDefault();
-                            updatePercentage();
-                        }}
-                        className='flex sm:py-2 relative flex-col justify-center items-center'
-                    >
-                        <div className='relative z-10'>
-                            <SpriteAnim animationState={animationState} />
-                            {showers.map(shower => (
-                                <PointsShower key={shower.id} {...shower} />
-                            ))}
-                        </div>
+                    <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-1 items-center'>
+                        <Image src={rank.image} alt='' width={24} height={24} priority />
+                        <p className='text-[24px] font-bolder'>{rank.rank}</p>
+                        <ArrowForward />
+                    </div>
+                </div>
 
-                        {/* {showExplosion && !countDownActive &&
+                <div
+                    style={{ cursor: 'pointer', filter: 'brightness(100%)' }}
+                    onPointerDown={() => updatePercentage()}
+                    onTouchStart={(e) => {
+                        e.preventDefault();
+                        updatePercentage();
+                    }}
+                    className='flex sm:py-2 relative flex-col justify-center items-center'
+                >
+                    <div className='relative z-10'>
+                        <SpriteAnim animationState={animationState} />
+                        {showers.map(shower => (
+                            <PointsShower key={shower.id} {...shower} />
+                        ))}
+                    </div>
+
+                    {/* {showExplosion && !countDownActive &&
                             <div className='absolute w-full z-0'>
                                 <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
                             </div>
                         } */}
-                    </div>
+                </div>
 
-                    {/* {countDownActive &&
+                {/* {countDownActive &&
                         <div className='w-full absolute   flex flex-col justify-end items-center z-20 m-auto   bottom-0'>
                             <TimerTapCount claimTime={claimTime} setUpdate={setUpdate} />
                         </div>
                     } */}
+            </div>
+            {/* Timer and Tap */}
+            <div className='relative'>
+                <div className='w-10/12 m-auto'>
+                    <Tapcomponent
+                        points={points}
+                        isRunning={isRunning}
+                        setIsRunning={setIsRunning}
+                        calAmount={calAmount}
+                        setCalAmount={setCalAmount}
+                        updatePercentage={updatePercentage}
+                        percent={percent}
+                        setPercent={setPercent}
+                        gradeAmount={gradeAmount}
+                        setGradeAmount={setGradeAmount}
+                        tapping={tapping}
+                        setTapping={setTapping}
+                        opened={opened}
+                        fullBalance={fullBalance}
+                    />
                 </div>
-                {/* Timer and Tap */}
-                <div className='relative'>
-                    <div className='w-10/12 m-auto'>
-                        <Tapcomponent
-                            points={points}
-                            isRunning={isRunning}
-                            setIsRunning={setIsRunning}
-                            calAmount={calAmount}
-                            setCalAmount={setCalAmount}
-                            updatePercentage={updatePercentage}
-                            percent={percent}
-                            setPercent={setPercent}
-                            gradeAmount={gradeAmount}
-                            setGradeAmount={setGradeAmount}
-                            tapping={tapping}
-                            setTapping={setTapping}
-                            opened={opened}
-                            fullBalance={fullBalance}
-                        />
-                    </div>
-                </div>
+            </div>
 
-                <DashBoardModal referralId={referralId} signedIn={signedIn} setOpened={setOpened} opened={opened} />
-                {boostActive && !countDownActive &&
-                    <GrenadeComponent percent={100} />
-                }
-            </div >
-        </TelegramLayout>
+            <DashBoardModal referralId={referralId} signedIn={signedIn} setOpened={setOpened} opened={opened} />
+            {boostActive && !countDownActive &&
+                <GrenadeComponent percent={100} />
+            }
+        </div >
     )
 }
+
+
+export default TelegramBotDash;
