@@ -1,14 +1,16 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import NavigationComp from '../components/telegramComp/tapComp/navigationComp';
 import { usePathname } from 'next/navigation';
 import { ArrowBack, Close, MoreVert } from '@mui/icons-material';
 import { white } from 'colorette';
+import TelegramBotDash from '../telegram-dash/page';
 
 interface Props {
     readonly children: ReactNode;
 }
 function TelegramLayout({ children }: Props) {
 
+    const [selectedPage, setSelectedPage] = useState('dahboard')
     const path = usePathname();
     const closeBot = () => {
 
@@ -27,12 +29,9 @@ function TelegramLayout({ children }: Props) {
                     }
                 </div>
             </div>
+
             {children}
-            {(path !== '/telegram-pumpearn' && path !== '/telegram-boosters' && path !== '/telegram-frens') &&
-                <div className=''>
-                    <NavigationComp />
-                </div>
-            }
+
         </div>
 
     )

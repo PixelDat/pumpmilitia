@@ -219,18 +219,18 @@ export default function TelegramBotDash() {
                             ))}
                         </div>
 
-                        {showExplosion && !countDownActive &&
+                        {/* {showExplosion && !countDownActive &&
                             <div className='absolute w-full z-0'>
                                 <img style={{ cursor: 'pointer', objectFit: "cover" }} height={408} src='/telegram/dashpage/bomb.gif' alt='' />
                             </div>
-                        }
+                        } */}
                     </div>
 
-                    {countDownActive &&
+                    {/* {countDownActive &&
                         <div className='w-full absolute   flex flex-col justify-end items-center z-20 m-auto   bottom-0'>
                             <TimerTapCount claimTime={claimTime} setUpdate={setUpdate} />
                         </div>
-                    }
+                    } */}
                 </div>
                 {/* Timer and Tap */}
                 <div className='relative'>
