@@ -29,10 +29,34 @@ interface ShowerComponentProps {
 interface NavProps {
     selectedPage: string;
     setSelectedPage: (selectedPage: string) => void;
+    userBalance: number;
+    setUserBalance: (userBalance: number) => void;
+    update: number;
+    setUpdate: (update: number) => void;
+    claimTime: string;
+    setClaimTime: (claimTime: string) => void;
+    opened: boolean;
+    setOpened: (opened: boolean) => void;
+    countDownActive: boolean;
+    boostActive: boolean;
+    showExplosion: boolean;
+    gradeAmount: number;
+    calAmount: number;
+    setCalAmount: (calAmount: number) => void;
+    fullBalance: boolean;
+    setGradeAmount: (gradeAmount: number) => void;
+
 }
 
 const TelegramBotDash: React.FC<NavProps> = (props) => {
-    const { setSelectedPage } = props;
+    const { setSelectedPage, userBalance, setUserBalance,
+        update, setUpdate,
+        opened, setOpened,
+        claimTime, setClaimTime,
+        countDownActive, boostActive, showExplosion,
+        gradeAmount, calAmount, setCalAmount,
+        fullBalance, setGradeAmount,
+    } = props;
     let encrypt = Cookies.get('encrypt_id');
 
     const [loading, setLoading] = useState(false)
@@ -44,100 +68,45 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
         message: '',
     })
     const [points, setPoints] = useState(10);
-    const [update, setUpdate] = useState(0);
-    const [showExplosion, setShowExplosion] = useState(false)
-    const [opened, setOpened] = React.useState(false);
+    // const [opened, setOpened] = React.useState(false);
     const [percent, setPercent] = useState(100);
     const [tapping, setTapping] = useState(false);
-    const [gradeAmount, setGradeAmount] = useState(0)
     const [showers, setShowers] = useState<ShowerItem[]>([]);
-    const [showImage, setShowImage] = useState(false);
-    const [calAmount, setCalAmount] = useState(0)
-    const [userBalance, setUserBalance] = useState(0);
+
     const [signedIn, setSignedIn] = useState(true);
     const [isRunning, setIsRunning] = useState(false);
-    const [fullBalance, setFullBalance] = useState(true);
-    const [claimTime, setClaimTime] = useState("2024-06-12T19:24:02.000Z")
+    // const [fullBalance, setFullBalance] = useState(true);
+    // const [claimTime, setClaimTime] = useState("2024-06-12T19:24:02.000Z")
     const [animationState, setAnimationState] = useState('walking');
-    const [countDownActive, setIsCountDownActive] = useState(false)
-    const [boostActive, setBoostActive] = useState(false);
+    // const [countDownActive, setIsCountDownActive] = useState(false)
+    // const [boostActive, setBoostActive] = useState(false);
     const [rank, setRank] = useState({
         rank: 'Corporal',
         image: '/telegram/league/coporal.png',
     });
 
-    useEffect(() => {
-        const loadItems = async () => {
-            let checkedDownloaded = await checkDownloadReward(encrypt);
-            if (checkedDownloaded.status === 'server_error') {
-                // Handle server error
-                console.log('Server error occurred');
-            } else if (checkedDownloaded.status === 'connection_error') {
-                // Handle connection error
-                console.log('Connection error occurred');
-            } else if (checkedDownloaded.status === 'unknown_error') {
-                // Handle unknown error
-                console.log('Unknown error occurred');
-            } else if (checkedDownloaded.status === true && !checkedDownloaded.data.status) {
-                setOpened(true);
-            }
 
-            let checkBoost = await checkTurboBoostOn(encrypt);
-            if (checkBoost.data.turboBoostOn) {
-                setShowExplosion(true)
-                setBoostActive(checkBoost.data.turboBoostOn);
-            } else {
-                setBoostActive(false);
-                setShowExplosion(false)
-            }
-
-            let checkMBalance = await checkMiningBalanceDash(encrypt);
-            let data = checkMBalance.data;
-            setClaimTime(data.nextClaimTime);
-            setFullBalance(data.fullBalanceBox);
-            setIsCountDownActive(data.isCountDownActive);
-            setCalAmount(data.balance || 0);
-            setGradeAmount(data.fullBalanceAmount || 0);
-            // let checkRefillBoost = await checkRefill(encrypt);
-        }
-
-        loadItems();
-        const intervalId = setInterval(loadItems, 4000);
-
-        return () => clearInterval(intervalId);
-    }, [encrypt, update]);
 
     useEffect(() => {
         let referralId = Cookies.get('referrerId');
-
         setReferralId(referralId);
-        (async () => {
-            let response = await getUserDetails(encrypt);
-            if (response.status) {
-                setUserBalance(response.data.points)
-
-                const balance = response.data.points;
-                const parseNumber = (item: string) => Number(item.replace(/,/g, ''));
-
-                if (balance >= parseNumber(leagues[6].from)) {
-                    setRank({ rank: leagues[6].rank, image: leagues[6].image });
-                } else if (balance >= parseNumber(leagues[5].from)) {
-                    setRank({ rank: leagues[5].rank, image: leagues[5].image });
-                } else if (balance >= parseNumber(leagues[4].from)) {
-                    setRank({ rank: leagues[4].rank, image: leagues[4].image });
-                } else if (balance >= parseNumber(leagues[3].from)) {
-                    setRank({ rank: leagues[3].rank, image: leagues[3].image });
-                } else if (balance >= parseNumber(leagues[2].from)) {
-                    setRank({ rank: leagues[2].rank, image: leagues[2].image });
-                } else if (balance >= parseNumber(leagues[1].from)) {
-                    setRank({ rank: leagues[1].rank, image: leagues[1].image });
-                } else {
-                    setRank({ rank: 'Corporal', image: leagues[0].image });
-                }
-
-            }
-        })();
-
+        const balance = userBalance;
+        const parseNumber = (item: string) => Number(item.replace(/,/g, ''));
+        if (balance >= parseNumber(leagues[6].from)) {
+            setRank({ rank: leagues[6].rank, image: leagues[6].image });
+        } else if (balance >= parseNumber(leagues[5].from)) {
+            setRank({ rank: leagues[5].rank, image: leagues[5].image });
+        } else if (balance >= parseNumber(leagues[4].from)) {
+            setRank({ rank: leagues[4].rank, image: leagues[4].image });
+        } else if (balance >= parseNumber(leagues[3].from)) {
+            setRank({ rank: leagues[3].rank, image: leagues[3].image });
+        } else if (balance >= parseNumber(leagues[2].from)) {
+            setRank({ rank: leagues[2].rank, image: leagues[2].image });
+        } else if (balance >= parseNumber(leagues[1].from)) {
+            setRank({ rank: leagues[1].rank, image: leagues[1].image });
+        } else {
+            setRank({ rank: 'Corporal', image: leagues[0].image });
+        }
     }, [update]);
 
     const updatePercentage = async () => {
@@ -151,7 +120,6 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
             setTimeout(() => { setError(false) }, 2000)
             return;
         }
-
         setUpdate(Math.random())
 
         setTimeout(async () => {
@@ -195,7 +163,7 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
                     <div className=''>
                         <div className='flex flex-row justify-center items-center '>
                             <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={40} height={40} priority />
-                            <p className='font-gameria text-[40px]'>{Number(userBalance.toFixed(0)).toLocaleString()}</p>
+                            <p className='font-gameria text-[40px]'>{Number(userBalance.toFixed(2)).toLocaleString()}</p>
                         </div>
                     </div>
                     <a href='pump://pumpmilitia.app' target='_blank'>

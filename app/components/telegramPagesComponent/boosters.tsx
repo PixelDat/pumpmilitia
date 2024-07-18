@@ -41,10 +41,11 @@ let boost = [
 interface NavProps {
     selectedPage: string;
     setSelectedPage: (selectedPage: string) => void;
+    userBalance: number;
 }
 
 const TelegramBoosters: React.FC<NavProps> = (props) => {
-    const { setSelectedPage } = props;
+    const { setSelectedPage, userBalance } = props;
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     let encrypt = Cookies.get('encrypt_id');
@@ -57,7 +58,7 @@ const TelegramBoosters: React.FC<NavProps> = (props) => {
     const [opened, setOpened] = React.useState(false);
     const [selectedBoost, setSelectedBoost] = useState("")
     const [update, setUpdate] = useState(0);
-    const [userBalance, setUserBalance] = useState(0);
+    // const [userBalance, setUserBalance] = useState(0);
 
     const [boostStat, setBoostStat] = useState({
         remainingTurboBoost: 0,
@@ -67,12 +68,12 @@ const TelegramBoosters: React.FC<NavProps> = (props) => {
     })
 
     useEffect(() => {
-        (async () => {
-            let response = await getUserDetails(encrypt);
-            if (response.status) {
-                setUserBalance(response.data.points)
-            }
-        })();
+        // (async () => {
+        //     let response = await getUserDetails(encrypt);
+        //     if (response.status) {
+        //         setUserBalance(response.data.points)
+        //     }
+        // })();
         //check Boosts
         (async () => {
             let url = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/check-boosts"
