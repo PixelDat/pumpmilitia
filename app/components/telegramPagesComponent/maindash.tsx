@@ -78,8 +78,6 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
     // const [fullBalance, setFullBalance] = useState(true);
     // const [claimTime, setClaimTime] = useState("2024-06-12T19:24:02.000Z")
     const [animationState, setAnimationState] = useState('walking');
-    // const [countDownActive, setIsCountDownActive] = useState(false)
-    // const [boostActive, setBoostActive] = useState(false);
     const [rank, setRank] = useState({
         rank: 'Corporal',
         image: '/telegram/league/coporal.png',
@@ -107,7 +105,7 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
         } else {
             setRank({ rank: 'Corporal', image: leagues[0].image });
         }
-    }, [update]);
+    }, [update, userBalance]);
 
     const updatePercentage = async () => {
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
@@ -170,7 +168,7 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
                         <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={84} priority />
                     </a>
 
-                    <div style={{ cursor: 'pointer' }} onClick={() => { location.href = '/telegram-league' }} className='flex flex-row justify-center gap-1 items-center'>
+                    <div style={{ cursor: 'pointer' }} onClick={() => setSelectedPage('league')} className='flex flex-row justify-center gap-1 items-center'>
                         <Image src={rank.image} alt='' width={24} height={24} priority />
                         <p className='text-[24px] font-bolder'>{rank.rank}</p>
                         <ArrowForward />

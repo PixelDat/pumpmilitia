@@ -151,7 +151,7 @@ const TelegramBoosters: React.FC<NavProps> = (props) => {
 
                     </div>
                     <a href='pump://pumpmilitia.app' target='_blank'>
-                        <Image src='/telegram/dashpage/playbtn.png' alt='' width={130} height={50} priority />
+                        <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={171} priority />
                     </a>
 
                 </div>

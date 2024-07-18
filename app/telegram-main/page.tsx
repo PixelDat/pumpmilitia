@@ -133,6 +133,7 @@ export default function TelegramBotMain() {
                         />
                         : selectedPage == 'pumpearn' ?
                             <TelegramPumpEarn
+                                userBalance={userBalance}
                                 selectedPage={selectedPage}
                                 setSelectedPage={setSelectedPage} />
                             : selectedPage == 'dashboard' ?

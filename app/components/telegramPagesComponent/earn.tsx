@@ -1,17 +1,13 @@
 "use client";
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import Tapcomponent from '../telegramComp/tapComp/tapcomp';
 import { ArrowBackIosNew, ArrowForward, ArrowLeft, ArrowRight, CheckCircle, CheckCircleOutlineRounded, CheckCircleRounded, KeyboardArrowLeft, KeyboardArrowRight, Person2Rounded } from '@mui/icons-material';
-import IconButton from '../telegramComp/tapComp/iconbuttonComp';
-import NavigationComp from '../telegramComp/tapComp/navigationComp';
 import CustomModal from '../telegramComp/modalComp/modalComp';
 import { checkMiningBalance, createAccount, getUserDetails } from '@/lib/utils/request';
 import axios from 'axios';
 import CustomInput from '../customInput/customInput';
 import { CircularProgress } from '@mui/material';
 import { tasks } from '@/app/telegram-pumpearn/utils';
-import TelegramLayout from '@/app/telegramLayout/layout';
 const Cookies = require("js-cookie");
 
 interface UserType {
@@ -29,10 +25,11 @@ interface UserType {
 interface NavProps {
     selectedPage: string;
     setSelectedPage: (selectedPage: string) => void;
+    userBalance: number;
 }
 
 const TelegramPumpEarn: React.FC<NavProps> = (props) => {
-    const { setSelectedPage } = props;
+    const { setSelectedPage, userBalance } = props;
     const [loading, setLoading] = useState(false)
     const [user, setUser] = useState<UserType>({
         username: "",
@@ -61,7 +58,7 @@ const TelegramPumpEarn: React.FC<NavProps> = (props) => {
     const [selecteMiningTask, setSelectedMiningTask] = React.useState(0)
 
     const [update, setUpdate] = useState(0);
-    const [userBalance, setUserBalance] = useState(0);
+
     const [signedIn, setSignedIn] = useState(false);
     const [showCompletedTask, setShowCompletedTask] = useState(false)
     const [userName, setUserName] = useState('')
@@ -70,16 +67,6 @@ const TelegramPumpEarn: React.FC<NavProps> = (props) => {
 
     const [checkedTask, setCheckedTask] = useState<{ title: string; amount: number; status: string; }[]>([]);
 
-    useEffect(() => {
-        (async () => {
-            let response = await getUserDetails(encrypt);
-            if (response.status) {
-                setUserBalance(response.data.points)
-                setSignedIn(true);
-            }
-        })()
-
-    }, [update])
 
     async function createMiningAccount(id: number) {
         let title = tasks[id].title;
@@ -95,7 +82,6 @@ const TelegramPumpEarn: React.FC<NavProps> = (props) => {
     }
 
     useEffect(() => {
-
         (async () => {
 
             let collatedTask = await Promise.all(tasks.map(async (item: any) => {
@@ -119,9 +105,6 @@ const TelegramPumpEarn: React.FC<NavProps> = (props) => {
             )
             setCheckedTask(collatedTask);
         })()
-
-
-
     }, [tasks, update])
 
     useEffect(() => {
@@ -320,20 +303,20 @@ const TelegramPumpEarn: React.FC<NavProps> = (props) => {
 
     return (
         <>
-            <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-5 text-[#EDF9D0] w-screen" >
+            <div className="bg-cover bg-[url('/telegram/bg2.png')] flex flex-row justify-center items-start pt-5 text-[#EDF9D0] w-screen h-full" >
                 <div className='flex  flex-col justify-between items-center space-y-8'>
 
                     <div className='text-center space-y-4 flex flex-col justify-center items-center'>
                         <div className=''>
                             <div><h2 className='font-bold text-[24px] text-[#D2F189]'>Coin Balance</h2></div>
                             <div className='flex flex-row justify-center items-center'>
-                                <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={58} height={58} priority />
+                                <Image src='/telegram/dashpage/yellowcoin.png' alt='' width={48} height={48} priority />
                                 <p className='font-gameria text-[40px]'>{userBalance.toLocaleString()}</p>
                             </div>
 
                         </div>
                         <a href='pump://pumpmilitia.app' target='_blank'>
-                            <Image src='/telegram/dashpage/playbtn.png' alt='' width={130} height={50} priority />
+                            <Image src='/telegram/dashpage/playbtn.png' alt='' width={171} height={171} priority />
                         </a>
 
                     </div>
@@ -384,7 +367,7 @@ const TelegramPumpEarn: React.FC<NavProps> = (props) => {
                                                     : item.title.includes('Instagram') ?
                                                         < Image src='/telegram/social/instagram.png' alt='' width={32} height={32} priority />
                                                         :
-                                                        <Image src='/telegram/social/youtube.png' alt='' width={32} height={32} priority />
+                                                        <Image src='/telegram/social/socials.png' alt='' width={32} height={32} priority />
 
                                         }
 
