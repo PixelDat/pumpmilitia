@@ -53,7 +53,7 @@ export const createAccount = async (url: string, encrypt_id: string) => {
 
     }
     catch (e) {
-        console.log(e)
+        console.error(e)
         return {
             status: false,
             data: []
@@ -98,7 +98,7 @@ export const checkDownloadReward = async (encrypt_id: string) => {
 
     }
     catch (e: any) {
-        console.log(e)
+        console.error(e)
         if (e.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx

@@ -25,9 +25,7 @@ export default function TelegramBotMain() {
     const [calAmount, setCalAmount] = useState(0);
     const [gradeAmount, setGradeAmount] = useState(0)
     const [showExplosion, setShowExplosion] = useState(false)
-
-
-
+    const [conditionMet, setConditionMet] = useState(false);
 
 
     useEffect(() => {
@@ -84,7 +82,9 @@ export default function TelegramBotMain() {
     }, [])
 
     useEffect(() => {
+        if (selectedPage == pagesArray[pagesArray.length - 1]) return;
         setPagesArray((prevPages: any) => [...prevPages, selectedPage]);
+
     }, [selectedPage]);
 
     const goBack = () => {
@@ -94,7 +94,9 @@ export default function TelegramBotMain() {
             return newPagesArray;
         };
         let items = newpages(pagesArray);
-        console.log(items)
+        console.log(pagesArray);
+
+        setPagesArray(items);
         setSelectedPage(items[items.length - 1]);
     };
 
