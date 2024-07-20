@@ -195,7 +195,7 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
                     className='flex sm:py-2 relative flex-col justify-center items-center'
                 >
                     <div className='relative z-10'>
-                        <div className='-right-[20px] brightness-200 relative'>
+                        <div className='-right-[20px] brightness-150 relative'>
                             <Image id="walking" className='' src='/telegram/dashpage/walking2.gif' alt='' width={300} height={300} priority />
                             <Image id="gunbaza" style={{ display: 'none' }} src='/telegram/dashpage/gunbaza.gif' alt='' width={300} height={300} priority />
                         </div>
