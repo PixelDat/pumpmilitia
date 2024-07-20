@@ -109,6 +109,8 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
 
     const updatePercentage = async () => {
         let gunshot = document.getElementById('gunaudio') as HTMLAudioElement;
+        let walking = document.getElementById('walking') as HTMLImageElement;
+        let gunbaza = document.getElementById('gunbaza') as HTMLImageElement;
 
         if (percent <= 0) return;
 
@@ -121,7 +123,9 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
         setUpdate(Math.random())
 
         setTimeout(async () => {
-            setAnimationState('shooting');
+            // setAnimationState('shooting');
+            walking.style.display = 'none';
+            gunbaza.style.display = 'block';
             playAudio(gunshot);
             let tapurl = "https://evp-telegram-bot-service-cea2e4kz5q-uc.a.run.app/register-tap";
             let response = await claimTapBalance(tapurl, encrypt)
@@ -129,7 +133,8 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
         }, 500)
 
         setTimeout(() => {
-            setAnimationState('walking');
+            // setAnimationState('walking');
+
             stopAudio(gunshot);
             setIsRunning(true);
             setPercent(prev => Math.max(prev - 10, 0));
@@ -139,6 +144,11 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
             setShowers([...showers, newShower]);
             setTapping(true);
         }, 700)
+
+        setTimeout(() => {
+            gunbaza.style.display = 'none';
+            walking.style.display = 'block';
+        }, 3000)
     };
 
     useEffect(() => {
@@ -185,7 +195,14 @@ const TelegramBotDash: React.FC<NavProps> = (props) => {
                     className='flex sm:py-2 relative flex-col justify-center items-center'
                 >
                     <div className='relative z-10'>
-                        <SpriteAnim animationState={animationState} />
+                        <div className='-right-[20px] brightness-200 relative'>
+                            <Image id="walking" className='' src='/telegram/dashpage/walking2.gif' alt='' width={300} height={300} priority />
+                            <Image id="gunbaza" style={{ display: 'none' }} src='/telegram/dashpage/gunbaza.gif' alt='' width={300} height={300} priority />
+                        </div>
+
+
+
+                        {/* <SpriteAnim animationState={animationState} /> */}
                         {showers.map(shower => (
                             <PointsShower key={shower.id} {...shower} />
                         ))}

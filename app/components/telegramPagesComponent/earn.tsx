@@ -22,6 +22,8 @@ interface UserType {
     updated_at: string
 }
 
+
+
 interface NavProps {
     selectedPage: string;
     setSelectedPage: (selectedPage: string) => void;
